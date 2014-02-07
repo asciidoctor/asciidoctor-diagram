@@ -1,3 +1,4 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require File.expand_path('../../lib/asciidoctor/plantuml', __FILE__)
+require_relative '../lib/asciidoctor-plantuml'
+require_relative '../lib/asciidoctor-plantuml/extension'

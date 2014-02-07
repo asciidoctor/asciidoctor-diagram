@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'asciidoctor/plantuml/version'
+require 'asciidoctor-plantuml/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "asciidoctor-plantuml"
-  spec.version       = Asciidoctor::PlantUML::VERSION
+  spec.version       = Asciidoctor::PlantUml::VERSION
   spec.authors       = ["Pepijn Van Eeckhoudt"]
   spec.email         = ["pepijn@vaneeckhoudt.net"]
   spec.description   = %q{Asciidoctor PlantUML extension}

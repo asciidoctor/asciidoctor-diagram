@@ -3,10 +3,10 @@ require 'asciidoctor'
 require 'asciidoctor/cli/invoker'
 require 'stringio'
 
-describe Asciidoctor::PlantUML::PlantUMLBlock do
+describe Asciidoctor::PlantUml::Block do
 
   it "version must be defined" do
-    Asciidoctor::PlantUML::VERSION.wont_be_nil
+    Asciidoctor::PlantUml::VERSION.wont_be_nil
   end
 
   it "should process basic plantuml blocks" do
@@ -27,7 +27,6 @@ User --> (Use the application) : Label
 ----
     eos
 
-    result = Asciidoctor.render StringIO.new(doc)
-    puts result
+    doc = Asciidoctor.load StringIO.new(doc)
   end
 end
