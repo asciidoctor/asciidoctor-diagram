@@ -1,5 +1,10 @@
-# Asciidoctor::PlantUML
-TODO: Write a gem description
+# Asciidoctor::PlantUml
+
+Asciidoctor::PlantUml is an extension for [Asciidoctor](http://asciidoctor.org), the Ruby Asciidoc processor. This
+extension enables embedding UML diagrams written using the [PlantUML](http://plantuml.sourceforge.net) syntax inside
+your Asciidoc documents. The extension will take care of running PlantUML to generate images from the input text.
+
+This gem was inspired by the [Asciidoc PlantUML filter](https://code.google.com/p/asciidoc-plantuml/).
 
 ## Installation
 
