@@ -23,7 +23,6 @@ module Asciidoctor
       private
 
       def plantuml(code, file_name, image_dir, format)
-        plantuml_jar = File.expand_path('../../../java/plantuml.jar', __FILE__)
         java_home = ENV['JAVA_HOME'] or raise 'The JAVA_HOME environment variable should be set to a JRE or JDK installation path.'
         java_cmd = File.expand_path('bin/java', java_home)
 
