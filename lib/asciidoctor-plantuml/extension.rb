@@ -1,21 +1,21 @@
-require 'asciidoctor'
-require 'asciidoctor/extensions'
 require 'open3'
 require 'digest'
 
 module Asciidoctor
-  module PlantUML
-    class PlantUMLBlock < Asciidoctor::Extensions::BlockProcessor
-      option :contexts, [:listing]
+  module PlantUml
+    PLANTUML_JAR_PATH = File.expand_path File.join('..', 'plantuml.jar'), File.dirname(__FILE__)
+
+    class Block < Asciidoctor::Extensions::BlockProcessor
+      option :contexts, [:listing, :literal, :open]
       option :content_model, :simple
       option :pos_attrs, ['target', 'format']
       option :default_attrs, {'format' => 'png'}
 
       def process(parent, reader, attributes)
-        plantuml_code = reader.lines
+        plantuml_lines = reader.lines
         format = attributes['format']
-        image_name = "#{attributes['target'] || file_name(plantuml_code)}.#{format}"
-        result = plantuml(plantuml_code, image_name, document.attributes['imagesdir'] || '', format)
+        image_name = "#{attributes['target'] || file_name(plantuml_lines)}.#{format}"
+        result = plantuml(plantuml_lines * "\n", image_name, document.attributes['imagesdir'] || '', format)
 
         Asciidoctor::Block.new(parent, result[:type], :source => result[:source], :attributes => attributes)
       end
@@ -34,7 +34,7 @@ module Asciidoctor
                           ''
                       end
 
-        cmd = "#{java_cmd} -jar " + plantuml_jar + " -failonerror -pipe" + format_flag
+        cmd = "#{java_cmd} -jar " + PLANTUML_JAR_PATH + " -failonerror -pipe" + format_flag
 
         result, status = Open3.capture2e(cmd, :stdin_data=>code)
         if status.exitstatus == 0
@@ -50,10 +50,6 @@ module Asciidoctor
         code.each { |line| sha256 << line }
         sha256.hexdigest
       end
-    end
-
-    Asciidoctor::Extensions.register do |document|
-      block :plantuml, PlantUMLBlock
     end
   end
 end
