@@ -35,6 +35,13 @@ module Asciidoctor
             File.open(File.expand_path(image_name, image_dir), "w") { |f| f.write result }
 
             attributes['target'] = image_name
+            attributes['alt'] ||= if (title_text = attributes['title'])
+              title_text
+            elsif target
+              (::File.basename target, (::File.extname target) || '').tr '_-', ' '
+            else
+              'Diagram'
+            end
             Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => attributes
           when :literal
             Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
