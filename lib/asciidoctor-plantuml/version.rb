@@ -1,5 +1,5 @@
 module Asciidoctor
-  module PlantUML
+  module PlantUml
     VERSION = "0.0.1"
   end
 end
