@@ -40,7 +40,7 @@ module Asciidoctor
             attributes['alt'] ||= if (title_text = attributes['title'])
                                     title_text
                                   elsif target
-                                    (::File.basename target, (::File.extname target) || '').tr '_-', ' '
+                                    (File.basename target, (File.extname target) || '').tr '_-', ' '
                                   else
                                     'Diagram'
                                   end
