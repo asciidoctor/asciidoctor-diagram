@@ -1,4 +1,3 @@
-require 'open3'
 require 'digest'
 
 module Asciidoctor
@@ -55,42 +54,29 @@ module Asciidoctor
 
       private
 
-      if RUBY_PLATFORM == "java"
-        require 'java'
-        require PLANTUML_JAR_PATH
+      require_relative 'java'
 
-        def plantuml(code, format_flag)
-          # When the -pipe command line flag is used, PlantUML calls System.exit which kills our process. In order
-          # to avoid this we call some lower level components of PlantUML directly.
-          # This snippet of code corresponds approximately with net.sourceforge.plantuml.Run#managePipe
-          cmd = ['-charset', 'UTF-8', '-failonerror']
-          cmd << format_flag if format_flag
+      Java.classpath << PLANTUML_JAR_PATH
 
-          option = Java::NetSourceforgePlantuml::Option.new(cmd.to_java(:string))
-          source_reader = Java::NetSourceforgePlantuml::SourceStringReader.new(
-              Java::NetSourceforgePlantumlPreproc::Defines.new(),
-              code,
-              option.getConfig()
-          )
+      def plantuml(code, format_flag)
+        # When the -pipe command line flag is used, PlantUML calls System.exit which kills our process. In order
+        # to avoid this we call some lower level components of PlantUML directly.
+        # This snippet of code corresponds approximately with net.sourceforge.plantuml.Run#managePipe
+        cmd = ['-charset', 'UTF-8', '-failonerror']
+        cmd << format_flag if format_flag
 
-          bos = Java::JavaIo::ByteArrayOutputStream.new
-          ps = Java::JavaIo::PrintStream.new(bos)
-          source_reader.generateImage(ps, 0, option.getFileFormatOption())
-          ps.close
-          String.from_java_bytes(bos.toByteArray)
-        end
-      else
-        def plantuml(code, format_flag)
-          java_home = ENV['JAVA_HOME'] or raise 'The JAVA_HOME environment variable should be set to a JRE or JDK installation path.'
-          java_cmd = File.expand_path('bin/java', java_home)
+        option = Java.net.sourceforge.plantuml.Option.new(Java.array_to_java_array(cmd, :string))
+        source_reader = Java.net.sourceforge.plantuml.SourceStringReader.new(
+            Java.net.sourceforge.plantuml.preproc.Defines.new(),
+            code,
+            option.getConfig()
+        )
 
-          cmd = [java_cmd, '-jar', PLANTUML_JAR_PATH, '-charset', 'UTF-8', '-failonerror', '-pipe']
-          cmd << format_flag if format_flag
-
-          result, status = Open3.capture2e(*cmd, :stdin_data => code.encode(Encoding::UTF_8))
-          raise "PlantUML exited with code #{status.exitstatus}" if status.exitstatus != 0
-          result
-        end
+        bos = Java.java.io.ByteArrayOutputStream.new
+        ps = Java.java.io.PrintStream.new(bos)
+        source_reader.generateImage(ps, 0, option.getFileFormatOption())
+        ps.close
+        Java.string_from_java_bytes(bos.toByteArray)
       end
 
       def file_name(code)
