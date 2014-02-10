@@ -4,3 +4,6 @@ rvm:
   - 2.0.0
   - jruby
   - jruby-head
+
+install:
+  - sudo apt-get install -qq graphviz
