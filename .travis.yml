@@ -7,3 +7,4 @@ rvm:
 
 install:
   - sudo apt-get install -qq graphviz
+  - bundle install
