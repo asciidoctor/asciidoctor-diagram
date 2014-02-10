@@ -1,4 +1,3 @@
-require 'open3'
 require 'digest'
 
 module Asciidoctor
@@ -20,6 +19,8 @@ module Asciidoctor
 
       def process(parent, reader, attributes)
         plantuml_lines = reader.lines * "\n"
+        plantuml_lines = "@startuml\n#{plantuml_lines}\n@enduml" unless plantuml_lines.index '@startuml'
+
         format = attributes.delete('format')
         target = attributes.delete('target')
 
@@ -32,16 +33,17 @@ module Asciidoctor
           when :image
             image_name = "#{target || file_name(plantuml_lines)}.#{format}"
             image_dir = document.attributes['imagesdir'] || ''
-            File.open(File.expand_path(image_name, image_dir), "w") { |f| f.write result }
+            File.open(File.expand_path(image_name, image_dir), 'w') { |f| f.write result }
 
             attributes['target'] = image_name
             attributes['alt'] ||= if (title_text = attributes['title'])
-              title_text
-            elsif target
-              (::File.basename target, (::File.extname target) || '').tr '_-', ' '
-            else
-              'Diagram'
-            end
+                                    title_text
+                                  elsif target
+                                    (File.basename target, (File.extname target) || '').tr '_-', ' '
+                                  else
+                                    'Diagram'
+                                  end
+
             Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => attributes
           when :literal
             Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
@@ -52,16 +54,29 @@ module Asciidoctor
 
       private
 
+      require_relative 'java'
+
+      Java.classpath << PLANTUML_JAR_PATH
+
       def plantuml(code, format_flag)
-        java_home = ENV['JAVA_HOME'] or raise 'The JAVA_HOME environment variable should be set to a JRE or JDK installation path.'
-        java_cmd = File.expand_path('bin/java', java_home)
+        # When the -pipe command line flag is used, PlantUML calls System.exit which kills our process. In order
+        # to avoid this we call some lower level components of PlantUML directly.
+        # This snippet of code corresponds approximately with net.sourceforge.plantuml.Run#managePipe
+        cmd = ['-charset', 'UTF-8', '-failonerror']
+        cmd << format_flag if format_flag
 
-        cmd = "#{java_cmd} -jar " + PLANTUML_JAR_PATH + " -charset UTF-8 -failonerror -pipe"
-        cmd << " #{format_flag}" if format_flag
+        option = Java.net.sourceforge.plantuml.Option.new(Java.array_to_java_array(cmd, :string))
+        source_reader = Java.net.sourceforge.plantuml.SourceStringReader.new(
+            Java.net.sourceforge.plantuml.preproc.Defines.new(),
+            code,
+            option.getConfig()
+        )
 
-        result, status = Open3.capture2e(cmd, :stdin_data => code.encode(Encoding::UTF_8))
-        raise "PlantUML exited with code #{status.exitstatus}" if status.exitstatus != 0
-        result
+        bos = Java.java.io.ByteArrayOutputStream.new
+        ps = Java.java.io.PrintStream.new(bos)
+        source_reader.generateImage(ps, 0, option.getFileFormatOption())
+        ps.close
+        Java.string_from_java_bytes(bos.toByteArray)
       end
 
       def file_name(code)
