@@ -5,6 +5,12 @@ require_relative 'java'
 module Asciidoctor
   module PlantUml
     PLANTUML_JAR_PATH = File.expand_path File.join('..', 'plantuml.jar'), File.dirname(__FILE__)
+    BLOCK_TYPES = {
+        :svg => :image,
+        :png => :image,
+        :txt => :asciiart,
+        :utxt => :asciiart,
+    }
 
     class Block < Asciidoctor::Extensions::BlockProcessor
       option :contexts, [:listing, :literal, :open]
@@ -16,13 +22,13 @@ module Asciidoctor
         plantuml_code = reader.lines * "\n"
         format = attributes.delete('format').to_sym
 
-        case format
-          when :svg || :png
+        case BLOCK_TYPES[format]
+          when :image
             create_image_block(parent, plantuml_code, attributes, format)
-          when :txt || :utxt
+          when :asciiart
             create_ascii_art_block(parent, plantuml_code, attributes)
           else
-            raise "Unsupported output format: #{block_type}"
+            raise "Unsupported output format: #{format}"
         end
       end
 
@@ -45,14 +51,14 @@ module Asciidoctor
         end
 
         unless File.exists?(image_file) && metadata && metadata['checksum'] == checksum
-          format_flag = case format
-                          when :svg
-                            '-tsvg'
-                          when :png
-                            nil
-                        end
+          flags = case format
+                    when :svg
+                      ['-tsvg']
+                    when :png
+                      []
+                  end
 
-          result = plantuml(plantuml_code, format_flag)
+          result = plantuml(plantuml_code, *flags)
           result.force_encoding(Encoding::ASCII_8BIT)
           File.open(image_file, 'w') { |f| f.write result }
           File.open(cache_file, 'w') { |f| JSON.dump({'checksum' => checksum}, f) }
