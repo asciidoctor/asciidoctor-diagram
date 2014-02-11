@@ -143,4 +143,39 @@ Doc Writer <doc@example.com>
 
     expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /unsupported.*format/i
   end
+
+  it "should use plantuml configuration when specified as a document attribute" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+:plantumlconfig: test.config
+
+== First Section
+
+[plantuml, format="svg"]
+----
+actor Foo1
+boundary Foo2
+Foo1 -> Foo2 : To boundary
+----
+    eos
+
+    config = <<-eos
+ArrowColor #DEADBE
+    eos
+
+    File.open('test.config', 'w') do |f|
+      f.write config
+    end
+
+    d = Asciidoctor.load StringIO.new(doc)
+    b = d.find { |b| b.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exists?(target)).to be_true
+
+    svg = File.read(target)
+    expect(svg).to match /<path.*fill="#DEADBE"/
+  end
 end
