@@ -2,6 +2,7 @@ require 'digest'
 require 'json'
 require_relative 'java'
 require_relative 'png'
+require_relative 'svg'
 
 module Asciidoctor
   module PlantUml
@@ -11,6 +12,19 @@ module Asciidoctor
         :png => :image,
         :txt => :asciiart,
         :utxt => :asciiart,
+    }
+
+    IMAGE_PARAMS = {
+        :svg => {
+            :encoding => Encoding::UTF_8,
+            :decoder => SVG,
+            :flags => ['-tsvg']
+        },
+        :png => {
+            :encoding => Encoding::ASCII_8BIT,
+            :decoder => PNG,
+            :flags => []
+        }
     }
 
     class Block < Asciidoctor::Extensions::BlockProcessor
@@ -52,20 +66,14 @@ module Asciidoctor
         end
 
         unless File.exists?(image_file) && metadata && metadata['checksum'] == checksum
-          flags = case format
-                    when :svg
-                      ['-tsvg']
-                    when :png
-                      []
-                  end
 
-          result = plantuml(plantuml_code, *flags)
-          result.force_encoding(Encoding::ASCII_8BIT)
+          params = IMAGE_PARAMS[format]
+
+          result = plantuml(plantuml_code, *params[:flags])
+          result.force_encoding(params[:encoding])
 
           metadata = {'checksum' => checksum}
-          if format == :png
-            metadata['width'], metadata['height'] = PNG.get_image_size(result)
-          end
+          metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
 
           File.open(image_file, 'w') { |f| f.write result }
           File.open(cache_file, 'w') { |f| JSON.dump(metadata, f) }
