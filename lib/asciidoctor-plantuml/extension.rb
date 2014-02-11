@@ -1,6 +1,7 @@
 require 'digest'
 require 'json'
 require_relative 'java'
+require_relative 'png'
 
 module Asciidoctor
   module PlantUml
@@ -60,11 +61,19 @@ module Asciidoctor
 
           result = plantuml(plantuml_code, *flags)
           result.force_encoding(Encoding::ASCII_8BIT)
+
+          metadata = {'checksum' => checksum}
+          if format == :png
+            metadata['width'], metadata['height'] = PNG.get_image_size(result)
+          end
+
           File.open(image_file, 'w') { |f| f.write result }
-          File.open(cache_file, 'w') { |f| JSON.dump({'checksum' => checksum}, f) }
+          File.open(cache_file, 'w') { |f| JSON.dump(metadata, f) }
         end
 
         attributes['target'] = image_name
+        attributes['width'] ||= metadata['width'] if metadata['width']
+        attributes['height'] ||= metadata['height'] if metadata['height']
         attributes['alt'] ||= if (title_text = attributes['title'])
                                 title_text
                               elsif target
