@@ -70,6 +70,9 @@ User --> (Use the application) : Label
     expect(target).to_not be_nil
     expect(target).to match /\.svg/
     expect(File.exists?(target)).to be_true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
   end
 
   it "should generate literal blocks when format is set to 'txt'" do
