@@ -55,7 +55,7 @@ module Asciidoctor
         checksum = code_checksum(plantuml_code)
 
         image_name = "#{target || checksum}.#{format}"
-        image_dir = document.attributes['imagesdir'] || ''
+        image_dir = File.expand_path(document.attributes['imagesdir'] || '', parent.document.attributes['docdir'])
         image_file = File.expand_path(image_name, image_dir)
         cache_file = File.expand_path("#{image_name}.cache", image_dir)
 
@@ -66,10 +66,12 @@ module Asciidoctor
         end
 
         unless File.exists?(image_file) && metadata && metadata['checksum'] == checksum
-
           params = IMAGE_PARAMS[format]
 
-          result = plantuml(plantuml_code, *params[:flags])
+          flags = get_default_flags(parent)
+          flags += params[:flags]
+
+          result = plantuml(plantuml_code, *flags)
           result.force_encoding(params[:encoding])
 
           metadata = {'checksum' => checksum}
@@ -96,7 +98,10 @@ module Asciidoctor
       def create_ascii_art_block(parent, plantuml_code, attributes)
         attributes.delete('target')
 
-        result = plantuml(plantuml_code, '-tutxt')
+        flags = get_default_flags(parent)
+        flags << '-tutxt'
+
+        result = plantuml(plantuml_code, *flags)
         result.force_encoding(Encoding::UTF_8)
         Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
       end
@@ -124,6 +129,18 @@ module Asciidoctor
         source_reader.generateImage(ps, 0, option.getFileFormatOption())
         ps.close
         Java.string_from_java_bytes(bos.toByteArray)
+      end
+
+      def get_default_flags(parent)
+        flags = []
+
+        document = parent.document
+        config = document.attributes['plantumlconfig']
+        if config
+          flags += ['-config', File.expand_path(config, document.attributes['docdir'])]
+        end
+
+        flags
       end
 
       def code_checksum(code)
