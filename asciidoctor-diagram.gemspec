@@ -1,13 +1,13 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'asciidoctor-diagrams/version'
+require 'asciidoctor-diagram/version'
 
 $platform ||= RUBY_PLATFORM[/java/] || 'ruby'
 
 Gem::Specification.new do |spec|
-  spec.name          = "asciidoctor-diagrams"
-  spec.version       = Asciidoctor::Diagrams::VERSION
+  spec.name          = "asciidoctor-diagram"
+  spec.version       = Asciidoctor::Diagram::VERSION
   spec.authors       = ["Pepijn Van Eeckhoudt"]
   spec.email         = ["pepijn@vaneeckhoudt.net"]
   spec.description   = %q{Asciidoctor diagramming extension}

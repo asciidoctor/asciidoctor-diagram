@@ -1,13 +1,11 @@
-require 'digest'
-require 'json'
-require_relative 'diagram'
-require_relative 'java'
-require_relative 'png'
-require_relative 'svg'
+require_relative '../diagram'
+require_relative '../java'
+require_relative '../png'
+require_relative '../svg'
 
 module Asciidoctor
-  module Diagrams
-    DITAA_JAR_PATH = File.expand_path File.join('..', 'ditaamini0_9.jar'), File.dirname(__FILE__)
+  module Diagram
+    DITAA_JAR_PATH = File.expand_path File.join('../..', 'ditaamini0_9.jar'), File.dirname(__FILE__)
 
     class DitaaBlock < DiagramBlock
       option :contexts, [:listing, :literal, :open]

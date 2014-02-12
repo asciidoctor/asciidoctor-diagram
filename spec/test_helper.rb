@@ -5,11 +5,9 @@ require 'fileutils'
 require 'stringio'
 require 'tmpdir'
 
-require_relative '../lib/asciidoctor-plantuml'
-require_relative '../lib/asciidoctor-ditaa'
-require_relative '../lib/asciidoctor-diagrams/version'
-require_relative '../lib/asciidoctor-diagrams/ditaa'
-require_relative '../lib/asciidoctor-diagrams/plantuml'
+require_relative '../lib/asciidoctor-diagram'
+require_relative '../lib/asciidoctor-diagram/ditaa/extension'
+require_relative '../lib/asciidoctor-diagram/plantuml/extension'
 
 module Asciidoctor
   class AbstractBlock

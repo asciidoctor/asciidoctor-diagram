@@ -6,7 +6,7 @@ require_relative 'png'
 require_relative 'svg'
 
 module Asciidoctor
-  module Diagrams
+  module Diagram
     BLOCK_TYPES = {
         :svg => :image,
         :png => :image,

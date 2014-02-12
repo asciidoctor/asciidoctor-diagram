@@ -7,6 +7,6 @@ task :default => :test
 
 ['ruby', 'java'].map do |platform|
   $platform = platform
-  spec = Gem::Specification.load('asciidoctor-diagrams.gemspec')
+  spec = Gem::Specification.load('asciidoctor-diagram.gemspec')
   Gem::PackageTask.new(spec) { |task| }
 end

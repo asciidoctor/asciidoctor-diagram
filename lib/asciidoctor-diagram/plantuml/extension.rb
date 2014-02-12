@@ -1,13 +1,11 @@
-require 'digest'
-require 'json'
-require_relative 'diagram'
-require_relative 'java'
-require_relative 'png'
-require_relative 'svg'
+require_relative '../diagram'
+require_relative '../java'
+require_relative '../png'
+require_relative '../svg'
 
 module Asciidoctor
-  module Diagrams
-    PLANTUML_JAR_PATH = File.expand_path File.join('..', 'plantuml.jar'), File.dirname(__FILE__)
+  module Diagram
+    PLANTUML_JAR_PATH = File.expand_path File.join('../..', 'plantuml.jar'), File.dirname(__FILE__)
 
     class PlantUmlBlock < DiagramBlock
       option :contexts, [:listing, :literal, :open]

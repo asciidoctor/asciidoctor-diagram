@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagrams::PlantUmlBlock do
+describe Asciidoctor::Diagram::PlantUmlBlock do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, PlantUML!
