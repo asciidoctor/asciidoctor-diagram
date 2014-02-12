@@ -1,5 +1,5 @@
 module Asciidoctor
-  module Diagrams
+  module Diagram
     VERSION = "1.0.0"
   end
 end

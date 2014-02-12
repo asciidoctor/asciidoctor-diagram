@@ -1,7 +1,7 @@
 require_relative 'binaryio'
 
 module Asciidoctor
-  module Diagrams
+  module Diagram
     module SVG
       SVG_SIZE_REGEX = /style="width:(?<width>\d+)px;height:(?<height>\d+)px/
 

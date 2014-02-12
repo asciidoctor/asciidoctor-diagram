@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagrams::DitaaBlock do
+describe Asciidoctor::Diagram::DitaaBlock do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, ditaa!
