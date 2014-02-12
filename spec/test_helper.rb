@@ -1,7 +1,15 @@
 require 'asciidoctor'
 require 'asciidoctor/cli/invoker'
+
+require 'fileutils'
+require 'stringio'
+require 'tmpdir'
+
 require_relative '../lib/asciidoctor-plantuml'
-require_relative '../lib/asciidoctor-plantuml/extension'
+require_relative '../lib/asciidoctor-ditaa'
+require_relative '../lib/asciidoctor-diagrams/version'
+require_relative '../lib/asciidoctor-diagrams/ditaa'
+require_relative '../lib/asciidoctor-diagrams/plantuml'
 
 module Asciidoctor
   class AbstractBlock
@@ -24,7 +32,7 @@ RSpec.configure do |c|
   TEST_DIR = 'testing'
 
   c.before(:all) do
-    FileUtils.rm_r TEST_DIR if Dir.exists? TEST_DIR
+    #FileUtils.rm_r TEST_DIR if Dir.exists? TEST_DIR
     FileUtils.mkdir_p TEST_DIR
   end
 
