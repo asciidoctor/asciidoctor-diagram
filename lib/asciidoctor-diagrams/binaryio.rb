@@ -1,5 +1,5 @@
 module Asciidoctor
-  module PlantUml
+  module Diagrams
     class BinaryIO
       def initialize(string)
         @data = string

@@ -1,3 +1,4 @@
+require 'asciidoctor/extensions'
 require 'digest'
 require 'json'
 require_relative 'java'
@@ -5,43 +6,41 @@ require_relative 'png'
 require_relative 'svg'
 
 module Asciidoctor
-  module PlantUml
-    PLANTUML_JAR_PATH = File.expand_path File.join('..', 'plantuml.jar'), File.dirname(__FILE__)
+  module Diagrams
     BLOCK_TYPES = {
         :svg => :image,
         :png => :image,
-        :txt => :asciiart,
-        :utxt => :asciiart,
+        :txt => :asciiart
     }
 
     IMAGE_PARAMS = {
         :svg => {
             :encoding => Encoding::UTF_8,
-            :decoder => SVG,
-            :flags => ['-tsvg']
+            :decoder => SVG
         },
         :png => {
             :encoding => Encoding::ASCII_8BIT,
-            :decoder => PNG,
-            :flags => []
+            :decoder => PNG
         }
     }
 
-    class Block < Asciidoctor::Extensions::BlockProcessor
+    class DiagramBlock < Asciidoctor::Extensions::BlockProcessor
       option :contexts, [:listing, :literal, :open]
       option :content_model, :simple
       option :pos_attrs, ['target', 'format']
       option :default_attrs, {'format' => 'png'}
 
       def process(parent, reader, attributes)
-        plantuml_code = reader.lines * "\n"
+        diagram_code = reader.lines.join
         format = attributes.delete('format').to_sym
+
+        raise "#{name} does not support output format #{format}" unless allowed_formats.include?(format)
 
         case BLOCK_TYPES[format]
           when :image
-            create_image_block(parent, plantuml_code, attributes, format)
+            create_image_block(parent, diagram_code, attributes, format)
           when :asciiart
-            create_ascii_art_block(parent, plantuml_code, attributes)
+            create_ascii_art_block(parent, diagram_code, attributes)
           else
             raise "Unsupported output format: #{format}"
         end
@@ -49,10 +48,10 @@ module Asciidoctor
 
       private
 
-      def create_image_block(parent, plantuml_code, attributes, format)
+      def create_image_block(parent, diagram_code, attributes, format)
         target = attributes.delete('target')
 
-        checksum = code_checksum(plantuml_code)
+        checksum = code_checksum(diagram_code)
 
         image_name = "#{target || checksum}.#{format}"
         image_dir = File.expand_path(document.attributes['imagesdir'] || '', parent.document.attributes['docdir'])
@@ -68,10 +67,8 @@ module Asciidoctor
         unless File.exists?(image_file) && metadata && metadata['checksum'] == checksum
           params = IMAGE_PARAMS[format]
 
-          flags = get_default_flags(parent)
-          flags += params[:flags]
+          result = generate_image(parent, diagram_code, format)
 
-          result = plantuml(plantuml_code, *flags)
           result.force_encoding(params[:encoding])
 
           metadata = {'checksum' => checksum}
@@ -95,52 +92,13 @@ module Asciidoctor
         Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => attributes
       end
 
-      def create_ascii_art_block(parent, plantuml_code, attributes)
+      def create_ascii_art_block(parent, diagram_code, attributes)
         attributes.delete('target')
 
-        flags = get_default_flags(parent)
-        flags << '-tutxt'
+        result = generate_text(parent, diagram_code)
 
-        result = plantuml(plantuml_code, *flags)
         result.force_encoding(Encoding::UTF_8)
         Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
-      end
-
-      Java.classpath << PLANTUML_JAR_PATH
-
-      def plantuml(code, *flags)
-        code = "@startuml\n#{code}\n@enduml" unless code.index '@startuml'
-
-        # When the -pipe command line flag is used, PlantUML calls System.exit which kills our process. In order
-        # to avoid this we call some lower level components of PlantUML directly.
-        # This snippet of code corresponds approximately with net.sourceforge.plantuml.Run#managePipe
-        cmd = ['-charset', 'UTF-8', '-failonerror']
-        cmd += flags
-
-        option = Java.net.sourceforge.plantuml.Option.new(Java.array_to_java_array(cmd, :string))
-        source_reader = Java.net.sourceforge.plantuml.SourceStringReader.new(
-            Java.net.sourceforge.plantuml.preproc.Defines.new(),
-            code,
-            option.getConfig()
-        )
-
-        bos = Java.java.io.ByteArrayOutputStream.new
-        ps = Java.java.io.PrintStream.new(bos)
-        source_reader.generateImage(ps, 0, option.getFileFormatOption())
-        ps.close
-        Java.string_from_java_bytes(bos.toByteArray)
-      end
-
-      def get_default_flags(parent)
-        flags = []
-
-        document = parent.document
-        config = document.attributes['plantumlconfig']
-        if config
-          flags += ['-config', File.expand_path(config, document.attributes['docdir'])]
-        end
-
-        flags
       end
 
       def code_checksum(code)
