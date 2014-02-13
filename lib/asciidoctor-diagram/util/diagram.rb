@@ -7,40 +7,40 @@ require_relative 'svg'
 
 module Asciidoctor
   module Diagram
-    BLOCK_TYPES = {
-        :svg => :image,
-        :png => :image,
-        :txt => :asciiart
-    }
+    module DiagramBlockProcessor
+      IMAGE_PARAMS = {
+          :svg => {
+              :encoding => Encoding::UTF_8,
+              :decoder => SVG
+          },
+          :png => {
+              :encoding => Encoding::ASCII_8BIT,
+              :decoder => PNG
+          }
+      }
 
-    IMAGE_PARAMS = {
-        :svg => {
-            :encoding => Encoding::UTF_8,
-            :decoder => SVG
-        },
-        :png => {
-            :encoding => Encoding::ASCII_8BIT,
-            :decoder => PNG
-        }
-    }
-
-    class DiagramBlock < Asciidoctor::Extensions::BlockProcessor
-      option :contexts, [:listing, :literal, :open]
-      option :content_model, :simple
-      option :pos_attrs, ['target', 'format']
-      option :default_attrs, {'format' => 'png'}
+      def self.included(base)
+        base.option :contexts, [:listing, :literal, :open]
+        base.option :content_model, :simple
+        base.option :pos_attrs, ['target', 'format']
+      end
 
       def process(parent, reader, attributes)
         diagram_code = reader.lines.join
-        format = attributes.delete('format').to_sym
+        format = attributes.delete('format') || @default_format
+        format = format.to_sym if format.respond_to?(:to_sym)
 
-        raise "#{name} does not support output format #{format}" unless allowed_formats.include?(format)
+        raise "Format undefined" unless format
 
-        case BLOCK_TYPES[format]
+        generator_info = formats[format]
+
+        raise "#{self.class.name} does not support output format #{format}" unless generator_info
+
+        case generator_info[:type]
           when :image
-            create_image_block(parent, diagram_code, attributes, format)
-          when :asciiart
-            create_ascii_art_block(parent, diagram_code, attributes)
+            create_image_block(parent, diagram_code, attributes, format, generator_info)
+          when :literal
+            create_literal_block(parent, diagram_code, attributes, format, generator_info)
           else
             raise "Unsupported output format: #{format}"
         end
@@ -48,7 +48,31 @@ module Asciidoctor
 
       private
 
-      def create_image_block(parent, diagram_code, attributes, format)
+      #
+      # Registers a supported format. The first registered format becomes the default format for the block processor.
+      #
+      # +format+ is a symbol with the format name
+      # +type+ is a symbol and should be either :image or :literal
+      # +generator+ is a symbol with the name of a generator function which should accept arguments (parent, code, ...)
+      # +args+ is an array of arguments that will be passed to the generator splatted after the fixed arguments
+      #
+      def register_format(format, type, generator, args)
+        unless @default_format
+          @default_format = format
+        end
+
+        formats[format] = {
+            :type => type,
+            :generator => generator,
+            :args => args
+        }
+      end
+
+      def formats
+        @formats ||= {}
+      end
+
+      def create_image_block(parent, diagram_code, attributes, format, generator_info)
         target = attributes.delete('target')
 
         checksum = code_checksum(diagram_code)
@@ -67,7 +91,7 @@ module Asciidoctor
         unless File.exists?(image_file) && metadata && metadata['checksum'] == checksum
           params = IMAGE_PARAMS[format]
 
-          result = generate_image(parent, diagram_code, format)
+          result = send(generator_info[:generator], parent, diagram_code, *(generator_info[:args] || []))
 
           result.force_encoding(params[:encoding])
 
@@ -92,10 +116,10 @@ module Asciidoctor
         Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => attributes
       end
 
-      def create_ascii_art_block(parent, diagram_code, attributes)
+      def create_literal_block(parent, diagram_code, attributes, format, generator_info)
         attributes.delete('target')
 
-        result = generate_text(parent, diagram_code)
+        result = send(generator_info[:generator], parent, diagram_code, *(generator_info[:args] || []))
 
         result.force_encoding(Encoding::UTF_8)
         Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
