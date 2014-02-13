@@ -30,11 +30,13 @@ module Asciidoctor
       Java.classpath << DITAA_JAR_PATH
 
       def ditaa(code, *flags)
+        Java.load
+
         cmd = ['-e', 'UTF-8']
         cmd += flags if flags
 
         bytes = code.encode(Encoding::UTF_8).bytes.to_a
-        bis = Java.java.io.ByteArrayInputStream.new(bytes)
+        bis = Java.java.io.ByteArrayInputStream.new(Java.array_to_java_array(bytes, :byte))
         bos = Java.java.io.ByteArrayOutputStream.new
         result_code = Java.org.stathissideris.ascii2image.core.CommandLineConverter.convert(Java.array_to_java_array(cmd, :string), bis, bos)
         bis.close

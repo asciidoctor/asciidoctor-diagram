@@ -42,6 +42,8 @@ module Asciidoctor
       Java.classpath << PLANTUML_JAR_PATH
 
       def plantuml(code, *flags)
+        Java.load
+
         code = "@startuml\n#{code}\n@enduml" unless code.index '@startuml'
 
         # When the -pipe command line flag is used, PlantUML calls System.exit which kills our process. In order
