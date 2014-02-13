@@ -53,4 +53,26 @@ Doc Writer <doc@example.com>
 
     expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
   end
+
+  it "should use a default format when none was given" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[ditaa]
+----
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc)
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+    target = b.attributes['target']
+    expect(target).to match /\.png$/
+    expect(File.exists?(target)).to be_true
+  end
 end
