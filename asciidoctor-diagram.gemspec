@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Asciidoctor diagramming extension}
   spec.summary       = %q{An extension for asciidoctor that adds support for UML diagram generation using PlantUML}
   spec.platform      = $platform
-  spec.homepage      = "https://github.com/asciidoctor/asciidoctor-plantuml"
+  spec.homepage      = "https://github.com/asciidoctor/asciidoctor-diagram"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
