@@ -1,16 +1,19 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'asciidoctor-plantuml/version'
+require 'asciidoctor-diagram/version'
+
+$platform ||= RUBY_PLATFORM[/java/] || 'ruby'
 
 Gem::Specification.new do |spec|
-  spec.name          = "asciidoctor-plantuml"
-  spec.version       = Asciidoctor::PlantUml::VERSION
+  spec.name          = "asciidoctor-diagram"
+  spec.version       = Asciidoctor::Diagram::VERSION
   spec.authors       = ["Pepijn Van Eeckhoudt"]
   spec.email         = ["pepijn@vaneeckhoudt.net"]
-  spec.description   = %q{Asciidoctor PlantUML extension}
+  spec.description   = %q{Asciidoctor diagramming extension}
   spec.summary       = %q{An extension for asciidoctor that adds support for UML diagram generation using PlantUML}
-  spec.homepage      = ""
+  spec.platform      = $platform
+  spec.homepage      = "https://github.com/asciidoctor/asciidoctor-plantuml"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -23,5 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec"
 
   spec.add_runtime_dependency "asciidoctor", "~> 0.1.4"
-  spec.add_runtime_dependency "rjb", "~> 1.4.9" unless RUBY_PLATFORM == 'java'
+  spec.add_runtime_dependency "rjb", "~> 1.4.9" unless $platform == 'java'
 end

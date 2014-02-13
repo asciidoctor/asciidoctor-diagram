@@ -1,14 +1,6 @@
 require_relative 'test_helper'
 
-require 'fileutils'
-require 'stringio'
-require 'tmpdir'
-
-describe Asciidoctor::PlantUml::Block do
-  it "version must be defined" do
-    expect(Asciidoctor::PlantUml::VERSION).to_not be_nil
-  end
-
+describe Asciidoctor::Diagram::PlantUmlBlock do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, PlantUML!
@@ -102,33 +94,6 @@ User --> (Use the application) : Label
     expect(b.attributes['target']).to be_nil
   end
 
-  it "should generate literal blocks when format is set to 'utxt'" do
-    doc = <<-eos
-= Hello, PlantUML!
-Doc Writer <doc@example.com>
-
-== First Section
-
-[plantuml, format="utxt"]
-----
-User -> (Start)
-User --> (Use the application) : Label
-
-:Main Admin: ---> (Use the application) : Another label
-----
-    eos
-
-    d = Asciidoctor.load StringIO.new(doc)
-    expect(d).to_not be_nil
-
-    b = d.find { |b| b.context == :literal }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :simple
-
-    expect(b.attributes['target']).to be_nil
-  end
-
   it "should raise an error when when format is set to an invalid value" do
     doc = <<-eos
 = Hello, PlantUML!
@@ -141,7 +106,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /unsupported.*format/i
+    expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
   end
 
   it "should use plantuml configuration when specified as a document attribute" do
