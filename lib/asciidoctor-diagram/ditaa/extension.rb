@@ -13,6 +13,8 @@ module Asciidoctor
       option :pos_attrs, ['target', 'format']
       option :default_attrs, {'format' => 'png'}
 
+      private
+
       def name
         "Ditaa"
       end
@@ -24,8 +26,6 @@ module Asciidoctor
       def generate_image(parent, diagram_code, format)
         ditaa(diagram_code)
       end
-
-      private
 
       Java.classpath << DITAA_JAR_PATH
 
