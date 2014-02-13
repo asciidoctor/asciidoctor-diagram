@@ -1,7 +1,7 @@
 require 'java'
 
 module Asciidoctor
-  module PlantUml
+  module Diagram
     module Java
       def self.classpath
         @classpath ||= []
