@@ -33,17 +33,18 @@ In your script you can then either require one or more of the following files:
 
 . `asciidoctor-diagram`: to enable all the diagramming extensions
 . `asciidoctor-diagram/ditaa`: to enable the ditaa extension
+. `asciidoctor-diagram/graphviz`: to enable the graphviz extension
 . `asciidoctor-diagram/plantuml`: to enable the plantuml extension
 
-Requiring one or more of these files will automatically register the extensions for all processed documents. If you need
-more fine grained control over when the extensions are enabled or not, `asciidoctor-diagram/ditaa/extension` and `asciidoctor-diagram/plantuml/extension` can be used instead.
-This loads the extensions themselves but does not register them.
+Requiring one or more of these files will automatically register the extensions for all processed documents.
+If you need more fine grained control over when the extensions are enabled or not, `asciidoctor-diagram/ditaa/extension`, `asciidoctor-diagram/graphviz/extension` and `asciidoctor-diagram/plantuml/extension` can be used instead.
+These load the extensions themselves but do not register them.
 You should then register the extensions yourself at the appropriate time using the `Asciidoctor::Extensions` API.
 
 === Using the extensions
 
-Once the extensions are enabled support for `plantuml` and/or `ditaa` blocks becomes available for your documents.
-Detailed descriptions of the supported syntax inside these blocks is available on the http://plantuml.sourceforge.net/[PlantUML] and http://ditaa.sourceforge.net/[ditaa] websites.
+Once the extensions are enabled support for `ditaa`, `graphviz` and `plantuml` blocks becomes available for your documents.
+Detailed descriptions of the supported syntax inside these blocks is available on the http://plantuml.sourceforge.net/[PlantUML], http://www.graphviz.org/content/dot-language[Graphviz] and http://ditaa.sourceforge.net/[ditaa] websites.
 
 At this point you can start adding diagrams to your application, like the following example:
 
@@ -64,7 +65,7 @@ DiagramBlock <|-- PlantUmlBlock
 The diagram blocks support the following attributes:
 
 . `target` (or 2nd position): the basename of the file to generate. If not specified an auto-generated name will be used.
-. `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Ditaa only supports `png`.
+. `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz supports `png` and `svg`. Ditaa only supports `png`.
 
 == Contributing
 

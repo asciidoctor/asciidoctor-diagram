@@ -13,6 +13,8 @@ module Asciidoctor
       option :pos_attrs, ['target', 'format']
       option :default_attrs, {'format' => 'png'}
 
+      private
+
       def name
         "PlantUml"
       end
@@ -37,20 +39,19 @@ module Asciidoctor
         plantuml(diagram_code, *flags)
       end
 
-      private
-
       Java.classpath << PLANTUML_JAR_PATH
 
       def plantuml(code, *flags)
         Java.load
 
-        code = "@startuml\n#{code}\n@enduml" unless code.index '@startuml'
+        @graphvizdot ||= (which('dot'))
+        raise "Could not find the Graphviz 'dot' executable in PATH; add it to the PATH or specify its location using the 'graphvizdot' document attribute" unless @graphvizdot
 
-        # When the -pipe command line flag is used, PlantUML calls System.exit which kills our process. In order
-        # to avoid this we call some lower level components of PlantUML directly.
-        # This snippet of code corresponds approximately with net.sourceforge.plantuml.Run#managePipe
-        cmd = ['-charset', 'UTF-8', '-failonerror']
-        cmd += flags
+        tag = get_tag
+        code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index "@start#{tag}"
+
+        cmd = ['-charset', 'UTF-8', '-failonerror', '-graphvizdot', @graphvizdot]
+        cmd += flags unless flags.empty?
 
         option = Java.net.sourceforge.plantuml.Option.new(Java.array_to_java_array(cmd, :string))
         source_reader = Java.net.sourceforge.plantuml.SourceStringReader.new(
@@ -64,6 +65,26 @@ module Asciidoctor
         source_reader.generateImage(ps, 0, option.getFileFormatOption())
         ps.close
         Java.string_from_java_bytes(bos.toByteArray)
+      end
+
+      def which(cmd)
+        exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+        ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+          exts.each { |ext|
+            exe = File.join(path, "#{cmd}#{ext}")
+            return exe if File.executable? exe
+          }
+        end
+        return nil
+      end
+
+      def get_tag
+        'uml'
+      end
+
+      def get_graphvizdot_attribute(parent)
+        attr = parent.document.attributes['graphvizdot']
+        File.executable? attr ? attr : nil
       end
 
       def get_default_flags(parent)
