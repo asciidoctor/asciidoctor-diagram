@@ -5,7 +5,7 @@ Asciidoctor Diagram is a set of extensions for http://asciidoctor.org[Asciidocto
 These extensions allow you to embed diagrams written using the http://plantuml.sourceforge.net[PlantUML] or Ditaa syntax inside your AsciiDoc documents.
 The extension takes care of running the diagram processor to generate the images from the input text and insert them into the rendered document.
 
-This gem was inspired by the [AsciiDoc PlantUML filter](https://code.google.com/p/asciidoc-plantuml/) for AsciiDoc Python.
+This gem was inspired by the https://code.google.com/p/asciidoc-plantuml/[AsciiDoc PlantUML filter] for AsciiDoc Python.
 
 == Installation
 
@@ -27,8 +27,8 @@ Or install it yourself as:
 
 === Enable the extensions
 
-The diagram extensions consist of a set of [block processors for Asciidoctor](http://asciidoctor.org/docs/user-manual/#extension-points).
-In order to use extensions you should need to invoke Asciidoctor via the [Ruby API](http://asciidoctor.org/docs/user-manual/#api).
+The diagram extensions consist of a set of http://asciidoctor.org/docs/user-manual/#extension-points[block processors for Asciidoctor].
+In order to use extensions you should need to invoke Asciidoctor via the http://asciidoctor.org/docs/user-manual/#api[Ruby API].
 In your script you can then either require one or more of the following files:
 
 . `asciidoctor-diagram`: to enable all the diagramming extensions
@@ -43,7 +43,7 @@ You should then register the extensions yourself at the appropriate time using t
 === Using the extensions
 
 Once the extensions are enabled support for `plantuml` and/or `ditaa` blocks becomes available for your documents.
-Detailed descriptions of the supported syntax inside these blocks is available on the [PlantUML](http://plantuml.sourceforge.net/) and [ditaa](http://ditaa.sourceforge.net/) websites.
+Detailed descriptions of the supported syntax inside these blocks is available on the http://plantuml.sourceforge.net/[PlantUML] and http://ditaa.sourceforge.net/[ditaa] websites.
 
 At this point you can start adding diagrams to your application, like the following example:
 
