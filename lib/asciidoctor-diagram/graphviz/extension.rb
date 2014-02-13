@@ -1,33 +1,19 @@
-require_relative '../diagram'
-require_relative '../java'
-require_relative '../png'
-require_relative '../svg'
-require_relative '../plantuml/extension'
+require_relative '../util/diagram'
+require_relative '../plantuml/generator'
 
 module Asciidoctor
   module Diagram
-    class GraphvizBlock < PlantUmlBlock
-      option :contexts, [:listing, :literal, :open]
-      option :content_model, :simple
-      option :pos_attrs, ['target', 'format']
-      option :default_attrs, {'format' => 'png'}
+    class GraphvizBlock < Asciidoctor::Extensions::BlockProcessor
+      include DiagramBlockProcessor
+      include PlantUmlGenerator
 
-      private
+      def initialize(context, document, opts = {})
+        super
 
-      def name
-        "Graphviz"
-      end
+        args = ['dot']
 
-      def allowed_formats
-        @allowed_formats ||= [:svg, :png]
-      end
-
-      def get_tag
-        'dot'
-      end
-
-      def get_default_flags(parent)
-        []
+        register_format(:png, :image, :plantuml, args)
+        register_format(:svg, :image, :plantuml, args + ['-tsvg'])
       end
     end
   end
