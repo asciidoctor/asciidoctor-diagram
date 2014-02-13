@@ -1,0 +1,36 @@
+= Asciidoctor Diagram
+Pepijn Van_Eeckhoudt
+
+Asciidoctor Diagram is a set of extensions for http://asciidoctor.org[Asciidoctor], the Ruby-based AsciiDoc processor.
+These extensions allow you to embed diagrams written using the http://plantuml.sourceforge.net[PlantUML] or Ditaa syntax inside your AsciiDoc documents.
+The extension takes care of running the diagram processor to generate the images from the input text and insert them into the rendered document.
+
+This gem was inspired by the [AsciiDoc PlantUML filter](https://code.google.com/p/asciidoc-plantuml/) for AsciiDoc Python.
+
+== Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'asciidoctor-diagram'
+```
+
+And then execute:
+
+ $ bundle
+
+Or install it yourself as:
+
+ $ gem install asciidoctor-diagram
+
+== Usage
+
+TODO: Write usage instructions here
+
+== Contributing
+
+. Fork it
+. Create your feature branch (`git checkout -b my-new-feature`)
+. Commit your changes (`git commit -am 'Add some feature'`)
+. Push to the branch (`git push origin my-new-feature`)
+. Create new Pull Request
