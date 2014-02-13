@@ -1,0 +1,21 @@
+= Asciidoctor-diagram Changelog
+
+== 1.1.0
+
+Enhancements::
+
+  * Add support for `graphviz` blocks which may contain diagrams specified using the Graphviz DOT language
+  * The location of the Graphviz `dot` executable can now be specified using the `graphvizdot` document attribute
+
+== 1.0.1
+
+Bug Fixes::
+
+  * Corrections to gemspec
+
+== 1.0.0
+
+Initial release::
+
+  * Provides Asciidoctor extension for `ditaa` and `plantuml` blocks
+  * PlantUML skin parameters can be injected from an external file using the `plantumlconfig` document attribute

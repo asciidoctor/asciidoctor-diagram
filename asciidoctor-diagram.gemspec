@@ -5,26 +5,30 @@ require 'asciidoctor-diagram/version'
 
 $platform ||= RUBY_PLATFORM[/java/] || 'ruby'
 
-Gem::Specification.new do |spec|
-  spec.name          = "asciidoctor-diagram"
-  spec.version       = Asciidoctor::Diagram::VERSION
-  spec.authors       = ["Pepijn Van Eeckhoudt"]
-  spec.email         = ["pepijn@vaneeckhoudt.net"]
-  spec.description   = %q{Asciidoctor diagramming extension}
-  spec.summary       = %q{An extension for asciidoctor that adds support for UML diagram generation using PlantUML}
-  spec.platform      = $platform
-  spec.homepage      = "https://github.com/asciidoctor/asciidoctor-diagram"
-  spec.license       = "MIT"
+Gem::Specification.new do |s|
+  s.name          = "asciidoctor-diagram"
+  s.version       = Asciidoctor::Diagram::VERSION
+  s.authors       = ["Pepijn Van Eeckhoudt"]
+  s.email         = ["pepijn@vaneeckhoudt.net"]
+  s.description   = %q{Asciidoctor diagramming extension}
+  s.summary       = %q{An extension for asciidoctor that adds support for UML diagram generation using PlantUML}
+  s.platform      = $platform
+  s.homepage      = "https://github.com/asciidoctor/asciidoctor-diagram"
+  s.license       = "MIT"
 
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  begin
+    s.files             = `git ls-files -z -- */* {CHANGELOG,LICENSE,README,Rakefile}*`.split "\0"
+  rescue
+    s.files             = Dir['**/*']
+  end
+  s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
+  s.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
+  s.add_development_dependency "bundler", "~> 1.3"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "rspec"
 
-  spec.add_runtime_dependency "asciidoctor", "~> 0.1.4"
-  spec.add_runtime_dependency "rjb", "~> 1.4.9" unless $platform == 'java'
+  s.add_runtime_dependency "asciidoctor", "~> 0.1.4"
+  s.add_runtime_dependency "rjb", "~> 1.4.9" unless $platform == 'java'
 end
