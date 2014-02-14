@@ -1,0 +1,6 @@
+= Asciidoctor-diagram Examples
+
+This directory contains a number of example files that illustrate how to use the asciidoctor-diagram extension.
+Asciidoctor 0.1.4 does not support loading extensions via the command line.
+In order to process the examples correctly you should use the `build-example.rb` script.
+This wraps the regular `asciidoctor` command line tool and automatically loads the asciidoctor-diagram extension.
