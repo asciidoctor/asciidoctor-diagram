@@ -10,16 +10,21 @@ module Asciidoctor
       def initialize(context, document, opts = {})
         super
 
-        args = ['uml']
-
+        config_args = []
         config = document.attributes['plantumlconfig']
         if config
-          args += ['-config', File.expand_path(config, document.attributes['docdir'])]
+          config_args += ['-config', File.expand_path(config, document.attributes['docdir'])]
         end
 
-        register_format(:png, :image, :plantuml, args)
-        register_format(:svg, :image, :plantuml, args + ['-tsvg'])
-        register_format(:txt, :literal, :plantuml, args + ['-tutxt'])
+        register_format(:png, :image) do |p, c|
+          plantuml(p, c, 'uml', *config_args)
+        end
+        register_format(:svg, :image) do |p, c|
+          plantuml(p, c, 'uml', '-tsvg', *config_args)
+        end
+        register_format(:txt, :literal) do |p, c|
+          plantuml(p, c, 'uml', '-tutxt', *config_args)
+        end
       end
     end
   end
