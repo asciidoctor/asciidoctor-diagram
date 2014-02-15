@@ -10,10 +10,10 @@ module Asciidoctor
       def initialize(context, document, opts = {})
         super
 
-        register_format(:png, :image) do |p,c|
+        register_format(:png, :image) do |c, p|
           plantuml(p, c, 'dot')
         end
-        register_format(:svg, :image) do |p,c|
+        register_format(:svg, :image) do |c, p|
           plantuml(p, c, 'dot', '-tsvg')
         end
       end

@@ -16,13 +16,13 @@ module Asciidoctor
           config_args += ['-config', File.expand_path(config, document.attributes['docdir'])]
         end
 
-        register_format(:png, :image) do |p, c|
+        register_format(:png, :image) do |c, p|
           plantuml(p, c, 'uml', *config_args)
         end
-        register_format(:svg, :image) do |p, c|
+        register_format(:svg, :image) do |c, p|
           plantuml(p, c, 'uml', '-tsvg', *config_args)
         end
-        register_format(:txt, :literal) do |p, c|
+        register_format(:txt, :literal) do |c, p|
           plantuml(p, c, 'uml', '-tutxt', *config_args)
         end
       end

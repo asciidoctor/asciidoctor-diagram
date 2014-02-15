@@ -10,7 +10,7 @@ module Asciidoctor
       def initialize(context, document, opts = {})
         super
 
-        register_format(:png, :image) do |p,c|
+        register_format(:png, :image) do |c|
           ditaa(c)
         end
       end
