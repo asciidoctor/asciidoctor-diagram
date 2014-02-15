@@ -89,7 +89,7 @@ module Asciidoctor
         unless File.exists?(image_file) && metadata && metadata['checksum'] == checksum
           params = IMAGE_PARAMS[format]
 
-          result = generator_info[:generator].call(parent, diagram_code)
+          result = generator_info[:generator].call(diagram_code, parent)
 
           result.force_encoding(params[:encoding])
 
@@ -117,7 +117,7 @@ module Asciidoctor
       def create_literal_block(parent, diagram_code, attributes, generator_info)
         attributes.delete('target')
 
-        result = generator_info[:generator].call(parent, diagram_code)
+        result = generator_info[:generator].call(diagram_code, parent)
 
         result.force_encoding(Encoding::UTF_8)
         Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes

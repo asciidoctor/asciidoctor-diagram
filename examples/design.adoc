@@ -11,19 +11,19 @@ Asciidoctor-diagram enables a number of new block types using the Asciidoctor `B
 
 The main logic of the diagram generation is provided by the `DiagramBlock` module.
 This includes the shared options for the various blocks, checksum calculation of the diagram source code, cache validation and attribute generation for the generated output blocks.
-The DiagramBlock module also provides a means to register diagram generator functions.
-A generator function is a function that must accept two fixed parameters, the parent block and the diagram source code, and a variable list of implementation dependent parameters.
+The DiagramBlock module also provides a means to register diagram output formats.
 
-When registering a generator function, the registering code must specify a number of control parameters as symbols.
+When registering an output format, the registering code must specify a number of control parameters.
 The first parameter is the format name which controls when the generator is activated.
 The generator that is registered first determines the default format for the block.
 The second parameter is the output type of the generator.
 This is either `:image` or `:literal`.
 This parameter controls what type of block the `DiagramBlock` code will generate.
-The last two parameters are the name of the generator function as a symbol and an `Array` containing the implementation dependent parameters that should be passed to the generator.
+Finally, a block should be provided that generates the diagram and returns it as a String.
+When called these blocks will receive the diagram source code and the parent Block as arguments.
 
 The actual `BlockProcessor` implementations include the `DiagramBlock` module and the appropriate generator module.
-The remainder of the implementation consists of registering format/generator pairs and setting up callback parameters for the generator function.
+The remainder of the implementation consists of registering format.
 
 The diagram below illustrates the relationship between the various classes and modules.
 
