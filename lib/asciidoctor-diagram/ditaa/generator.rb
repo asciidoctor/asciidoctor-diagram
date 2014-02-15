@@ -8,10 +8,10 @@ module Asciidoctor
       DITAA_JAR_PATH = File.expand_path File.join('../..', 'ditaamini0_9.jar'), File.dirname(__FILE__)
       Java.classpath << DITAA_JAR_PATH
 
-      def ditaa(parent, code, *args)
+      def ditaa(code)
         Java.load
 
-        args += ['-e', 'UTF-8']
+        args = ['-e', 'UTF-8']
 
         bytes = code.encode(Encoding::UTF_8).bytes.to_a
         bis = Java.java.io.ByteArrayInputStream.new(Java.array_to_java_array(bytes, :byte))
