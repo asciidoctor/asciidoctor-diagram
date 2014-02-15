@@ -3,13 +3,12 @@ require_relative 'generator'
 
 module Asciidoctor
   module Diagram
-    class PlantUmlBlock < Asciidoctor::Extensions::BlockProcessor
-      include DiagramBlockProcessor
+    module PlantUmlBase
       include PlantUmlGenerator
 
-      def initialize(context, document, opts = {})
-        super
+      private
 
+      def register_formats(document)
         config_args = []
         config = document.attributes['plantumlconfig']
         if config
@@ -25,6 +24,26 @@ module Asciidoctor
         register_format(:txt, :literal) do |c, p|
           plantuml(p, c, 'uml', '-tutxt', *config_args)
         end
+      end
+    end
+
+    class PlantUmlBlock < Asciidoctor::Extensions::BlockProcessor
+      include DiagramProcessorBase
+      include PlantUmlBase
+
+      def initialize(context, document, opts = {})
+        super
+        register_formats(document)
+      end
+    end
+
+    class PlantUmlBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
+      include DiagramProcessorBase
+      include PlantUmlBase
+
+      def initialize(context, document, opts = {})
+        super
+        register_formats(document)
       end
     end
   end

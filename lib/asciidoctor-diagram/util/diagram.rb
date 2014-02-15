@@ -7,7 +7,7 @@ require_relative 'svg'
 
 module Asciidoctor
   module Diagram
-    module DiagramBlockProcessor
+    module DiagramProcessorBase
       IMAGE_PARAMS = {
           :svg => {
               :encoding => Encoding::UTF_8,
@@ -20,13 +20,35 @@ module Asciidoctor
       }
 
       def self.included(base)
-        base.option :contexts, [:listing, :literal, :open]
-        base.option :content_model, :simple
         base.option :pos_attrs, ['target', 'format']
+
+        if base.ancestors.include?(Asciidoctor::Extensions::BlockProcessor)
+          base.option :contexts, [:listing, :literal, :open]
+          base.option :content_model, :simple
+
+          base.instance_eval do
+            alias_method :process, :process_block
+          end
+        else
+          base.instance_eval do
+            alias_method :process, :process_macro
+          end
+        end
+
       end
 
-      def process(parent, reader, attributes)
-        diagram_code = reader.lines.join
+      def process_macro(parent, target, attributes)
+        source = FileSource.new(target)
+        attributes['target'] = File.basename(target, File.extname(target))
+
+        generate_block(parent, source, attributes)
+      end
+
+      def process_block(parent, reader, attributes)
+        generate_block(parent, ReaderSource.new(reader), attributes)
+      end
+
+      def generate_block(parent, source, attributes)
         format = attributes.delete('format') || @default_format
         format = format.to_sym if format.respond_to?(:to_sym)
 
@@ -38,9 +60,9 @@ module Asciidoctor
 
         case generator_info[:type]
           when :image
-            create_image_block(parent, diagram_code, attributes, format, generator_info)
+            create_image_block(parent, source, attributes, format, generator_info)
           when :literal
-            create_literal_block(parent, diagram_code, attributes, generator_info)
+            create_literal_block(parent, source, attributes, generator_info)
           else
             raise "Unsupported output format: #{format}"
         end
@@ -70,34 +92,35 @@ module Asciidoctor
         @formats ||= {}
       end
 
-      def create_image_block(parent, diagram_code, attributes, format, generator_info)
+      def create_image_block(parent, source, attributes, format, generator_info)
         target = attributes.delete('target')
 
-        checksum = code_checksum(diagram_code)
-
-        image_name = "#{target || checksum}.#{format}"
-        image_dir = File.expand_path(document.attributes['imagesdir'] || '', parent.document.attributes['docdir'])
+        image_name = "#{target || source.checksum}.#{format}"
+        image_dir = File.expand_path(parent.document.attributes['imagesdir'] || '', parent.document.attributes['docdir'])
         image_file = File.expand_path(image_name, image_dir)
-        cache_file = File.expand_path("#{image_name}.cache", image_dir)
 
-        if File.exists? cache_file
-          metadata = File.open(cache_file, 'r') { |f| JSON.load f }
-        else
-          metadata = nil
-        end
+        if source.newer_than?(image_file)
+          cache_file = File.expand_path("#{image_name}.cache", image_dir)
 
-        unless File.exists?(image_file) && metadata && metadata['checksum'] == checksum
-          params = IMAGE_PARAMS[format]
+          if File.exists? cache_file
+            metadata = File.open(cache_file, 'r') { |f| JSON.load f }
+          else
+            metadata = nil
+          end
 
-          result = generator_info[:generator].call(diagram_code, parent)
+          unless File.exists?(image_file) && metadata && metadata['checksum'] == source.checksum
+            params = IMAGE_PARAMS[format]
 
-          result.force_encoding(params[:encoding])
+            result = generator_info[:generator].call(source.code, parent)
 
-          metadata = {'checksum' => checksum}
-          metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
+            result.force_encoding(params[:encoding])
 
-          File.open(image_file, 'w') { |f| f.write result }
-          File.open(cache_file, 'w') { |f| JSON.dump(metadata, f) }
+            metadata = {'checksum' => source.checksum}
+            metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
+
+            File.open(image_file, 'w') { |f| f.write result }
+            File.open(cache_file, 'w') { |f| JSON.dump(metadata, f) }
+          end
         end
 
         attributes['target'] = image_name
@@ -114,19 +137,61 @@ module Asciidoctor
         Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => attributes
       end
 
-      def create_literal_block(parent, diagram_code, attributes, generator_info)
+      def create_literal_block(parent, source, attributes, generator_info)
         attributes.delete('target')
 
-        result = generator_info[:generator].call(diagram_code, parent)
+        result = generator_info[:generator].call(source.code, parent)
 
         result.force_encoding(Encoding::UTF_8)
-        Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
+        Asciidoctor::Block.new parent, :literal, :code => result, :attributes => attributes
       end
 
       def code_checksum(code)
         md5 = Digest::MD5.new
         md5 << code
         md5.hexdigest
+      end
+    end
+
+    class Source
+      def newer_than?(image)
+        true
+      end
+
+      def checksum
+        @checksum ||= compute_checksum(code)
+      end
+
+      private
+
+      def compute_checksum(code)
+        md5 = Digest::MD5.new
+        md5 << code
+        md5.hexdigest
+      end
+    end
+
+    class ReaderSource < Source
+      def initialize(reader)
+        @reader = reader
+      end
+
+      def code
+        @code ||= @reader.lines.join
+      end
+    end
+
+    class FileSource < Source
+      def initialize(file_name)
+        @file_name = file_name
+      end
+
+      def code
+        @code ||= File.read(@file_name)
+      end
+
+      def newer_than?(image)
+        !File.exists?(image) || File.mtime(@file_name) > File.mtime(image)
       end
     end
   end
