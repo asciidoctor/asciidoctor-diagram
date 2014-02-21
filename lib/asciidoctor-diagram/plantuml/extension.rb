@@ -8,21 +8,15 @@ module Asciidoctor
 
       private
 
-      def register_formats(document)
-        config_args = []
-        config = document.attributes['plantumlconfig']
-        if config
-          config_args += ['-config', File.expand_path(config, document.attributes['docdir'])]
-        end
-
+      def register_formats()
         register_format(:png, :image) do |c, p|
-          plantuml(p, c, 'uml', *config_args)
+          plantuml(p, c, 'uml')
         end
         register_format(:svg, :image) do |c, p|
-          plantuml(p, c, 'uml', '-tsvg', *config_args)
+          plantuml(p, c, 'uml', '-tsvg')
         end
         register_format(:txt, :literal) do |c, p|
-          plantuml(p, c, 'uml', '-tutxt', *config_args)
+          plantuml(p, c, 'uml', '-tutxt')
         end
       end
     end
@@ -31,9 +25,9 @@ module Asciidoctor
       include DiagramProcessorBase
       include PlantUmlBase
 
-      def initialize(context, document, opts = {})
+      def initialize name = nil, config = {}
         super
-        register_formats(document)
+        register_formats()
       end
     end
 
@@ -41,9 +35,9 @@ module Asciidoctor
       include DiagramProcessorBase
       include PlantUmlBase
 
-      def initialize(context, document, opts = {})
+      def initialize name = nil, config = {}
         super
-        register_formats(document)
+        register_formats()
       end
     end
   end

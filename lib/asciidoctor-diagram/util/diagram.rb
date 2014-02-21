@@ -177,7 +177,7 @@ module Asciidoctor
       end
 
       def code
-        @code ||= @reader.lines.join
+        @code ||= @reader.lines.join("\n")
       end
     end
 

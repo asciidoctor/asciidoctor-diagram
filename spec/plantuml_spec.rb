@@ -127,7 +127,7 @@ User --> (Use the application) : Label
     b = d.find { |b| b.context == :literal }
     expect(b).to_not be_nil
 
-    expect(b.content_model).to eq :simple
+    expect(b.content_model).to eq :verbatim
 
     expect(b.attributes['target']).to be_nil
   end
