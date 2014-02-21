@@ -30,5 +30,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec"
 
   s.add_runtime_dependency "asciidoctor", "~> 0.1.4"
-  s.add_runtime_dependency "rjb", "~> 1.4.9" unless $platform == 'java'
+  s.add_runtime_dependency "rjb", "~> 1.4.8" unless $platform == 'java'
 end
