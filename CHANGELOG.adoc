@@ -6,6 +6,12 @@ Enhancements::
 
   * Updated to Asciidoctor 1.5.0
 
+== 1.1.1
+
+Bug Fixes::
+
+  * Changed rjb dependency from ~> 1.4.9 to ~> 1.4.8 to be compatible with buildr 1.4.15
+
 == 1.1.0
 
 Enhancements::
