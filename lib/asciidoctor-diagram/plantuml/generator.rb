@@ -21,6 +21,11 @@ module Asciidoctor
 
         flags += ['-charset', 'UTF-8', '-failonerror', '-graphvizdot', @graphvizdot]
 
+        config_file = parent.document.attributes['plantumlconfig']
+        if config_file
+          flags += ['-config', File.expand_path(config_file, parent.document.attributes['docdir'])]
+        end
+
         option = Java.net.sourceforge.plantuml.Option.new(Java.array_to_java_array(flags, :string))
         source_reader = Java.net.sourceforge.plantuml.SourceStringReader.new(
             Java.net.sourceforge.plantuml.preproc.Defines.new(),
