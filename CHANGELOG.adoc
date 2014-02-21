@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.2.0
+
+Enhancements::
+
+  * Updated to Asciidoctor 1.5.0
+
 == 1.1.0
 
 Enhancements::
