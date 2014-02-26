@@ -118,7 +118,7 @@ module Asciidoctor
             metadata = {'checksum' => source.checksum}
             metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
 
-            File.open(image_file, 'w') { |f| f.write result }
+            File.open(image_file, 'wb') { |f| f.write result }
             File.open(cache_file, 'w') { |f| JSON.dump(metadata, f) }
           end
         end
