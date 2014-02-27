@@ -181,4 +181,92 @@ ArrowColor #DEADBE
     svg = File.read(target)
     expect(svg).to match /<path.*fill="#DEADBE"/
   end
+
+  it "should not regenerate images when source has not changed" do
+    code = <<-eos
+User -> (Start)
+User --> (Use the application) : Label
+
+:Main Admin: ---> (Use the application) : Another label
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+plantuml::plantuml.txt
+
+[plantuml, format="png"]
+----
+actor Foo1
+boundary Foo2
+Foo1 -> Foo2 : To boundary
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc)
+    b = d.find { |b| b.context == :image }
+    target = b.attributes['target']
+    mtime1 = File.mtime(target)
+
+    d = Asciidoctor.load StringIO.new(doc)
+
+    mtime2 = File.mtime(target)
+
+    expect(mtime2).to eq mtime1
+  end
+
+  it "should handle two block macros with the same source" do
+    code = <<-eos
+User -> (Start)
+User --> (Use the application) : Label
+
+:Main Admin: ---> (Use the application) : Another label
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+plantuml::plantuml.txt[]
+plantuml::plantuml.txt[]
+    eos
+
+    Asciidoctor.load StringIO.new(doc)
+    expect(File.exists?('plantuml.png')).to be_true
+  end
+
+  it "should respect target attribute in block macros" do
+    code = <<-eos
+User -> (Start)
+User --> (Use the application) : Label
+
+:Main Admin: ---> (Use the application) : Another label
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+plantuml::plantuml.txt["foobar"]
+plantuml::plantuml.txt["foobaz"]
+    eos
+
+    Asciidoctor.load StringIO.new(doc)
+    expect(File.exists?('foobar.png')).to be_true
+    expect(File.exists?('foobaz.png')).to be_true
+    expect(File.exists?('plantuml.png')).to be_false
+  end
 end
