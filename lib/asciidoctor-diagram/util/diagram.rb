@@ -39,7 +39,7 @@ module Asciidoctor
 
       def process_macro(parent, target, attributes)
         source = FileSource.new(File.expand_path(target, parent.document.attributes['docdir']))
-        attributes['target'] = File.basename(target, File.extname(target))
+        attributes['target'] ||= File.basename(target, File.extname(target))
 
         generate_block(parent, source, attributes)
       end

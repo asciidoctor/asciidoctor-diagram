@@ -243,4 +243,30 @@ plantuml::plantuml.txt[]
     Asciidoctor.load StringIO.new(doc)
     expect(File.exists?('plantuml.png')).to be_true
   end
+
+  it "should respect target attribute in block macros" do
+    code = <<-eos
+User -> (Start)
+User --> (Use the application) : Label
+
+:Main Admin: ---> (Use the application) : Another label
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+plantuml::plantuml.txt["foobar"]
+plantuml::plantuml.txt["foobaz"]
+    eos
+
+    Asciidoctor.load StringIO.new(doc)
+    expect(File.exists?('foobar.png')).to be_true
+    expect(File.exists?('foobaz.png')).to be_true
+    expect(File.exists?('plantuml.png')).to be_false
+  end
 end
