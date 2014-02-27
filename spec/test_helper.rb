@@ -30,13 +30,18 @@ end
 RSpec.configure do |c|
   TEST_DIR = 'testing'
 
-  c.before(:all) do
-    #FileUtils.rm_r TEST_DIR if Dir.exists? TEST_DIR
+  c.before(:suite) do
+    FileUtils.rm_r TEST_DIR if Dir.exists? TEST_DIR
     FileUtils.mkdir_p TEST_DIR
   end
 
   c.around(:each) do |example|
-    test_dir = Dir.mktmpdir 'test', File.expand_path(TEST_DIR)
+    metadata = example.metadata
+    group_dir = File.expand_path(metadata[:example_group][:full_description].gsub(/[^\w]+/, '_'), TEST_DIR)
+    Dir.mkdir(group_dir) unless Dir.exists?(group_dir)
+
+    test_dir = File.expand_path(metadata[:description].gsub(/[^\w]+/, '_'), group_dir)
+    Dir.mkdir(test_dir)
 
     old_wd = Dir.pwd
     Dir.chdir test_dir
