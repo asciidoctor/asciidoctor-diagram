@@ -106,7 +106,7 @@ module Asciidoctor
           metadata = {}
         end
 
-        if !File.exists?(image_file) || source.newer_than?(image_file) || metadata['checksum'] != source.checksum
+        if source.should_process?(image_file, metadata['checksum'])
           params = IMAGE_PARAMS[format]
 
           result = generator_info[:generator].call(source.code, parent)
@@ -151,12 +151,12 @@ module Asciidoctor
     end
 
     class Source
-      def newer_than?(image)
-        true
-      end
-
       def checksum
         @checksum ||= compute_checksum(code)
+      end
+
+      def should_process?(image_file, old_checksum)
+        !File.exists?(image_file) || (newer_than?(image_file) && old_checksum != checksum)
       end
 
       private
@@ -173,6 +173,10 @@ module Asciidoctor
         @reader = reader
       end
 
+      def newer_than?(image_file)
+        true
+      end
+
       def code
         @code ||= @reader.lines.join("\n")
       end
@@ -183,12 +187,12 @@ module Asciidoctor
         @file_name = file_name
       end
 
-      def code
-        @code ||= File.read(@file_name)
+      def newer_than?(image_file)
+        File.mtime(@file_name) > File.mtime(image_file)
       end
 
-      def newer_than?(image)
-        !File.exists?(image) || File.mtime(@file_name) > File.mtime(image)
+      def code
+        @code ||= File.read(@file_name)
       end
     end
   end

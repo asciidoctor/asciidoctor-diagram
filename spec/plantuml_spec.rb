@@ -213,6 +213,8 @@ Foo1 -> Foo2 : To boundary
     target = b.attributes['target']
     mtime1 = File.mtime(target)
 
+    sleep 1
+
     d = Asciidoctor.load StringIO.new(doc)
 
     mtime2 = File.mtime(target)
