@@ -98,29 +98,26 @@ module Asciidoctor
         image_name = "#{target || ('diag-' + source.checksum)}.#{format}"
         image_dir = File.expand_path(parent.document.attributes['imagesdir'] || '', parent.document.attributes['docdir'])
         image_file = File.expand_path(image_name, image_dir)
+        metadata_file = File.expand_path("#{image_name}.cache", image_dir)
 
-        if source.newer_than?(image_file)
-          cache_file = File.expand_path("#{image_name}.cache", image_dir)
+        if File.exists? metadata_file
+          metadata = File.open(metadata_file, 'r') { |f| JSON.load f }
+        else
+          metadata = {}
+        end
 
-          if File.exists? cache_file
-            metadata = File.open(cache_file, 'r') { |f| JSON.load f }
-          else
-            metadata = nil
-          end
+        if !File.exists?(image_file) || source.newer_than?(image_file) || metadata['checksum'] != source.checksum
+          params = IMAGE_PARAMS[format]
 
-          unless File.exists?(image_file) && metadata && metadata['checksum'] == source.checksum
-            params = IMAGE_PARAMS[format]
+          result = generator_info[:generator].call(source.code, parent)
 
-            result = generator_info[:generator].call(source.code, parent)
+          result.force_encoding(params[:encoding])
 
-            result.force_encoding(params[:encoding])
+          metadata = {'checksum' => source.checksum}
+          metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
 
-            metadata = {'checksum' => source.checksum}
-            metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
-
-            File.open(image_file, 'wb') { |f| f.write result }
-            File.open(cache_file, 'w') { |f| JSON.dump(metadata, f) }
-          end
+          File.open(image_file, 'wb') { |f| f.write result }
+          File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
         end
 
         attributes['target'] = image_name
