@@ -77,6 +77,14 @@ module Asciidoctor
         @root_package ||= Package.send(:create_package, nil)
         @root_package.send(meth, *args)
       end
+
+      def self.new_object(java_class, signature = nil, *args)
+        if signature
+          java_class.new_with_sig(signature, *args)
+        else
+          java_class.new(*args)
+        end
+      end
     end
   end
 end

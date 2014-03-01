@@ -14,8 +14,8 @@ module Asciidoctor
         args = ['-e', 'UTF-8']
 
         bytes = code.encode(Encoding::UTF_8).bytes.to_a
-        bis = Java.java.io.ByteArrayInputStream.new(Java.array_to_java_array(bytes, :byte))
-        bos = Java.java.io.ByteArrayOutputStream.new
+        bis = Java.new_object( Java.java.io.ByteArrayInputStream, '[B', Java.array_to_java_array(bytes, :byte))
+        bos = Java.new_object( Java.java.io.ByteArrayOutputStream )
         result_code = Java.org.stathissideris.ascii2image.core.CommandLineConverter.convert(Java.array_to_java_array(args, :string), bis, bos)
         bis.close
         bos.close
