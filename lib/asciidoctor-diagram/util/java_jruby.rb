@@ -31,6 +31,10 @@ module Asciidoctor
         load
         ::Java.send(meth)
       end
+
+      def self.new_object(java_class, signature = nil, *args)
+        java_class.new(*args)
+      end
     end
   end
 end

@@ -25,16 +25,17 @@ module Asciidoctor
         if config_file
           flags += ['-config', File.expand_path(config_file, parent.document.attributes['docdir'])]
         end
-
-        option = Java.net.sourceforge.plantuml.Option.new(Java.array_to_java_array(flags, :string))
-        source_reader = Java.net.sourceforge.plantuml.SourceStringReader.new(
-            Java.net.sourceforge.plantuml.preproc.Defines.new(),
-            code,
-            option.getConfig()
+        
+        option = Java.new_object( Java.net.sourceforge.plantuml.Option, '[Ljava.lang.String;', Java.array_to_java_array(flags, :string) )
+        source_reader = Java.new_object( Java.net.sourceforge.plantuml.SourceStringReader,
+                                         'Lnet.sourceforge.plantuml.preproc.Defines;Ljava.lang.String;Ljava.util.List;',
+                                         Java.new_object( Java.net.sourceforge.plantuml.preproc.Defines ),
+                                         code,
+                                         option.getConfig()
         )
 
-        bos = Java.java.io.ByteArrayOutputStream.new
-        ps = Java.java.io.PrintStream.new(bos)
+        bos = Java.new_object( Java.java.io.ByteArrayOutputStream )
+        ps = Java.new_object( Java.java.io.PrintStream, 'Ljava.io.OutputStream;', bos )
         source_reader.generateImage(ps, 0, option.getFileFormatOption())
         ps.close
         Java.string_from_java_bytes(bos.toByteArray)
