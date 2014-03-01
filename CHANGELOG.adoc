@@ -6,6 +6,27 @@ Enhancements::
 
   * Updated to Asciidoctor 1.5.0
 
+== 1.1.4
+
+Bug Fixes::
+
+  * Under CRuby in combination with certain Java versions a FileNotFoundException could be triggered due to incorrect
+    method selection by RJB
+
+== 1.1.3
+
+Bug Fixes::
+
+  * Image regeneration logic did not always correctly detect cases where images did not need to be updated
+
+== 1.1.2
+
+Bug Fixes::
+
+  * Fix corrupt PNG images on Windows
+  * Fix NoSuchMethodError in block macro processing when target image file already existed
+  * Respect target attribute in block macros
+
 == 1.1.1
 
 Bug Fixes::
