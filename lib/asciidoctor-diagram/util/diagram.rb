@@ -121,8 +121,10 @@ module Asciidoctor
         end
 
         attributes['target'] = image_name
-        attributes['width'] ||= metadata['width'] if metadata['width']
-        attributes['height'] ||= metadata['height'] if metadata['height']
+        if ('html5' == parent.document.attributes['backend'])
+          attributes['width'] ||= metadata['width'] if metadata['width']
+          attributes['height'] ||= metadata['height'] if metadata['height']
+        end
         attributes['alt'] ||= if (title_text = attributes['title'])
                                 title_text
                               elsif target
