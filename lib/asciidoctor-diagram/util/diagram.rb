@@ -96,7 +96,7 @@ module Asciidoctor
         target = attributes.delete('target')
 
         image_name = "#{target || ('diag-' + source.checksum)}.#{format}"
-        image_dir = File.expand_path(parent.document.attributes['imagesdir'] || '', parent.document.attributes['docdir'])
+        image_dir = File.expand_path(parent.document.attributes['imagesdir'] || '', parent.document.attributes['outdir'] || parent.document.attributes['docdir'])
         image_file = File.expand_path(image_name, image_dir)
         metadata_file = File.expand_path("#{image_name}.cache", image_dir)
 
