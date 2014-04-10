@@ -271,4 +271,29 @@ plantuml::plantuml.txt["foobaz"]
     expect(File.exists?('foobaz.png')).to be_true
     expect(File.exists?('plantuml.png')).to be_false
   end
+
+
+  it "should write files to outdir if set" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="svg"]
+----
+actor Foo1
+boundary Foo2
+Foo1 -> Foo2 : To boundary
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), {:attributes => {'outdir' => 'foo'}}
+    b = d.find { |b| b.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exists?(target)).to be_false
+    expect(File.exists?(File.expand_path(target, 'foo'))).to be_true
+  end
 end
