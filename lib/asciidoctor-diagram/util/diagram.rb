@@ -1,6 +1,7 @@
 require 'asciidoctor/extensions'
 require 'digest'
 require 'json'
+require 'fileutils'
 require_relative 'java'
 require_relative 'png'
 require_relative 'svg'
@@ -116,6 +117,7 @@ module Asciidoctor
           metadata = {'checksum' => source.checksum}
           metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
 
+          FileUtils.mkdir_p(image_dir) unless Dir.exists?(image_dir)
           File.open(image_file, 'wb') { |f| f.write result }
           File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
         end
