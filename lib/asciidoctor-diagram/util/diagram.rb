@@ -121,11 +121,11 @@ module Asciidoctor
         end
 
         attributes['target'] = image_name
-        if ('html5' == parent.document.attributes['backend'])
+        if /html/i =~ parent.document.attributes['backend']
           attributes['width'] ||= metadata['width'] if metadata['width']
           attributes['height'] ||= metadata['height'] if metadata['height']
         end
-        attributes['alt'] ||= if (title_text = attributes['title'])
+        attributes['alt'] ||= if title_text = attributes['title']
                                 title_text
                               elsif target
                                 (File.basename target, (File.extname target) || '').tr '_-', ' '
