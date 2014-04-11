@@ -1,6 +1,7 @@
 require 'asciidoctor/extensions'
 require 'digest'
 require 'json'
+require 'fileutils'
 require_relative 'java'
 require_relative 'png'
 require_relative 'svg'
@@ -96,7 +97,7 @@ module Asciidoctor
         target = attributes.delete('target')
 
         image_name = "#{target || ('diag-' + source.checksum)}.#{format}"
-        image_dir = File.expand_path(parent.document.attributes['imagesdir'] || '', parent.document.attributes['docdir'])
+        image_dir = File.expand_path(parent.document.attributes['imagesdir'] || '', parent.document.attributes['outdir'] || parent.document.attributes['docdir'])
         image_file = File.expand_path(image_name, image_dir)
         metadata_file = File.expand_path("#{image_name}.cache", image_dir)
 
@@ -116,6 +117,7 @@ module Asciidoctor
           metadata = {'checksum' => source.checksum}
           metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
 
+          FileUtils.mkdir_p(image_dir) unless Dir.exists?(image_dir)
           File.open(image_file, 'wb') { |f| f.write result }
           File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
         end
