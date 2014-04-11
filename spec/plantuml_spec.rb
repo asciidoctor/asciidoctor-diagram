@@ -271,4 +271,55 @@ plantuml::plantuml.txt["foobaz"]
     expect(File.exists?('foobaz.png')).to be_true
     expect(File.exists?('plantuml.png')).to be_false
   end
+
+
+  it "should write files to outdir if set" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="svg"]
+----
+actor Foo1
+boundary Foo2
+Foo1 -> Foo2 : To boundary
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), {:attributes => {'outdir' => 'foo'}}
+    b = d.find { |b| b.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exists?(target)).to be_false
+    expect(File.exists?(File.expand_path(target, 'foo'))).to be_true
+  end
+
+  it "should omit width/height attributes when generating docbook" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png"]
+----
+User -> (Start)
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5' }
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exists?(target)).to be_true
+
+    expect(b.attributes['width']).to be_nil
+    expect(b.attributes['height']).to be_nil
+  end
 end
