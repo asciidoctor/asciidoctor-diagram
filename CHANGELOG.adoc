@@ -1,5 +1,19 @@
 = Asciidoctor-diagram Changelog
 
+== 1.1.6
+
+Enhancements::
+
+  * Updated PlantUML to revision 8000 (23/06/2014)
+
+== 1.1.5
+
+Enhancements::
+
+  * Use the output directory (outdir attribute) as base directory if it's specified.
+  * Do not auto-generate width/height attributes when outputting to a non-HTML backend. This resolves issues with
+    oversized images in docbook output.
+
 == 1.1.4
 
 Bug Fixes::
