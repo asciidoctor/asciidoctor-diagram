@@ -8,6 +8,7 @@ rvm:
   - jruby
 
 install:
-  - pip install shaape
   - sudo apt-get install -qq graphviz
+  - sudo apt-get install -qq python-gtk2
+  - pip install shaape
   - bundle install
