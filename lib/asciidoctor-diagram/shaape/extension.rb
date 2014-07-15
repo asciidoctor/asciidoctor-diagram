@@ -9,12 +9,12 @@ module Asciidoctor
       private
 
       def register_formats
-        register_format(:png, :image) do |c|
-          shaape(c)
+        register_format(:png, :image) do |c, p|
+          shaape(p, c, :png)
         end
 
-        register_format(:svg, :image) do |c|
-          shaape(c)
+        register_format(:svg, :image) do |c, p|
+          shaape(p, c, :svg)
         end
       end
     end

@@ -9,6 +9,7 @@ require_relative '../lib/asciidoctor-diagram'
 require_relative '../lib/asciidoctor-diagram/ditaa/extension'
 require_relative '../lib/asciidoctor-diagram/graphviz/extension'
 require_relative '../lib/asciidoctor-diagram/plantuml/extension'
+require_relative '../lib/asciidoctor-diagram/shaape/extension'
 
 module Asciidoctor
   class AbstractBlock
