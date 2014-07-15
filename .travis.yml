@@ -1,4 +1,6 @@
 language: ruby
+python:
+  - 2.7
 rvm:
   - 1.9.3
   - 2.0.0
@@ -6,5 +8,6 @@ rvm:
   - jruby
 
 install:
+  - pip install shaape
   - sudo apt-get install -qq graphviz
   - bundle install
