@@ -31,7 +31,7 @@ plantuml::plantuml.txt[format="png"]
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -66,7 +66,7 @@ User --> (Use the application) : Label
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -99,7 +99,7 @@ User --> (Use the application) : Label
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match /\.svg/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -176,7 +176,7 @@ ArrowColor #DEADBE
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     svg = File.read(target)
     expect(svg).to match /<path.*fill="#DEADBE"/
@@ -243,7 +243,7 @@ plantuml::plantuml.txt[]
     eos
 
     Asciidoctor.load StringIO.new(doc)
-    expect(File.exists?('plantuml.png')).to be_true
+    expect(File.exists?('plantuml.png')).to be true
   end
 
   it "should respect target attribute in block macros" do
@@ -267,8 +267,8 @@ plantuml::plantuml.txt["foobaz"]
     eos
 
     Asciidoctor.load StringIO.new(doc)
-    expect(File.exists?('foobar.png')).to be_true
-    expect(File.exists?('foobaz.png')).to be_true
-    expect(File.exists?('plantuml.png')).to be_false
+    expect(File.exists?('foobar.png')).to be true
+    expect(File.exists?('foobaz.png')).to be true
+    expect(File.exists?('plantuml.png')).to be false
   end
 end

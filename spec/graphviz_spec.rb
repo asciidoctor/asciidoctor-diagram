@@ -35,7 +35,7 @@ graphviz::graphviz.txt[format="png"]
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -74,7 +74,7 @@ digraph foo {
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -111,7 +111,7 @@ digraph foo {
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match /\.svg$/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil

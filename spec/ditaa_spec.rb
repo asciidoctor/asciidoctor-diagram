@@ -36,7 +36,7 @@ ditaa::ditaa.txt[format="png"]
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -76,7 +76,7 @@ Doc Writer <doc@example.com>
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -116,6 +116,6 @@ Doc Writer <doc@example.com>
     expect(b).to_not be_nil
     target = b.attributes['target']
     expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be_true
+    expect(File.exists?(target)).to be true
   end
 end
