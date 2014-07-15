@@ -8,7 +8,7 @@ module Asciidoctor
     module ShaapeGenerator
       private
 
-      def shaape(code)
+      def shaape(parent, code, format)
         unless @shaape
           @shaape = parent.document.attributes['shaape']
           @shaape = ::Asciidoctor::Diagram.which('shaape') unless @shaape && File.executable?(@shaape)
@@ -19,8 +19,10 @@ module Asciidoctor
         begin
           target_file.close
 
-          args = [@shaape, '-o', target_file.path, '-']
-          Kernel.system(*args, :in => StringIO.new(code, "r"))
+          args = [@shaape, '-o', target_file.path, '-t', format.to_s, '-']
+          IO.popen(args, "w") do |io|
+            io.write code
+          end
           result_code = $?
 
           raise "Shaape image generation failed" unless result_code == 0
