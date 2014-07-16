@@ -1,4 +1,5 @@
 require_relative '../util/java'
+require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
@@ -11,7 +12,7 @@ module Asciidoctor
       def plantuml(parent, code, tag, *flags)
         unless @graphvizdot
           @graphvizdot = parent.document.attributes['graphvizdot']
-          @graphvizdot = which('dot') unless @graphvizdot && File.executable?(@graphvizdot)
+          @graphvizdot = ::Asciidoctor::Diagram.which('dot') unless @graphvizdot && File.executable?(@graphvizdot)
           raise "Could not find the Graphviz 'dot' executable in PATH; add it to the PATH or specify its location using the 'graphvizdot' document attribute" unless @graphvizdot
         end
 
@@ -39,17 +40,6 @@ module Asciidoctor
         source_reader.generateImage(ps, 0, option.getFileFormatOption())
         ps.close
         Java.string_from_java_bytes(bos.toByteArray)
-      end
-
-      def which(cmd)
-        exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-        ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-          exts.each { |ext|
-            exe = File.join(path, "#{cmd}#{ext}")
-            return exe if File.executable? exe
-          }
-        end
-        nil
       end
     end
   end
