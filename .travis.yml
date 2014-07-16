@@ -10,5 +10,5 @@ rvm:
 install:
   - sudo apt-get install -qq graphviz
   - sudo apt-get install -qq python-gtk2
-  - pip install shaape
+  - sudo pip install shaape
   - bundle install
