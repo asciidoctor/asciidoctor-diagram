@@ -6,6 +6,13 @@ Enhancements::
 
   * Updated to Asciidoctor 1.5.0
 
+== 1.1.6
+
+Enhancements::
+
+  * Updated PlantUML to revision 8000 (23/06/2014)
+  * Add support for Shaape diagrams (requires Shaape to be installed separately)
+
 == 1.1.5
 
 Enhancements::
