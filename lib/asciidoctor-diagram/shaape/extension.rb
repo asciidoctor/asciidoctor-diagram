@@ -23,7 +23,7 @@ module Asciidoctor
       include DiagramProcessorBase
       include ShaapeBase
 
-      def initialize(context, document, opts = {})
+      def initialize name = nil, config = {}
         super
         register_formats
       end
@@ -33,7 +33,7 @@ module Asciidoctor
       include DiagramProcessorBase
       include ShaapeBase
 
-      def initialize(context, document, opts = {})
+      def initialize name = nil, config = {}
         super
         register_formats
       end
