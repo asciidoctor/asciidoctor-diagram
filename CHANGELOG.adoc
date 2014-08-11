@@ -4,7 +4,7 @@
 
 Enhancements::
 
-  * Updated PlantUML to revision 8000 (23/06/2014)
+  * Updated PlantUML to revision 8002 (23/07U/2014)
   * Add support for Shaape diagrams (requires Shaape to be installed separately)
 
 == 1.1.5
