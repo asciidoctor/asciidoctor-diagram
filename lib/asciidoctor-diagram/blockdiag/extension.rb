@@ -4,7 +4,7 @@ require_relative '../util/diagram'
 module Asciidoctor
   module Diagram
     ['BlockDiag', 'SeqDiag', 'ActDiag', 'NwDiag', 'RackDiag', 'PacketDiag'].each do |tool|
-      DiagramProcessor.define_processors(tool) do
+      define_processors(tool) do
         [:png, :svg].each do |f|
           register_format(f, :image) do |c, p|
             CliGenerator.generate(tool.downcase, p, c) do |tool_path, output_path|

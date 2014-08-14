@@ -8,6 +8,74 @@ require_relative 'svg'
 
 module Asciidoctor
   module Diagram
+    def self.define_processors(name, &init)
+      block = Class.new(Asciidoctor::Extensions::BlockProcessor) do
+        class << self
+          include FormatRegistry
+        end
+        include DiagramProcessor
+
+        option :pos_attrs, ['target', 'format']
+        option :contexts, [:listing, :literal, :open]
+        option :content_model, :simple
+
+        def process(parent, reader, attributes)
+          generate_block(parent, ReaderSource.new(reader), attributes)
+        end
+
+        self.instance_eval &init
+      end
+
+      block_macro = Class.new(Asciidoctor::Extensions::BlockMacroProcessor) do
+        class << self
+          include FormatRegistry
+        end
+        include DiagramProcessor
+
+        option :pos_attrs, ['target', 'format']
+
+        def process(parent, target, attributes)
+          source = FileSource.new(File.expand_path(target, parent.document.attributes['docdir']))
+          attributes['target'] ||= File.basename(target, File.extname(target))
+
+          generate_block(parent, source, attributes)
+        end
+
+        self.instance_eval &init
+      end
+
+      Asciidoctor::Diagram.const_set("#{name}Block", block)
+      Asciidoctor::Diagram.const_set("#{name}BlockMacro", block_macro)
+    end
+
+    module FormatRegistry
+      #
+      # Registers a supported format. The first registered format becomes the default format for the block processor.
+      #
+      # +format+ is a symbol with the format name
+      # +type+ is a symbol and should be either :image or :literal
+      # +block+ is a block that produces the diagrams from code. The block receives the parent asciidoc block and the diagram code as arguments
+      #
+      def register_format(format, type, &block)
+        unless @default_format
+          @default_format = format
+        end
+
+        formats[format] = {
+            :type => type,
+            :generator => block
+        }
+      end
+
+      def formats
+        @formats ||= {}
+      end
+
+      def default_format
+        @default_format
+      end
+    end
+
     module DiagramProcessor
       IMAGE_PARAMS = {
           :svg => {
@@ -19,72 +87,6 @@ module Asciidoctor
               :decoder => PNG
           }
       }
-
-      module ClassMethods
-        #
-        # Registers a supported format. The first registered format becomes the default format for the block processor.
-        #
-        # +format+ is a symbol with the format name
-        # +type+ is a symbol and should be either :image or :literal
-        # +block+ is a block that produces the diagrams from code. The block receives the parent asciidoc block and the diagram code as arguments
-        #
-        def register_format(format, type, &block)
-          unless @default_format
-            @default_format = format
-          end
-
-          formats[format] = {
-              :type => type,
-              :generator => block
-          }
-        end
-
-        def formats
-          @formats ||= {}
-        end
-
-        def default_format
-          @default_format
-        end
-      end
-
-      def self.included base
-        base.extend ClassMethods
-      end
-
-      def self.define_processors(name, &init)
-        block = Class.new(Asciidoctor::Extensions::BlockProcessor) do
-          include DiagramProcessor
-
-          option :pos_attrs, ['target', 'format']
-          option :contexts, [:listing, :literal, :open]
-          option :content_model, :simple
-
-          def process(parent, reader, attributes)
-            generate_block(parent, ReaderSource.new(reader), attributes)
-          end
-
-          self.instance_eval &init
-        end
-
-        block_macro = Class.new(Asciidoctor::Extensions::BlockMacroProcessor) do
-          include DiagramProcessor
-
-          option :pos_attrs, ['target', 'format']
-
-          def process(parent, target, attributes)
-            source = FileSource.new(File.expand_path(target, parent.document.attributes['docdir']))
-            attributes['target'] ||= File.basename(target, File.extname(target))
-
-            generate_block(parent, source, attributes)
-          end
-
-          self.instance_eval &init
-        end
-
-        Asciidoctor::Diagram.const_set("#{name}Block", block)
-        Asciidoctor::Diagram.const_set("#{name}BlockMacro", block_macro)
-      end
 
       private
 

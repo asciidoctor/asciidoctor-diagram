@@ -3,7 +3,7 @@ require_relative 'generator'
 
 module Asciidoctor
   module Diagram
-    DiagramProcessor.define_processors('PlantUml') do
+    define_processors('PlantUml') do
       def config_args(parent)
         config_args = []
         config = parent.document.attributes['plantumlconfig']
