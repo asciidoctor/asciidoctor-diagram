@@ -1,40 +1,17 @@
+require_relative '../util/cli_generator'
 require_relative '../util/diagram'
-require_relative '../plantuml/generator'
 
 module Asciidoctor
   module Diagram
-    module GraphvizBase
-      include PlantUmlGenerator
-
-      private
-
-      def register_formats
-        register_format(:png, :image) do |c, p|
-          plantuml(p, c, 'dot')
+    module Diagram
+      DiagramProcessor.define_processors('Graphviz') do
+        [:png, :svg].each do |f|
+          register_format(f, :image) do |c, p|
+            CliGenerator.generate('dot', p, c) do |tool_path, output_path|
+              [tool_path, "-o#{output_path}", "-T#{f.to_s}"]
+            end
+          end
         end
-        register_format(:svg, :image) do |c, p|
-          plantuml(p, c, 'dot', '-tsvg')
-        end
-      end
-    end
-
-    class GraphvizBlock < Asciidoctor::Extensions::BlockProcessor
-      include DiagramProcessorBase
-      include GraphvizBase
-
-      def initialize(context, document, opts = {})
-        super
-        register_formats()
-      end
-    end
-
-    class GraphvizBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
-      include DiagramProcessorBase
-      include GraphvizBase
-
-      def initialize(context, document, opts = {})
-        super
-        register_formats()
       end
     end
   end

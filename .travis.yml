@@ -10,5 +10,6 @@ rvm:
 install:
   - sudo apt-get install -qq graphviz
   - sudo apt-get install -qq python-gtk2
+  - sudo pip install blockdiag actdiag seqdiag nwdiag
   - sudo pip install shaape
   - bundle install

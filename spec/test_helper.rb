@@ -6,6 +6,7 @@ require 'stringio'
 require 'tmpdir'
 
 require_relative '../lib/asciidoctor-diagram'
+require_relative '../lib/asciidoctor-diagram/blockdiag/extension'
 require_relative '../lib/asciidoctor-diagram/ditaa/extension'
 require_relative '../lib/asciidoctor-diagram/graphviz/extension'
 require_relative '../lib/asciidoctor-diagram/plantuml/extension'
