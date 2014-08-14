@@ -11,6 +11,12 @@ module Asciidoctor
             height = h[:value].to_i * to_px_factor(h[:unit])
             return [width.to_i, height.to_i]
           end
+
+          if v = VIEWBOX_REGEX.match(start_tag)
+            width = v[:width]
+            height = v[:height]
+            return [width.to_i, height.to_i]
+          end
         end
 
         nil
@@ -21,6 +27,7 @@ module Asciidoctor
       START_TAG_REGEX = /<svg[^>]*>/
       WIDTH_REGEX = /width="(?<value>\d+)(?<unit>[a-zA-Z]+)"/
       HEIGHT_REGEX = /height="(?<value>\d+)(?<unit>[a-zA-Z]+)"/
+      VIEWBOX_REGEX = /viewBox="\d+ \d+ (?<width>\d+) (?<height>\d+)"/
 
       def self.to_px_factor(unit)
         case unit

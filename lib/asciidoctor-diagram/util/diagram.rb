@@ -8,7 +8,7 @@ require_relative 'svg'
 
 module Asciidoctor
   module Diagram
-    module DiagramProcessorBase
+    module DiagramProcessor
       IMAGE_PARAMS = {
           :svg => {
               :encoding => Encoding::UTF_8,
@@ -20,42 +20,81 @@ module Asciidoctor
           }
       }
 
-      def self.included(base)
-        base.option :pos_attrs, ['target', 'format']
-
-        if base.ancestors.include?(Asciidoctor::Extensions::BlockProcessor)
-          base.option :contexts, [:listing, :literal, :open]
-          base.option :content_model, :simple
-
-          base.instance_eval do
-            alias_method :process, :process_block
+      module ClassMethods
+        #
+        # Registers a supported format. The first registered format becomes the default format for the block processor.
+        #
+        # +format+ is a symbol with the format name
+        # +type+ is a symbol and should be either :image or :literal
+        # +block+ is a block that produces the diagrams from code. The block receives the parent asciidoc block and the diagram code as arguments
+        #
+        def register_format(format, type, &block)
+          unless @default_format
+            @default_format = format
           end
-        else
-          base.instance_eval do
-            alias_method :process, :process_macro
-          end
+
+          formats[format] = {
+              :type => type,
+              :generator => block
+          }
         end
 
+        def formats
+          @formats ||= {}
+        end
+
+        def default_format
+          @default_format
+        end
       end
 
-      def process_macro(parent, target, attributes)
-        source = FileSource.new(File.expand_path(target, parent.document.attributes['docdir']))
-        attributes['target'] ||= File.basename(target, File.extname(target))
-
-        generate_block(parent, source, attributes)
+      def self.included base
+        base.extend ClassMethods
       end
 
-      def process_block(parent, reader, attributes)
-        generate_block(parent, ReaderSource.new(reader), attributes)
+      def self.define_processors(name, &init)
+        block = Class.new(Asciidoctor::Extensions::BlockProcessor) do
+          include DiagramProcessor
+
+          option :pos_attrs, ['target', 'format']
+          option :contexts, [:listing, :literal, :open]
+          option :content_model, :simple
+
+          def process(parent, reader, attributes)
+            generate_block(parent, ReaderSource.new(reader), attributes)
+          end
+
+          self.instance_eval &init
+        end
+
+        block_macro = Class.new(Asciidoctor::Extensions::BlockMacroProcessor) do
+          include DiagramProcessor
+
+          option :pos_attrs, ['target', 'format']
+
+          def process(parent, target, attributes)
+            source = FileSource.new(File.expand_path(target, parent.document.attributes['docdir']))
+            attributes['target'] ||= File.basename(target, File.extname(target))
+
+            generate_block(parent, source, attributes)
+          end
+
+          self.instance_eval &init
+        end
+
+        Asciidoctor::Diagram.const_set("#{name}Block", block)
+        Asciidoctor::Diagram.const_set("#{name}BlockMacro", block_macro)
       end
+
+      private
 
       def generate_block(parent, source, attributes)
-        format = attributes.delete('format') || @default_format
+        format = attributes.delete('format') || self.class.default_format
         format = format.to_sym if format.respond_to?(:to_sym)
 
         raise "Format undefined" unless format
 
-        generator_info = formats[format]
+        generator_info = self.class.formats[format]
 
         raise "#{self.class.name} does not support output format #{format}" unless generator_info
 
@@ -67,30 +106,6 @@ module Asciidoctor
           else
             raise "Unsupported output format: #{format}"
         end
-      end
-
-      private
-
-      #
-      # Registers a supported format. The first registered format becomes the default format for the block processor.
-      #
-      # +format+ is a symbol with the format name
-      # +type+ is a symbol and should be either :image or :literal
-      # +block+ is a block that produces the diagrams from code. The block receives the parent asciidoc block and the diagram code as arguments
-      #
-      def register_format(format, type, &block)
-        unless @default_format
-          @default_format = format
-        end
-
-        formats[format] = {
-            :type => type,
-            :generator => block
-        }
-      end
-
-      def formats
-        @formats ||= {}
       end
 
       def create_image_block(parent, source, attributes, format, generator_info)

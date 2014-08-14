@@ -9,7 +9,7 @@ module Asciidoctor
       PLANTUML_JAR_PATH = File.expand_path File.join('../..', 'plantuml.jar'), File.dirname(__FILE__)
       Java.classpath << PLANTUML_JAR_PATH
 
-      def plantuml(parent, code, tag, *flags)
+      def self.plantuml(parent, code, tag, *flags)
         unless @graphvizdot
           @graphvizdot = parent.document.attributes['graphvizdot']
           @graphvizdot = ::Asciidoctor::Diagram.which('dot') unless @graphvizdot && File.executable?(@graphvizdot)
