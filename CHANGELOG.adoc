@@ -11,6 +11,8 @@ Enhancements::
   * Add support for Seqdiag diagrams (requires Seqdiag to be installed separately)
   * Add support for Nwdiag diagrams (requires Nwdiag to be installed separately)
 
+Bug Fixes::
+  * Issue #38: Resolved Graphviz syntax errors with certain diagrams
 
 == 1.1.5
 
