@@ -27,7 +27,7 @@ module Asciidoctor
       end
     end
 
-    DiagramProcessor.define_processors('Ditaa') do
+    define_processors('Ditaa') do
       register_format(:png, :image) do |c|
         DitaaGenerator.ditaa(c)
       end
