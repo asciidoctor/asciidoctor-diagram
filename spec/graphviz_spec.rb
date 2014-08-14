@@ -131,4 +131,29 @@ Doc Writer <doc@example.com>
 
     expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
   end
+
+  it "should support single line digraphs" do
+    doc = <<-eos
+= Hello, graphviz!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[graphviz]
+----
+digraph g { rankdir=LR; Text->Graphviz->Image }
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc)
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(File.exists?(target)).to be true
+  end
 end
