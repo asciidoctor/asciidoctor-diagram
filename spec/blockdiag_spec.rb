@@ -1,27 +1,23 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagram::GraphvizBlockMacro do
-  it "should generate PNG images when format is set to 'png'" do
-    code = <<-eos
-digraph foo {
-  node [style=rounded]
-  node1 [shape=box]
-  node2 [fillcolor=yellow, style="rounded,filled", shape=diamond]
-  node3 [shape=record, label="{ a | b | c }"]
-
-  node1 -> node2 -> node3
+code = <<-eos
+blockdiag {
+   A -> B -> C -> D;
+   A -> E -> F -> G;
 }
-    eos
+eos
 
-    File.write('graphviz.txt', code)
+describe Asciidoctor::Diagram::BlockDiagBlockMacro do
+  it "should generate PNG images when format is set to 'png'" do
+    File.write('blockdiag.txt', code)
 
     doc = <<-eos
-= Hello, graphviz!
+= Hello, BlockDiag!
 Doc Writer <doc@example.com>
 
 == First Section
 
-graphviz::graphviz.txt[format="png"]
+blockdiag::blockdiag.txt[format="png"]
     eos
 
     d = Asciidoctor.load StringIO.new(doc)
@@ -42,24 +38,17 @@ graphviz::graphviz.txt[format="png"]
   end
 end
 
-describe Asciidoctor::Diagram::GraphvizBlock do
+describe Asciidoctor::Diagram::BlockDiagBlock do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
-= Hello, graphviz!
+= Hello, BlockDiag!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[graphviz, format="png"]
+[blockdiag, format="png"]
 ----
-digraph foo {
-  node [style=rounded]
-  node1 [shape=box]
-  node2 [fillcolor=yellow, style="rounded,filled", shape=diamond]
-  node3 [shape=record, label="{ a | b | c }"]
-
-  node1 -> node2 -> node3
-}
+#{code}
 ----
     eos
 
@@ -82,21 +71,14 @@ digraph foo {
 
   it "should generate SVG images when format is set to 'svg'" do
     doc = <<-eos
-= Hello, graphviz!
+= Hello, BlockDiag!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[graphviz, format="svg"]
+[blockdiag, format="svg"]
 ----
-digraph foo {
-  node [style=rounded]
-  node1 [shape=box]
-  node2 [fillcolor=yellow, style="rounded,filled", shape=diamond]
-  node3 [shape=record, label="{ a | b | c }"]
-
-  node1 -> node2 -> node3
-}
+#{code}
 ----
     eos
 
@@ -110,7 +92,7 @@ digraph foo {
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.svg$/
+    expect(target).to match /\.svg/
     expect(File.exists?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
@@ -119,12 +101,12 @@ digraph foo {
 
   it "should raise an error when when format is set to an invalid value" do
     doc = <<-eos
-= Hello, graphviz!
+= Hello, BlockDiag!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[graphviz, format="foobar"]
+[blockdiag, format="foobar"]
 ----
 ----
     eos
@@ -132,28 +114,70 @@ Doc Writer <doc@example.com>
     expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
   end
 
-  it "should support single line digraphs" do
+  it "should not regenerate images when source has not changed" do
+    File.write('blockdiag.txt', code)
+
     doc = <<-eos
-= Hello, graphviz!
+= Hello, BlockDiag!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[graphviz]
+blockdiag::blockdiag.txt
+
+[blockdiag, format="png"]
 ----
-digraph g { rankdir=LR; Text->Graphviz->Image }
+#{code}
 ----
     eos
 
     d = Asciidoctor.load StringIO.new(doc)
-    expect(d).to_not be_nil
-
     b = d.find { |b| b.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
     target = b.attributes['target']
-    expect(File.exists?(target)).to be true
+    mtime1 = File.mtime(target)
+
+    sleep 1
+
+    d = Asciidoctor.load StringIO.new(doc)
+
+    mtime2 = File.mtime(target)
+
+    expect(mtime2).to eq mtime1
+  end
+
+  it "should handle two block macros with the same source" do
+    File.write('blockdiag.txt', code)
+
+    doc = <<-eos
+= Hello, BlockDiag!
+Doc Writer <doc@example.com>
+
+== First Section
+
+blockdiag::blockdiag.txt[]
+blockdiag::blockdiag.txt[]
+    eos
+
+    Asciidoctor.load StringIO.new(doc)
+    expect(File.exists?('blockdiag.png')).to be true
+  end
+
+  it "should respect target attribute in block macros" do
+    File.write('blockdiag.txt', code)
+
+    doc = <<-eos
+= Hello, BlockDiag!
+Doc Writer <doc@example.com>
+
+== First Section
+
+blockdiag::blockdiag.txt["foobar"]
+blockdiag::blockdiag.txt["foobaz"]
+    eos
+
+    Asciidoctor.load StringIO.new(doc)
+    expect(File.exists?('foobar.png')).to be true
+    expect(File.exists?('foobaz.png')).to be true
+    expect(File.exists?('blockdiag.png')).to be false
   end
 end
