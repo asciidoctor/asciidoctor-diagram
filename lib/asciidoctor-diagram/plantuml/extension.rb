@@ -3,41 +3,25 @@ require_relative 'generator'
 
 module Asciidoctor
   module Diagram
-    module PlantUmlBase
-      include PlantUmlGenerator
+    DiagramProcessor.define_processors('PlantUml') do
+      def config_args(parent)
+        config_args = []
+        config = parent.document.attributes['plantumlconfig']
+        if config
+          config_args += ['-config', File.expand_path(config, parent.document.attributes['docdir'])]
+        end
 
-      private
-
-      def register_formats()
-        register_format(:png, :image) do |c, p|
-          plantuml(p, c, 'uml')
-        end
-        register_format(:svg, :image) do |c, p|
-          plantuml(p, c, 'uml', '-tsvg')
-        end
-        register_format(:txt, :literal) do |c, p|
-          plantuml(p, c, 'uml', '-tutxt')
-        end
+        config_args
       end
-    end
 
-    class PlantUmlBlock < Asciidoctor::Extensions::BlockProcessor
-      include DiagramProcessorBase
-      include PlantUmlBase
-
-      def initialize name = nil, config = {}
-        super
-        register_formats()
+      register_format(:png, :image) do |c, p|
+        PlantUmlGenerator.plantuml(p, c, 'uml', *config_args(p))
       end
-    end
-
-    class PlantUmlBlockMacro < Asciidoctor::Extensions::BlockMacroProcessor
-      include DiagramProcessorBase
-      include PlantUmlBase
-
-      def initialize name = nil, config = {}
-        super
-        register_formats()
+      register_format(:svg, :image) do |c, p|
+        PlantUmlGenerator.plantuml(p, c, 'uml', '-tsvg', *config_args(p))
+      end
+      register_format(:txt, :literal) do |c, p|
+        PlantUmlGenerator.plantuml(p, c, 'uml', '-tutxt', *config_args(p))
       end
     end
   end
