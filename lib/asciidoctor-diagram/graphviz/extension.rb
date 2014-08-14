@@ -1,15 +1,16 @@
+require_relative '../util/cli_generator'
 require_relative '../util/diagram'
-require_relative '../plantuml/generator'
 
 module Asciidoctor
   module Diagram
     module Diagram
       DiagramProcessor.define_processors('Graphviz') do
-        register_format(:png, :image) do |c, p|
-          PlantUmlGenerator.plantuml(p, c, 'dot')
-        end
-        register_format(:svg, :image) do |c, p|
-          PlantUmlGenerator.plantuml(p, c, 'dot', '-tsvg')
+        [:png, :svg].each do |f|
+          register_format(f, :image) do |c, p|
+            CliGenerator.generate('dot', p, c) do |tool_path, output_path|
+              [tool_path, "-o#{output_path}", "-T#{f.to_s}"]
+            end
+          end
         end
       end
     end
