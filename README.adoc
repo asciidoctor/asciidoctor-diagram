@@ -23,6 +23,8 @@ Or install it yourself as:
 
  $ gem install asciidoctor-diagram
 
+PlantUML and Graphviz diagrams require the Graphviz `dot` tool to be installed as well.
+
 == Usage
 
 === Enable the extensions
