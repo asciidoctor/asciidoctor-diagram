@@ -2,7 +2,14 @@
 Pepijn Van_Eeckhoudt
 
 Asciidoctor Diagram is a set of extensions for http://asciidoctor.org[Asciidoctor], the Ruby-based AsciiDoc processor.
-These extensions allow you to embed diagrams written using the http://plantuml.sourceforge.net[PlantUML] or Ditaa syntax inside your AsciiDoc documents.
+These extensions allow you to embed plain text diagrams inside your AsciiDoc documents using one of the following syntaxes:
+
+- http://plantuml.sourceforge.net[PlantUML]
+- http://ditaa.sourceforge.net[Ditaa].
+- https://github.com/christiangoltz/shaape[Shaape]
+- http://blockdiag.com[BlockDiag, SeqDiag, ActDiag, NwDiag]
+- http://www.graphviz.org/content/dot-language[GraphViz DOT]
+
 The extension takes care of running the diagram processor to generate the images from the input text and insert them into the rendered document.
 
 This gem was inspired by the https://code.google.com/p/asciidoc-plantuml/[AsciiDoc PlantUML filter] for AsciiDoc Python.
@@ -23,7 +30,13 @@ Or install it yourself as:
 
  $ gem install asciidoctor-diagram
 
-PlantUML and Graphviz diagrams require the Graphviz `dot` tool to be installed as well.
+=== Additional Requirements
+
+Certain diagram types require other tools to be installed seperately.
+
+- PlantUML and Graphviz: the Graphviz `dot` tool.
+- Shaape: the Shaape Python package
+- Block/Seq/Act/Nw diag: the block/seq/act/nw diag Python packages
 
 == Usage
 
@@ -34,9 +47,11 @@ In order to use extensions you should need to invoke Asciidoctor via the http://
 In your script you can then either require one or more of the following files:
 
 . `asciidoctor-diagram`: to enable all the diagramming extensions
+. `asciidoctor-diagram/blockdiag`: to enable the block/act/seq/nw diag extension
 . `asciidoctor-diagram/ditaa`: to enable the ditaa extension
 . `asciidoctor-diagram/graphviz`: to enable the graphviz extension
 . `asciidoctor-diagram/plantuml`: to enable the plantuml extension
+. `asciidoctor-diagram/shaape`: to enable the shaape extension
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 If you need more fine grained control over when the extensions are enabled or not, `asciidoctor-diagram/ditaa/extension`, `asciidoctor-diagram/graphviz/extension` and `asciidoctor-diagram/plantuml/extension` can be used instead.
@@ -45,7 +60,14 @@ You should then register the extensions yourself at the appropriate time using t
 
 === Using the extensions
 
-Once the extensions are enabled support for `ditaa`, `graphviz` and `plantuml` blocks becomes available for your documents.
+Once the extensions are enabled the following block types becomes available for your documents:
+
+- `blockdiag`, `actdiag`, `seqdiag`, `nwdiag`, `rackdiag` and `packetdiag`
+- `ditaa`
+- `graphviz`
+- `plantuml`
+- `shaape`
+
 Detailed descriptions of the supported syntax inside these blocks is available on the http://plantuml.sourceforge.net/[PlantUML], http://www.graphviz.org/content/dot-language[Graphviz] and http://ditaa.sourceforge.net/[ditaa] websites.
 
 At this point you can start adding diagrams to your application, like the following example:
@@ -67,7 +89,7 @@ DiagramBlock <|-- PlantUmlBlock
 The diagram blocks support the following attributes:
 
 . `target` (or 2nd position): the basename of the file to generate. If not specified an auto-generated name will be used.
-. `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz supports `png` and `svg`. Ditaa only supports `png`.
+. `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
 
 == Contributing
 
