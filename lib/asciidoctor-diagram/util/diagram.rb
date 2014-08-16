@@ -114,9 +114,9 @@ module Asciidoctor
         target = attributes.delete('target')
 
         image_name = "#{target || ('diag-' + source.checksum)}.#{format}"
-        image_dir = File.expand_path(parent.document.attributes['imagesdir'] || '', parent.document.attributes['outdir'] || parent.document.attributes['docdir'])
-        image_file = File.expand_path(image_name, image_dir)
-        metadata_file = File.expand_path("#{image_name}.cache", image_dir)
+        image_dir = parent.normalize_system_path parent.document.attr 'imagesdir'
+        image_file = parent.normalize_system_path image_name, image_dir
+        metadata_file = parent.normalize_system_path "#{image_name}.cache", image_dir
 
         if File.exists? metadata_file
           metadata = File.open(metadata_file, 'r') { |f| JSON.load f }
@@ -161,7 +161,7 @@ module Asciidoctor
         result = generator_info[:generator].call(source.code, parent)
 
         result.force_encoding(Encoding::UTF_8)
-        Asciidoctor::Block.new parent, :literal, :code => result, :attributes => attributes
+        Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
       end
 
       def code_checksum(code)
