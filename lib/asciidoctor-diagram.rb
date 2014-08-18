@@ -1,4 +1,5 @@
 require 'asciidoctor-diagram/blockdiag'
+require 'asciidoctor-diagram/cacoo'
 require 'asciidoctor-diagram/ditaa'
 require 'asciidoctor-diagram/graphviz'
 require 'asciidoctor-diagram/plantuml'

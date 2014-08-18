@@ -63,6 +63,7 @@ You should then register the extensions yourself at the appropriate time using t
 Once the extensions are enabled the following block types becomes available for your documents:
 
 - `blockdiag`, `actdiag`, `seqdiag`, `nwdiag`, `rackdiag` and `packetdiag`
+- `cacoo`
 - `ditaa`
 - `graphviz`
 - `plantuml`
@@ -90,6 +91,33 @@ The diagram blocks support the following attributes:
 
 . `target` (or 2nd position): the basename of the file to generate. If not specified an auto-generated name will be used.
 . `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
+
+==== Adding a Cacoo diagram to your document
+
+You must have an account of https://cacoo.com/[Cacoo].
+You need to create an Caoo API Key at https://cacoo.com/profile/api[Cacoo API key config page]
+and set it to the environment variable `CACOO_API_KEY`.
+
+If you use bash or zsh, you can set it like the following:
+
+----
+export CACOO_API_KEY=_Your_Cacoo_API_key_here_
+----
+
+
+When you would like to add a diagram on Cacoo, you need the diagram ID.
+For example, if your diagram's URL is https://cacoo.com/diagrams/gJpqSQjwc7GFDAaI,
+your diagram ID is gJpqSQjwc7GFDAaI.
+
+You can add a diagram to your application, like the following example:
+
+----
+["cacoo"]
+---------------------------------------------------------------------
+_Your_diagram_ID_here_
+---------------------------------------------------------------------
+----
+
 
 == Contributing
 
