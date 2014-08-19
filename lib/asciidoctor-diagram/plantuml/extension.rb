@@ -2,13 +2,13 @@ require_relative '../util/diagram'
 
 module Asciidoctor
   module Diagram
-    module PlantUmlGenerator
+    module PlantUml
       private
 
       PLANTUML_JAR_PATH = File.expand_path File.join('../..', 'plantuml.jar'), File.dirname(__FILE__)
       Java.classpath << PLANTUML_JAR_PATH
 
-      def self.plantuml(parent, code, tag, *flags)
+      def plantuml(parent, code, tag, *flags)
         unless @graphvizdot
           @graphvizdot = parent.document.attributes['dot']
           @graphvizdot = ::Asciidoctor::Diagram.which('dot') unless @graphvizdot && File.executable?(@graphvizdot)
@@ -40,9 +40,7 @@ module Asciidoctor
         ps.close
         Java.string_from_java_bytes(bos.toByteArray)
       end
-    end
 
-    define_processors('PlantUml') do
       def config_args(parent)
         config_args = []
         config = parent.document.attributes['plantumlconfig']
@@ -53,15 +51,25 @@ module Asciidoctor
         config_args
       end
 
-      register_format(:png, :image) do |c, p|
-        PlantUmlGenerator.plantuml(p, c, 'uml', *config_args(p))
+      def self.included(mod)
+        mod.register_format(:png, :image) do |c, p|
+          plantuml(p, c, 'uml', *config_args(p))
+        end
+        mod.register_format(:svg, :image) do |c, p|
+          plantuml(p, c, 'uml', '-tsvg', *config_args(p))
+        end
+        mod.register_format(:txt, :literal) do |c, p|
+          plantuml(p, c, 'uml', '-tutxt', *config_args(p))
+        end
       end
-      register_format(:svg, :image) do |c, p|
-        PlantUmlGenerator.plantuml(p, c, 'uml', '-tsvg', *config_args(p))
-      end
-      register_format(:txt, :literal) do |c, p|
-        PlantUmlGenerator.plantuml(p, c, 'uml', '-tutxt', *config_args(p))
-      end
+    end
+
+    class PlantUmlBlockProcessor < DiagramBlockProcessor
+      include PlantUml
+    end
+
+    class PlantUmlBlockMacroProcessor < DiagramBlockMacroProcessor
+      include PlantUml
     end
   end
 end

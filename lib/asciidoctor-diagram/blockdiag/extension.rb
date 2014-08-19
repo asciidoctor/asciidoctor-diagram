@@ -3,6 +3,19 @@ require_relative '../util/diagram'
 
 module Asciidoctor
   module Diagram
+    def self.define_processors(name, &init)
+      block = Class.new(DiagramBlockProcessor) do
+        self.instance_eval &init
+      end
+      ::Asciidoctor::Diagram.const_set("#{name}BlockProcessor", block)
+
+      block_macro = Class.new(DiagramBlockMacroProcessor) do
+        self.instance_eval &init
+      end
+
+      ::Asciidoctor::Diagram.const_set("#{name}BlockMacroProcessor", block_macro)
+    end
+
     ['BlockDiag', 'SeqDiag', 'ActDiag', 'NwDiag', 'RackDiag', 'PacketDiag'].each do |tool|
       define_processors(tool) do
         [:png, :svg].each do |f|
