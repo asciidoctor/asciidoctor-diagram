@@ -3,11 +3,11 @@ require_relative '../util/java'
 
 module Asciidoctor
   module Diagram
-    module DitaaGenerator
+    module Ditaa
       DITAA_JAR_PATH = File.expand_path File.join('../..', 'ditaamini0_9.jar'), File.dirname(__FILE__)
       Java.classpath << DITAA_JAR_PATH
 
-      def self.ditaa(code)
+      def ditaa(code)
         Java.load
 
         args = ['-e', 'UTF-8']
@@ -25,12 +25,20 @@ module Asciidoctor
 
         result
       end
+
+      def self.included(mod)
+        mod.register_format(:png, :image) do |c|
+          ditaa(c)
+        end
+      end
     end
 
-    define_processors('Ditaa') do
-      register_format(:png, :image) do |c|
-        DitaaGenerator.ditaa(c)
-      end
+    class DitaaBlockProcessor < DiagramBlockProcessor
+      include Ditaa
+    end
+
+    class DitaaBlockMacroProcessor < DiagramBlockMacroProcessor
+      include Ditaa
     end
   end
 end

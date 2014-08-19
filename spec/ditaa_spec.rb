@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagram::DitaaBlockMacro do
+describe Asciidoctor::Diagram::DitaaBlockMacroProcessor do
   it "should generate PNG images when format is set to 'png'" do
     code = <<-eos
 +--------+   +-------+    +-------+
@@ -43,7 +43,7 @@ ditaa::ditaa.txt[format="png"]
   end
 end
 
-describe Asciidoctor::Diagram::DitaaBlock do
+describe Asciidoctor::Diagram::DitaaBlockProcessor do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, ditaa!

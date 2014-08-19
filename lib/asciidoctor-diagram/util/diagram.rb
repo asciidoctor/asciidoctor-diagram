@@ -8,46 +8,6 @@ require_relative 'svg'
 
 module Asciidoctor
   module Diagram
-    def self.define_processors(name, &init)
-      block = Class.new(Asciidoctor::Extensions::BlockProcessor) do
-        class << self
-          include FormatRegistry
-        end
-        include DiagramProcessor
-
-        option :pos_attrs, ['target', 'format']
-        option :contexts, [:listing, :literal, :open]
-        option :content_model, :simple
-
-        def process(parent, reader, attributes)
-          generate_block(parent, ReaderSource.new(reader), attributes)
-        end
-
-        self.instance_eval &init
-      end
-
-      block_macro = Class.new(Asciidoctor::Extensions::BlockMacroProcessor) do
-        class << self
-          include FormatRegistry
-        end
-        include DiagramProcessor
-
-        option :pos_attrs, ['target', 'format']
-
-        def process(parent, target, attributes)
-          source = FileSource.new(File.expand_path(target, parent.document.attributes['docdir']))
-          attributes['target'] ||= File.basename(target, File.extname(target))
-
-          generate_block(parent, source, attributes)
-        end
-
-        self.instance_eval &init
-      end
-
-      Asciidoctor::Diagram.const_set("#{name}Block", block)
-      Asciidoctor::Diagram.const_set("#{name}BlockMacro", block_macro)
-    end
-
     module FormatRegistry
       #
       # Registers a supported format. The first registered format becomes the default format for the block processor.
@@ -127,7 +87,7 @@ module Asciidoctor
         if source.should_process?(image_file, metadata['checksum'])
           params = IMAGE_PARAMS[format]
 
-          result = generator_info[:generator].call(source.code, parent)
+          result = instance_exec(source.code, parent, &generator_info[:generator])
 
           result.force_encoding(params[:encoding])
 
@@ -158,7 +118,7 @@ module Asciidoctor
       def create_literal_block(parent, source, attributes, generator_info)
         attributes.delete('target')
 
-        result = generator_info[:generator].call(source.code, parent)
+        result = instance_exec(source.code, parent, &generator_info[:generator])
 
         result.force_encoding(Encoding::UTF_8)
         Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
@@ -168,6 +128,43 @@ module Asciidoctor
         md5 = Digest::MD5.new
         md5 << code
         md5.hexdigest
+      end
+    end
+
+    class DiagramBlockProcessor < Asciidoctor::Extensions::BlockProcessor
+      include DiagramProcessor
+
+      def self.inherited(subclass)
+        class << subclass
+          include FormatRegistry
+        end
+
+        subclass.option :pos_attrs, ['target', 'format']
+        subclass.option :contexts, [:listing, :literal, :open]
+        subclass.option :content_model, :simple
+
+        def process(parent, reader, attributes)
+          generate_block(parent, ReaderSource.new(reader), attributes)
+        end
+      end
+    end
+
+    class DiagramBlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
+      include DiagramProcessor
+
+      def self.inherited(subclass)
+        class << subclass
+          include FormatRegistry
+        end
+
+        subclass.option :pos_attrs, ['target', 'format']
+
+        def process(parent, target, attributes)
+          source = FileSource.new(File.expand_path(target, parent.document.attributes['docdir']))
+          attributes['target'] ||= File.basename(target, File.extname(target))
+
+          generate_block(parent, source, attributes)
+        end
       end
     end
 

@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagram::PlantUmlBlockMacro do
+describe Asciidoctor::Diagram::PlantUmlBlockMacroProcessor do
   it "should generate PNG images when format is set to 'png'" do
     code = <<-eos
 User -> (Start)
@@ -38,7 +38,7 @@ plantuml::plantuml.txt[format="png"]
   end
 end
 
-describe Asciidoctor::Diagram::PlantUmlBlock do
+describe Asciidoctor::Diagram::PlantUmlBlockProcessor do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, PlantUML!
