@@ -74,7 +74,8 @@ module Asciidoctor
         target = attributes.delete('target')
 
         image_name = "#{target || ('diag-' + source.checksum)}.#{format}"
-        image_dir = parent.normalize_system_path parent.document.attr 'imagesdir'
+        outdir = parent.document.attr('imagesoutdir') || parent.document.attr('outdir')
+        image_dir = parent.normalize_system_path parent.document.attr 'imagesdir', outdir
         image_file = parent.normalize_system_path image_name, image_dir
         metadata_file = parent.normalize_system_path "#{image_name}.cache", image_dir
 
