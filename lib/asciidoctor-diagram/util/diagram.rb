@@ -102,29 +102,31 @@ module Asciidoctor
           File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
         end
 
-        attributes['target'] = image_name
+        image_attributes = attributes.dup
+        image_attributes['target'] = image_name
         if /html/i =~ parent.document.attributes['backend']
-          attributes['width'] ||= metadata['width'] if metadata['width']
-          attributes['height'] ||= metadata['height'] if metadata['height']
+          image_attributes['width'] ||= metadata['width'] if metadata['width']
+          image_attributes['height'] ||= metadata['height'] if metadata['height']
         end
-        attributes['alt'] ||= if title_text = attributes['title']
-                                title_text
-                              elsif target = attributes['target']
-                                (File.basename target, (File.extname target) || '').tr '_-', ' '
-                              else
-                                'Diagram'
-                              end
+        image_attributes['alt'] ||= if title_text = attributes['title']
+                                      title_text
+                                    elsif target = attributes['target']
+                                      (File.basename target, (File.extname target) || '').tr '_-', ' '
+                                    else
+                                      'Diagram'
+                                    end
 
-        Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => attributes
+        Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
       end
 
       def create_literal_block(parent, source, attributes, generator_info)
-        attributes.delete('target')
+        literal_attributes = attributes.dup
+        literal_attributes.delete('target')
 
         result = instance_exec(source.code, parent, &generator_info[:generator])
 
         result.force_encoding(Encoding::UTF_8)
-        Asciidoctor::Block.new parent, :literal, :source => result, :attributes => attributes
+        Asciidoctor::Block.new parent, :literal, :source => result, :attributes => literal_attributes
       end
     end
 
