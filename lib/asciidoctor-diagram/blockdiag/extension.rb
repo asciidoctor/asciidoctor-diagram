@@ -20,18 +20,70 @@ module Asciidoctor
     end
 
     # @!parse
-    #   class BlockDiagBlockProcessor < DiagramBlockProcessor; end
+    #   # Block processor converts blockdiag code into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class BlockDiagBlockProcessor < API::DiagramBlockProcessor; end
+    #
+    #   # Block macro processor converts blockdiag source files into images.
+    #   #
+    #   # Supports PNG and SVG output.
     #   class BlockDiagBlockMacroProcessor < DiagramBlockMacroProcessor; end
-    #   class SeqDiagBlockProcessor < DiagramBlockProcessor; end
-    #   class SeqDiagBlockMacroProcessor < DiagramBlockMacroProcessor; end
-    #   class ActDiagBlockProcessor < DiagramBlockProcessor; end
-    #   class ActDiagBlockMacroProcessor < DiagramBlockMacroProcessor; end
-    #   class NwDiagBlockProcessor < DiagramBlockProcessor; end
-    #   class NwDiagBlockMacroProcessor < DiagramBlockMacroProcessor; end
-    #   class RackDiagBlockProcessor < DiagramBlockProcessor; end
-    #   class RackDiagBlockMacroProcessor < DiagramBlockMacroProcessor; end
-    #   class PacketDiagBlockProcessor < DiagramBlockProcessor; end
-    #   class PacketDiagBlockMacroProcessor < DiagramBlockMacroProcessor; end
+
+    # @!parse
+    #   # Block processor converts seqdiag code into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class SeqDiagBlockProcessor < API::DiagramBlockProcessor; end
+    #
+    #   # Block macro processor converts seqdiag source files into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class SeqDiagBlockMacroProcessor < API::DiagramBlockMacroProcessor; end
+
+    # @!parse
+    #   # Block processor converts actdiag code into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class ActDiagBlockProcessor < API::DiagramBlockProcessor; end
+    #
+    #   # Block macro processor converts actdiag source files into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class ActDiagBlockMacroProcessor < API::DiagramBlockMacroProcessor; end
+
+    # @!parse
+    #   # Block processor converts nwdiag code into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class NwDiagBlockProcessor < API::DiagramBlockProcessor; end
+    #
+    #   # Block macro processor converts nwdiag source files into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class NwDiagBlockMacroProcessor < API::DiagramBlockMacroProcessor; end
+
+    # @!parse
+    #   # Block processor converts rackdiag code into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class RackDiagBlockProcessor < API::DiagramBlockProcessor; end
+    #
+    #   # Block macro processor converts rackdiag source files into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class RackDiagBlockMacroProcessor < API::DiagramBlockMacroProcessor; end
+
+    # @!parse
+    #   # Block processor converts packetdiag code into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class PacketDiagBlockProcessor < API::DiagramBlockProcessor; end
+    #
+    #   # Block macro processor converts packetdiag source files into images.
+    #   #
+    #   # Supports PNG and SVG output.
+    #   class PacketDiagBlockMacroProcessor < API::DiagramBlockMacroProcessor; end
     ['BlockDiag', 'SeqDiag', 'ActDiag', 'NwDiag', 'RackDiag', 'PacketDiag'].each do |tool|
       BlockDiag.define_processors(tool) do
         [:png, :svg].each do |f|
