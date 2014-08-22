@@ -1,13 +1,14 @@
+require_relative '../api/diagram'
 require_relative '../util/cli_generator'
-require_relative '../util/diagram'
 
 module Asciidoctor
   module Diagram
+    # @private
     module Shaape
       def self.included(mod)
         [:png, :svg].each do |f|
           mod.register_format(f, :image) do |c, p|
-            CliGenerator.generate('shaape', p, c) do |tool_path, output_path|
+            CliGenerator.generate('shaape', p, c.to_s) do |tool_path, output_path|
               [tool_path, '-o', output_path, '-t', f.to_s, '-']
             end
           end
@@ -15,11 +16,11 @@ module Asciidoctor
       end
     end
 
-    class ShaapeBlockProcessor < DiagramBlockProcessor
+    class ShaapeBlockProcessor < API::DiagramBlockProcessor
       include Shaape
     end
 
-    class ShaapeBlockMacroProcessor < DiagramBlockMacroProcessor
+    class ShaapeBlockMacroProcessor < API::DiagramBlockMacroProcessor
       include Shaape
     end
   end

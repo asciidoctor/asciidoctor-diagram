@@ -1,8 +1,9 @@
-require_relative '../util/diagram'
+require_relative '../api/diagram'
 require_relative '../util/java'
 
 module Asciidoctor
   module Diagram
+    # @private
     module Ditaa
       DITAA_JAR_PATH = File.expand_path File.join('../..', 'ditaamini0_9.jar'), File.dirname(__FILE__)
       Java.classpath << DITAA_JAR_PATH
@@ -28,16 +29,16 @@ module Asciidoctor
 
       def self.included(mod)
         mod.register_format(:png, :image) do |c|
-          ditaa(c)
+          ditaa(c.to_s)
         end
       end
     end
 
-    class DitaaBlockProcessor < DiagramBlockProcessor
+    class DitaaBlockProcessor < API::DiagramBlockProcessor
       include Ditaa
     end
 
-    class DitaaBlockMacroProcessor < DiagramBlockMacroProcessor
+    class DitaaBlockMacroProcessor < API::DiagramBlockMacroProcessor
       include Ditaa
     end
   end
