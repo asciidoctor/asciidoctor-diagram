@@ -2,6 +2,7 @@ require 'rjb'
 
 module Asciidoctor
   module Diagram
+    # @private
     module Java
       INITAWT_JAR_PATH = File.expand_path File.join('..', 'initawt.jar'), File.dirname(__FILE__)
 

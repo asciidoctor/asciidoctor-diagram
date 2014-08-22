@@ -1,5 +1,6 @@
 module Asciidoctor
   module Diagram
+    # @private
     def self.which(cmd)
       exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
       ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|

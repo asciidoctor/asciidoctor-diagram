@@ -1,7 +1,8 @@
-require_relative '../util/diagram'
+require_relative '../api/diagram'
 
 module Asciidoctor
   module Diagram
+    # @private
     module PlantUml
       private
 
@@ -53,22 +54,22 @@ module Asciidoctor
 
       def self.included(mod)
         mod.register_format(:png, :image) do |c, p|
-          plantuml(p, c, 'uml', *config_args(p))
+          plantuml(p, c.to_s, 'uml', *config_args(p))
         end
         mod.register_format(:svg, :image) do |c, p|
-          plantuml(p, c, 'uml', '-tsvg', *config_args(p))
+          plantuml(p, c.to_s, 'uml', '-tsvg', *config_args(p))
         end
         mod.register_format(:txt, :literal) do |c, p|
-          plantuml(p, c, 'uml', '-tutxt', *config_args(p))
+          plantuml(p, c.to_s, 'uml', '-tutxt', *config_args(p))
         end
       end
     end
 
-    class PlantUmlBlockProcessor < DiagramBlockProcessor
+    class PlantUmlBlockProcessor < API::DiagramBlockProcessor
       include PlantUml
     end
 
-    class PlantUmlBlockMacroProcessor < DiagramBlockMacroProcessor
+    class PlantUmlBlockMacroProcessor < API::DiagramBlockMacroProcessor
       include PlantUml
     end
   end

@@ -1,5 +1,7 @@
 module Asciidoctor
   module Diagram
+    # Helper class to read binary values from a String
+    # @private
     class BinaryIO
       def initialize(string)
         @data = string

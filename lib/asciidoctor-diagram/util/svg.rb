@@ -2,6 +2,7 @@ require_relative 'binaryio'
 
 module Asciidoctor
   module Diagram
+    # @private
     module SVG
       def self.get_image_size(data)
         if m = START_TAG_REGEX.match(data)

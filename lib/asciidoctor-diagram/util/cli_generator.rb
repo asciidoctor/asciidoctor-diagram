@@ -5,6 +5,7 @@ require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
+    # @private
     module CliGenerator
       def self.generate(tool, parent, code)
         tool_var = '@' + tool
