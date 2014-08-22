@@ -26,8 +26,6 @@ module Asciidoctor
         #   register_format(:png, :image ) do |parent, source|
         #     File.read(source.to_s)
         #   end
-        #
-        # Returns nothing
         def register_format(format, type, &block)
           unless @default_format
             @default_format = format
@@ -56,7 +54,8 @@ module Asciidoctor
         end
       end
 
-      #
+      # Mixin that provides the basic machinery for image generation.
+      # When this module is included it will include the FormatRegistry into the singleton class of the target class.
       module DiagramProcessor
         IMAGE_PARAMS = {
             :svg => {
@@ -69,6 +68,19 @@ module Asciidoctor
             }
         }
 
+        def self.included(mod)
+          class << mod
+            include FormatRegistry
+          end
+        end
+
+        # Processes the diagram block or block macro by converting it into an image or literal block.
+        #
+        # @param parent [Asciidoctor::AbstractBlock] the parent asciidoc block of the block or block macro being processed
+        # @param reader_or_target [Asciidoctor::Reader, String] a reader that provides the contents of a block or the
+        #        target value of a block macro
+        # @param attributes [Hash] the attributes of the block or block macro
+        # @return [Asciidoctor::AbstractBlock] a new block that replaces the original block or block macro
         def process(parent, reader_or_target, attributes)
           source = create_source(parent, reader_or_target, attributes)
 
@@ -92,6 +104,18 @@ module Asciidoctor
         end
 
         protected
+
+        # Creates a DiagramSource object for the block or block macro being processed. Classes using this
+        # mixin must implement this method.
+        #
+        # @param parent [Asciidoctor::AbstractBlock] the parent asciidoc block of the block or block macro being processed
+        # @param reader_or_target [Asciidoctor::Reader, String] a reader that provides the contents of a block or the
+        #        target value of a block macro
+        # @param attributes [Hash] the attributes of the block or block macro
+        #
+        # @return [DiagramSource]
+        #
+        # @abstract
         def create_source(parent, reader_or_target, attributes)
           raise NotImplementedError.new
         end
@@ -153,40 +177,41 @@ module Asciidoctor
         end
       end
 
+      # Base class for diagram block processors.
       class DiagramBlockProcessor < Asciidoctor::Extensions::BlockProcessor
         include DiagramProcessor
 
         def self.inherited(subclass)
-          class << subclass
-            include FormatRegistry
-          end
-
           subclass.option :pos_attrs, ['target', 'format']
           subclass.option :contexts, [:listing, :literal, :open]
           subclass.option :content_model, :simple
         end
 
+        # Creates a ReaderSource from the given reader.
+        #
+        # @return [ReaderSource] a ReaderSource
         def create_source(parent, reader, attributes)
           ReaderSource.new(reader, attributes)
         end
       end
 
+      # Base class for diagram block macro processors.
       class DiagramBlockMacroProcessor < Asciidoctor::Extensions::BlockMacroProcessor
         include DiagramProcessor
 
         def self.inherited(subclass)
-          class << subclass
-            include FormatRegistry
-          end
-
           subclass.option :pos_attrs, ['target', 'format']
         end
 
+        # Creates a FileSource using target as the file name.
+        #
+        # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
           FileSource.new(File.expand_path(target, parent.document.attributes['docdir']), attributes)
         end
       end
 
+      #
       module DiagramSource
         def image_name
           raise NotImplementedError.new
