@@ -8,7 +8,7 @@ Enhancements::
   * Add support for Actdiag diagrams (requires Actdiag to be installed separately)
   * Add support for Seqdiag diagrams (requires Seqdiag to be installed separately)
   * Add support for Nwdiag diagrams (requires Nwdiag to be installed separately)
-
+  * Updated PlantUML to revision 8004 (23/08/2014)
 
 == 1.2.0
 
@@ -20,7 +20,7 @@ Enhancements::
 
 Enhancements::
 
-  * Updated PlantUML to revision 8002 (23/07U/2014)
+  * Updated PlantUML to revision 8002 (23/07/2014)
   * Add support for Shaape diagrams (requires Shaape to be installed separately)
   * Add support for Blockdiag diagrams (requires Blockdiag to be installed separately)
 
