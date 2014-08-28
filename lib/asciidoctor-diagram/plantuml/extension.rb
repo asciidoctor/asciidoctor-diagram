@@ -1,4 +1,4 @@
-require_relative '../api/diagram'
+require_relative '../extensions'
 
 module Asciidoctor
   module Diagram
@@ -65,11 +65,11 @@ module Asciidoctor
       end
     end
 
-    class PlantUmlBlockProcessor < API::DiagramBlockProcessor
+    class PlantUmlBlockProcessor < Extensions::DiagramBlockProcessor
       include PlantUml
     end
 
-    class PlantUmlBlockMacroProcessor < API::DiagramBlockMacroProcessor
+    class PlantUmlBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
       include PlantUml
     end
   end

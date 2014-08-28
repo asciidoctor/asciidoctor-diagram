@@ -2,13 +2,13 @@ require 'asciidoctor/extensions'
 require 'digest'
 require 'json'
 require 'fileutils'
-require_relative '../util/java'
-require_relative '../util/png'
-require_relative '../util/svg'
+require_relative 'util/java'
+require_relative 'util/png'
+require_relative 'util/svg'
 
 module Asciidoctor
   module Diagram
-    module API
+    module Extensions
       # Provides the means for diagram processors to register supported output formats and image
       # generation routines
       module FormatRegistry

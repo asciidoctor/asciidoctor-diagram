@@ -1,4 +1,4 @@
-require_relative '../api/diagram'
+require_relative '../extensions'
 require_relative '../util/cli_generator'
 
 module Asciidoctor
@@ -16,11 +16,11 @@ module Asciidoctor
       end
     end
 
-    class GraphvizBlockProcessor < API::DiagramBlockProcessor
+    class GraphvizBlockProcessor < Extensions::DiagramBlockProcessor
       include Graphviz
     end
 
-    class GraphvizBlockMacroProcessor < API::DiagramBlockMacroProcessor
+    class GraphvizBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
       include Graphviz
     end
   end

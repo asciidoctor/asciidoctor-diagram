@@ -1,4 +1,4 @@
-require_relative '../api/diagram'
+require_relative '../extensions'
 require_relative '../util/cli_generator'
 
 module Asciidoctor
@@ -6,12 +6,12 @@ module Asciidoctor
     # @private
     module BlockDiag
       def self.define_processors(name, &init)
-        block = Class.new(API::DiagramBlockProcessor) do
+        block = Class.new(Extensions::DiagramBlockProcessor) do
           self.instance_eval &init
         end
         ::Asciidoctor::Diagram.const_set("#{name}BlockProcessor", block)
 
-        block_macro = Class.new(API::DiagramBlockMacroProcessor) do
+        block_macro = Class.new(Extensions::DiagramBlockMacroProcessor) do
           self.instance_eval &init
         end
 

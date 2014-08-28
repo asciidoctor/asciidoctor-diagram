@@ -1,4 +1,4 @@
-require_relative '../api/diagram'
+require_relative '../extensions'
 require_relative '../util/java'
 
 module Asciidoctor
@@ -34,11 +34,11 @@ module Asciidoctor
       end
     end
 
-    class DitaaBlockProcessor < API::DiagramBlockProcessor
+    class DitaaBlockProcessor < Extensions::DiagramBlockProcessor
       include Ditaa
     end
 
-    class DitaaBlockMacroProcessor < API::DiagramBlockMacroProcessor
+    class DitaaBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
       include Ditaa
     end
   end
