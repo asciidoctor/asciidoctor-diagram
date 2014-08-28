@@ -1,4 +1,4 @@
-require_relative '../api/diagram'
+require_relative '../extensions'
 require_relative '../util/cli_generator'
 
 module Asciidoctor
@@ -16,11 +16,11 @@ module Asciidoctor
       end
     end
 
-    class ShaapeBlockProcessor < API::DiagramBlockProcessor
+    class ShaapeBlockProcessor < Extensions::DiagramBlockProcessor
       include Shaape
     end
 
-    class ShaapeBlockMacroProcessor < API::DiagramBlockMacroProcessor
+    class ShaapeBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
       include Shaape
     end
   end
