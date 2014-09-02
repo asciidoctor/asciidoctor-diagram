@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagram::GraphvizBlockMacro do
+describe Asciidoctor::Diagram::GraphvizBlockMacroProcessor do
   it "should generate PNG images when format is set to 'png'" do
     code = <<-eos
 digraph foo {
@@ -42,7 +42,7 @@ graphviz::graphviz.txt[format="png"]
   end
 end
 
-describe Asciidoctor::Diagram::GraphvizBlock do
+describe Asciidoctor::Diagram::GraphvizBlockProcessor do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, graphviz!

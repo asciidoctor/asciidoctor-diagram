@@ -2,6 +2,7 @@ require_relative 'binaryio'
 
 module Asciidoctor
   module Diagram
+    # @private
     module PNG
       PNG_SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10].pack('CCCCCCCC')
 
