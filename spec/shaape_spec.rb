@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagram::ShaapeBlockMacro do
+describe Asciidoctor::Diagram::ShaapeBlockMacroProcessor do
   it "should generate PNG images when format is set to 'png'" do
     code = <<-eos
     +--------+    +-------------+
@@ -40,7 +40,7 @@ shaape::shaape.txt[format="png"]
   end
 end
 
-describe Asciidoctor::Diagram::ShaapeBlock do
+describe Asciidoctor::Diagram::ShaapeBlockProcessor do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, Shaape!

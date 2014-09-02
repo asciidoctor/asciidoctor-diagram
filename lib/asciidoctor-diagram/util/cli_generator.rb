@@ -5,6 +5,7 @@ require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
+    # @private
     module CliGenerator
       def self.generate(tool, parent, code)
         tool_var = '@' + tool
@@ -13,7 +14,7 @@ module Asciidoctor
         unless tool_path
           tool_path = parent.document.attributes[tool]
           tool_path = ::Asciidoctor::Diagram.which(tool) unless tool_path && File.executable?(tool_path)
-          raise "Could not find the '#{tool}' executable in PATH; add it to the PATH or specify its location using the 'shaape' document attribute" unless tool_path
+          raise "Could not find the '#{tool}' executable in PATH; add it to the PATH or specify its location using the '#{tool}' document attribute" unless tool_path
           instance_variable_set(tool_var, tool_path)
         end
 
