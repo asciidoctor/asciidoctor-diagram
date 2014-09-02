@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.2.1
+
+Enhancements::
+
+  * Add support for Actdiag, Seqdiag, Nwdiag, Packetdiag and Rackdiag diagrams (requires resp. Python packages to be installed separately)
+
 == 1.2.0
 
 Enhancements::
@@ -11,11 +17,8 @@ Enhancements::
 Enhancements::
 
   * Updated PlantUML to revision 8002 (23/07U/2014)
-  * Add support for Shaape diagrams (requires Shaape to be installed separately)
-  * Add support for Blockdiag diagrams (requires Blockdiag to be installed separately)
-  * Add support for Actdiag diagrams (requires Actdiag to be installed separately)
-  * Add support for Seqdiag diagrams (requires Seqdiag to be installed separately)
-  * Add support for Nwdiag diagrams (requires Nwdiag to be installed separately)
+  * Add support for Shaape diagrams (requires Shaape Python package to be installed separately)
+  * Add support for Blockdiag diagrams (requires Blockdiag Python package to be installed separately)
 
 Bug Fixes::
   * Issue #38: Resolved Graphviz syntax errors with certain diagrams
