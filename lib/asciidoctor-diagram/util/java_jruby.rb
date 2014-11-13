@@ -1,40 +1,33 @@
 require 'java'
+require 'stringio'
 
 module Asciidoctor
   module Diagram
     # @private
     module Java
-      def self.classpath
-        @classpath ||= []
-      end
-
       def self.load
         if @loaded
           return
         end
 
-        classpath.each { |j| require j }
+        classpath.flatten.each { |j| require j }
         @loaded = true
       end
 
-      def self.array_to_java_array(array, type)
-        array.to_java(type)
-      end
+      def self.send_request(req)
+        cp = ::Java.org.asciidoctor.diagram.CommandProcessor.new()
 
-      def self.string_from_java_bytes(bytes)
-        String.from_java_bytes(bytes)
-      end
+        req_io = StringIO.new
+        format_request(req, req_io)
+        req_io.close
 
-      def self.method_missing(meth, *args, &block)
-        raise "No arguments expected" unless args.empty?
-        raise "No block expected" if block
+        response = cp.processRequest(req_io.string.to_java_bytes)
 
-        load
-        ::Java.send(meth)
-      end
+        resp_io = StringIO.new(String.from_java_bytes(response))
+        resp = parse_response(resp_io)
+        resp_io.close
 
-      def self.new_object(java_class, signature = nil, *args)
-        java_class.new(*args)
+        resp
       end
     end
   end
