@@ -12,7 +12,7 @@ module Asciidoctor
 
       def self.format_request(req, io)
         io.set_encoding Encoding::US_ASCII
-        io.write "GET #{req[:url]} HTTP/1.1"
+        io.write "POST #{req[:url]} HTTP/1.1"
         io.write CRLF
 
         headers = req[:headers]
