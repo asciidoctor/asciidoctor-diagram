@@ -5,26 +5,22 @@ module Asciidoctor
   module Diagram
     # @private
     module Ditaa
-      DITAA_JAR_PATH = File.expand_path File.join('../..', 'ditaamini0_9.jar'), File.dirname(__FILE__)
-      Java.classpath << DITAA_JAR_PATH
+      JARS = ['ditaamini0_9.jar'].map do |jar|
+        File.expand_path File.join('../..', jar), File.dirname(__FILE__)
+      end
+      Java.classpath.concat JARS
 
       def ditaa(code)
         Java.load
 
-        args = ['-e', 'UTF-8']
+        response = Java.send_request(
+            :url => '/ditaa',
+            :body => code
+        )
 
-        bytes = code.encode(Encoding::UTF_8).bytes.to_a
-        bis = Java.new_object(Java.java.io.ByteArrayInputStream, '[B', Java.array_to_java_array(bytes, :byte))
-        bos = Java.new_object(Java.java.io.ByteArrayOutputStream)
-        result_code = Java.org.stathissideris.ascii2image.core.CommandLineConverter.convert(Java.array_to_java_array(args, :string), bis, bos)
-        bis.close
-        bos.close
+        raise "Ditaa image generation failed: #{response[:reason]}" unless response[:code] == 200
 
-        result = Java.string_from_java_bytes(bos.toByteArray)
-
-        raise "Ditaa image generation failed: #{result}" unless result_code == 0
-
-        result
+        response[:body]
       end
 
       def self.included(mod)
