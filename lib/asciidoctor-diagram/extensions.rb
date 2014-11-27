@@ -123,8 +123,7 @@ module Asciidoctor
         private
         def create_image_block(parent, source, attributes, format, generator_info)
           image_name = "#{source.image_name}.#{format}"
-          outdir = parent.document.attr('imagesoutdir') || parent.document.attr('outdir')
-          image_dir = parent.normalize_system_path parent.document.attr 'imagesdir', outdir
+          image_dir = image_output_dir(parent)
           image_file = parent.normalize_system_path image_name, image_dir
           metadata_file = parent.normalize_system_path "#{image_name}.cache", image_dir
 
@@ -158,12 +157,27 @@ module Asciidoctor
           image_attributes['alt'] ||= if title_text = attributes['title']
                                         title_text
                                       elsif target = attributes['target']
-                                        (File.basename target, (File.extname target) || '').tr '_-', ' '
+                                        (File.basename(target, File.extname(target)) || '').tr '_-', ' '
                                       else
                                         'Diagram'
                                       end
 
           Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
+        end
+
+        def image_output_dir(parent)
+          document = parent.document
+
+          images_dir = document.attr('imagesoutdir')
+
+          if images_dir
+            base_dir = nil
+          else
+            base_dir = document.attr('outdir') || (document.respond_to?(:options) && document.options[:to_dir])
+            images_dir = document.attr('imagesdir')
+          end
+
+          parent.normalize_system_path(images_dir, base_dir)
         end
 
         def create_literal_block(parent, source, attributes, generator_info)
