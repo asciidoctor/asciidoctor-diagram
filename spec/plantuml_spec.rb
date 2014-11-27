@@ -297,6 +297,31 @@ Foo1 -> Foo2 : To boundary
     expect(File.exists?(File.expand_path(target, 'foo'))).to be true
   end
 
+  it "should write files to imagesoutdir if set" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="svg"]
+----
+actor Foo1
+boundary Foo2
+Foo1 -> Foo2 : To boundary
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), {:attributes => {'imagesoutdir' => 'bar', 'outdir' => 'foo'}}
+    b = d.find { |b| b.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exists?(target)).to be false
+    expect(File.exists?(File.expand_path(target, 'bar'))).to be true
+    expect(File.exists?(File.expand_path(target, 'foo'))).to be false
+  end
+
   it "should omit width/height attributes when generating docbook" do
     doc = <<-eos
 = Hello, PlantUML!
