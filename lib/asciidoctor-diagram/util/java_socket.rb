@@ -1,4 +1,5 @@
 require 'socket'
+
 require_relative 'which'
 
 module Asciidoctor
@@ -6,19 +7,17 @@ module Asciidoctor
     # @private
     module Java
       class CommandServer
-        def initialize(java, classpath)
-          @server = TCPServer.new 0
+        attr_reader :port
 
+        def initialize(java, classpath)
           args = []
           args << '-cp'
           args << classpath.flatten.join(File::PATH_SEPARATOR)
           args << 'org.asciidoctor.diagram.CommandServer'
-          args << '-p'
-          args << @server.addr[1].to_s
 
-          @pid = Process.spawn(java, *args)
-
-          @client = @server.accept
+          @server = IO.popen([java, *args])
+          @port = @server.readline.strip.to_i
+          @client = TCPSocket.new 'localhost', port
         end
 
         def io
@@ -43,6 +42,8 @@ module Asciidoctor
 
       def self.send_request(req)
         svr = command_server
+        headers = req[:headers] ||= {}
+        headers['Host'] = "localhost:#{svr.port}"
         format_request(req, svr.io)
         parse_response(svr.io)
       end
