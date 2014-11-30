@@ -31,7 +31,9 @@ module Asciidoctor
             :headers => headers
         )
 
-        raise "PlantUML image generation failed: #{response[:reason]}" unless response[:code] == 200
+        unless response[:code] == 200
+          raise "PlantUML image generation failed: #{response[:reason]} #{response[:body]}"
+        end
 
         response[:body]
       end

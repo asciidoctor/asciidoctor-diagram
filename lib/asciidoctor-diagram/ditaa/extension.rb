@@ -18,7 +18,9 @@ module Asciidoctor
             :body => code
         )
 
-        raise "Ditaa image generation failed: #{response[:reason]}" unless response[:code] == 200
+        unless response[:code] == 200
+          raise "Ditaa image generation failed: #{response[:reason]} #{response[:body]}"
+        end
 
         response[:body]
       end
