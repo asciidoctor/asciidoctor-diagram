@@ -24,6 +24,11 @@ module Asciidoctor
         def io
           @client
         end
+
+        def shutdown
+          # KILL is a bit heavy handed, but TERM does not seem to shut down the JVM on Windows.
+          Process.kill('KILL', @server.pid)
+        end
       end
 
       def self.load
@@ -31,18 +36,27 @@ module Asciidoctor
           return
         end
 
-        command_server
+        instance
         @loaded = true
       end
 
-      def self.command_server
+      def self.instance
         @java_exe ||= find_java
         raise "Could not find Java executable" unless @java_exe
-        @command_server ||= CommandServer.new(@java_exe, classpath)
+
+        unless @command_server
+          server = CommandServer.new(@java_exe, classpath)
+          @command_server = server
+          at_exit do
+            server.shutdown
+          end
+        end
+
+        @command_server
       end
 
       def self.send_request(req)
-        svr = command_server
+        svr = instance
         headers = req[:headers] ||= {}
         headers['Host'] = "localhost:#{svr.port}"
         format_request(req, svr.io)
