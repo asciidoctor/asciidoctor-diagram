@@ -31,7 +31,7 @@ module Asciidoctor
 
           raise "#{tool} image generation failed" unless result_code == 0
 
-          File.read(target_file.path)
+          File.read(target_file.path, :mode => 'rb')
         ensure
           target_file.unlink
         end
