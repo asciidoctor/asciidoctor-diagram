@@ -30,7 +30,7 @@ module Asciidoctor
 end
 
 RSpec.configure do |c|
-  TEST_DIR = 'testing'
+  TEST_DIR = File.expand_path('testing')
 
   c.before(:suite) do
     FileUtils.rm_r TEST_DIR if Dir.exists? TEST_DIR
@@ -45,12 +45,8 @@ RSpec.configure do |c|
     test_dir = File.expand_path(metadata[:description].gsub(/[^\w]+/, '_'), group_dir)
     Dir.mkdir(test_dir)
 
-    old_wd = Dir.pwd
-    Dir.chdir test_dir
-    begin
+    Dir.chdir(test_dir) do
       example.run
-    ensure
-      Dir.chdir old_wd
     end
   end
 end
