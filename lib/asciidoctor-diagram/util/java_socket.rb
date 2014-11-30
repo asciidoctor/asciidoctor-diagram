@@ -11,6 +11,7 @@ module Asciidoctor
 
         def initialize(java, classpath)
           args = []
+          args << '-Djava.awt.headless=true'
           args << '-cp'
           args << classpath.flatten.join(File::PATH_SEPARATOR)
           args << 'org.asciidoctor.diagram.CommandServer'
