@@ -3,8 +3,6 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'asciidoctor-diagram/version'
 
-$platform ||= RUBY_PLATFORM[/java/] || 'ruby'
-
 Gem::Specification.new do |s|
   s.name          = "asciidoctor-diagram"
   s.version       = Asciidoctor::Diagram::VERSION
