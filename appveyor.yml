@@ -6,8 +6,8 @@ branches:
 clone_depth: 10
 install:
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
-  - gem update --system
-  - gem install bundler --quiet --no-ri --no-rdoc
+  - gem update --system --quiet
+  - gem install bundler --no-ri --no-rdoc
   - bundle install
   - cinst graphviz.portable
 build_script:
