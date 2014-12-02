@@ -1,7 +1,12 @@
 require 'rubygems/package_task'
 require 'rspec/core/rake_task'
 
-RSpec::Core::RakeTask.new(:test)
+test = RSpec::Core::RakeTask.new(:test)
+
+if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
+  # Exclude diagram types that require external libraries that are difficult to build on Windows.
+  test.exclude_pattern = 'spec/**/{blockdiag,shaape}_spec.rb'
+end
 
 task :default => :test
 
