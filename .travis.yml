@@ -1,4 +1,7 @@
 language: ruby
+cache: bundler
+  directories:
+    - vendor/bundle
 python:
   - 2.7
 rvm:
@@ -12,4 +15,4 @@ install:
   - sudo apt-get install -qq python-gtk2
   - sudo pip install blockdiag actdiag seqdiag nwdiag
   - sudo pip install shaape
-  - bundle install
+  - bundle install --deployment --jobs=3 --retry=3
