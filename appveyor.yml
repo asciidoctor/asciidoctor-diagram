@@ -9,6 +9,7 @@ install:
   - gem update --system
   - gem install bundler --quiet --no-ri --no-rdoc
   - bundle install
+  - cinst graphviz.portable
 build_script:
   - rake package
 test_script:
