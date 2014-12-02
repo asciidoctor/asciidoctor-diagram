@@ -1,4 +1,4 @@
-if ENV['APPVEYOR']
+if ENV.any? { |k,_| k.start_with? 'APPVEYOR' }
   # Use non-encrypted
   source 'http://rubygems.org'
 else
