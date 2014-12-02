@@ -1,5 +1,5 @@
 language: ruby
-cache: bundler
+cache:
   directories:
     - vendor/bundle
 python:
