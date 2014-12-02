@@ -3,7 +3,7 @@ require 'rspec/core/rake_task'
 
 test = RSpec::Core::RakeTask.new(:test)
 
-if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
+if ENV.any? { |k,_| k.start_with? 'APPVEYOR' }
   # Exclude diagram types that require external libraries that are difficult to build on Windows.
   test.exclude_pattern = 'spec/**/{blockdiag,shaape}_spec.rb'
 end
