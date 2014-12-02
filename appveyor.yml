@@ -6,6 +6,7 @@ branches:
 clone_depth: 10
 install:
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - gem update --system
   - gem install bundler --quiet --no-ri --no-rdoc
   - bundle install
 build_script:
