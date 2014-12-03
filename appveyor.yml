@@ -11,8 +11,7 @@ install:
   # Use http instead as a workaround
   # - gem update --system
   - gem sources -r https://rubygems.org/
-  - gem sources -a http://rubygems.org/
-  - gem install bundler --no-ri --no-rdoc
+  - gem install bundler --no-ri --no-rdoc --source http://rubygems.org/
   - bundle install
   - cinst graphviz.portable
 build_script:
