@@ -6,7 +6,12 @@ branches:
 clone_depth: 10
 install:
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
-  - gem install bundler --no-ri --no-rdoc
+  # https causes certificate verification errors
+  # Updating rubygems resolves this, but then gem install seems to hang for unknown reasons
+  # Use http instead as a workaround
+  # - gem update --system
+  - gem sources -r https://rubygems.org/
+  - gem install bundler --no-ri --no-rdoc --source http://rubygems.org/
   - bundle install
   - cinst graphviz.portable
 build_script:
