@@ -27,6 +27,8 @@ module Asciidoctor
         #     File.read(source.to_s)
         #   end
         def register_format(format, type, &block)
+          raise "Unsupported output type: #{type}" unless type == :image || type == :literal
+
           unless @default_format
             @default_format = format
           end
@@ -35,7 +37,7 @@ module Asciidoctor
               :type => type,
               :generator => block
           }
-        end
+       end
 
         # Returns the registered formats
         #
@@ -93,13 +95,19 @@ module Asciidoctor
 
           raise "#{self.class.name} does not support output format #{format}" unless generator_info
 
-          case generator_info[:type]
-            when :image
-              create_image_block(parent, source, attributes, format, generator_info)
-            when :literal
-              create_literal_block(parent, source, attributes, generator_info)
-            else
-              raise "Unsupported output format: #{format}"
+          begin
+            case generator_info[:type]
+              when :literal
+                create_literal_block(parent, source, attributes, generator_info)
+              else
+                create_image_block(parent, source, attributes, format, generator_info)
+            end
+          rescue => e
+            text = "Failed to generate image: #{e.message}"
+            warn %(asciidoctor-diagram: ERROR: #{text})
+            text << "\n"
+            text << source.code
+            Asciidoctor::Block.new parent, :listing, :source => text, :attributes => attributes
           end
         end
 
