@@ -97,6 +97,12 @@ The diagram blocks support the following attributes:
 . `target` (or 2nd position): the basename of the file to generate. If not specified an auto-generated name will be used.
 . `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
 
+Once you have all of this in place and your original AsciiDoc file contains a diagram block, it's time to build it into an HTML file with Asciidoctor Diagram magic! 
+When executing Asciidoctor, you must reference the Adciidoctor Diagram library, otherwise your diagam blocks won't be recognized as such. When executing Asciidoctor from the command line, do it using the -r parameter to reference this external library:
+
+$ asciidoctor -r asciidoctor-diagram doc.adoc
+
+
 == Contributing
 
 . Fork it
