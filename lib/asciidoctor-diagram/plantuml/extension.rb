@@ -40,22 +40,46 @@ module Asciidoctor
 
       def self.included(mod)
         mod.register_format(:png, :image) do |c, p|
-          plantuml(p, c.to_s, 'uml', 'image/png')
+          plantuml(p, c.to_s, mod.tag, 'image/png')
         end
         mod.register_format(:svg, :image) do |c, p|
-          plantuml(p, c.to_s, 'uml', 'image/svg+xml')
+          plantuml(p, c.to_s, mod.tag, 'image/svg+xml')
         end
         mod.register_format(:txt, :literal) do |c, p|
-          plantuml(p, c.to_s, 'uml', 'text/plain;charset=utf-8')
+          plantuml(p, c.to_s, mod.tag, 'text/plain;charset=utf-8')
         end
       end
     end
 
     class PlantUmlBlockProcessor < Extensions::DiagramBlockProcessor
+      def self.tag
+        'uml'
+      end
+
       include PlantUml
     end
 
     class PlantUmlBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
+      def self.tag
+        'uml'
+      end
+
+      include PlantUml
+    end
+
+    class SaltBlockProcessor < Extensions::DiagramBlockProcessor
+      def self.tag
+        'salt'
+      end
+
+      include PlantUml
+    end
+
+    class SaltBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
+      def self.tag
+        'salt'
+      end
+
       include PlantUml
     end
   end
