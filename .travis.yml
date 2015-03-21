@@ -3,6 +3,7 @@ cache:
   apt: true
   directories:
     - vendor/bundle
+    - $HOME/.cache/pip
 python:
   - 2.7
 rvm:
