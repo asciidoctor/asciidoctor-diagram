@@ -335,7 +335,78 @@ User -> (Start)
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5' }
+    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exists?(target)).to be true
+
+    expect(b.attributes['width']).to be_nil
+    expect(b.attributes['height']).to be_nil
+  end
+
+  it "should support salt diagrams using salt block type" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[salt, format="png"]
+----
+{
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exists?(target)).to be true
+
+    expect(b.attributes['width']).to be_nil
+    expect(b.attributes['height']).to be_nil
+  end
+
+  it "should support salt diagrams using plantuml block type" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png"]
+----
+salt
+{
+  Just plain text
+  [This is my button]
+  ()  Unchecked radio
+  (X) Checked radio
+  []  Unchecked box
+  [X] Checked box
+  "Enter text here   "
+  ^This is a droplist^
+}
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
