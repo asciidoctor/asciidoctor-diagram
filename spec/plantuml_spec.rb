@@ -418,4 +418,36 @@ salt
     expect(b.attributes['width']).to be_nil
     expect(b.attributes['height']).to be_nil
   end
+
+  it "should support salt diagrams containing tree widgets" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png"]
+----
+salt
+{
+{T
++A
+++a
+}
+}
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exists?(target)).to be true
+
+    expect(b.attributes['width']).to be_nil
+    expect(b.attributes['height']).to be_nil
+  end
 end
