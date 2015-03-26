@@ -10,12 +10,15 @@ module Asciidoctor
       end
       Java.classpath.concat JARS
 
-      def ditaa(code)
+      def ditaa(code, attrs)
         Java.load
 
         response = Java.send_request(
             :url => '/ditaa',
-            :body => code
+            :body => code,
+            :headers => {
+                'X-Options' => attrs.delete('options') || ''
+            }
         )
 
         unless response[:code] == 200
@@ -26,8 +29,8 @@ module Asciidoctor
       end
 
       def self.included(mod)
-        mod.register_format(:png, :image) do |c|
-          ditaa(c.to_s)
+        mod.register_format(:png, :image) do |c, _, attrs|
+          ditaa(c.to_s, attrs)
         end
       end
     end
