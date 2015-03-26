@@ -118,4 +118,35 @@ Doc Writer <doc@example.com>
     expect(target).to match /\.png$/
     expect(File.exists?(target)).to be true
   end
+
+  it "should support ditaa options as attributes" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[ditaa, options="--no-shadows --no-separation --round-corners --scale 2.5"]
+----
++--------+   +-------+    +-------+
+|        | --+ ditaa +--> |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc)
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+    target = b.attributes['target']
+    expect(target).to match /\.png$/
+    expect(File.exists?(target)).to be true
+  end
 end

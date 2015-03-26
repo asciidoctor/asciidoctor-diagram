@@ -141,10 +141,12 @@ module Asciidoctor
             metadata = {}
           end
 
+          image_attributes = attributes.dup
+
           if !File.exists?(image_file) || source.should_process?(image_file, metadata)
             params = IMAGE_PARAMS[format]
 
-            result = instance_exec(source, parent, &generator_info[:generator])
+            result = instance_exec(source, parent, image_attributes, &generator_info[:generator])
 
             result.force_encoding(params[:encoding])
 
@@ -156,7 +158,6 @@ module Asciidoctor
             File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
           end
 
-          image_attributes = attributes.dup
           image_attributes['target'] = image_name
 
           scale = image_attributes['scale']
