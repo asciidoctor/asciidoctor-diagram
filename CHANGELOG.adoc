@@ -8,8 +8,10 @@ Enhancements::
   * Add support for Actdiag diagrams (requires Actdiag to be installed separately)
   * Add support for Seqdiag diagrams (requires Seqdiag to be installed separately)
   * Add support for Nwdiag diagrams (requires Nwdiag to be installed separately)
-  * Updated PlantUML to revision 8014 (10/12/2014)
+  * Updated PlantUML to revision 8021 (14/03/2015)
   * Remove dependency on RJB to simplify installation
+  * Add diagram scaling support using the scale attribute
+  * Add Ditaa command line option support using the options attribute
 
 Bug Fixes::
 
