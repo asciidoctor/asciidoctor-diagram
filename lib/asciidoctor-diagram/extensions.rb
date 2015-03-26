@@ -158,10 +158,24 @@ module Asciidoctor
 
           image_attributes = attributes.dup
           image_attributes['target'] = image_name
-          if /html/i =~ parent.document.attributes['backend']
-            image_attributes['width'] ||= metadata['width'] if metadata['width']
-            image_attributes['height'] ||= metadata['height'] if metadata['height']
+
+          scale = image_attributes['scale']
+          if scalematch = /(\d+)%/.match(scale)
+            scale_factor = scalematch[1].to_i / 100.0
+          else
+            scale_factor = 1.0
           end
+
+          if /html/i =~ parent.document.attributes['backend']
+            image_attributes.delete('scale')
+            if metadata['width'] && !image_attributes['width']
+              image_attributes['width'] = (metadata['width'] * scale_factor).to_i
+            end
+            if metadata['height'] && !image_attributes['height']
+              image_attributes['height'] = (metadata['height'] * scale_factor).to_i
+            end
+          end
+
           image_attributes['alt'] ||= if title_text = attributes['title']
                                         title_text
                                       elsif target = attributes['target']
@@ -171,6 +185,16 @@ module Asciidoctor
                                       end
 
           Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
+        end
+
+        def scale(size, factor)
+          if match = /(\d+)(.*)/.match(size)
+            value = match[1].to_i
+            unit = match[2]
+            (value * factor).to_i.to_s + unit
+          else
+            size
+          end
         end
 
         def image_output_dir(parent)

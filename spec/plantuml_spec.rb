@@ -450,4 +450,39 @@ salt
     expect(b.attributes['width']).to be_nil
     expect(b.attributes['height']).to be_nil
   end
+
+  it "should support scaling diagrams" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png"]
+----
+A -> B
+----
+    eos
+
+    scaled_doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png", scale="150%"]
+----
+A -> B
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'html5'}
+    unscaled_image = d.find { |b| b.context == :image }
+
+    d = Asciidoctor.load StringIO.new(scaled_doc), :attributes => {'backend' => 'html5'}
+    scaled_image = d.find { |b| b.context == :image }
+
+    expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 1.5)
+    expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 1.5)
+  end
 end
