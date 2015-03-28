@@ -149,4 +149,39 @@ Doc Writer <doc@example.com>
     expect(target).to match /\.png$/
     expect(File.exists?(target)).to be true
   end
+
+  it "should regenerate images when options change" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[ditaa, options="{opts}"]
+----
++--------+   +-------+    +-------+
+|        | --+ ditaa +--> |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+----
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc.sub('{opts}', 'no-shadow'))
+    b = d.find { |b| b.context == :image }
+    target = b.attributes['target']
+    mtime1 = File.mtime(target)
+
+    sleep 1
+
+    d = Asciidoctor.load StringIO.new(doc.sub('{opts}', 'round-corners'))
+
+    mtime2 = File.mtime(target)
+
+    expect(mtime2).to be > mtime1
+  end
 end

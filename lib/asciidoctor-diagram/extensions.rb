@@ -303,6 +303,8 @@ module Asciidoctor
       class BasicSource
         include DiagramSource
 
+        attr_reader :attributes
+
         def initialize(attributes)
           @attributes = attributes
         end

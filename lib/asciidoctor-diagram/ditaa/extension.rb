@@ -33,6 +33,23 @@ module Asciidoctor
           ditaa(c.to_s, attrs)
         end
       end
+
+      def create_source(parent, reader, attributes)
+        DitaaSource.new(reader, attributes)
+      end
+
+      class DitaaSource < Asciidoctor::Diagram::Extensions::ReaderSource
+        def should_process?(image_file, image_metadata)
+          super(image_file, image_metadata) || image_metadata['options'] != attributes['options']
+        end
+
+        def create_image_metadata
+          {
+              'checksum' => checksum,
+              'options' => attributes['options']
+          }
+        end
+      end
     end
 
     class DitaaBlockProcessor < Extensions::DiagramBlockProcessor
