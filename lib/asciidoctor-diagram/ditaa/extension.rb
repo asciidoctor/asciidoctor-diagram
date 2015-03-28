@@ -35,19 +35,20 @@ module Asciidoctor
       end
 
       def create_source(parent, reader, attributes)
-        DitaaSource.new(reader, attributes)
+        source = super(parent, reader, attributes)
+        source.extend DitaaSource
+        source
       end
 
-      class DitaaSource < Asciidoctor::Diagram::Extensions::ReaderSource
+      module DitaaSource
         def should_process?(image_file, image_metadata)
           super(image_file, image_metadata) || image_metadata['options'] != attributes['options']
         end
 
         def create_image_metadata
-          {
-              'checksum' => checksum,
-              'options' => attributes['options']
-          }
+          metadata = super
+          metadata['options'] = attributes['options']
+          metadata
         end
       end
     end
