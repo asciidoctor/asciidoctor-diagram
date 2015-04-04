@@ -470,7 +470,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-[plantuml, format="png", scale="150%"]
+[plantuml, format="png", scale="1.5"]
 ----
 A -> B
 ----
