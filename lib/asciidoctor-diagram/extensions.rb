@@ -84,9 +84,9 @@ module Asciidoctor
         # @param attributes [Hash] the attributes of the block or block macro
         # @return [Asciidoctor::AbstractBlock] a new block that replaces the original block or block macro
         def process(parent, reader_or_target, attributes)
-          source = create_source(parent, reader_or_target, attributes)
+          source = create_source(parent, reader_or_target, attributes.dup)
 
-          format = attributes.delete('format') || self.class.default_format
+          format = source.attributes.delete('format') || self.class.default_format
           format = format.to_sym if format.respond_to?(:to_sym)
 
           raise "Format undefined" unless format
@@ -98,9 +98,9 @@ module Asciidoctor
           begin
             case generator_info[:type]
               when :literal
-                create_literal_block(parent, source, attributes, generator_info)
+                create_literal_block(parent, source, generator_info)
               else
-                create_image_block(parent, source, attributes, format, generator_info)
+                create_image_block(parent, source, format, generator_info)
             end
           rescue => e
             text = "Failed to generate image: #{e.message}"
@@ -129,7 +129,7 @@ module Asciidoctor
         end
 
         private
-        def create_image_block(parent, source, attributes, format, generator_info)
+        def create_image_block(parent, source, format, generator_info)
           image_name = "#{source.image_name}.#{format}"
           image_dir = image_output_dir(parent)
           image_file = parent.normalize_system_path image_name, image_dir
@@ -141,12 +141,12 @@ module Asciidoctor
             metadata = {}
           end
 
-          image_attributes = attributes.dup
+          image_attributes = source.attributes
 
           if !File.exists?(image_file) || source.should_process?(image_file, metadata)
             params = IMAGE_PARAMS[format]
 
-            result = instance_exec(source, parent, image_attributes, &generator_info[:generator])
+            result = instance_exec(source, parent, source, &generator_info[:generator])
 
             result.force_encoding(params[:encoding])
 
@@ -161,8 +161,8 @@ module Asciidoctor
           image_attributes['target'] = image_name
 
           scale = image_attributes['scale']
-          if scalematch = /(\d+)%/.match(scale)
-            scale_factor = scalematch[1].to_i / 100.0
+          if scalematch = /(\d+(?:\.\d+))/.match(scale)
+            scale_factor = scalematch[1].to_f
           else
             scale_factor = 1.0
           end
@@ -177,9 +177,9 @@ module Asciidoctor
             end
           end
 
-          image_attributes['alt'] ||= if title_text = attributes['title']
+          image_attributes['alt'] ||= if title_text = image_attributes['title']
                                         title_text
-                                      elsif target = attributes['target']
+                                      elsif target = image_attributes['target']
                                         (File.basename(target, File.extname(target)) || '').tr '_-', ' '
                                       else
                                         'Diagram'
@@ -213,8 +213,8 @@ module Asciidoctor
           parent.normalize_system_path(images_dir, base_dir)
         end
 
-        def create_literal_block(parent, source, attributes, generator_info)
-          literal_attributes = attributes.dup
+        def create_literal_block(parent, source, generator_info)
+          literal_attributes = source.attributes
           literal_attributes.delete('target')
 
           result = instance_exec(source, parent, &generator_info[:generator])

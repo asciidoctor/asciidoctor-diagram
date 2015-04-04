@@ -121,12 +121,14 @@ Doc Writer <doc@example.com>
 
   it "should support ditaa options as attributes" do
     doc = <<-eos
+:ditaa-option-antialias: false
+:ditaa-option-round-corners: true
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[ditaa, options="--no-shadows --no-separation --round-corners --scale 2.5"]
+[ditaa, shadows=false, separation=false, round-corners=false, scale=2.3]
 ----
 +--------+   +-------+    +-------+
 |        | --+ ditaa +--> |       |
@@ -157,7 +159,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-[ditaa, options="{opts}"]
+[ditaa, {opts}]
 ----
 +--------+   +-------+    +-------+
 |        | --+ ditaa +--> |       |
@@ -171,14 +173,14 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc.sub('{opts}', 'no-shadow'))
+    d = Asciidoctor.load StringIO.new(doc.sub('{opts}', 'shadow=false'))
     b = d.find { |b| b.context == :image }
     target = b.attributes['target']
     mtime1 = File.mtime(target)
 
     sleep 1
 
-    d = Asciidoctor.load StringIO.new(doc.sub('{opts}', 'round-corners'))
+    d = Asciidoctor.load StringIO.new(doc.sub('{opts}', 'round-corners=true'))
 
     mtime2 = File.mtime(target)
 
