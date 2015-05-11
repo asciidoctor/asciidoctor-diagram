@@ -366,7 +366,9 @@ module Asciidoctor
         end
 
         def code
-          @code ||= File.read(@file_name)
+          lines = File.readlines(@file_name)
+          lines = ::Asciidoctor::Helpers.normalize_lines(lines)
+          @code ||= lines.join("\n")
         end
       end
     end
