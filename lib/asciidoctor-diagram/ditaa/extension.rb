@@ -7,7 +7,7 @@ module Asciidoctor
   module Diagram
     # @private
     module Ditaa
-      JARS = ['ditaamini0_9.jar'].map do |jar|
+      JARS = ['ditaamini-0.10.jar'].map do |jar|
         File.expand_path File.join('../..', jar), File.dirname(__FILE__)
       end
       Java.classpath.concat JARS
@@ -48,26 +48,27 @@ module Asciidoctor
       module DitaaSource
         attr_reader :options
 
+        OPTIONS = {
+          'scale' => lambda { |o, v| o << '--scale' << v if v },
+          'tabs' => lambda { |o, v| o << '--tabs' << v if v },
+          'background' => lambda { |o, v| o << '--background' << v if v },
+          'antialias' => lambda { |o, v| o << '--no-antialias' if v == 'false' },
+          'separation' => lambda { |o, v| o  << '--no-separation' if v == 'false'},
+          'round-corners' => lambda { |o, v| o  << '--round-corners' if v == 'true'},
+          'shadows' => lambda { |o, v| o  << '--no-shadows' if v == 'false'},
+          'debug' => lambda { |o, v| o  << '--debug' if v == 'true'},
+          'fixed-slope' => lambda { |o, v| o  << '--fixed-slope' if v == 'true'},
+          'transparent' => lambda { |o, v| o  << '--transparent' if v == 'true'}
+        }
+
         def init_ditaa_options(parent, attributes)
           global_attributes = parent.document.attributes
 
-          option_values = {}
-
-          ['scale', 'antialias', 'separation', 'round-corners', 'shadows', 'debug'].each do |key|
-            option_values[key] = attributes.delete(key) || global_attributes["ditaa-option-#{key}"]
-          end
-
           options = []
 
-          begin
-          options << '--scale' << option_values['scale'] if option_values['scale']
-          options << '--no-antialias' if option_values['antialias'] == 'false'
-          options << '--no-separation' if option_values['separation'] == 'false'
-          options << '--round-corners' if option_values['round-corners'] == 'true'
-          options << '--no-shadows' if option_values['shadows'] == 'false'
-          options << '--debug' if option_values['debug'] == 'true'
-          rescue => e
-            e.backtrace.each { |l| puts l }
+          OPTIONS.keys.each do |key|
+            value = attributes.delete(key) || global_attributes["ditaa-option-#{key}"]
+            OPTIONS[key].call(options, value)
           end
 
           @options = options.join(' ')
