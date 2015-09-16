@@ -13,9 +13,14 @@ module Asciidoctor
           args = []
           args << '-Djava.awt.headless=true'
           args << '-cp'
-          args << classpath.flatten.join(File::PATH_SEPARATOR)
+          # special case for cygwin, it requires path translation for java to work
+          cygpath = ::Asciidoctor::Diagram.which('cygpath')
+          if(cygpath != nil) 
+            args << classpath.flatten.map { |jar| `cygpath -w "#{jar}"`.strip }.join(";")
+          else	
+            args << classpath.flatten.join(";")
+          end
           args << 'org.asciidoctor.diagram.CommandServer'
-
           @server = IO.popen([java, *args])
           @port = @server.readline.strip.to_i
           @client = TCPSocket.new 'localhost', port
