@@ -18,9 +18,10 @@ module Asciidoctor
           if(cygpath != nil) 
             args << classpath.flatten.map { |jar| `cygpath -w "#{jar}"`.strip }.join(";")
           else	
-            args << classpath.flatten.join(";")
+            args << classpath.flatten.join(File::PATH_SEPARATOR)
           end
           args << 'org.asciidoctor.diagram.CommandServer'
+		  
           @server = IO.popen([java, *args])
           @port = @server.readline.strip.to_i
           @client = TCPSocket.new 'localhost', port
