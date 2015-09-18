@@ -1,4 +1,5 @@
 require 'socket'
+require 'rbconfig'
 
 require_relative 'which'
 
@@ -14,14 +15,19 @@ module Asciidoctor
           args << '-Djava.awt.headless=true'
           args << '-cp'
           # special case for cygwin, it requires path translation for java to work
-          cygpath = ::Asciidoctor::Diagram.which('cygpath')
-          if(cygpath != nil) 
-            args << classpath.flatten.map { |jar| `cygpath -w "#{jar}"`.strip }.join(";")
-          else	
+          if RbConfig::CONFIG['host_os'] =~ /cygwin/i
+            cygpath = ::Asciidoctor::Diagram.which('cygpath')
+            if(cygpath != nil) 
+              args << classpath.flatten.map { |jar| `cygpath -w "#{jar}"`.strip }.join(";")
+            else
+              puts 'cygwin warning: cygpath not found'
+              args << classpath.flatten.join(File::PATH_SEPARATOR)
+            end
+          else
             args << classpath.flatten.join(File::PATH_SEPARATOR)
           end
           args << 'org.asciidoctor.diagram.CommandServer'
-		  
+
           @server = IO.popen([java, *args])
           @port = @server.readline.strip.to_i
           @client = TCPSocket.new 'localhost', port
