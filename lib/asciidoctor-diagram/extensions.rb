@@ -153,7 +153,7 @@ module Asciidoctor
             metadata = source.create_image_metadata
             metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
 
-            FileUtils.mkdir_p(image_dir) unless Dir.exists?(image_dir)
+            FileUtils.mkdir_p(image_dir) unless Dir.exist?(image_dir)
             File.open(image_file, 'wb') { |f| f.write result }
             File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
           end
