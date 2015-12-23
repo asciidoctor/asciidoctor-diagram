@@ -159,6 +159,7 @@ shaape::shaape.txt
 
     d = Asciidoctor.load StringIO.new(doc)
     b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
     target = b.attributes['target']
     mtime1 = File.mtime(target)
 
