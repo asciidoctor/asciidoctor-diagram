@@ -16,7 +16,7 @@ module Asciidoctor
           args << '-cp'
           # special case for cygwin, it requires path translation for java to work
           if RbConfig::CONFIG['host_os'] =~ /cygwin/i
-            cygpath = ::Asciidoctor::Diagram.which('cygpath')
+            cygpath = ::Asciidoctor::Diagram::Which.which('cygpath')
             if(cygpath != nil) 
               args << classpath.flatten.map { |jar| `cygpath -w "#{jar}"`.strip }.join(";")
             else
@@ -79,13 +79,13 @@ module Asciidoctor
       def self.find_java
         if /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM
           # Windows
-          path_to(ENV['JAVA_HOME'], 'bin/java.exe') || registry_lookup || ::Asciidoctor::Diagram.which('java')
+          path_to(ENV['JAVA_HOME'], 'bin/java.exe') || registry_lookup || ::Asciidoctor::Diagram::Which.which('java')
         elsif /darwin/ =~ RUBY_PLATFORM
           # Mac
-          path_to(ENV['JAVA_HOME'], 'bin/java') || path_to(`/usr/libexec/java_home`.strip, 'bin/java') || ::Asciidoctor::Diagram.which('java')
+          path_to(ENV['JAVA_HOME'], 'bin/java') || path_to(`/usr/libexec/java_home`.strip, 'bin/java') || ::Asciidoctor::Diagram::Which.which('java')
         else
           # Other unix-like system
-          path_to(ENV['JAVA_HOME'], 'bin/java') || ::Asciidoctor::Diagram.which('java')
+          path_to(ENV['JAVA_HOME'], 'bin/java') || ::Asciidoctor::Diagram::Which.which('java')
         end
       end
 
