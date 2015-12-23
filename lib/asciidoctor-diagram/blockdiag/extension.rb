@@ -1,24 +1,9 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
+require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
-    # @private
-    module BlockDiag
-      def self.define_processors(name, &init)
-        block = Class.new(Extensions::DiagramBlockProcessor) do
-          self.instance_eval &init
-        end
-        ::Asciidoctor::Diagram.const_set("#{name}BlockProcessor", block)
-
-        block_macro = Class.new(Extensions::DiagramBlockMacroProcessor) do
-          self.instance_eval &init
-        end
-
-        ::Asciidoctor::Diagram.const_set("#{name}BlockMacroProcessor", block_macro)
-      end
-    end
-
     # @!parse
     #   # Block processor converts blockdiag code into images.
     #   #
@@ -84,11 +69,30 @@ module Asciidoctor
     #   #
     #   # Supports PNG and SVG output.
     #   class PacketDiagBlockMacroProcessor < API::DiagramBlockMacroProcessor; end
+
+    # @private
+    module BlockDiag
+      def self.define_processors(name, &init)
+        block = Class.new(Extensions::DiagramBlockProcessor) do
+          self.instance_eval &init
+        end
+        ::Asciidoctor::Diagram.const_set("#{name}BlockProcessor", block)
+
+        block_macro = Class.new(Extensions::DiagramBlockMacroProcessor) do
+          self.instance_eval &init
+        end
+
+        ::Asciidoctor::Diagram.const_set("#{name}BlockMacroProcessor", block_macro)
+      end
+    end
+
     ['BlockDiag', 'SeqDiag', 'ActDiag', 'NwDiag', 'RackDiag', 'PacketDiag'].each do |tool|
       BlockDiag.define_processors(tool) do
+        include Which
+
         [:png, :svg].each do |f|
           register_format(f, :image) do |c, p|
-            CliGenerator.generate(tool.downcase, p, c.to_s) do |tool_path, output_path|
+            CliGenerator.generate(which(p, tool.downcase), c.to_s) do |tool_path, output_path|
               [tool_path, '-o', output_path, "-T#{f.to_s}", '-']
             end
           end
