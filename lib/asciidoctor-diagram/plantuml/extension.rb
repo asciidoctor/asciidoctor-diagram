@@ -1,4 +1,5 @@
 require_relative '../extensions'
+require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
