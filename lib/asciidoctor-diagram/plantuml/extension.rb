@@ -15,7 +15,7 @@ module Asciidoctor
       def plantuml(parent, code, tag, mime_type)
         Java.load
 
-        code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index "@start#{tag}"
+        code = preprocess_code(parent, code, tag)
 
         headers = {
             'Accept' => mime_type
@@ -37,6 +37,25 @@ module Asciidoctor
         end
 
         response[:body]
+      end
+
+      def preprocess_code(parent, code, tag)
+        code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index "@start#{tag}"
+
+        code.gsub!(/(?<=<img:)[^>]+(?=>)/) do |match|
+          if match =~ URI.regexp
+            uri = URI.parse(match)
+            if uri.scheme == 'file'
+              parent.normalize_system_path(uri.path, parent.attr('imagesdir'))
+            else
+              parent.normalize_web_path(match)
+            end
+          else
+            parent.normalize_system_path(match, parent.attr('imagesdir'))
+          end
+        end
+
+        code
       end
 
       def self.included(mod)

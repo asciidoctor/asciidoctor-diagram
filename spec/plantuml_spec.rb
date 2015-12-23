@@ -485,4 +485,31 @@ A -> B
     expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 1.5)
     expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 1.5)
   end
+
+  it "should handle embedded creole images correctly" do
+    creole_doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png"]
+----
+:* You can change <color:red>text color</color>
+* You can change <back:cadetblue>background color</back>
+* You can change <size:18>size</size>
+* You use <u>legacy</u> <b>HTML <i>tag</i></b>
+* You use <u:red>color</u> <s:green>in HTML</s> <w:#0000FF>tag</w>
+* Use image : <img:sourceforge.jpg>
+* Use image : <img:http://www.foo.bar/sourceforge.jpg>
+* Use image : <img:file:///sourceforge.jpg>
+
+;
+----
+    eos
+
+    Asciidoctor.load StringIO.new(creole_doc), :attributes => {'backend' => 'html5'}
+
+    # No real way to assert this since PlantUML doesn't produce an error on file not found
+  end
 end
