@@ -33,7 +33,7 @@ module Asciidoctor
         )
 
         unless response[:code] == 200
-          raise "PlantUML image generation failed: #{response[:reason]} #{response[:body]}"
+          raise Java.create_error("PlantUML image generation failed", response)
         end
 
         response[:body]

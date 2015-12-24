@@ -24,7 +24,7 @@ module Asciidoctor
         )
 
         unless response[:code] == 200
-          raise "Ditaa image generation failed: #{response[:reason]} #{response[:body]}"
+          raise Java.create_error("Ditaa image generation failed", response)
         end
 
         response[:body]

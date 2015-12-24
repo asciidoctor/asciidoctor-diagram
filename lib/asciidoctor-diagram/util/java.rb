@@ -1,10 +1,12 @@
+require 'json'
+
 module Asciidoctor
   module Diagram
     # @private
     module Java
       def self.classpath
         @classpath ||= [
-            File.expand_path(File.join('../..', 'asciidoctor-diagram-java-1.3.5.jar'), File.dirname(__FILE__))
+            File.expand_path(File.join('../..', 'asciidoctor-diagram-java-1.3.7.jar'), File.dirname(__FILE__))
         ]
       end
 
@@ -69,6 +71,22 @@ module Asciidoctor
         end
 
         resp
+      end
+
+      def self.create_error(prefix_msg, response)
+        content_type = response[:headers]['Content-Type'] || 'text/plain'
+        if content_type.start_with? 'application/json'
+          json = JSON.parse(response[:body].force_encoding(Encoding::UTF_8))
+          ruby_bt = Kernel.caller(2)
+          java_bt = json['stk'].map { |java_line| "#{java_line[0]}:#{java_line[3]}: in `#{java_line[2]}'" }
+          error = RuntimeError.new("#{prefix_msg}: #{json['msg']}")
+          error.set_backtrace java_bt + ruby_bt
+          raise error
+        elsif content_type.start_with? 'text/plain'
+          raise "#{prefix_msg}: #{response[:reason]} #{response[:body].force_encoding(Encoding::UTF_8)}"
+        else
+          raise "#{prefix_msg}: #{response[:reason]}"
+        end
       end
     end
   end
