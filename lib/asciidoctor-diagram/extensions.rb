@@ -103,11 +103,17 @@ module Asciidoctor
                 create_image_block(parent, source, format, generator_info)
             end
           rescue => e
-            text = "Failed to generate image: #{e.message}"
-            warn %(asciidoctor-diagram: ERROR: #{text})
-            text << "\n"
-            text << source.code
-            Asciidoctor::Block.new parent, :listing, :source => text, :attributes => attributes
+            case parent.attr('diagram-on-error') || 'log'
+              when 'abort'
+                raise e
+              else
+                text = "Failed to generate image: #{e.message}"
+                warn %(asciidoctor-diagram: ERROR: #{text})
+                text << "\n"
+                text << source.code
+                Asciidoctor::Block.new parent, :listing, :source => text, :attributes => attributes
+            end
+
           end
         end
 
