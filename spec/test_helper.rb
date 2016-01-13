@@ -11,6 +11,7 @@ require_relative '../lib/asciidoctor-diagram/ditaa/extension'
 require_relative '../lib/asciidoctor-diagram/graphviz/extension'
 require_relative '../lib/asciidoctor-diagram/plantuml/extension'
 require_relative '../lib/asciidoctor-diagram/shaape/extension'
+require_relative '../lib/asciidoctor-diagram/wavedrom/extension'
 
 module Asciidoctor
   class AbstractBlock
@@ -30,6 +31,8 @@ module Asciidoctor
 end
 
 RSpec.configure do |c|
+  c.filter_run_excluding :broken => true
+
   TEST_DIR = File.expand_path('testing')
 
   c.before(:suite) do
