@@ -9,6 +9,7 @@ These extensions allow you to embed plain text diagrams inside your AsciiDoc doc
 - https://github.com/christiangoltz/shaape[Shaape]
 - http://blockdiag.com[BlockDiag, SeqDiag, ActDiag, NwDiag]
 - http://www.graphviz.org/content/dot-language[GraphViz DOT]
+- http://wavedrom.com[WaveDrom]
 
 The extension takes care of running the diagram processor to generate the images from the input text and insert them into the rendered document.
 
@@ -43,6 +44,7 @@ Certain diagram types require other tools to be installed seperately.
 - PlantUML and Graphviz: the Graphviz `dot` tool.
 - Shaape: the Shaape Python package
 - Block/Seq/Act/Nw diag: the block/seq/act/nw diag Python packages
+- WaveDrom: the https://github.com/wavedrom/wavedrom.github.io/releases[WaveDrom editor] application
 
 == Usage
 
@@ -58,6 +60,7 @@ In your script you can then either require one or more of the following files:
 . `asciidoctor-diagram/graphviz`: to enable the graphviz extension
 . `asciidoctor-diagram/plantuml`: to enable the plantuml extension
 . `asciidoctor-diagram/shaape`: to enable the shaape extension
+. `asciidoctor-diagram/wavedrom`: to enable the wavedrom extension
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 If you need more fine grained control over when the extensions are enabled or not, `asciidoctor-diagram/ditaa/extension`, `asciidoctor-diagram/graphviz/extension` and `asciidoctor-diagram/plantuml/extension` can be used instead.
@@ -73,6 +76,7 @@ Once the extensions are enabled the following block types becomes available for 
 - `graphviz`
 - `plantuml`
 - `shaape`
+- `wavedrom`
 
 Detailed descriptions of the supported syntax inside these blocks is available on the http://plantuml.sourceforge.net/[PlantUML], http://www.graphviz.org/content/dot-language[Graphviz] and http://ditaa.sourceforge.net/[ditaa] websites.
 
@@ -98,7 +102,7 @@ The diagram blocks support the following attributes:
 . `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
 
 Once you have all of this in place and your original AsciiDoc file contains a diagram block, it's time to build it into an HTML file with Asciidoctor Diagram magic! 
-When executing Asciidoctor, you must reference the Adciidoctor Diagram library, otherwise your diagam blocks won't be recognized as such. When executing Asciidoctor from the command line, do it using the -r parameter to reference this external library:
+When executing Asciidoctor, you must reference the Adciidoctor Diagram library, otherwise your diagram blocks won't be recognized as such. When executing Asciidoctor from the command line, do it using the -r parameter to reference this external library:
 
 $ asciidoctor -r asciidoctor-diagram doc.adoc
 

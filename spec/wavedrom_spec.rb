@@ -1,25 +1,24 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagram::ShaapeBlockMacroProcessor, :broken => /darwin/ =~ RUBY_PLATFORM do
-  it "should generate PNG images when format is set to 'png'" do
-    code = <<-eos
-    +--------+    +-------------+
-    |        |     \\           /
-    | Hello  |--->  \\ Goodbye /
-    |   ;)   |      /         \\
-    |        |     /           \\
-    +--------+    +-------------+
-    eos
+code = <<-eos
+{ signal : [
+  { name: "clk",  wave: "p......" },
+  { name: "bus",  wave: "x.34.5x",   data: "head body tail" },
+  { name: "wire", wave: "0.1..0." },
+]}
+eos
 
-    File.write('shaape.txt', code)
+describe Asciidoctor::Diagram::WavedromBlockMacroProcessor, :broken => true do
+  it "should generate PNG images when format is set to 'png'" do
+    File.write('wavedrom.txt', code)
 
     doc = <<-eos
-= Hello, Shaape!
+= Hello, Wavedrom!
 Doc Writer <doc@example.com>
 
 == First Section
 
-shaape::shaape.txt[format="png"]
+wavedrom::wavedrom.txt[format="png"]
     eos
 
     d = Asciidoctor.load StringIO.new(doc)
@@ -38,24 +37,48 @@ shaape::shaape.txt[format="png"]
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
   end
-end
 
-describe Asciidoctor::Diagram::ShaapeBlockProcessor, :broken => /darwin/ =~ RUBY_PLATFORM do
-  it "should generate PNG images when format is set to 'png'" do
+  it "should generate SVG images when format is set to 'svg'" do
+    File.write('wavedrom.txt', code)
+
     doc = <<-eos
-= Hello, Shaape!
+= Hello, Wavedrom!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[shaape, format="png"]
+wavedrom::wavedrom.txt[format="svg"]
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc)
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match /\.svg/
+    expect(File.exists?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+end
+
+describe Asciidoctor::Diagram::WavedromBlockProcessor, :broken => true do
+  it "should generate PNG images when format is set to 'png'" do
+    doc = <<-eos
+= Hello, Wavedrom!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[wavedrom, format="png"]
 ----
-    +--------+    +-------------+
-    |        |     \\           /
-    | Hello  |--->  \\ Goodbye /
-    |   ;)   |      /         \\
-    |        |     /           \\
-    +--------+    +-------------+
+#{code}
 ----
     eos
 
@@ -78,19 +101,14 @@ Doc Writer <doc@example.com>
 
   it "should generate SVG images when format is set to 'svg'" do
     doc = <<-eos
-= Hello, Shaape!
+= Hello, Wavedrom!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[shaape, format="svg"]
+[wavedrom, format="svg"]
 ----
-    +--------+    +-------------+
-    |        |     \\           /
-    | Hello  |--->  \\ Goodbye /
-    |   ;)   |      /         \\
-    |        |     /           \\
-    +--------+    +-------------+
+#{code}
 ----
     eos
 
@@ -113,12 +131,12 @@ Doc Writer <doc@example.com>
 
   it "should raise an error when when format is set to an invalid value" do
     doc = <<-eos
-= Hello, Shaape!
+= Hello, Wavedrom!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[shaape, format="foobar"]
+[wavedrom, format="foobar"]
 ----
 ----
     eos
@@ -127,33 +145,19 @@ Doc Writer <doc@example.com>
   end
 
   it "should not regenerate images when source has not changed" do
-    code = <<-eos
-    +--------+    +-------------+
-    |        |     \\           /
-    | Hello  |--->  \\ Goodbye /
-    |   ;)   |      /         \\
-    |        |     /           \\
-    +--------+    +-------------+
-    eos
-
-    File.write('shaape.txt', code)
+    File.write('wavedrom.txt', code)
 
     doc = <<-eos
-= Hello, Shaape!
+= Hello, Wavedrom!
 Doc Writer <doc@example.com>
 
 == First Section
 
-shaape::shaape.txt
+wavedrom::wavedrom.txt
 
-[shaape, format="png"]
+[wavedrom, format="png"]
 ----
-    +--------+
-    |        |
-    | Hello  |
-    |   ;)   |
-    |        |
-    +--------+
+#{code}
 ----
     eos
 
@@ -173,56 +177,38 @@ shaape::shaape.txt
   end
 
   it "should handle two block macros with the same source" do
-    code = <<-eos
-    +--------+    +-------------+
-    |        |     \\           /
-    | Hello  |--->  \\ Goodbye /
-    |   ;)   |      /         \\
-    |        |     /           \\
-    +--------+    +-------------+
-    eos
-
-    File.write('shaape.txt', code)
+    File.write('wavedrom.txt', code)
 
     doc = <<-eos
-= Hello, Shaape!
+= Hello, Wavedrom!
 Doc Writer <doc@example.com>
 
 == First Section
 
-shaape::shaape.txt[]
-shaape::shaape.txt[]
+wavedrom::wavedrom.txt[]
+wavedrom::wavedrom.txt[]
     eos
 
     Asciidoctor.load StringIO.new(doc)
-    expect(File.exists?('shaape.png')).to be true
+    expect(File.exists?('wavedrom.png')).to be true
   end
 
   it "should respect target attribute in block macros" do
-    code = <<-eos
-    +--------+    +-------------+
-    |        |     \\           /
-    | Hello  |--->  \\ Goodbye /
-    |   ;)   |      /         \\
-    |        |     /           \\
-    +--------+    +-------------+
-    eos
-
-    File.write('shaape.txt', code)
+    File.write('wavedrom.txt', code)
 
     doc = <<-eos
-= Hello, Shaape!
+= Hello, Wavedrom!
 Doc Writer <doc@example.com>
 
 == First Section
 
-shaape::shaape.txt["foobar"]
-shaape::shaape.txt["foobaz"]
+wavedrom::wavedrom.txt["foobar"]
+wavedrom::wavedrom.txt["foobaz"]
     eos
 
     Asciidoctor.load StringIO.new(doc)
     expect(File.exists?('foobar.png')).to be true
     expect(File.exists?('foobaz.png')).to be true
-    expect(File.exists?('shaape.png')).to be false
+    expect(File.exists?('wavedrom.png')).to be false
   end
 end
