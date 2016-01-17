@@ -12,6 +12,8 @@ These extensions allow you to embed plain text diagrams inside your AsciiDoc doc
 - https://github.com/christiangoltz/shaape[Shaape]
 - http://wavedrom.com[WaveDrom]
 
+Additionally Asciidoctor Diagram includes a basic meme generator extension.
+
 The extension takes care of running the diagram processor to generate the images from the input text and insert them into the rendered document.
 
 This gem was inspired by the https://code.google.com/p/asciidoc-plantuml/[AsciiDoc PlantUML filter] for AsciiDoc Python.
@@ -43,10 +45,11 @@ Or install it yourself as:
 Certain diagram types require other tools to be installed seperately.
 
 - Block/Seq/Act/Nw diag: the block/seq/act/nw diag Python packages
-- Graphviz: the http://www.graphviz.org[Graphviz] package.
-- Shaape: the Shaape Python package
+- Graphviz: the http://www.graphviz.org[Graphviz] package
+- Meme: http://www.imagemagick.org[ImageMagick]
 - Mermaid: the http://knsv.github.io/mermaid[Mermaid] CLI and http://phantomjs.org[PhantomJS] 1.9.x
-- PlantUML: the http://www.graphviz.org[Graphviz] package for certain diagram types.
+- PlantUML: http://www.graphviz.org[Graphviz] package for certain diagram types.
+- Shaape: the Shaape Python package
 - WaveDrom: the https://github.com/wavedrom/wavedrom.github.io/releases[WaveDrom editor] application
 
 == Usage
@@ -61,6 +64,7 @@ In your script you can then either require one or more of the following files:
 . `asciidoctor-diagram/blockdiag`: to enable the block/act/seq/nw diag extension
 . `asciidoctor-diagram/ditaa`: to enable the ditaa extension
 . `asciidoctor-diagram/graphviz`: to enable the graphviz extension
+. `asciidoctor-diagram/meme`: to enable the mermaid extension
 . `asciidoctor-diagram/mermaid`: to enable the mermaid extension
 . `asciidoctor-diagram/plantuml`: to enable the plantuml extension
 . `asciidoctor-diagram/shaape`: to enable the shaape extension
@@ -78,6 +82,8 @@ Once the extensions are enabled the following block types becomes available for 
 - `blockdiag`, `actdiag`, `seqdiag`, `nwdiag`, `rackdiag` and `packetdiag`
 - `ditaa`
 - `graphviz`
+- `meme`
+- `mermaid`
 - `plantuml`
 - `shaape`
 - `wavedrom`

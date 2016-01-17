@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'open3'
 
 module Asciidoctor
   module Diagram
@@ -50,11 +51,7 @@ module Asciidoctor
                 raise "Block passed to generate_file should return an Array or a Hash"
             end
 
-            system(*args)
-
-            result_code = $?
-
-            raise "#{tool_name} image generation failed" unless result_code == 0
+            run_cli(*args)
 
             if out_file
               File.rename(out_file, target_file.path)
@@ -67,6 +64,14 @@ module Asciidoctor
         ensure
           source_file.unlink
         end
+      end
+
+      def self.run_cli(*args)
+        stdout, status = Open3.capture2e(*args)
+
+        raise "#{File.basename(args[0])} failed: #{stdout}" unless status == 0
+
+        stdout
       end
     end
   end
