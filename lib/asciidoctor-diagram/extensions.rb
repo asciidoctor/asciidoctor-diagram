@@ -260,7 +260,7 @@ module Asciidoctor
         #
         # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
-          FileSource.new(File.expand_path(target, parent.document.base_dir), attributes)
+          FileSource.new(parent.normalize_system_path(target, parent.document.base_dir), attributes)
         end
       end
 

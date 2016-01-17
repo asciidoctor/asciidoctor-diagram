@@ -26,9 +26,9 @@ module Asciidoctor
       private
 
       START_TAG_REGEX = /<svg[^>]*>/
-      WIDTH_REGEX = /width="(?<value>\d+)(?<unit>[a-zA-Z]+)"/
-      HEIGHT_REGEX = /height="(?<value>\d+)(?<unit>[a-zA-Z]+)"/
-      VIEWBOX_REGEX = /viewBox="\d+ \d+ (?<width>\d+) (?<height>\d+)"/
+      WIDTH_REGEX = /width="(?<value>\d+(?:\.\d+)?)(?<unit>[a-zA-Z]+)?"/
+      HEIGHT_REGEX = /height="(?<value>\d+(?:\.\d+)?)(?<unit>[a-zA-Z]+)?"/
+      VIEWBOX_REGEX = /viewBox="\d+(?:\.\d+)? \d+(?:\.\d+)? (?<width>\d+(?:\.\d+)?) (?<height>\d+(?:\.\d+)?)"/
 
       def self.to_px_factor(unit)
         case unit

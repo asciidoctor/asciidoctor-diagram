@@ -9,6 +9,7 @@ require_relative '../lib/asciidoctor-diagram'
 require_relative '../lib/asciidoctor-diagram/blockdiag/extension'
 require_relative '../lib/asciidoctor-diagram/ditaa/extension'
 require_relative '../lib/asciidoctor-diagram/graphviz/extension'
+require_relative '../lib/asciidoctor-diagram/mermaid/extension'
 require_relative '../lib/asciidoctor-diagram/plantuml/extension'
 require_relative '../lib/asciidoctor-diagram/shaape/extension'
 require_relative '../lib/asciidoctor-diagram/wavedrom/extension'
@@ -31,7 +32,13 @@ module Asciidoctor
 end
 
 RSpec.configure do |c|
-  c.filter_run_excluding :broken => true
+  if /darwin/ =~ RUBY_PLATFORM
+    c.filter_run_excluding :broken_on_osx => true
+  end
+
+  if ENV['TRAVIS']
+    c.filter_run_excluding :broken_on_ci => true
+  end
 
   TEST_DIR = File.expand_path('testing')
 

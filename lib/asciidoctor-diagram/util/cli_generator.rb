@@ -37,12 +37,28 @@ module Asciidoctor
           begin
             target_file.close
 
-            args = yield tool, source_file.path, target_file.path
+            opts = yield tool, source_file.path, target_file.path
+
+            case opts
+              when Array
+                args = opts
+                out_file = nil
+              when Hash
+                args = opts[:args]
+                out_file = opts[:out_file]
+              else
+                raise "Block passed to generate_file should return an Array or a Hash"
+            end
 
             system(*args)
+
             result_code = $?
 
             raise "#{tool_name} image generation failed" unless result_code == 0
+
+            if out_file
+              File.rename(out_file, target_file.path)
+            end
 
             File.binread(target_file.path)
           ensure
