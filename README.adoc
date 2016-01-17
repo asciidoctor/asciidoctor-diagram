@@ -4,11 +4,12 @@ Pepijn Van_Eeckhoudt
 Asciidoctor Diagram is a set of extensions for http://asciidoctor.org[Asciidoctor], the Ruby-based AsciiDoc processor.
 These extensions allow you to embed plain text diagrams inside your AsciiDoc documents using one of the following syntaxes:
 
-- http://plantuml.sourceforge.net[PlantUML]
-- http://ditaa.sourceforge.net[Ditaa].
-- https://github.com/christiangoltz/shaape[Shaape]
 - http://blockdiag.com[BlockDiag, SeqDiag, ActDiag, NwDiag]
+- http://ditaa.sourceforge.net[Ditaa].
 - http://www.graphviz.org/content/dot-language[GraphViz DOT]
+- http://knsv.github.io/mermaid/[Mermaid]
+- http://plantuml.sourceforge.net[PlantUML]
+- https://github.com/christiangoltz/shaape[Shaape]
 - http://wavedrom.com[WaveDrom]
 
 The extension takes care of running the diagram processor to generate the images from the input text and insert them into the rendered document.
@@ -41,9 +42,11 @@ Or install it yourself as:
 
 Certain diagram types require other tools to be installed seperately.
 
-- PlantUML and Graphviz: the Graphviz `dot` tool.
-- Shaape: the Shaape Python package
 - Block/Seq/Act/Nw diag: the block/seq/act/nw diag Python packages
+- Graphviz: the http://www.graphviz.org[Graphviz] package.
+- Shaape: the Shaape Python package
+- Mermaid: the http://knsv.github.io/mermaid[Mermaid] CLI and http://phantomjs.org[PhantomJS] 1.9.x
+- PlantUML: the http://www.graphviz.org[Graphviz] package for certain diagram types.
 - WaveDrom: the https://github.com/wavedrom/wavedrom.github.io/releases[WaveDrom editor] application
 
 == Usage
@@ -58,6 +61,7 @@ In your script you can then either require one or more of the following files:
 . `asciidoctor-diagram/blockdiag`: to enable the block/act/seq/nw diag extension
 . `asciidoctor-diagram/ditaa`: to enable the ditaa extension
 . `asciidoctor-diagram/graphviz`: to enable the graphviz extension
+. `asciidoctor-diagram/mermaid`: to enable the mermaid extension
 . `asciidoctor-diagram/plantuml`: to enable the plantuml extension
 . `asciidoctor-diagram/shaape`: to enable the shaape extension
 . `asciidoctor-diagram/wavedrom`: to enable the wavedrom extension

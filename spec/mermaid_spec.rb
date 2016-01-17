@@ -1,24 +1,24 @@
 require_relative 'test_helper'
 
 code = <<-eos
-{ signal : [
-  { name: "clk",  wave: "p......" },
-  { name: "bus",  wave: "x.34.5x",   data: "head body tail" },
-  { name: "wire", wave: "0.1..0." },
-]}
+graph LR
+    A[Square Rect] -- Link text --> B((Circle))
+    A --> C(Round Rect)
+    B --> D{Rhombus}
+    C --> D
 eos
 
-describe Asciidoctor::Diagram::WavedromBlockMacroProcessor, :broken_on_ci => true do
+describe Asciidoctor::Diagram::MermaidBlockMacroProcessor do
   it "should generate PNG images when format is set to 'png'" do
-    File.write('wavedrom.txt', code)
+    File.write('mermaid.txt', code)
 
     doc = <<-eos
-= Hello, Wavedrom!
+= Hello, Mermaid!
 Doc Writer <doc@example.com>
 
 == First Section
 
-wavedrom::wavedrom.txt[format="png"]
+mermaid::mermaid.txt[format="png"]
     eos
 
     d = Asciidoctor.load StringIO.new(doc)
@@ -39,15 +39,15 @@ wavedrom::wavedrom.txt[format="png"]
   end
 
   it "should generate SVG images when format is set to 'svg'" do
-    File.write('wavedrom.txt', code)
+    File.write('mermaid.txt', code)
 
     doc = <<-eos
-= Hello, Wavedrom!
+= Hello, Mermaid!
 Doc Writer <doc@example.com>
 
 == First Section
 
-wavedrom::wavedrom.txt[format="svg"]
+mermaid::mermaid.txt[format="svg"]
     eos
 
     d = Asciidoctor.load StringIO.new(doc)
@@ -68,15 +68,15 @@ wavedrom::wavedrom.txt[format="svg"]
   end
 end
 
-describe Asciidoctor::Diagram::WavedromBlockProcessor, :broken_on_ci => true do
+describe Asciidoctor::Diagram::MermaidBlockProcessor do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
-= Hello, Wavedrom!
+= Hello, Mermaid!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[wavedrom, format="png"]
+[mermaid, format="png"]
 ----
 #{code}
 ----
@@ -101,12 +101,12 @@ Doc Writer <doc@example.com>
 
   it "should generate SVG images when format is set to 'svg'" do
     doc = <<-eos
-= Hello, Wavedrom!
+= Hello, Mermaid!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[wavedrom, format="svg"]
+[mermaid, format="svg"]
 ----
 #{code}
 ----
@@ -131,12 +131,12 @@ Doc Writer <doc@example.com>
 
   it "should raise an error when when format is set to an invalid value" do
     doc = <<-eos
-= Hello, Wavedrom!
+= Hello, Mermaid!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[wavedrom, format="foobar"]
+[mermaid, format="foobar"]
 ----
 ----
     eos
@@ -145,17 +145,17 @@ Doc Writer <doc@example.com>
   end
 
   it "should not regenerate images when source has not changed" do
-    File.write('wavedrom.txt', code)
+    File.write('mermaid.txt', code)
 
     doc = <<-eos
-= Hello, Wavedrom!
+= Hello, Mermaid!
 Doc Writer <doc@example.com>
 
 == First Section
 
-wavedrom::wavedrom.txt
+mermaid::mermaid.txt
 
-[wavedrom, format="png"]
+[mermaid, format="png"]
 ----
 #{code}
 ----
@@ -177,38 +177,101 @@ wavedrom::wavedrom.txt
   end
 
   it "should handle two block macros with the same source" do
-    File.write('wavedrom.txt', code)
+    File.write('mermaid.txt', code)
 
     doc = <<-eos
-= Hello, Wavedrom!
+= Hello, Mermaid!
 Doc Writer <doc@example.com>
 
 == First Section
 
-wavedrom::wavedrom.txt[]
-wavedrom::wavedrom.txt[]
+mermaid::mermaid.txt[]
+mermaid::mermaid.txt[]
     eos
 
     Asciidoctor.load StringIO.new(doc)
-    expect(File.exists?('wavedrom.png')).to be true
+    expect(File.exists?('mermaid.png')).to be true
   end
 
   it "should respect target attribute in block macros" do
-    File.write('wavedrom.txt', code)
+    File.write('mermaid.txt', code)
 
     doc = <<-eos
-= Hello, Wavedrom!
+= Hello, Mermaid!
 Doc Writer <doc@example.com>
 
 == First Section
 
-wavedrom::wavedrom.txt["foobar"]
-wavedrom::wavedrom.txt["foobaz"]
+mermaid::mermaid.txt["foobar"]
+mermaid::mermaid.txt["foobaz"]
     eos
 
     Asciidoctor.load StringIO.new(doc)
     expect(File.exists?('foobar.png')).to be true
     expect(File.exists?('foobaz.png')).to be true
-    expect(File.exists?('wavedrom.png')).to be false
+    expect(File.exists?('mermaid.png')).to be false
+  end
+
+  it "should respect the sequenceConfig attribute" do
+    seq_diag = <<-eos
+sequenceDiagram
+    Alice->>John: Hello John, how are you?
+    John-->>Alice: Great!
+    eos
+
+    seq_config = <<-eos
+{
+  "diagramMarginX": 0,
+  "diagramMarginY": 0,
+  "actorMargin": 0,
+  "boxMargin": 0,
+  "boxTextMargin": 0,
+  "noteMargin": 0,
+  "messageMargin": 0
+}
+    eos
+    File.write('seqconfig.txt', seq_config)
+
+    File.write('mermaid.txt', seq_diag)
+
+    doc = <<-eos
+= Hello, Mermaid!
+Doc Writer <doc@example.com>
+
+== First Section
+
+mermaid::mermaid.txt["with_config", sequenceConfig="seqconfig.txt"]
+mermaid::mermaid.txt["without_config"]
+    eos
+
+    Asciidoctor.load StringIO.new(doc)
+    expect(File.exists?('with_config.png')).to be true
+    expect(File.exists?('without_config.png')).to be true
+    expect(File.size('with_config.png')).to_not be File.size('without_config.png')
+  end
+
+  it "should respect the width attribute" do
+    seq_diag = <<-eos
+sequenceDiagram
+    Alice->>John: Hello John, how are you?
+    John-->>Alice: Great!
+    eos
+
+    File.write('mermaid.txt', seq_diag)
+
+    doc = <<-eos
+= Hello, Mermaid!
+Doc Writer <doc@example.com>
+
+== First Section
+
+mermaid::mermaid.txt["with_width", width="700"]
+mermaid::mermaid.txt["without_width"]
+    eos
+
+    Asciidoctor.load StringIO.new(doc)
+    expect(File.exists?('with_width.png')).to be true
+    expect(File.exists?('without_width.png')).to be true
+    expect(File.size('with_width.png')).to_not be File.size('without_width.png')
   end
 end

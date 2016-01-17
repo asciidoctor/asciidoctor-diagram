@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagram::ShaapeBlockMacroProcessor, :broken => /darwin/ =~ RUBY_PLATFORM do
+describe Asciidoctor::Diagram::ShaapeBlockMacroProcessor, :broken_on_osx do
   it "should generate PNG images when format is set to 'png'" do
     code = <<-eos
     +--------+    +-------------+
@@ -40,7 +40,7 @@ shaape::shaape.txt[format="png"]
   end
 end
 
-describe Asciidoctor::Diagram::ShaapeBlockProcessor, :broken => /darwin/ =~ RUBY_PLATFORM do
+describe Asciidoctor::Diagram::ShaapeBlockProcessor, :broken_on_osx do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, Shaape!
