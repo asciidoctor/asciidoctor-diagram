@@ -5,6 +5,8 @@ module Asciidoctor
   module Diagram
     # @private
     module PlantUml
+      include Which
+
       private
 
       JARS = ['plantuml.jar'].map do |jar|
@@ -24,6 +26,11 @@ module Asciidoctor
         config_file = parent.document.attributes['plantumlconfig']
         if config_file
           headers['X-PlantUML-Config'] = File.expand_path(config_file, parent.document.attributes['docdir'])
+        end
+
+        dot = which(parent, 'dot', :attr_names => ['dot', 'graphvizdot'], :raise_on_error => false)
+        if dot
+          headers['X-Graphviz'] = dot
         end
 
         response = Java.send_request(
