@@ -260,7 +260,7 @@ module Asciidoctor
         #
         # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
-          FileSource.new(parent.normalize_system_path(target, parent.document.base_dir), attributes)
+          FileSource.new(target.empty? ? nil : parent.normalize_system_path(target, parent.document.base_dir), attributes)
         end
       end
 
@@ -334,6 +334,10 @@ module Asciidoctor
         def compute_checksum(code)
           md5 = Digest::MD5.new
           md5 << code
+          attributes.each do |k,v|
+            md5 << k if k
+            md5 << v if v
+          end
           md5.hexdigest
         end
       end
@@ -362,8 +366,10 @@ module Asciidoctor
         def image_name
           if @attributes['target']
             super
-          else
+          elsif @file_name
             File.basename(@file_name, File.extname(@file_name))
+          else
+            checksum
           end
         end
 
@@ -372,9 +378,13 @@ module Asciidoctor
         end
 
         def code
-          lines = File.readlines(@file_name)
-          lines = ::Asciidoctor::Helpers.normalize_lines(lines)
-          @code ||= lines.join("\n")
+          if @file_name
+            lines = File.readlines(@file_name)
+            lines = ::Asciidoctor::Helpers.normalize_lines(lines)
+            @code ||= lines.join("\n")
+          else
+            @code ||= ''
+          end
         end
       end
     end

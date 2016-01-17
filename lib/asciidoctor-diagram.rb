@@ -1,6 +1,7 @@
 require 'asciidoctor-diagram/blockdiag'
 require 'asciidoctor-diagram/ditaa'
 require 'asciidoctor-diagram/graphviz'
+require 'asciidoctor-diagram/meme'
 require 'asciidoctor-diagram/mermaid'
 require 'asciidoctor-diagram/plantuml'
 require 'asciidoctor-diagram/salt'
