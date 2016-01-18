@@ -159,7 +159,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-[ditaa, {opts}]
+[ditaa, test, png, {opts}]
 ----
 +--------+   +-------+    +-------+
 |        | --+ ditaa +--> |       |
