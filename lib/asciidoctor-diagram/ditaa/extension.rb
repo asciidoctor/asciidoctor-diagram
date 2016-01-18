@@ -73,16 +73,6 @@ module Asciidoctor
 
           @options = options.join(' ')
         end
-
-        def should_process?(image_file, image_metadata)
-          super(image_file, image_metadata) || image_metadata['options'] != @options
-        end
-
-        def create_image_metadata
-          metadata = super
-          metadata['options'] = @options
-          metadata
-        end
       end
     end
 

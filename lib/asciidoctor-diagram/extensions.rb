@@ -331,12 +331,13 @@ module Asciidoctor
           @checksum ||= compute_checksum(code)
         end
 
+        private
         def compute_checksum(code)
           md5 = Digest::MD5.new
           md5 << code
-          attributes.each do |k,v|
-            md5 << k if k
-            md5 << v if v
+          attributes.each do |k, v|
+            md5 << k.to_s if k
+            md5 << v.to_s if v
           end
           md5.hexdigest
         end
