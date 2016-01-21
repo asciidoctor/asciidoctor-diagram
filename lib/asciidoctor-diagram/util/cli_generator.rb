@@ -4,10 +4,10 @@ module Asciidoctor
   module Diagram
     # @private
     module CliGenerator
-      def self.generate_stdin(tool, code)
+      def self.generate_stdin(tool, format, code)
         tool_name = File.basename(tool)
 
-        target_file = Tempfile.new(tool_name)
+        target_file = Tempfile.new([tool_name, ".#{format}"])
         begin
           target_file.close
 
@@ -26,14 +26,14 @@ module Asciidoctor
         end
       end
 
-      def self.generate_file(tool, code)
+      def self.generate_file(tool, format, code)
         tool_name = File.basename(tool)
 
-        source_file = Tempfile.new(tool_name)
+        source_file = Tempfile.new([tool_name, ".#{format}"])
         begin
           File.write(source_file.path, code)
 
-          target_file = Tempfile.new(tool_name)
+          target_file = Tempfile.new([tool_name, ".#{format}"])
           begin
             target_file.close
 

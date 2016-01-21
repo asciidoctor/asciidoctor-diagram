@@ -92,7 +92,7 @@ module Asciidoctor
 
         [:png, :svg].each do |f|
           register_format(f, :image) do |c, p|
-            CliGenerator.generate_stdin(which(p, tool.downcase), c.to_s) do |tool_path, output_path|
+            CliGenerator.generate_stdin(which(p, tool.downcase), f.to_s, c.to_s) do |tool_path, output_path|
               [tool_path, '-o', output_path, "-T#{f.to_s}", '-']
             end
           end

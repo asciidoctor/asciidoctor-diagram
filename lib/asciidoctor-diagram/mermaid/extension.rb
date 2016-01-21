@@ -20,7 +20,7 @@ module Asciidoctor
 
             width = c.attributes['width']
 
-            CliGenerator.generate_file(mermaid, c.to_s) do |tool_path, input_path, output_path|
+            CliGenerator.generate_file(mermaid, f.to_s, c.to_s) do |tool_path, input_path, output_path|
               output_dir = File.dirname(output_path)
               output_file = File.expand_path(File.basename(input_path) + ".#{f.to_s}", output_dir)
 
