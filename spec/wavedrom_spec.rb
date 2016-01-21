@@ -8,7 +8,7 @@ code = <<-eos
 ]}
 eos
 
-describe Asciidoctor::Diagram::WavedromBlockMacroProcessor, :broken_on_ci => true do
+describe Asciidoctor::Diagram::WavedromBlockMacroProcessor do
   it "should generate PNG images when format is set to 'png'" do
     File.write('wavedrom.txt', code)
 
@@ -68,7 +68,7 @@ wavedrom::wavedrom.txt[format="svg"]
   end
 end
 
-describe Asciidoctor::Diagram::WavedromBlockProcessor, :broken_on_ci => true do
+describe Asciidoctor::Diagram::WavedromBlockProcessor do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, Wavedrom!

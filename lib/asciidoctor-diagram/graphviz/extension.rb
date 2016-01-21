@@ -11,7 +11,7 @@ module Asciidoctor
       def self.included(mod)
         [:png, :svg].each do |f|
           mod.register_format(f, :image) do |c, p|
-            CliGenerator.generate_stdin(which(p, 'dot', :attr_names => ['dot', 'graphvizdot']), c.to_s) do |tool_path, output_path|
+            CliGenerator.generate_stdin(which(p, 'dot', :attr_names => ['dot', 'graphvizdot']), f.to_s, c.to_s) do |tool_path, output_path|
               [tool_path, "-o#{output_path}", "-T#{f.to_s}"]
             end
           end

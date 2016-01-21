@@ -23,7 +23,4 @@ install:
   - sudo pip install shaape
   - bundle install --path vendor/bundle --jobs=3 --retry=3
   - npm install -g mermaid
-before_script:
-  - wget https://github.com/wavedrom/wavedrom.github.io/releases/download/v1.2.0/wavedrom-editor-v1.2.0-linux-x64.tar.gz -O wavedrom.tar.gz
-  - tar zxf wavedrom.tar.gz
-  - export PATH=$PATH:$PWD/WaveDromEditor/linux64
+  - npm install -g wavedrom-cli

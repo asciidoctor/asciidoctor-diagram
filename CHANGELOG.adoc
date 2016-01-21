@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.4.0
+
+Enhancements::
+
+  * Use wavedrom-cli when available
+
 == 1.3.2
 
 Enhancements::
