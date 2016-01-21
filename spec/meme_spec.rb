@@ -13,7 +13,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-meme::[background="man.jpg", top="I DON'T ALWAYS\\nWRITE UNIT TESTS", bottom="BUT WHEN I DO\\nTHEY GENERATE MEMES"]
+meme::man.jpg[I don't always // write unit tests, but when I do // they generate memes, options=noupcase]
     eos
 
     d = Asciidoctor.load StringIO.new(doc)

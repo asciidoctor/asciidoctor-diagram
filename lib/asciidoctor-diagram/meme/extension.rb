@@ -19,7 +19,7 @@ module Asciidoctor
           bg_img = attrs["background"]
           raise "background attribute is required" unless bg_img
 
-          bg_img = p.normalize_system_path(bg_img, p.document.base_dir)
+          bg_img = p.normalize_system_path(bg_img, p.document.attr('imagesdir'))
 
           top_label = attrs["top"]
           bottom_label = attrs["bottom"]
@@ -27,6 +27,8 @@ module Asciidoctor
           stroke_color = attrs.fetch('strokeColor', 'black')
           stroke_width = attrs.fetch('strokeWidth', '2')
           font = attrs.fetch('font', 'Impact')
+          options = attrs.fetch('options', '').split(',')
+          noupcase = options.include?('noupcase')
 
           dimensions = CliGenerator.run_cli(identify, '-format', '"%w %h"', bg_img).match /(?<w>\d+) (?<h>\d+)/
           bg_width = dimensions['w'].to_i
@@ -45,7 +47,7 @@ module Asciidoctor
                 '-font', font,
                 '-size', "#{label_width}x#{label_height}",
                 '-gravity', 'north',
-                "label:#{top_label}",
+                "label:#{prepare_label(top_label, noupcase)}",
                 top_img.path
             )
           else
@@ -63,7 +65,7 @@ module Asciidoctor
                 '-font', font,
                 '-size', "#{label_width}x#{label_height}",
                 '-gravity', 'south',
-                "label:#{bottom_label}",
+                "label:#{prepare_label(bottom_label, noupcase)}",
                 bottom_img.path
             )
           else
@@ -88,10 +90,25 @@ module Asciidoctor
           File.binread(final_img)
         end
       end
+
+      private
+      def prepare_label(label, noupcase)
+        label = label.upcase unless noupcase
+        label = label.gsub(' // ', '\n')
+        label
+      end
     end
 
     class MemeBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
       include Meme
+
+      option :pos_attrs, %w(top bottom target format)
+
+      def create_source(parent, target, attributes)
+        attributes = attributes.dup
+        attributes['background'] = target
+        ::Asciidoctor::Diagram::Extensions::FileSource.new(nil, attributes)
+      end
     end
   end
 end
