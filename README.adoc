@@ -88,9 +88,10 @@ Once the extensions are enabled the following block types becomes available for 
 - `shaape`
 - `wavedrom`
 
-Detailed descriptions of the supported syntax inside these blocks is available on the http://plantuml.sourceforge.net/[PlantUML], http://www.graphviz.org/content/dot-language[Graphviz] and http://ditaa.sourceforge.net/[ditaa] websites.
+Detailed descriptions of the supported syntax inside these blocks is available on websites of the respective projects.
 
-At this point you can start adding diagrams to your application, like the following example:
+At this point you can start adding diagrams to your application.
+Here's an example to get you started:
 
 ----
 ["plantuml", "asciidoctor-diagram-classes", "png"]
@@ -106,7 +107,7 @@ DiagramBlock <|-- PlantUmlBlock
 ---------------------------------------------------------------------
 ----
 
-The diagram blocks support the following attributes:
+All the diagram blocks except `meme` support the following attributes:
 
 . `target` (or 2nd position): the basename of the file to generate. If not specified an auto-generated name will be used.
 . `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
@@ -114,8 +115,33 @@ The diagram blocks support the following attributes:
 Once you have all of this in place and your original AsciiDoc file contains a diagram block, it's time to build it into an HTML file with Asciidoctor Diagram magic! 
 When executing Asciidoctor, you must reference the Adciidoctor Diagram library, otherwise your diagram blocks won't be recognized as such. When executing Asciidoctor from the command line, do it using the -r parameter to reference this external library:
 
+----
 $ asciidoctor -r asciidoctor-diagram doc.adoc
+----
 
+If you don't want to embed your diagram code in your document then you can use the diagram extension as block macros.
+The target of diagram block macro should refer to the file containing the diagram source code.
+The attributes for the block macros are the same as for the inline blocks.
+The example above in block macro form becomes
+
+----
+plantuml::mydiagram.puml["asciidoctor-diagram-classes", "png"]
+----
+
+=== The meme extension
+
+The meme extension provides a simple 'Advice Animal' style image generator.
+It's usage is easiest to explain with an example.
+
+----
+meme::doge.jpg[Perhaps haters...,Just hate to \\ love?]
+----
+
+The target of the block macro refers to the background image to use.
+The first two positional attributes are called `top` and `bottom` and are used for the top and bottom label.
+Occurrences of ` \\ ` are interpreted as line breaks.
+
+The `target` and `format` attribute are also supported as the 3rd and 4th positional attribute.
 
 == Contributing
 
