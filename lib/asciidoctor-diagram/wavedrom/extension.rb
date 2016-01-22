@@ -1,5 +1,6 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
+require_relative '../util/platform'
 require_relative '../util/which'
 
 module Asciidoctor
@@ -11,7 +12,7 @@ module Asciidoctor
       def self.included(mod)
         [:png, :svg].each do |f|
           mod.register_format(f, :image) do |c, p|
-            if /darwin/ =~ RUBY_PLATFORM
+            if ::Asciidoctor::Diagram::Platform.os == :macosx
               wavedrom = which(p, 'WaveDromEditor.app', :attr_names => ['wavedrom'], :path => ['/Applications'])
               if wavedrom
                 wavedrom = File.join(wavedrom, 'Contents/MacOS/nwjs')

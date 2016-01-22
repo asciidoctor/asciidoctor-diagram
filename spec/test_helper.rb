@@ -15,6 +15,8 @@ require_relative '../lib/asciidoctor-diagram/plantuml/extension'
 require_relative '../lib/asciidoctor-diagram/shaape/extension'
 require_relative '../lib/asciidoctor-diagram/wavedrom/extension'
 
+require_relative '../lib/asciidoctor-diagram/util/platform'
+
 module Asciidoctor
   class AbstractBlock
     def find(&block)
@@ -33,7 +35,7 @@ module Asciidoctor
 end
 
 RSpec.configure do |c|
-  if /darwin/ =~ RUBY_PLATFORM
+  if ::Asciidoctor::Diagram::Platform.os == :macosx
     c.filter_run_excluding :broken_on_osx => true
   end
 
