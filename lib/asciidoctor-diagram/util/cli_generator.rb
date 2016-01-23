@@ -1,4 +1,5 @@
 require 'tempfile'
+require 'open3'
 
 module Asciidoctor
   module Diagram
@@ -11,16 +12,9 @@ module Asciidoctor
         begin
           target_file.close
 
-          args = yield tool, target_file.path
+          opts = yield tool, target_file.path
 
-          IO.popen(args, "w") do |io|
-            io.write code
-          end
-          result_code = $?
-
-          raise "#{tool_name} image generation failed" unless result_code == 0
-
-          File.binread(target_file.path)
+          generate(opts, target_file, :stdin_data => code)
         ensure
           target_file.unlink
         end
@@ -39,34 +33,44 @@ module Asciidoctor
 
             opts = yield tool, source_file.path, target_file.path
 
-            case opts
-              when Array
-                args = opts
-                out_file = nil
-              when Hash
-                args = opts[:args]
-                out_file = opts[:out_file]
-              else
-                raise "Block passed to generate_file should return an Array or a Hash"
-            end
-
-            system(*args)
-
-            result_code = $?
-
-            raise "#{tool_name} image generation failed" unless result_code == 0
-
-            if out_file
-              File.rename(out_file, target_file.path)
-            end
-
-            File.binread(target_file.path)
+            generate(opts, target_file)
           ensure
             target_file.unlink
           end
         ensure
           source_file.unlink
         end
+      end
+
+      def self.generate(opts, target_file, open3_opts = {})
+        case opts
+          when Array
+            args = opts
+            out_file = nil
+          when Hash
+            args = opts[:args]
+            out_file = opts[:out_file]
+          else
+            raise "Block passed to generate_file should return an Array or a Hash"
+        end
+
+        run_cli(*args, open3_opts)
+
+        if out_file
+          File.rename(out_file, target_file.path)
+        end
+
+        File.binread(target_file.path)
+      end
+
+      def self.run_cli(*args)
+        stdout, stderr, status = Open3.capture3(*args)
+
+        if status != 0
+          raise "#{File.basename(args[0])} failed: #{stdout.empty? ? stderr : stdout}"
+        end
+
+        stdout
       end
     end
   end
