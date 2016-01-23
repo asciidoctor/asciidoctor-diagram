@@ -12,6 +12,8 @@ These extensions allow you to embed plain text diagrams inside your AsciiDoc doc
 - https://github.com/christiangoltz/shaape[Shaape]
 - http://wavedrom.com[WaveDrom]
 
+Additionally Asciidoctor Diagram includes a basic meme generator extension.
+
 The extension takes care of running the diagram processor to generate the images from the input text and insert them into the rendered document.
 
 This gem was inspired by the https://code.google.com/p/asciidoc-plantuml/[AsciiDoc PlantUML filter] for AsciiDoc Python.
@@ -43,10 +45,11 @@ Or install it yourself as:
 Certain diagram types require other tools to be installed seperately.
 
 - Block/Seq/Act/Nw diag: the block/seq/act/nw diag Python packages
-- Graphviz: the http://www.graphviz.org[Graphviz] package.
-- Shaape: the Shaape Python package
+- Graphviz: the http://www.graphviz.org[Graphviz] package
+- Meme: http://www.imagemagick.org[ImageMagick]
 - Mermaid: the http://knsv.github.io/mermaid[Mermaid] CLI and http://phantomjs.org[PhantomJS] 1.9.x
-- PlantUML: the http://www.graphviz.org[Graphviz] package for certain diagram types.
+- PlantUML: http://www.graphviz.org[Graphviz] package for certain diagram types.
+- Shaape: the Shaape Python package
 - WaveDrom: the https://github.com/wavedrom/wavedrom.github.io/releases[WaveDrom editor] application
 
 == Usage
@@ -61,6 +64,7 @@ In your script you can then either require one or more of the following files:
 . `asciidoctor-diagram/blockdiag`: to enable the block/act/seq/nw diag extension
 . `asciidoctor-diagram/ditaa`: to enable the ditaa extension
 . `asciidoctor-diagram/graphviz`: to enable the graphviz extension
+. `asciidoctor-diagram/meme`: to enable the mermaid extension
 . `asciidoctor-diagram/mermaid`: to enable the mermaid extension
 . `asciidoctor-diagram/plantuml`: to enable the plantuml extension
 . `asciidoctor-diagram/shaape`: to enable the shaape extension
@@ -78,13 +82,16 @@ Once the extensions are enabled the following block types becomes available for 
 - `blockdiag`, `actdiag`, `seqdiag`, `nwdiag`, `rackdiag` and `packetdiag`
 - `ditaa`
 - `graphviz`
+- `meme`
+- `mermaid`
 - `plantuml`
 - `shaape`
 - `wavedrom`
 
-Detailed descriptions of the supported syntax inside these blocks is available on the http://plantuml.sourceforge.net/[PlantUML], http://www.graphviz.org/content/dot-language[Graphviz] and http://ditaa.sourceforge.net/[ditaa] websites.
+Detailed descriptions of the supported syntax inside these blocks is available on websites of the respective projects.
 
-At this point you can start adding diagrams to your application, like the following example:
+At this point you can start adding diagrams to your application.
+Here's an example to get you started:
 
 ----
 ["plantuml", "asciidoctor-diagram-classes", "png"]
@@ -100,16 +107,49 @@ DiagramBlock <|-- PlantUmlBlock
 ---------------------------------------------------------------------
 ----
 
-The diagram blocks support the following attributes:
+All the diagram blocks except `meme` support the following attributes:
 
-. `target` (or 2nd position): the basename of the file to generate. If not specified an auto-generated name will be used.
-. `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
+. `target` (1st positional attribute): the basename of the file to generate. If not specified an auto-generated name will be used.
+. `format` (2nd positional attribute): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
 
 Once you have all of this in place and your original AsciiDoc file contains a diagram block, it's time to build it into an HTML file with Asciidoctor Diagram magic! 
 When executing Asciidoctor, you must reference the Adciidoctor Diagram library, otherwise your diagram blocks won't be recognized as such. When executing Asciidoctor from the command line, do it using the -r parameter to reference this external library:
 
+----
 $ asciidoctor -r asciidoctor-diagram doc.adoc
+----
 
+If you don't want to embed your diagram code in your document then you can use the diagram extension as block macros.
+The target of diagram block macro should refer to the file containing the diagram source code.
+The attributes for the block macros are the same as for the inline blocks.
+The example above in block macro form becomes
+
+----
+plantuml::mydiagram.puml["asciidoctor-diagram-classes", "png"]
+----
+
+=== The meme extension
+
+The meme extension provides a basic 'Advice Animal' style image generator.
+It's usage is easiest to explain with an example.
+
+----
+meme::doge.jpg[Perhaps haters...,Just hate to \\ love?]
+----
+
+The target of the block macro tells the extension which image to use as background.
+The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
+Occurrences of ` \\ ` are interpreted as line breaks.
+
+The block macro also supports the following named attributes:
+
+. `fillColor`: the fill color for the text. Defaults to `white`.
+. `strokeColor`:  the outline color for the text. Defaults to `black`.
+. `strokeWidth`:  the width of the text outline. Defaults to `2`.
+. `font`: the font face to use for the text. Defaults to `Impact`.
+. `options`: a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
+. `target` (3rd positional attribute): the basename of the file to generate. If not specified an auto-generated name will be used.
+. `format` (4th positional attribute): the output image format. The meme extension supports `png` and `gif`.
 
 == Contributing
 

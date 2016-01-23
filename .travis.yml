@@ -24,3 +24,4 @@ install:
   - bundle install --path vendor/bundle --jobs=3 --retry=3
   - npm install -g mermaid
   - npm install -g wavedrom-cli
+  - sudo apt-get install -qq imagemagick
