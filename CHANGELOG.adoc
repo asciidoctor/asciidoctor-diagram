@@ -5,6 +5,12 @@
 Enhancements::
 
   * Use wavedrom-cli when available
+  * Add meme generator
+
+Bug Fixes::
+
+  * Issue #71: Don't fail early for PlantUML diagrams if `dot` can't be found. PlantUML doesn't need it for all diagrams
+    types so invoke PlantUML without specifying the location of `dot` and let PlantUML produce an error when necessary.
 
 == 1.3.2
 
