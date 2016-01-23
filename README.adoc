@@ -109,8 +109,8 @@ DiagramBlock <|-- PlantUmlBlock
 
 All the diagram blocks except `meme` support the following attributes:
 
-. `target` (or 2nd position): the basename of the file to generate. If not specified an auto-generated name will be used.
-. `format` (or 3rd position): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
+. `target` (1st positional attribute): the basename of the file to generate. If not specified an auto-generated name will be used.
+. `format` (2nd positional attribute): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
 
 Once you have all of this in place and your original AsciiDoc file contains a diagram block, it's time to build it into an HTML file with Asciidoctor Diagram magic! 
 When executing Asciidoctor, you must reference the Adciidoctor Diagram library, otherwise your diagram blocks won't be recognized as such. When executing Asciidoctor from the command line, do it using the -r parameter to reference this external library:
@@ -130,18 +130,26 @@ plantuml::mydiagram.puml["asciidoctor-diagram-classes", "png"]
 
 === The meme extension
 
-The meme extension provides a simple 'Advice Animal' style image generator.
+The meme extension provides a basic 'Advice Animal' style image generator.
 It's usage is easiest to explain with an example.
 
 ----
 meme::doge.jpg[Perhaps haters...,Just hate to \\ love?]
 ----
 
-The target of the block macro refers to the background image to use.
-The first two positional attributes are called `top` and `bottom` and are used for the top and bottom label.
+The target of the block macro tells the extension which image to use as background.
+The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
 Occurrences of ` \\ ` are interpreted as line breaks.
 
-The `target` and `format` attribute are also supported as the 3rd and 4th positional attribute.
+The block macro also supports the following named attributes:
+
+. `fillColor`: the fill color for the text. Defaults to `white`.
+. `strokeColor`:  the outline color for the text. Defaults to `black`.
+. `strokeWidth`:  the width of the text outline. Defaults to `2`.
+. `font`: the font face to use for the text. Defaults to `Impact`.
+. `options`: a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
+. `target` (3rd positional attribute): the basename of the file to generate. If not specified an auto-generated name will be used.
+. `format` (4th positional attribute): the output image format. The meme extension supports `png` and `gif`.
 
 == Contributing
 
