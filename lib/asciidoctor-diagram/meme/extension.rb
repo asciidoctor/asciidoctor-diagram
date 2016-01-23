@@ -11,7 +11,7 @@ module Asciidoctor
       include Which
 
       def self.included(mod)
-        [:gif, :png].each do |format|
+        [:png, :gif].each do |format|
           mod.register_format(format, :image) do |c, p|
             convert = which(p, 'convert')
             identify = which(p, 'identify')
