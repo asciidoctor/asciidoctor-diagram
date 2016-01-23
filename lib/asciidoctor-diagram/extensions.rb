@@ -3,6 +3,7 @@ require 'digest'
 require 'json'
 require 'fileutils'
 require_relative 'util/java'
+require_relative 'util/gif'
 require_relative 'util/png'
 require_relative 'util/svg'
 
@@ -63,6 +64,10 @@ module Asciidoctor
             :svg => {
                 :encoding => Encoding::UTF_8,
                 :decoder => SVG
+            },
+            :gif => {
+                :encoding => Encoding::ASCII_8BIT,
+                :decoder => GIF
             },
             :png => {
                 :encoding => Encoding::ASCII_8BIT,
