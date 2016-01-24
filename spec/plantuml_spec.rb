@@ -272,6 +272,31 @@ plantuml::plantuml.txt["foobaz"]
     expect(File.exists?('plantuml.png')).to be false
   end
 
+  it "should respect target attribute values with relative paths in block macros" do
+    code = <<-eos
+User -> (Start)
+User --> (Use the application) : Label
+
+:Main Admin: ---> (Use the application) : Another label
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+plantuml::plantuml.txt["test/foobar"]
+plantuml::plantuml.txt["test2/foobaz"]
+    eos
+
+    Asciidoctor.load StringIO.new(doc)
+    expect(File.exists?('test/foobar.png')).to be true
+    expect(File.exists?('test2/foobaz.png')).to be true
+    expect(File.exists?('plantuml.png')).to be false
+  end
 
   it "should write files to outdir if set" do
     doc = <<-eos
