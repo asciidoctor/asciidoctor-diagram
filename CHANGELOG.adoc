@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.4.1 (Not released yet)
+
+Enhancements::
+
+  * Issue #98: Automatically detect Actdiag, Blockdiag, Nwdiag and Seqdiag executables from Python 3.x Debian packages.
+
 == 1.4.0
 
 Enhancements::
