@@ -92,7 +92,13 @@ module Asciidoctor
 
         [:png, :svg].each do |f|
           register_format(f, :image) do |c, p|
-            CliGenerator.generate_stdin(which(p, tool.downcase), f.to_s, c.to_s) do |tool_path, output_path|
+            cmd_name = tool.downcase
+
+            # On Debian based systems the Python 3.x packages python3-(act|block|nw|seq)diag executables with
+            # a '3' suffix.
+            alt_cmd_name = "#{tool.downcase}3"
+
+            CliGenerator.generate_stdin(which(p, cmd_name, :alt_cmds => [alt_cmd_name]), f.to_s, c.to_s) do |tool_path, output_path|
               [tool_path, '-o', output_path, "-T#{f.to_s}", '-']
             end
           end

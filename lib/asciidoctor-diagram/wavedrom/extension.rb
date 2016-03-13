@@ -21,12 +21,12 @@ module Asciidoctor
               end
             else
               if ::Asciidoctor::Diagram::Platform.os == :macosx
-                wavedrom = which(p, 'WaveDromEditor.app', :attr_names => ['wavedrom'], :path => ['/Applications'])
+                wavedrom = which(p, 'WaveDromEditor.app', :alt_attrs => ['wavedrom'], :path => ['/Applications'])
                 if wavedrom
                   wavedrom = File.join(wavedrom, 'Contents/MacOS/nwjs')
                 end
               else
-                wavedrom = which(p, 'WaveDromEditor', :attr_names => ['wavedrom'])
+                wavedrom = which(p, 'WaveDromEditor', :alt_attrs => ['wavedrom'])
               end
 
               CliGenerator.generate_file(wavedrom, f.to_s, c.to_s) do |tool_path, input_path, output_path|

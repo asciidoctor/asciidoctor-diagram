@@ -28,7 +28,7 @@ module Asciidoctor
           headers['X-PlantUML-Config'] = File.expand_path(config_file, parent.document.attributes['docdir'])
         end
 
-        dot = which(parent, 'dot', :attr_names => ['dot', 'graphvizdot'], :raise_on_error => false)
+        dot = which(parent, 'dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
         if dot
           headers['X-Graphviz'] = dot
         end

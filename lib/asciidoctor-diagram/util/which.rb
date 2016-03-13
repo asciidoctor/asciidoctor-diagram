@@ -12,24 +12,33 @@ module Asciidoctor
             return exe if File.executable? exe
           }
         end
+
         nil
       end
 
       def which(parent_block, cmd, options = {})
-        attr_names = options[:attr_names] || [cmd]
+        attr_names = [cmd] + options.fetch(:alt_attrs, [])
+        cmd_names = [cmd] + options.fetch(:alt_cmds, [])
 
         cmd_var = '@' + attr_names[0]
 
-        already_defined = instance_variable_defined?(cmd_var)
-
-        if already_defined
+        if instance_variable_defined?(cmd_var)
           cmd_path = instance_variable_get(cmd_var)
         else
           cmd_path = attr_names.map { |attr_name| parent_block.document.attributes[attr_name] }.find { |attr| !attr.nil? }
-          cmd_path = ::Asciidoctor::Diagram::Which.which(cmd, :path => options[:path]) unless cmd_path && File.executable?(cmd_path)
+
+          unless cmd_path && File.executable?(cmd_path)
+            cmd_paths = cmd_names.map do |c|
+              ::Asciidoctor::Diagram::Which.which(c, :path => options[:path])
+            end
+
+            cmd_path = cmd_paths.reject { |c| c.nil? }.first
+          end
+
           instance_variable_set(cmd_var, cmd_path)
+
           if cmd_path.nil? && options.fetch(:raise_on_error, true)
-            raise "Could not find the '#{cmd}' executable in PATH; add it to the PATH or specify its location using the '#{attr_names[0]}' document attribute"
+            raise "Could not find the #{cmd.map { |c| "'#{c}'" }.join(', ')} executable in PATH; add it to the PATH or specify its location using the '#{attr_names[0]}' document attribute"
           end
         end
 
