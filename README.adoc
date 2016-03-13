@@ -119,6 +119,13 @@ When executing Asciidoctor, you must reference the Asciidoctor Diagram library, 
 $ asciidoctor -r asciidoctor-diagram doc.adoc
 ----
 
+If the extension executables are not on the PATH and/or installed under different name (e.g. ```Python3``` version),
+the following can be used to override the path to the executable:
+
+----
+$ asciidoctor -r asciidoctor-diagram -a blockdiag=/usr/bin/blockdiag3 doc.adoc
+----
+
 If you don't want to embed your diagram code in your document then you can use the diagram extension as block macros.
 The target of diagram block macro should refer to the file containing the diagram source code.
 The attributes for the block macros are the same as for the inline blocks.
