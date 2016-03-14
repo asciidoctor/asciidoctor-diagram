@@ -5,6 +5,7 @@
 Enhancements::
 
   * Issue #98: Automatically detect Actdiag, Blockdiag, Nwdiag and Seqdiag executables from Python 3.x Debian packages.
+  * Issue #100: Support specifying the layout engine for `dot` (`-K<engine>`) using the `layout` attribute on `graphviz` blocks. 
 
 == 1.4.0
 
