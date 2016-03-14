@@ -10,11 +10,20 @@ module Asciidoctor
 
       def self.included(mod)
         [:png, :svg].each do |f|
-          mod.register_format(f, :image) do |c, p|
-            CliGenerator.generate_stdin(which(p, 'dot', :attr_names => ['dot', 'graphvizdot']), f.to_s, c.to_s) do |tool_path, output_path|
-              [tool_path, "-o#{output_path}", "-T#{f.to_s}"]
-            end
+          mod.register_format(f, :image) do |parent, source|
+            graphviz(parent, source, f)
           end
+        end
+      end
+
+      def graphviz(parent, source, format)
+        CliGenerator.generate_stdin(which(parent, 'dot', :alt_attrs => ['graphvizdot']), format.to_s, source.to_s) do |tool_path, output_path|
+          args = [tool_path, "-o#{output_path}", "-T#{format.to_s}"]
+
+          layout = source.attributes['layout']
+          args << "-K#{layout}" if layout
+
+          args
         end
       end
     end

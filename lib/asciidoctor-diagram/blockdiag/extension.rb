@@ -72,7 +72,17 @@ module Asciidoctor
 
     # @private
     module BlockDiag
-      def self.define_processors(name, &init)
+      def self.define_processors(name)
+        init = Proc.new do
+          include ::Asciidoctor::Diagram::BlockDiag
+
+          [:png, :svg].each do |f|
+            register_format(f, :image) do |p, c|
+              blockdiag(name, p, c, f)
+            end
+          end
+        end
+
         block = Class.new(Extensions::DiagramBlockProcessor) do
           self.instance_eval &init
         end
@@ -84,20 +94,24 @@ module Asciidoctor
 
         ::Asciidoctor::Diagram.const_set("#{name}BlockMacroProcessor", block_macro)
       end
+
+      include Which
+
+      def blockdiag(tool, parent, source, format)
+        cmd_name = tool.downcase
+
+        # On Debian based systems the Python 3.x packages python3-(act|block|nw|seq)diag executables with
+        # a '3' suffix.
+        alt_cmd_name = "#{tool.downcase}3"
+
+        CliGenerator.generate_stdin(which(parent, cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
+          [tool_path, '-o', output_path, "-T#{format.to_s}", '-']
+        end
+      end
     end
 
     ['BlockDiag', 'SeqDiag', 'ActDiag', 'NwDiag', 'RackDiag', 'PacketDiag'].each do |tool|
-      BlockDiag.define_processors(tool) do
-        include Which
-
-        [:png, :svg].each do |f|
-          register_format(f, :image) do |c, p|
-            CliGenerator.generate_stdin(which(p, tool.downcase), f.to_s, c.to_s) do |tool_path, output_path|
-              [tool_path, '-o', output_path, "-T#{f.to_s}", '-']
-            end
-          end
-        end
-      end
+      BlockDiag.define_processors(tool)
     end
   end
 end

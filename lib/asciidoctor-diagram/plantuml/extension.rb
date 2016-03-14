@@ -28,7 +28,7 @@ module Asciidoctor
           headers['X-PlantUML-Config'] = File.expand_path(config_file, parent.document.attributes['docdir'])
         end
 
-        dot = which(parent, 'dot', :attr_names => ['dot', 'graphvizdot'], :raise_on_error => false)
+        dot = which(parent, 'dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
         if dot
           headers['X-Graphviz'] = dot
         end
@@ -66,14 +66,14 @@ module Asciidoctor
       end
 
       def self.included(mod)
-        mod.register_format(:png, :image) do |c, p|
-          plantuml(p, c.to_s, mod.tag, 'image/png')
+        mod.register_format(:png, :image) do |parent, source|
+          plantuml(parent, source.to_s, mod.tag, 'image/png')
         end
-        mod.register_format(:svg, :image) do |c, p|
-          plantuml(p, c.to_s, mod.tag, 'image/svg+xml')
+        mod.register_format(:svg, :image) do |parent, source|
+          plantuml(parent, source.to_s, mod.tag, 'image/svg+xml')
         end
-        mod.register_format(:txt, :literal) do |c, p|
-          plantuml(p, c.to_s, mod.tag, 'text/plain;charset=utf-8')
+        mod.register_format(:txt, :literal) do |parent, source|
+          plantuml(parent, source.to_s, mod.tag, 'text/plain;charset=utf-8')
         end
       end
     end

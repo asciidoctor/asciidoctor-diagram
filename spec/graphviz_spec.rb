@@ -132,14 +132,14 @@ Doc Writer <doc@example.com>
     expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
   end
 
-  it "should support single line digraphs" do
+  it "should support neato layout engine" do
     doc = <<-eos
 = Hello, graphviz!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[graphviz]
+[graphviz, layout=neato]
 ----
 digraph g { rankdir=LR; Text->Graphviz->Image }
 ----
