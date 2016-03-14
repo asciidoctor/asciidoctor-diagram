@@ -18,7 +18,12 @@ module Asciidoctor
 
       def graphviz(parent, source, format)
         CliGenerator.generate_stdin(which(parent, 'dot', :alt_attrs => ['graphvizdot']), format.to_s, source.to_s) do |tool_path, output_path|
-          [tool_path, "-o#{output_path}", "-T#{format.to_s}"]
+          args = [tool_path, "-o#{output_path}", "-T#{format.to_s}"]
+
+          layout = source.attributes['layout']
+          args << "-K#{layout}" if layout
+
+          args
         end
       end
     end
