@@ -10,11 +10,15 @@ module Asciidoctor
 
       def self.included(mod)
         [:png, :svg].each do |f|
-          mod.register_format(f, :image) do |c, p|
-            CliGenerator.generate_stdin(which(p, 'shaape'), f.to_s, c.to_s) do |tool_path, output_path|
-              [tool_path, '-o', output_path, '-t', f.to_s, '-']
-            end
+          mod.register_format(f, :image) do |parent, source|
+            shaape(parent, source, f)
           end
+        end
+      end
+
+      def shaape(parent, source, format)
+        CliGenerator.generate_stdin(which(parent, 'shaape'), format.to_s, source.to_s) do |tool_path, output_path|
+          [tool_path, '-o', output_path, '-t', format.to_s, '-']
         end
       end
     end

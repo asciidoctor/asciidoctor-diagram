@@ -157,7 +157,7 @@ module Asciidoctor
           if !File.exists?(image_file) || source.should_process?(image_file, metadata)
             params = IMAGE_PARAMS[format]
 
-            result = instance_exec(source, parent, source, &generator_info[:generator])
+            result = instance_exec(parent, source, &generator_info[:generator])
 
             result.force_encoding(params[:encoding])
 
@@ -228,7 +228,7 @@ module Asciidoctor
           literal_attributes = source.attributes
           literal_attributes.delete('target')
 
-          result = instance_exec(source, parent, &generator_info[:generator])
+          result = instance_exec(parent, source, &generator_info[:generator])
 
           result.force_encoding(Encoding::UTF_8)
           Asciidoctor::Block.new parent, :literal, :source => result, :attributes => literal_attributes

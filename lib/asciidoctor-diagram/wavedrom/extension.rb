@@ -11,28 +11,32 @@ module Asciidoctor
 
       def self.included(mod)
         [:png, :svg].each do |f|
-          mod.register_format(f, :image) do |c, p|
-            wavedrom_cli = which(p, 'wavedrom', :raise_on_error => false)
-            phantomjs = which(p, 'phantomjs', :raise_on_error => false)
+          mod.register_format(f, :image) do |parent, source|
+            wavedrom(parent, source, f)
+          end
+        end
+      end
 
-            if wavedrom_cli && phantomjs
-              CliGenerator.generate_file(wavedrom_cli, f.to_s, c.to_s) do |tool_path, input_path, output_path|
-                [phantomjs, tool_path, '-i', input_path, "-#{f.to_s[0]}", output_path]
-              end
-            else
-              if ::Asciidoctor::Diagram::Platform.os == :macosx
-                wavedrom = which(p, 'WaveDromEditor.app', :attr_names => ['wavedrom'], :path => ['/Applications'])
-                if wavedrom
-                  wavedrom = File.join(wavedrom, 'Contents/MacOS/nwjs')
-                end
-              else
-                wavedrom = which(p, 'WaveDromEditor', :attr_names => ['wavedrom'])
-              end
+      def wavedrom(parent, source, format)
+        wavedrom_cli = which(parent, 'wavedrom', :raise_on_error => false)
+        phantomjs = which(parent, 'phantomjs', :raise_on_error => false)
 
-              CliGenerator.generate_file(wavedrom, f.to_s, c.to_s) do |tool_path, input_path, output_path|
-                [tool_path, 'source', input_path, f.to_s, output_path]
-              end
+        if wavedrom_cli && phantomjs
+          CliGenerator.generate_file(wavedrom_cli, format.to_s, source.to_s) do |tool_path, input_path, output_path|
+            [phantomjs, tool_path, '-i', input_path, "-#{format.to_s[0]}", output_path]
+          end
+        else
+          if ::Asciidoctor::Diagram::Platform.os == :macosx
+            wavedrom = which(parent, 'WaveDromEditor.app', :alt_attrs => ['wavedrom'], :path => ['/Applications'])
+            if wavedrom
+              wavedrom = File.join(wavedrom, 'Contents/MacOS/nwjs')
             end
+          else
+            wavedrom = which(parent, 'WaveDromEditor', :alt_attrs => ['wavedrom'])
+          end
+
+          CliGenerator.generate_file(wavedrom, format.to_s, source.to_s) do |tool_path, input_path, output_path|
+            [tool_path, 'source', input_path, format.to_s, output_path]
           end
         end
       end
