@@ -1,101 +1,166 @@
 = Asciidoctor Diagram
-Pepijn Van_Eeckhoudt
+Pepijn Van_Eeckhoudt <https://github.com/pepijnve[@pepijnve]>; Sarah White <https://github.com/graphitefriction[@graphitefriction]>
+:description: README for the Asciidoctor Diagram extension for Asciidoctor.
+:toc: preamble
+:icons: font
+:source-highlighter: coderay
+:source-language: asciidoc
+:table-caption!:
+:example-caption!:
+:figure-caption!:
+:imagesdir: ../images
+// :check: icon:check[]
+:check: x
+:uri-actdiag: http://blockdiag.com/en/actdiag/index.html
+:uri-asciidoctor-api: http://asciidoctor.org/docs/user-manual/#api
+:uri-asciidoctor-extensions: http://asciidoctor.org/docs/user-manual/#extension-points
+:uri-blockdiag: http://blockdiag.com
+:uri-ditaa: http://ditaa.sourceforge.net/
+:uri-graphviz: http://www.graphviz.org/content/dot-language
+:uri-mermaid: http://knsv.github.io/mermaid/
+:uri-nwdiag: http://blockdiag.com/en/nwdiag/index.html
+:uri-packetdiag: http://blockdiag.com/en/nwdiag/index.html
+:uri-plantuml: http://plantuml.sourceforge.net
+:uri-py-plantuml: https://code.google.com/p/asciidoc-plantuml/
+:uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
+:uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
+:uri-shaape: https://github.com/christiangoltz/shaape
+:uri-wavedrom: http://wavedrom.com
 
-Asciidoctor Diagram is a set of extensions for http://asciidoctor.org[Asciidoctor], the Ruby-based AsciiDoc processor.
-These extensions allow you to embed plain text diagrams inside your AsciiDoc documents using one of the following syntaxes:
+Asciidoctor Diagram is a set of extensions for Asciidoctor that allow you to embed plain text diagrams inside your AsciiDoc documents.
 
-- http://blockdiag.com[BlockDiag, SeqDiag, ActDiag, NwDiag]
-- http://ditaa.sourceforge.net[Ditaa].
-- http://www.graphviz.org/content/dot-language[GraphViz DOT]
-- http://knsv.github.io/mermaid/[Mermaid]
-- http://plantuml.sourceforge.net[PlantUML]
-- https://github.com/christiangoltz/shaape[Shaape]
-- http://wavedrom.com[WaveDrom]
+The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, PlantUML, Shaape and WaveDrom syntax.
 
-Additionally Asciidoctor Diagram includes a basic meme generator extension.
+Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
+The generated file is then inserted into your rendered document.
 
-The extension takes care of running the diagram processor to generate the images from the input text and insert them into the rendered document.
+Asciidoctor Diagram was inspired by the {uri-py-plantuml}[AsciiDoc PlantUML filter].
 
-This gem was inspired by the https://code.google.com/p/asciidoc-plantuml/[AsciiDoc PlantUML filter] for AsciiDoc Python.
-
+ifndef::diagram_no_status[]
 == Status
 
 image:https://travis-ci.org/asciidoctor/asciidoctor-diagram.svg?branch=master["Linux Build Status", link="https://travis-ci.org/asciidoctor/asciidoctor-diagram"]
 
 image:https://ci.appveyor.com/api/projects/status/4r4gkk5gy3igs6nh/branch/master?svg=true["Windows Build Status", link="https://ci.appveyor.com/project/asciidoctor/asciidoctor-diagram"]
+endif::diagram_no_status[]
 
 == Installation
 
-Add this line to your application's Gemfile:
+Asciidoctor Diagram is a RubyGem.
+You can install it using the `gem` command or via Bundler by adding it to your application's Gemfile.
 
-```ruby
-gem 'asciidoctor-diagram'
-```
-
-And then execute:
-
- $ bundle
-
-Or install it yourself as:
+You can install the Asciidoctor Diagram gem by typing `gem install` in the CLI.
 
  $ gem install asciidoctor-diagram
 
-=== Additional Requirements
+Alternatively, you can install it using Bundler.
 
-Certain diagram types require other tools to be installed seperately.
-
-- Block/Seq/Act/Nw diag: the block/seq/act/nw diag Python packages
-- Graphviz: the http://www.graphviz.org[Graphviz] package
-- Meme: http://www.imagemagick.org[ImageMagick]
-- Mermaid: the http://knsv.github.io/mermaid[Mermaid] CLI and http://phantomjs.org[PhantomJS] 1.9.x
-- PlantUML: http://www.graphviz.org[Graphviz] package for certain diagram types.
-- Shaape: the Shaape Python package
-- WaveDrom: the https://github.com/wavedrom/wavedrom.github.io/releases[WaveDrom editor] application
-
-== Usage
-
-=== Enable the extensions
-
-The diagram extensions consist of a set of http://asciidoctor.org/docs/user-manual/#extension-points[block processors for Asciidoctor].
-In order to use extensions you should need to invoke Asciidoctor via the http://asciidoctor.org/docs/user-manual/#api[Ruby API].
-In your script you can then either require one or more of the following files:
-
-. `asciidoctor-diagram`: to enable all the diagramming extensions
-. `asciidoctor-diagram/blockdiag`: to enable the block/act/seq/nw diag extension
-. `asciidoctor-diagram/ditaa`: to enable the ditaa extension
-. `asciidoctor-diagram/graphviz`: to enable the graphviz extension
-. `asciidoctor-diagram/meme`: to enable the mermaid extension
-. `asciidoctor-diagram/mermaid`: to enable the mermaid extension
-. `asciidoctor-diagram/plantuml`: to enable the plantuml extension
-. `asciidoctor-diagram/shaape`: to enable the shaape extension
-. `asciidoctor-diagram/wavedrom`: to enable the wavedrom extension
-
-Requiring one or more of these files will automatically register the extensions for all processed documents.
-If you need more fine grained control over when the extensions are enabled or not, `asciidoctor-diagram/ditaa/extension`, `asciidoctor-diagram/graphviz/extension` and `asciidoctor-diagram/plantuml/extension` can be used instead.
-These load the extensions themselves but do not register them.
-You should then register the extensions yourself at the appropriate time using the `Asciidoctor::Extensions` API.
-
-=== Using the extensions
-
-Once the extensions are enabled the following block types becomes available for your documents:
-
-- `blockdiag`, `actdiag`, `seqdiag`, `nwdiag`, `rackdiag` and `packetdiag`
-- `ditaa`
-- `graphviz`
-- `meme`
-- `mermaid`
-- `plantuml`
-- `shaape`
-- `wavedrom`
-
-Detailed descriptions of the supported syntax inside these blocks is available on websites of the respective projects.
-
-At this point you can start adding diagrams to your application.
-Here's an example to get you started:
-
+.Gemfile
+[source,ruby]
 ----
-["plantuml", "asciidoctor-diagram-classes", "png"]
----------------------------------------------------------------------
+gem 'asciidoctor-diagram', '~> 1.4.0' // <1>
+----
+<1> Add this line to your application's Gemfile and save the file.
+
+Then execute `bundle` in the CLI.
+
+ $ bundle
+
+== Creating a Diagram
+
+A diagram is written inside a literal block, which can accept several attributes.
+
+.Anatomy of a diagram
+----
+[block-name, generated-file-name, generated-file-extension] // <1> <2> <3>
+.... // <4>
+Diagram in appropriate syntax
+....
+----
+<1> The first position in the attribute list assigns the block's name.
+<2> The second, optional position assigns a file name (i.e. `target`) to the generated diagram. If a target is not specified an auto-generated name will be used.
+<3> The third, optional position assigns a file extension (i.e. `format`) to the generated diagram.
+<4> Place the attribute list directly on top of the delimited literal block (`....`). Diagram block names can also be assigned to open blocks (`--`).
+
+The following block names and output formats are available:
+
+
+[cols=">,4*^"]
+|===
+|Block                       |gif    |png    |svg    |txt
+|{uri-actdiag}[actdiag]      |       |{check}|{check}|
+|{uri-blockdiag}[blockdiag]  |       |{check}|{check}|
+|{uri-ditaa}[ditaa]          |       |{check}|       |
+|{uri-graphviz}[graphviz]    |       |{check}|{check}|
+|<<meme,meme>>               |{check}|{check}|       |
+|{uri-mermaid}[mermaid]      |       |{check}|{check}|
+|{uri-nwdiag}[nwdiag]        |       |{check}|{check}|
+|{uri-packetdiag}[packetdiag]|       |{check}|{check}|
+|{uri-plantuml}[plantuml]    |       |{check}|{check}|{check}
+|{uri-rackdiag}[rackdiag]    |       |{check}|{check}|
+|{uri-seqdiag}[seqdiag]      |       |{check}|{check}|
+|{uri-shaape}[shaape]        |       |{check}|{check}|
+|{uri-wavedrom}[wavedrom]    |       |{check}|{check}|
+|===
+
+The example below illustrates the structure of a basic ditaa block written directly in an AsciiDoc document.
+
+.Basic ditaa block
+[source]
+----
+[ditaa]
+....
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |   diagram   |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /---------------\
+ |        | --+ Asciidoctor +--> |               |
+ |  Text  |   +-------------+    |   Beautiful   |
+ |Document|   |   !magic!   |    |    Output     |
+ |     {d}|   |             |    |               |
+ +---+----+   +-------------+    \---------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+....
+----
+
+The ditaa block above results in the following generated diagram.
+
+.Rendered ditaa diagram
+image::asciidoctor-diagram-process.png[Asciidoctor Diagram process diagram,650,319]
+
+The rendered ditaa diagram above gets the file name `58372f7d2ceffae9e91fd0a7cbb080b6.png`.
+That long number is the checksum of the source code calculated by asciidoctor-diagram.
+If you want to give your generated files a more meaningful name, fill in the `target` attribute.
+
+This can be done by either specifying it as the second positional attribute or as a named attribute.
+Both examples below would result in a file called `ditaa-diagram.png`.
+
+....
+[ditaa, "ditaa-diagram"]
+----
+<snip>
+----
+
+[ditaa, target="ditaa-diagram"]
+----
+<snip>
+----
+....
+
+
+The example below illustrates the structure of a basic PlantUML block written directly in an AsciiDoc document.
+
+.PlantUML Diagram Syntax
+[source]
+----
+[plantuml, diagram-classes, png] // <1> <2> <3>
+....
 class BlockProcessor
 class DiagramBlock
 class DitaaBlock
@@ -104,37 +169,113 @@ class PlantUmlBlock
 BlockProcessor <|-- DiagramBlock
 DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
----------------------------------------------------------------------
+....
+----
+<1> The diagram is written in PlantUML so the first potion in the attribute list is assigned the `plantuml` block name.
+<2> The name of the generated diagram file (target) is written in the second position.
+<3> The output format is entered in the third position.
+
+.Rendered PlantUML diagram
+image::asciidoctor-diagram-classes.png[Asciidoctor Diagram classes diagram]
+
+== Generating a Diagram from a Terminal
+
+You can load Asciidoctor diagram in a terminal using the `-r` flag.
+
+ $ asciidoctor -r asciidoctor-diagram sample.adoc
+
+You can also use Asciidoctor diagram with other converters, such as Asciidoctor EPUB.
+Asciidoctor-epub3 is also loaded with the `-r` flag.
+
+ $ asciidoctor -r asciidoctor-diagram -r asciidoctor-epub3 -b epub3 sample.adoc
+
+Or, you can invoke Asciidoctor and the EPUB converter with the `asciidoctor-epub3` command.
+The command implicitly sets the `-r` and `-b` flags for EPUB3 output.
+
+ $ asciidoctor-epub3 -r asciidoctor-diagram sample.adoc
+
+== Generating a Diagram from a Program
+
+If you're using Asciidoctor's Ruby API, invoke Asciidoctor diagram with a `require` and the following wrapper script.
+The `require` statement is the equivalent to the `-r` flag.
+
+.Load Asciidoctor diagram in a program
+[source,ruby]
+----
+require 'asciidoctor'
+require 'asciidoctor/cli'
+require 'asciidoctor-diagram'
+
+invoker = Asciidoctor::Cli::Invoker.new ARGV
+invoker.invoke!
+exit invoker.code
 ----
 
-All the diagram blocks except `meme` support the following attributes:
+== Advanced Usage
 
-. `target` (1st positional attribute): the basename of the file to generate. If not specified an auto-generated name will be used.
-. `format` (2nd positional attribute): the output format. PlantUML blocks support `png`, `svg` and `txt`. Graphviz, Shaape and BlockDiag support `png` and `svg`. Ditaa only supports `png`.
+=== Enabling Extensions
 
-Once you have all of this in place and your original AsciiDoc file contains a diagram block, it's time to build it into an HTML file with Asciidoctor Diagram magic! 
-When executing Asciidoctor, you must reference the Asciidoctor Diagram library, otherwise your diagram blocks won't be recognized as such. When executing Asciidoctor from the command line, do it using the -r parameter to reference this external library:
+In your program, you can either load and register the entire set of diagram extensions
 
+[source,ruby]
 ----
-$ asciidoctor -r asciidoctor-diagram doc.adoc
-----
-
-If you don't want to embed your diagram code in your document then you can use the diagram extension as block macros.
-The target of diagram block macro should refer to the file containing the diagram source code.
-The attributes for the block macros are the same as for the inline blocks.
-The example above in block macro form becomes
-
-----
-plantuml::mydiagram.puml["asciidoctor-diagram-classes", "png"]
+require 'asciidoctor-diagram'
 ----
 
-=== The meme extension
+or load and register each extension individually.
+
+[source,ruby]
+----
+require 'asciidoctor-diagram/<extension_name>'
+----
+
+`<extension_name>` can be one of `blockdiag`, `ditaa`, `graphviz`, `meme`, `mermaid`, `plantuml`, `shaape`, or `wavedrom`.
+
+Requiring one or more of these files will automatically register the extensions for all processed documents.
+
+If you need more fine grained control over when the extensions are enabled, `asciidoctor-diagram/<extension_name>/extension` can be used instead.
+This loads the extensions but does not register it in the Asciidoctor extension registry.
+You can then manually register the extensions at the appropriate times using the `Asciidoctor::Extensions` API.
+
+This document explains the various features of asciidoctor-diagram blocks using ditaa diagrams as an example.
+
+=== Diagram Block Macro
+
+The diagram extensions can also be used in in block macro form.
+
+.Anatomy of a diagram block macro
+----
+block-name::source-file-name[generated-file-extension] // <1> <2> <3>
+----
+<1> The macro name is the same as the block name in the block form.
+<2> The source file name specifies the external file that contains the diagram source code.
+<3> The first, optional, position assigns the file extension (i.e. `format`) to the generated diagram.
+
+When the source file name is a relative path it is resolved with respect to the location of the document being processed.
+
+=== Controlling Image Output
+
+To be completed.
+Explain how Asciidoctor Diagram decides where to write generated images.
+
+. `{imagesoutdir}` if specified
+. `{outdir}/{imagesdir}` if `outdir` specified
+. `{to_dir}/{imagesdir}` if `to_dir` specified
+. `{base_dir}/{imagesdir}`
+
+=== Specifying Diagram Generator Paths
+
+To be completed.
+Explain how Asciidoctor Diagram locates required tools and how to specify location manually via document attributes.
+
+[[meme]]
+=== The Meme Extension
 
 The meme extension provides a basic 'Advice Animal' style image generator.
 It's usage is easiest to explain with an example.
 
 ----
-meme::doge.jpg[Perhaps haters...,Just hate to \\ love?]
+meme::yunoguy.jpg[Doc writers,Y U NO \\ AsciiDoc]
 ----
 
 The target of the block macro tells the extension which image to use as background.
@@ -150,11 +291,3 @@ The block macro also supports the following named attributes:
 . `options`: a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
 . `target` (3rd positional attribute): the basename of the file to generate. If not specified an auto-generated name will be used.
 . `format` (4th positional attribute): the output image format. The meme extension supports `png` and `gif`.
-
-== Contributing
-
-. Fork it
-. Create your feature branch (`git checkout -b my-new-feature`)
-. Commit your changes (`git commit -am 'Add some feature'`)
-. Push to the branch (`git push origin my-new-feature`)
-. Create new Pull Request
