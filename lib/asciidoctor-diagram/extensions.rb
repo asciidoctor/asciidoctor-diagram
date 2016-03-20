@@ -143,8 +143,9 @@ module Asciidoctor
         def create_image_block(parent, source, format, generator_info)
           image_name = "#{source.image_name}.#{format}"
           image_dir = image_output_dir(parent)
+          cache_dir = cache_dir(parent)
           image_file = parent.normalize_system_path image_name, image_dir
-          metadata_file = parent.normalize_system_path "#{image_name}.cache", image_dir
+          metadata_file = parent.normalize_system_path "#{image_name}.cache", cache_dir
 
           if File.exists? metadata_file
             metadata = File.open(metadata_file, 'r') { |f| JSON.load f }
@@ -166,6 +167,8 @@ module Asciidoctor
 
             FileUtils.mkdir_p(File.dirname(image_file)) unless Dir.exist?(File.dirname(image_file))
             File.open(image_file, 'wb') { |f| f.write result }
+
+            FileUtils.mkdir_p(File.dirname(metadata_file)) unless Dir.exist?(File.dirname(metadata_file))
             File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
           end
 
@@ -222,6 +225,13 @@ module Asciidoctor
           end
 
           parent.normalize_system_path(images_dir, base_dir)
+        end
+
+        def cache_dir(parent)
+          document = parent.document
+          cache_dir = '.asciidoctor/diagram'
+          base_dir = document.attr('outdir') || (document.respond_to?(:options) && document.options[:to_dir])
+          parent.normalize_system_path(cache_dir, base_dir)
         end
 
         def create_literal_block(parent, source, generator_info)
