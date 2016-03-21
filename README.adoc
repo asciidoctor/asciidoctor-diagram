@@ -2,65 +2,77 @@
 Pepijn Van_Eeckhoudt <https://github.com/pepijnve[@pepijnve]>; Sarah White <https://github.com/graphitefriction[@graphitefriction]>
 :description: README for the Asciidoctor Diagram extension for Asciidoctor.
 :toc: preamble
+ifdef::env-github[:toc: macro]
 :icons: font
 :source-highlighter: coderay
 :source-language: asciidoc
 :table-caption!:
 :example-caption!:
 :figure-caption!:
-:imagesdir: ../images
-// :check: icon:check[]
-:check: x
+:check: icon:check[]
+ifdef::env-github[:check: :ballot_box_with_check:]
+ifndef::env-site[:status:]
 :uri-actdiag: http://blockdiag.com/en/actdiag/index.html
 :uri-asciidoctor-api: http://asciidoctor.org/docs/user-manual/#api
 :uri-asciidoctor-extensions: http://asciidoctor.org/docs/user-manual/#extension-points
 :uri-blockdiag: http://blockdiag.com
 :uri-ditaa: http://ditaa.sourceforge.net/
-:uri-graphviz: http://www.graphviz.org/content/dot-language
+:uri-dot: http://www.graphviz.org/content/dot-language
+:uri-graphviz: http://www.graphviz.org
+:uri-imagemagick: http://www.imagemagick.org
+:uri-java: http://java.sun.com
 :uri-mermaid: http://knsv.github.io/mermaid/
 :uri-nwdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-packetdiag: http://blockdiag.com/en/nwdiag/index.html
+:uri-phantomjs: http://phantomjs.org
 :uri-plantuml: http://plantuml.sourceforge.net
 :uri-py-plantuml: https://code.google.com/p/asciidoc-plantuml/
 :uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
 :uri-shaape: https://github.com/christiangoltz/shaape
 :uri-wavedrom: http://wavedrom.com
+:uri-wavedromeditor: https://github.com/wavedrom/wavedrom.github.io/releases
+:uri-wavedromcli: https://github.com/wavedrom/cli
 
-Asciidoctor Diagram is a set of extensions for Asciidoctor that allow you to embed plain text diagrams inside your AsciiDoc documents.
+Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
 The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, PlantUML, Shaape and WaveDrom syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
-The generated file is then inserted into your rendered document.
+The generated file is then inserted into your converted document.
 
 Asciidoctor Diagram was inspired by the {uri-py-plantuml}[AsciiDoc PlantUML filter].
 
-ifndef::diagram_no_status[]
+ifdef::status[]
 == Status
 
 image:https://travis-ci.org/asciidoctor/asciidoctor-diagram.svg?branch=master["Linux Build Status", link="https://travis-ci.org/asciidoctor/asciidoctor-diagram"]
-
 image:https://ci.appveyor.com/api/projects/status/4r4gkk5gy3igs6nh/branch/master?svg=true["Windows Build Status", link="https://ci.appveyor.com/project/asciidoctor/asciidoctor-diagram"]
-endif::diagram_no_status[]
+image:https://img.shields.io/gem/v/asciidoctor-diagram.svg?label=gem%20version[Gem Version, link=https://rubygems.org/gems/asciidoctor-diagram]
+endif::status[]
+
+ifeval::["{toc-placement}" == "macro"]
+[discrete]
+== Contents
+
+toc::[title={blank}]
+endif::[]
 
 == Installation
 
-Asciidoctor Diagram is a RubyGem.
-You can install it using the `gem` command or via Bundler by adding it to your application's Gemfile.
+Asciidoctor Diagram is a RubyGem, which can be installed using the `gem` or `bundle` commands.
 
 You can install the Asciidoctor Diagram gem by typing `gem install` in the CLI.
 
  $ gem install asciidoctor-diagram
 
-Alternatively, you can install it using Bundler.
+by first adding the following entry to your project's [.path]_Gemfile_.
 
 .Gemfile
 [source,ruby]
 ----
-gem 'asciidoctor-diagram', '~> 1.4.0' // <1>
+gem 'asciidoctor-diagram', '~> 1.4.0'
 ----
-<1> Add this line to your application's Gemfile and save the file.
 
 Then execute `bundle` in the CLI.
 
@@ -72,26 +84,25 @@ A diagram is written inside a literal block, which can accept several attributes
 
 .Anatomy of a diagram
 ----
-[block-name, generated-file-name, generated-file-extension] // <1> <2> <3>
+[diagram-type, generated-file-name, generated-image-format] // <1> <2> <3>
 .... // <4>
 Diagram in appropriate syntax
 ....
 ----
-<1> The first position in the attribute list assigns the block's name.
-<2> The second, optional position assigns a file name (i.e. `target`) to the generated diagram. If a target is not specified an auto-generated name will be used.
-<3> The third, optional position assigns a file extension (i.e. `format`) to the generated diagram.
-<4> Place the attribute list directly on top of the delimited literal block (`....`). Diagram block names can also be assigned to open blocks (`--`).
+<1> The first positional attribute in the attribute list specifies the diagram that is being used.
+<2> The second, optional positional attribute assigns a file name (i.e. `target`) to the generated diagram. If a target is not specified an auto-generated name will be used.
+<3> The third, optional positional attribute specifies the image format to create, specified as a three character file extension.
+<4> Place the attribute list directly on top of the delimited literal block (+....+). You can also use an open block as an alternative (`--`).
 
-The following block names and output formats are available:
+The following diagram types and output formats are available:
 
-
-[cols=">,4*^"]
+[cols=">,4*^",options="header"]
 |===
-|Block                       |gif    |png    |svg    |txt
+|Diagram Type                |gif    |png    |svg    |txt
 |{uri-actdiag}[actdiag]      |       |{check}|{check}|
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|
 |{uri-ditaa}[ditaa]          |       |{check}|       |
-|{uri-graphviz}[graphviz]    |       |{check}|{check}|
+|{uri-dot}[graphviz]         |       |{check}|{check}|
 |<<meme,meme>>               |{check}|{check}|       |
 |{uri-mermaid}[mermaid]      |       |{check}|{check}|
 |{uri-nwdiag}[nwdiag]        |       |{check}|{check}|
@@ -132,7 +143,7 @@ The example below illustrates the structure of a basic ditaa block written direc
 The ditaa block above results in the following generated diagram.
 
 .Rendered ditaa diagram
-image::asciidoctor-diagram-process.png[Asciidoctor Diagram process diagram,650,319]
+image::images/asciidoctor-diagram-process.png[Asciidoctor Diagram process diagram,650,319]
 
 The rendered ditaa diagram above gets the file name `58372f7d2ceffae9e91fd0a7cbb080b6.png`.
 That long number is the checksum of the source code calculated by asciidoctor-diagram.
@@ -171,12 +182,12 @@ DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
 ....
 ----
-<1> The diagram is written in PlantUML so the first potion in the attribute list is assigned the `plantuml` block name.
-<2> The name of the generated diagram file (target) is written in the second position.
-<3> The output format is entered in the third position.
+<1> The diagram is written in PlantUML so the first positional attribute is assigned the `plantuml` diagram type.
+<2> The name of the generated diagram file (target) is written in the second positional attribute.
+<3> The output format is entered in the third positional attribute.
 
 .Rendered PlantUML diagram
-image::asciidoctor-diagram-classes.png[Asciidoctor Diagram classes diagram]
+image::images/asciidoctor-diagram-classes.png[Asciidoctor Diagram classes diagram]
 
 == Generating a Diagram from a Terminal
 
@@ -193,23 +204,6 @@ Or, you can invoke Asciidoctor and the EPUB converter with the `asciidoctor-epub
 The command implicitly sets the `-r` and `-b` flags for EPUB3 output.
 
  $ asciidoctor-epub3 -r asciidoctor-diagram sample.adoc
-
-== Generating a Diagram from a Program
-
-If you're using Asciidoctor's Ruby API, invoke Asciidoctor diagram with a `require` and the following wrapper script.
-The `require` statement is the equivalent to the `-r` flag.
-
-.Load Asciidoctor diagram in a program
-[source,ruby]
-----
-require 'asciidoctor'
-require 'asciidoctor/cli'
-require 'asciidoctor-diagram'
-
-invoker = Asciidoctor::Cli::Invoker.new ARGV
-invoker.invoke!
-exit invoker.code
-----
 
 == Advanced Usage
 
@@ -249,24 +243,48 @@ block-name::source-file-name[generated-file-extension] // <1> <2> <3>
 ----
 <1> The macro name is the same as the block name in the block form.
 <2> The source file name specifies the external file that contains the diagram source code.
-<3> The first, optional, position assigns the file extension (i.e. `format`) to the generated diagram.
+<3> The first, optional, positional attribute assigns the file extension (i.e. `format`) to the generated diagram.
 
 When the source file name is a relative path it is resolved with respect to the location of the document being processed.
 
-=== Controlling Image Output
+=== Image Output Location
 
-To be completed.
-Explain how Asciidoctor Diagram decides where to write generated images.
+When Asciidoctor Diagram writes images to disk it will go over the following options in order to determine where to write the files.
 
-. `{imagesoutdir}` if specified
-. `{outdir}/{imagesdir}` if `outdir` specified
-. `{to_dir}/{imagesdir}` if `to_dir` specified
-. `{base_dir}/{imagesdir}`
+. `\{imagesoutdir\}` if the `imagesoutdir` attribute has been specified
+. `\{outdir\}/\{imagesdir\}` if the `outdir` attribute has been specified
+. `\{to_dir\}/\{imagesdir\}` if the `to_dir` attribute has been specified
+. `\{base_dir\}/\{imagesdir\}`
 
 === Specifying Diagram Generator Paths
 
-To be completed.
-Explain how Asciidoctor Diagram locates required tools and how to specify location manually via document attributes.
+Asciidoctor Diagram depends on external tools to generates images.
+In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable.
+In case you've installed a tool in a way where the executable is not in the `PATH`, you can override its location manually using document attributes.
+The following table lists the tools that are required for each diagram type, the location where they can be downloaded and the document attribute you can use to override their locations.
+
+[cols=">,2*<",options="header"]
+|===
+   |Diagram Type |Tool                                                                  |Attribute
+   |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
+   |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
+   |ditaa        |{uri-java}[Java]                                                      |`java`
+   |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
+   |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
+   |mermaid      |{uri-mermaid}[Mermaid]                                                |`mermaid`
+   |nwdiag       |{uri-nwdiag}[NwDiag]                                                  |`nwdiag`
+   |packetdiag   |{uri-nwdiag}[NwDiag]                                                  |`packetdiag`
+   |plantuml     |{uri-java}[Java]                                                      |`java`
+   |rackdiag     |{uri-nwdiag}[NwDiag]                                                  |`rackdiag`
+   |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
+   |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
+.2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
+                 |{uri-wavedromcli}[WaveDrom CLI] and {uri-phantomjs}[PhantomJS]        |`wavedrom` and `phantomjs`
+|===
+
+If for instance you installed `actdiag` in `/home/me/actdiag/bin` and this path is not included in the `PATH` you can specify its location on the command line
+
+ $ asciidoctor -a actdiag=/home/me/actdiag/bin/actdiag -r asciidoctor-diagram sample.adoc
 
 [[meme]]
 === The Meme Extension
