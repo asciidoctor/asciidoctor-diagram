@@ -21,7 +21,7 @@ module Asciidoctor
         wavedrom_cli = which(parent, 'wavedrom', :raise_on_error => false)
         phantomjs = which(parent, 'phantomjs', :raise_on_error => false)
 
-        if wavedrom_cli && phantomjs
+        if wavedrom_cli && !wavedrom_cli.include?('WaveDromEditor') && phantomjs
           CliGenerator.generate_file(wavedrom_cli, format.to_s, source.to_s) do |tool_path, input_path, output_path|
             [phantomjs, tool_path, '-i', input_path, "-#{format.to_s[0]}", output_path]
           end
