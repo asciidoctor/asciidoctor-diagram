@@ -259,7 +259,7 @@ module Asciidoctor
         #
         # @return [ReaderSource] a ReaderSource
         def create_source(parent, reader, attributes)
-          ReaderSource.new(reader, attributes)
+          ReaderSource.new(parent, reader, attributes)
         end
       end
 
@@ -275,7 +275,7 @@ module Asciidoctor
         #
         # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
-          FileSource.new(target.empty? ? nil : parent.normalize_system_path(target, parent.document.base_dir), attributes)
+          FileSource.new(parent, target.empty? ? nil : parent.normalize_system_path(target, parent.document.base_dir), attributes)
         end
       end
 
@@ -326,7 +326,8 @@ module Asciidoctor
 
         attr_reader :attributes
 
-        def initialize(attributes)
+        def initialize(parent, attributes)
+          @parent = parent
           @attributes = attributes
         end
 
@@ -346,6 +347,16 @@ module Asciidoctor
           @checksum ||= compute_checksum(code)
         end
 
+        protected
+        def resolve_diagram_subs
+          if @attributes.key? 'subs'
+            subs = @parent.resolve_block_subs @attributes['subs'], nil, 'diagram'
+            subs.empty? ? nil : subs
+          else
+            nil
+          end
+        end
+
         private
         def compute_checksum(code)
           md5 = Digest::MD5.new
@@ -362,20 +373,20 @@ module Asciidoctor
       class ReaderSource < BasicSource
         include DiagramSource
 
-        def initialize(reader, attributes)
-          super(attributes)
+        def initialize(parent, reader, attributes)
+          super(parent, attributes)
           @reader = reader
         end
 
         def code
-          @code ||= @reader.lines.join("\n")
+          @code ||= @parent.apply_subs(@reader.lines, resolve_diagram_subs).join("\n")
         end
       end
 
       # A diagram source that retrieves the code for a diagram from an external source file.
       class FileSource < BasicSource
-        def initialize(file_name, attributes)
-          super(attributes)
+        def initialize(parent, file_name, attributes)
+          super(parent, attributes)
           @file_name = file_name
         end
 
@@ -394,12 +405,16 @@ module Asciidoctor
         end
 
         def code
+          @code ||= read_code
+        end
+
+        def read_code
           if @file_name
             lines = File.readlines(@file_name)
             lines = ::Asciidoctor::Helpers.normalize_lines(lines)
-            @code ||= lines.join("\n")
+            @parent.apply_subs(lines, resolve_diagram_subs).join("\n")
           else
-            @code ||= ''
+            ''
           end
         end
       end

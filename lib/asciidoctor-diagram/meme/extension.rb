@@ -113,7 +113,7 @@ module Asciidoctor
       def create_source(parent, target, attributes)
         attributes = attributes.dup
         attributes['background'] = target
-        ::Asciidoctor::Diagram::Extensions::FileSource.new(nil, attributes)
+        ::Asciidoctor::Diagram::Extensions::FileSource.new(parent, nil, attributes)
       end
     end
   end
