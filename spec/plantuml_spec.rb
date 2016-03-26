@@ -36,6 +36,40 @@ plantuml::plantuml.txt[format="png"]
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
   end
+
+  it "should support substitutions" do
+    code = <<-eos
+class {parent-class}
+class {child-class}
+{parent-class} <|-- {child-class}
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+:parent-class: ParentClass
+:child-class: ChildClass
+
+== First Section
+
+plantuml::plantuml.txt[format="svg", subs=attributes+]
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'html5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exists?(target)).to be true
+
+    content = File.read(target)
+    expect(content).to include('ParentClass')
+    expect(content).to include('ChildClass')
+  end
 end
 
 describe Asciidoctor::Diagram::PlantUmlBlockProcessor do
@@ -536,5 +570,33 @@ Doc Writer <doc@example.com>
     Asciidoctor.load StringIO.new(creole_doc), :attributes => {'backend' => 'html5'}
 
     # No real way to assert this since PlantUML doesn't produce an error on file not found
+  end
+
+  it "should support substitutions" do
+    doc = <<-eos
+= Hello, PlantUML!
+:parent-class: ParentClass
+:child-class: ChildClass
+
+[plantuml,class-inheritence,svg,subs=attributes+]
+....
+class {parent-class}
+class {child-class}
+{parent-class} <|-- {child-class}
+....
+    eos
+
+    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'html5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |b| b.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exists?(target)).to be true
+
+    content = File.read(target)
+    expect(content).to include('ParentClass')
+    expect(content).to include('ChildClass')
   end
 end
