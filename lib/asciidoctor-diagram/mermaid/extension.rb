@@ -26,7 +26,7 @@ module Asciidoctor
 
         width = source.attributes['width']
 
-        CliGenerator.generate_file(mermaid, format.to_s, source.to_s) do |tool_path, input_path, output_path|
+        CliGenerator.generate_file(mermaid, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           output_dir = File.dirname(output_path)
           output_file = File.expand_path(File.basename(input_path) + ".#{format.to_s}", output_dir)
 
