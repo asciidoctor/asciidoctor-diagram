@@ -20,14 +20,14 @@ module Asciidoctor
         end
       end
 
-      def self.generate_file(tool, format, code)
+      def self.generate_file(tool, input_ext, output_ext, code)
         tool_name = File.basename(tool)
 
-        source_file = Tempfile.new([tool_name, ".#{format}"])
+        source_file = Tempfile.new([tool_name, ".#{input_ext}"])
         begin
           File.write(source_file.path, code)
 
-          target_file = Tempfile.new([tool_name, ".#{format}"])
+          target_file = Tempfile.new([tool_name, ".#{output_ext}"])
           begin
             target_file.close
 
