@@ -54,7 +54,9 @@ module Asciidoctor
             raise "Block passed to generate_file should return an Array or a Hash"
         end
 
-        run_cli(*args, open3_opts)
+        output = run_cli(*args, open3_opts)
+
+        raise "#{args[0]} failed: #{output}" unless File.exist?(out_file || target_file.path)
 
         if out_file
           File.rename(out_file, target_file.path)
@@ -70,7 +72,7 @@ module Asciidoctor
           raise "#{File.basename(args[0])} failed: #{stdout.empty? ? stderr : stdout}"
         end
 
-        stdout
+        stdout.empty? ? stderr : stdout
       end
     end
   end
