@@ -1,12 +1,13 @@
 = Asciidoctor-diagram Changelog
 
-== 1.4.1 (Not released yet)
+== 1.5.0 (Not released yet)
 
 Enhancements::
 
   * Issue #98: Automatically detect Actdiag, Blockdiag, Nwdiag and Seqdiag executables from Python 3.x Debian packages.
   * Issue #100: Support specifying the layout engine for `dot` (`-K<engine>`) using the `layout` attribute on `graphviz` blocks. 
   * Issue #102: Generate cache files in `asciidoctor/diagram` to avoid cluttering the output directory.
+  * Issue #105: Support substitutions in diagram blocks.
   * Issue #107: Improve error reporting when Mermaid diagram generation fails.
 
 == 1.4.0
