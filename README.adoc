@@ -44,6 +44,7 @@ The generated file is then inserted into your converted document.
 Asciidoctor Diagram was inspired by the {uri-py-plantuml}[AsciiDoc PlantUML filter].
 
 ifdef::status[]
+[discrete]
 == Status
 
 image:https://travis-ci.org/asciidoctor/asciidoctor-diagram.svg?branch=master["Linux Build Status", link="https://travis-ci.org/asciidoctor/asciidoctor-diagram"]
