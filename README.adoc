@@ -1,7 +1,7 @@
 = Asciidoctor Diagram
 Pepijn Van_Eeckhoudt <https://github.com/pepijnve[@pepijnve]>; Sarah White <https://github.com/graphitefriction[@graphitefriction]>
 :description: README for the Asciidoctor Diagram extension for Asciidoctor.
-:toc: preamble
+ifndef::env-site[:toc: preamble]
 ifdef::env-github[:toc: macro]
 :icons: font
 :source-highlighter: coderay
