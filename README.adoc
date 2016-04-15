@@ -1,8 +1,9 @@
 = Asciidoctor Diagram
 Pepijn Van_Eeckhoudt <https://github.com/pepijnve[@pepijnve]>; Sarah White <https://github.com/graphitefriction[@graphitefriction]>
 :description: README for the Asciidoctor Diagram extension for Asciidoctor.
-ifndef::env-site[:toc: preamble]
 ifdef::env-github[:toc: macro]
+ifndef::env-site[:toc: preamble]
+ifndef::imagesdir[:imagesdir: images]
 :icons: font
 :source-highlighter: coderay
 :source-language: asciidoc
@@ -144,7 +145,7 @@ The example below illustrates the structure of a basic ditaa block written direc
 The ditaa block above results in the following generated diagram.
 
 .Rendered ditaa diagram
-image::images/asciidoctor-diagram-process.png[Asciidoctor Diagram process diagram,650,319]
+image::asciidoctor-diagram-process.png[Asciidoctor Diagram process diagram,650,319]
 
 The rendered ditaa diagram above gets the file name `58372f7d2ceffae9e91fd0a7cbb080b6.png`.
 That long number is the checksum of the source code calculated by asciidoctor-diagram.
@@ -188,7 +189,7 @@ DiagramBlock <|-- PlantUmlBlock
 <3> The output format is entered in the third positional attribute.
 
 .Rendered PlantUML diagram
-image::images/asciidoctor-diagram-classes.png[Asciidoctor Diagram classes diagram]
+image::asciidoctor-diagram-classes.png[Asciidoctor Diagram classes diagram]
 
 == Generating a Diagram from a Terminal
 
