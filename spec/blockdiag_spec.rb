@@ -20,7 +20,7 @@ Doc Writer <doc@example.com>
 blockdiag::blockdiag.txt[format="png"]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -52,7 +52,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -82,7 +82,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -111,7 +111,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error /support.*format/i
   end
 
   it "should not regenerate images when source has not changed" do
@@ -131,7 +131,7 @@ blockdiag::blockdiag.txt
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     b = d.find { |b| b.context == :image }
     expect(b).to_not be_nil
     target = b.attributes['target']
@@ -139,7 +139,7 @@ blockdiag::blockdiag.txt
 
     sleep 1
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
 
     mtime2 = File.mtime(target)
 
@@ -159,7 +159,7 @@ blockdiag::blockdiag.txt[]
 blockdiag::blockdiag.txt[]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('blockdiag.png')).to be true
   end
 
@@ -176,7 +176,7 @@ blockdiag::blockdiag.txt["foobar"]
 blockdiag::blockdiag.txt["foobaz"]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('foobar.png')).to be true
     expect(File.exists?('foobaz.png')).to be true
     expect(File.exists?('blockdiag.png')).to be false

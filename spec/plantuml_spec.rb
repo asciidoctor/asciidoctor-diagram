@@ -20,7 +20,7 @@ Doc Writer <doc@example.com>
 plantuml::plantuml.txt[format="png"]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -57,7 +57,7 @@ Doc Writer <doc@example.com>
 plantuml::plantuml.txt[format="svg", subs=attributes+]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'html5'}
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -89,7 +89,7 @@ User --> (Use the application) : Label
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -122,7 +122,7 @@ User --> (Use the application) : Label
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -155,7 +155,7 @@ User --> (Use the application) : Label
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :literal }
@@ -178,7 +178,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error /support.*format/i
   end
 
   it "should use plantuml configuration when specified as a document attribute" do
@@ -205,7 +205,7 @@ ArrowColor #DEADBE
       f.write config
     end
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     b = d.find { |b| b.context == :image }
 
     target = b.attributes['target']
@@ -242,14 +242,14 @@ Foo1 -> Foo2 : To boundary
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     b = d.find { |b| b.context == :image }
     target = b.attributes['target']
     mtime1 = File.mtime(target)
 
     sleep 1
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
 
     mtime2 = File.mtime(target)
 
@@ -276,7 +276,7 @@ plantuml::plantuml.txt[]
 plantuml::plantuml.txt[]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('plantuml.png')).to be true
   end
 
@@ -300,7 +300,7 @@ plantuml::plantuml.txt["foobar"]
 plantuml::plantuml.txt["foobaz"]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('foobar.png')).to be true
     expect(File.exists?('foobaz.png')).to be true
     expect(File.exists?('plantuml.png')).to be false
@@ -326,7 +326,7 @@ plantuml::plantuml.txt["test/foobar"]
 plantuml::plantuml.txt["test2/foobaz"]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('test/foobar.png')).to be true
     expect(File.exists?('test2/foobaz.png')).to be true
     expect(File.exists?('plantuml.png')).to be false
@@ -347,7 +347,7 @@ Foo1 -> Foo2 : To boundary
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), {:attributes => {'outdir' => 'foo'}}
+    d = load_asciidoc doc, {:attributes => {'outdir' => 'foo'}}
     b = d.find { |b| b.context == :image }
 
     target = b.attributes['target']
@@ -371,7 +371,7 @@ Foo1 -> Foo2 : To boundary
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), {:attributes => {'imagesoutdir' => 'bar', 'outdir' => 'foo'}}
+    d = load_asciidoc doc, {:attributes => {'imagesoutdir' => 'bar', 'outdir' => 'foo'}}
     b = d.find { |b| b.context == :image }
 
     target = b.attributes['target']
@@ -394,7 +394,7 @@ User -> (Start)
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5'}
+    d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -429,7 +429,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5'}
+    d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -465,7 +465,7 @@ salt
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5'}
+    d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -497,7 +497,7 @@ salt
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'docbook5'}
+    d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -535,10 +535,10 @@ A -> B
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'html5'}
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
     unscaled_image = d.find { |b| b.context == :image }
 
-    d = Asciidoctor.load StringIO.new(scaled_doc), :attributes => {'backend' => 'html5'}
+    d = load_asciidoc scaled_doc, :attributes => {'backend' => 'html5'}
     scaled_image = d.find { |b| b.context == :image }
 
     expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 1.5)
@@ -567,7 +567,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    Asciidoctor.load StringIO.new(creole_doc), :attributes => {'backend' => 'html5'}
+    load_asciidoc creole_doc, :attributes => {'backend' => 'html5'}
 
     # No real way to assert this since PlantUML doesn't produce an error on file not found
   end
@@ -586,7 +586,7 @@ class {child-class}
 ....
     eos
 
-    d = Asciidoctor.load StringIO.new(doc), :attributes => {'backend' => 'html5'}
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }

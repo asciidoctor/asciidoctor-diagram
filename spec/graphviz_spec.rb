@@ -24,7 +24,7 @@ Doc Writer <doc@example.com>
 graphviz::graphviz.txt[format="png"]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -63,7 +63,7 @@ digraph foo {
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -100,7 +100,7 @@ digraph foo {
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -129,7 +129,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error /support.*format/i
   end
 
   it "should support neato layout engine" do
@@ -145,7 +145,7 @@ digraph g { rankdir=LR; Text->Graphviz->Image }
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }

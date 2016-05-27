@@ -21,7 +21,7 @@ Doc Writer <doc@example.com>
 mermaid::mermaid.txt[format="png"]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -50,7 +50,7 @@ Doc Writer <doc@example.com>
 mermaid::mermaid.txt[format="svg"]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -82,7 +82,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -112,7 +112,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -141,7 +141,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error /support.*format/i
   end
 
   it "should not regenerate images when source has not changed" do
@@ -161,7 +161,7 @@ mermaid::mermaid.txt
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     b = d.find { |b| b.context == :image }
     expect(b).to_not be_nil
     target = b.attributes['target']
@@ -169,7 +169,7 @@ mermaid::mermaid.txt
 
     sleep 1
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
 
     mtime2 = File.mtime(target)
 
@@ -189,7 +189,7 @@ mermaid::mermaid.txt[]
 mermaid::mermaid.txt[]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('mermaid.png')).to be true
   end
 
@@ -206,7 +206,7 @@ mermaid::mermaid.txt["foobar"]
 mermaid::mermaid.txt["foobaz"]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('foobar.png')).to be true
     expect(File.exists?('foobaz.png')).to be true
     expect(File.exists?('mermaid.png')).to be false
@@ -244,7 +244,7 @@ mermaid::mermaid.txt["with_config", sequenceConfig="seqconfig.txt"]
 mermaid::mermaid.txt["without_config"]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('with_config.png')).to be true
     expect(File.exists?('without_config.png')).to be true
     expect(File.size('with_config.png')).to_not be File.size('without_config.png')
@@ -269,7 +269,7 @@ mermaid::mermaid.txt["with_width", width="700"]
 mermaid::mermaid.txt["without_width"]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('with_width.png')).to be true
     expect(File.exists?('without_width.png')).to be true
     expect(File.size('with_width.png')).to_not be File.size('without_width.png')

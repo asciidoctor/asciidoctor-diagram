@@ -25,7 +25,7 @@ Doc Writer <doc@example.com>
 ditaa::ditaa.txt[format="png"]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -65,7 +65,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -94,7 +94,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error /support.*format/i
   end
 
   it "should use a default format when none was given" do
@@ -109,7 +109,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -142,7 +142,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -173,14 +173,14 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc.sub('{opts}', 'shadow=false'))
+    d = load_asciidoc(doc.sub('{opts}', 'shadow=false'))
     b = d.find { |b| b.context == :image }
     target = b.attributes['target']
     mtime1 = File.mtime(target)
 
     sleep 1
 
-    d = Asciidoctor.load StringIO.new(doc.sub('{opts}', 'round-corners=true'))
+    d = load_asciidoc(doc.sub('{opts}', 'round-corners=true'))
 
     mtime2 = File.mtime(target)
 
