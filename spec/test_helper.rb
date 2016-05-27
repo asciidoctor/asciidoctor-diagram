@@ -34,7 +34,23 @@ module Asciidoctor
   end
 end
 
+module Asciidoctor
+  module Diagram
+    module TestHelpers
+      def load_asciidoc(source, options = {})
+        options = options.dup
+        options[:trace] = true
+        options[:attributes] ||= {}
+        options[:attributes]['diagram-on-error'] = 'abort'
+        ::Asciidoctor.load(StringIO.new(source), options.merge({:trace => true}))
+      end
+    end
+  end
+end
+
 RSpec.configure do |c|
+  c.include ::Asciidoctor::Diagram::TestHelpers
+
   if ::Asciidoctor::Diagram::Platform.os == :macosx
     c.filter_run_excluding :broken_on_osx => true
   end

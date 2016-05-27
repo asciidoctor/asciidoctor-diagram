@@ -16,7 +16,7 @@ Doc Writer <doc@example.com>
 meme::man.jpg[I don't always // write unit tests, but when I do // they generate memes, format=png, options=noupcase]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -48,7 +48,7 @@ Doc Writer <doc@example.com>
 meme::man.jpg[I don't always // write unit tests, but when I do // they generate memes, format=gif, options=noupcase]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }

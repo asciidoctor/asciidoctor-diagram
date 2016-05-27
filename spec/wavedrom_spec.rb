@@ -21,7 +21,7 @@ Doc Writer <doc@example.com>
 wavedrom::wavedrom.txt[format="png"]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -50,7 +50,7 @@ Doc Writer <doc@example.com>
 wavedrom::wavedrom.txt[format="svg"]
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -82,7 +82,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -112,7 +112,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     expect(d).to_not be_nil
 
     b = d.find { |b| b.context == :image }
@@ -141,7 +141,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { Asciidoctor.load StringIO.new(doc) }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error /support.*format/i
   end
 
   it "should not regenerate images when source has not changed" do
@@ -161,7 +161,7 @@ wavedrom::wavedrom.txt
 ----
     eos
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
     b = d.find { |b| b.context == :image }
     expect(b).to_not be_nil
     target = b.attributes['target']
@@ -169,7 +169,7 @@ wavedrom::wavedrom.txt
 
     sleep 1
 
-    d = Asciidoctor.load StringIO.new(doc)
+    d = load_asciidoc doc
 
     mtime2 = File.mtime(target)
 
@@ -189,7 +189,7 @@ wavedrom::wavedrom.txt[]
 wavedrom::wavedrom.txt[]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('wavedrom.png')).to be true
   end
 
@@ -206,7 +206,7 @@ wavedrom::wavedrom.txt["foobar"]
 wavedrom::wavedrom.txt["foobaz"]
     eos
 
-    Asciidoctor.load StringIO.new(doc)
+    load_asciidoc doc
     expect(File.exists?('foobar.png')).to be true
     expect(File.exists?('foobaz.png')).to be true
     expect(File.exists?('wavedrom.png')).to be false
