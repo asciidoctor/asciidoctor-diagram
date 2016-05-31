@@ -17,7 +17,7 @@ module Asciidoctor
       end
 
       def which(parent_block, cmd, options = {})
-        attr_names = [cmd] + options.fetch(:alt_attrs, [])
+        attr_names = options.fetch(:alt_attrs, []) + [cmd]
         cmd_names = [cmd] + options.fetch(:alt_cmds, [])
 
         cmd_var = '@' + attr_names[0]

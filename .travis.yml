@@ -16,11 +16,17 @@ before_install:
   - gem --version
   - gem install bundler
   - sudo apt-get update -qq
+  - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2
+  - tar jxf phantomjs-2.1.1-linux-x86_64.tar.bz2
+  - export PHANTOMJS_2=$PWD/phantomjs-2.1.1-linux-x86_64/bin/phantomjs
+  - wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2
+  - tar jxf phantomjs-1.9.8-linux-x86_64.tar.bz2
+  - export PHANTOMJS_19=$PWD/phantomjs-1.9.8-linux-x86_64/bin/phantomjs
 install:
   - sudo apt-get install -qq graphviz
   - sudo apt-get install -qq python-gtk2
-  - sudo pip install blockdiag actdiag seqdiag nwdiag
-  - sudo pip install shaape
+  - pip install blockdiag actdiag seqdiag nwdiag
+  - pip install shaape
   - bundle install --path vendor/bundle --jobs=3 --retry=3
   - npm install -g mermaid
   - npm install -g wavedrom-cli
