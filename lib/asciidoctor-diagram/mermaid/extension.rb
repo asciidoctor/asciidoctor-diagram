@@ -18,6 +18,7 @@ module Asciidoctor
 
       def mermaid(parent, source, format)
         mermaid = which(parent, 'mermaid')
+        phantomjs = which(parent, 'phantomjs', :alt_attrs => ['phantomjs_19'])
 
         seq_config = source.attributes['sequenceConfig'] || parent.attr('sequenceConfig')
         if seq_config
@@ -30,7 +31,7 @@ module Asciidoctor
           output_dir = File.dirname(output_path)
           output_file = File.expand_path(File.basename(input_path) + ".#{format.to_s}", output_dir)
 
-          args = [tool_path, "--#{format.to_s}", '-o', output_dir]
+          args = [tool_path, '--phantomPath', phantomjs, "--#{format.to_s}", '-o', output_dir]
 
           if seq_config
             args << '--sequenceConfig' << seq_config

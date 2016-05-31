@@ -41,6 +41,8 @@ module Asciidoctor
         options = options.dup
         options[:trace] = true
         options[:attributes] ||= {}
+        options[:attributes]['phantomjs_19'] = ENV['PHANTOMJS_19']
+        options[:attributes]['phantomjs_2'] = ENV['PHANTOMJS_2']
         options[:attributes]['diagram-on-error'] = 'abort'
         ::Asciidoctor.load(StringIO.new(source), options.merge({:trace => true}))
       end
