@@ -44,6 +44,10 @@ The generated file is then inserted into your converted document.
 
 Asciidoctor Diagram was inspired by the {uri-py-plantuml}[AsciiDoc PlantUML filter].
 
+Translations of the document are available in the following languages:
+
+* link:README_zh-CN.adoc[汉语]
+
 ifdef::status[]
 [discrete]
 == Status
