@@ -319,8 +319,8 @@ meme::yunoguy.jpg[Doc writers,Y U NO \\ AsciiDoc]
 
 块宏海支持如下的命名熟悉：
 
-. `fillColor`：文字的填充色。默认为 `white`。
-. `strokeColor`：文本轮廓的颜色。默认为 `black`。
+. `fillColor`：文字的填充颜色。默认为 `white`。
+. `strokeColor`：文本的轮廓颜色。默认为 `black`。
 . `strokeWidth`：文本轮廓的宽度。默认为 `2`。
 . `font`: 文本的字体外观。默认为 `Impact`。
 . `options`：逗号分隔的标识列表，用于修改图片的渲染。目前只支持 `noupcase`， 它可以禁用大写的标签。
