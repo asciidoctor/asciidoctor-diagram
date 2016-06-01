@@ -44,6 +44,10 @@ Asciidoctor Diagram 是一组 Asciidoctor 扩展，它可以让你向 AsciiDoc �
 
 Asciidoctor Diagram 是受 {uri-py-plantuml}[AsciiDoc PlantUML filter] 启发而产生的项目。
 
+该文档有如下语言的翻译版：
+
+* link:README.adoc[English]
+
 ifdef::status[]
 [discrete]
 [[status]]
@@ -269,10 +273,11 @@ require 'asciidoctor-diagram/<extension_name>'
 [[specifying-diagram-generator-paths]]
 === 指定图表输出路径
 
-Asciidoctor Diagram depends on external tools to generates images.
-In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable.
-In case you've installed a tool in a way where the executable is not in the `PATH`, you can override its location manually using document attributes.
-The following table lists the tools that are required for each diagram type, the location where they can be downloaded and the document attribute you can use to override their locations.
+Asciidoctor Diagram 依赖外部工具来生成图片。
+大多数情况下，它会自动从 `PATH` 环境变量指定的每一个路径中查找定位有特定可执行的工具。
+// In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable.
+如果你安装的工具不在 `PATH` 指明的路径中，你可以通过手动指明相关属性来覆盖工具的定位位置。
+下面的表格指明每一个图表类型必须依赖的工具，工具被安装的位置和用于覆盖默认位置的文档属性。
 
 [cols=">,2*<",options="header"]
 |===
@@ -280,8 +285,8 @@ The following table lists the tools that are required for each diagram type, the
    |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
    |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
    |ditaa        |{uri-java}[Java]                                                      |`java`
-   |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
-   |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
+   |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` 或 `graphvizdot`
+   |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` 和 `identify`
    |mermaid      |{uri-mermaid}[Mermaid]                                                |`mermaid`
    |nwdiag       |{uri-nwdiag}[NwDiag]                                                  |`nwdiag`
    |packetdiag   |{uri-nwdiag}[NwDiag]                                                  |`packetdiag`
@@ -290,33 +295,35 @@ The following table lists the tools that are required for each diagram type, the
    |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
    |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
 .2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
-                 |{uri-wavedromcli}[WaveDrom CLI] and {uri-phantomjs}[PhantomJS]        |`wavedrom` and `phantomjs`
+                 |{uri-wavedromcli}[WaveDrom CLI] 和 {uri-phantomjs}[PhantomJS]        |`wavedrom` 和 `phantomjs`
 |===
 
-If for instance you installed `actdiag` in `/home/me/actdiag/bin` and this path is not included in the `PATH` you can specify its location on the command line
+举例说明一下，假如你将 `actdiag` 安装在 `/home/me/actdiag/bin` 下，这路径不在 `PATH` 范围内，则你可以在命令行中指明它的位置：
 
  $ asciidoctor -a actdiag=/home/me/actdiag/bin/actdiag -r asciidoctor-diagram sample.adoc
 
 [[meme]]
 === Meme 扩展
 
-The meme extension provides a basic '`Advice Animal`' style image generator.
-It's usage is easiest to explain with an example.
+meme 扩展提供了一个基本的 '`Advice Animal`' 风格的图片生成器。
+使用一个例子就能非常方便地解释它的用法。
 
 ----
 meme::yunoguy.jpg[Doc writers,Y U NO \\ AsciiDoc]
 ----
 
-The target of the block macro tells the extension which image to use as background.
-The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
-Occurrences of `\\` surrounded by whitespace are interpreted as line breaks.
+宏块的目的是告诉扩展使用哪些图像作为背景。
+// The target of the block macro tells the extension which image to use as background.
+头两个位置的属性是 `top` 和 `bottom`，用于标题的顶部和底部。
+出现在 `\\` 周围的空白符将被解释为换行符。
 
-The block macro also supports the following named attributes:
+块宏海支持如下的命名熟悉：
 
-. `fillColor`: the fill color for the text. Defaults to `white`.
-. `strokeColor`:  the outline color for the text. Defaults to `black`.
-. `strokeWidth`:  the width of the text outline. Defaults to `2`.
-. `font`: the font face to use for the text. Defaults to `Impact`.
-. `options`: a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
-. `target` (3rd positional attribute): the basename of the file to generate. If not specified an auto-generated name will be used.
-. `format` (4th positional attribute): the output image format. The meme extension supports `png` and `gif`.
+. `fillColor`：文字的填充色。默认为 `white`。
+. `strokeColor`：文本轮廓的颜色。默认为 `black`。
+. `strokeWidth`：文本轮廓的宽度。默认为 `2`。
+. `font`: 文本的字体外观。默认为 `Impact`。
+. `options`：逗号分隔的标识列表，用于修改图片的渲染。目前只支持 `noupcase`， 它可以禁用大写的标签。
+// . `options`: a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
+. `target` （第三位可选参数）：生成文件的文件名。如果没有指定，则将会使用自动生成的文件名。
+. `format` （第四位可选参数）：生成图片的格式。meme 扩展支持 `png` 和 `gif`。、
