@@ -1,6 +1,8 @@
 = Asciidoctor Diagram
 Pepijn Van_Eeckhoudt <https://github.com/pepijnve[@pepijnve]>; Sarah White <https://github.com/graphitefriction[@graphitefriction]>
-:description: README for the Asciidoctor Diagram extension for Asciidoctor.
+:translators: D瓜哥
+ifdef::env-github[Translated by: {translators}]
+:description: Asciidoctor 的 扩展 Asciidoctor Diagram 的说明文档。
 ifdef::env-github[:toc: macro]
 ifndef::env-site[:toc: preamble]
 ifndef::imagesdir[:imagesdir: images]
