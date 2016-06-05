@@ -18,7 +18,7 @@ module Asciidoctor
 
       def mermaid(parent, source, format)
         mermaid = which(parent, 'mermaid')
-        phantomjs = which(parent, 'phantomjs', :alt_attrs => ['phantomjs_19'])
+        phantomjs = which(parent, 'phantomjs')
 
         seq_config = source.attributes['sequenceConfig'] || parent.attr('sequenceConfig')
         if seq_config
