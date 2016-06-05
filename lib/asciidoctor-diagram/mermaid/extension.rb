@@ -18,7 +18,9 @@ module Asciidoctor
 
       def mermaid(parent, source, format)
         mermaid = which(parent, 'mermaid')
-        phantomjs = which(parent, 'phantomjs')
+        @is_mermaid_v6 ||= `#{mermaid} --version`.split('.')[0].to_i >= 6
+        # Mermaid >= 6.0.0 requires PhantomJS 2.1; older version required 1.9
+        phantomjs = which(parent, 'phantomjs', :alt_attrs => [@is_mermaid_v6 ? 'phantomjs_2' : 'phantomjs_19'])
 
         seq_config = source.attributes['sequenceConfig'] || parent.attr('sequenceConfig')
         if seq_config
