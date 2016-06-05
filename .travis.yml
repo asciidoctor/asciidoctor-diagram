@@ -25,8 +25,8 @@ before_install:
 install:
   - sudo apt-get install -qq graphviz
   - sudo apt-get install -qq python-gtk2
-  - pip install blockdiag actdiag seqdiag nwdiag
-  - pip install shaape
+  - pip install --user blockdiag actdiag seqdiag nwdiag
+  - pip install --user shaape
   - bundle install --path vendor/bundle --jobs=3 --retry=3
   - npm install -g mermaid
   - npm install -g wavedrom-cli
