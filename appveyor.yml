@@ -13,7 +13,9 @@ install:
   - gem sources -r https://rubygems.org/
   - gem install bundler --no-ri --no-rdoc --source http://rubygems.org/
   - bundle install
-  - cinst graphviz.portable
+#  - cinst graphviz.portable
+  - ps: (new-object net.webclient).DownloadFile('https://github.com/ErwinJanssen/graphviz/releases/download/v2.38/graphviz-2.38.msi', 'graphviz.msi')
+  - ps: msiexec /i graphviz.msi /quiet /qn /norestart
   - cinst imagemagick
   - cinst phantomjs
   - npm install -g mermaid
