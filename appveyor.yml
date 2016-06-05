@@ -15,7 +15,8 @@ install:
   - bundle install
 #  - cinst graphviz.portable
   - ps: (new-object net.webclient).DownloadFile('https://github.com/ErwinJanssen/graphviz/releases/download/v2.38/graphviz-2.38.msi', 'graphviz.msi')
-  - ps: msiexec /i graphviz.msi /quiet /qn /norestart
+  - ps: msiexec /i graphviz.msi /qn /norestart
+  - set PATH=C:\C:\Program Files (x86)\Graphviz2.38\bin;%PATH%
   - cinst imagemagick
   - cinst phantomjs
   - npm install -g mermaid
