@@ -50,6 +50,8 @@ Asciidoctor Diagram 是受 {uri-py-plantuml}[AsciiDoc PlantUML filter] 启发而
 
 * link:README.adoc[English]
 
+TIP: 本文档是 link:README.adoc[README] 的翻译版。如果发现有什么不一致或者错误的地方，请以原文档为准。
+
 ifdef::status[]
 [discrete]
 [[status]]
