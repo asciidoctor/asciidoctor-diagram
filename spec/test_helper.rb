@@ -51,6 +51,8 @@ module Asciidoctor
 end
 
 RSpec.configure do |c|
+  c.formatter = :documentation
+
   c.include ::Asciidoctor::Diagram::TestHelpers
 
   if ::Asciidoctor::Diagram::Platform.os == :macosx
