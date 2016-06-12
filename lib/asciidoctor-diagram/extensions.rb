@@ -1,3 +1,4 @@
+require 'asciidoctor' unless defined? ::Asciidoctor
 require 'asciidoctor/extensions'
 require 'digest'
 require 'json'
