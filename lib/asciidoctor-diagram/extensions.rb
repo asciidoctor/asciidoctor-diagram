@@ -1,4 +1,4 @@
-require 'asciidoctor' unless defined? ::Asciidoctor
+require 'asciidoctor' unless defined? ::Asciidoctor::VERSION
 require 'asciidoctor/extensions'
 require 'digest'
 require 'json'
