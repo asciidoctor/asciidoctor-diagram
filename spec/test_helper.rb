@@ -55,12 +55,11 @@ RSpec.configure do |c|
 
   c.include ::Asciidoctor::Diagram::TestHelpers
 
-  if ::Asciidoctor::Diagram::Platform.os == :macosx
-    c.filter_run_excluding :broken_on_osx => true
-  end
-
-  if ENV['TRAVIS']
-    c.filter_run_excluding :broken_on_ci => true
+  case ::Asciidoctor::Diagram::Platform.os
+    when :macosx
+      c.filter_run_excluding :broken_on_osx => true
+    when :windows
+      c.filter_run_excluding :broken_on_windows => true
   end
 
   TEST_DIR = File.expand_path('testing')
