@@ -37,7 +37,7 @@ plantuml::plantuml.txt[format="png"]
     expect(b.attributes['height']).to_not be_nil
   end
 
-  it "should support substitutions" do
+  it 'should support substitutions' do
     code = <<-eos
 class {parent-class}
 class {child-class}
@@ -69,6 +69,38 @@ plantuml::plantuml.txt[format="svg", subs=attributes+]
     content = File.read(target)
     expect(content).to include('ParentClass')
     expect(content).to include('ChildClass')
+  end
+
+  it 'should resolve !include directives with relative paths' do
+    included = <<-eos
+interface List
+List : int size()
+List : void clear()
+    eos
+
+    code = <<-eos
+!include list.iuml
+List <|.. ArrayList
+    eos
+
+    Dir.mkdir('dir')
+    File.write('dir/list.iuml', included)
+    File.write('dir/plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+:parent-class: ParentClass
+:child-class: ChildClass
+
+== First Section
+
+plantuml::dir/plantuml.txt[format="png", subs=attributes+]
+    eos
+
+    load_asciidoc doc, :attributes => {'backend' => 'html5'}
+
+    # No easy way to assert this since PlantUML doesn't produce an error on file not found
   end
 end
 
@@ -166,7 +198,7 @@ User --> (Use the application) : Label
     expect(b.attributes['target']).to be_nil
   end
 
-  it "should raise an error when when format is set to an invalid value" do
+  it 'should raise an error when when format is set to an invalid value' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -181,7 +213,7 @@ Doc Writer <doc@example.com>
     expect { load_asciidoc doc }.to raise_error /support.*format/i
   end
 
-  it "should use plantuml configuration when specified as a document attribute" do
+  it 'should use plantuml configuration when specified as a document attribute' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -216,7 +248,7 @@ ArrowColor #DEADBE
     expect(svg).to match /<path.*fill="#DEADBE"/
   end
 
-  it "should not regenerate images when source has not changed" do
+  it 'should not regenerate images when source has not changed' do
     code = <<-eos
 User -> (Start)
 User --> (Use the application) : Label
@@ -256,7 +288,7 @@ Foo1 -> Foo2 : To boundary
     expect(mtime2).to eq mtime1
   end
 
-  it "should handle two block macros with the same source" do
+  it 'should handle two block macros with the same source' do
     code = <<-eos
 User -> (Start)
 User --> (Use the application) : Label
@@ -280,7 +312,7 @@ plantuml::plantuml.txt[]
     expect(File.exists?('plantuml.png')).to be true
   end
 
-  it "should respect target attribute in block macros" do
+  it 'should respect target attribute in block macros' do
     code = <<-eos
 User -> (Start)
 User --> (Use the application) : Label
@@ -306,7 +338,7 @@ plantuml::plantuml.txt["foobaz"]
     expect(File.exists?('plantuml.png')).to be false
   end
 
-  it "should respect target attribute values with relative paths in block macros" do
+  it 'should respect target attribute values with relative paths in block macros' do
     code = <<-eos
 User -> (Start)
 User --> (Use the application) : Label
@@ -332,7 +364,7 @@ plantuml::plantuml.txt["test2/foobaz"]
     expect(File.exists?('plantuml.png')).to be false
   end
 
-  it "should write files to outdir if set" do
+  it 'should write files to outdir if set' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -356,7 +388,7 @@ Foo1 -> Foo2 : To boundary
     expect(File.exists?(File.expand_path(target, 'foo'))).to be true
   end
 
-  it "should write files to imagesoutdir if set" do
+  it 'should write files to imagesoutdir if set' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -381,7 +413,7 @@ Foo1 -> Foo2 : To boundary
     expect(File.exists?(File.expand_path(target, 'foo'))).to be false
   end
 
-  it "should omit width/height attributes when generating docbook" do
+  it 'should omit width/height attributes when generating docbook' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -407,7 +439,7 @@ User -> (Start)
     expect(b.attributes['height']).to be_nil
   end
 
-  it "should support salt diagrams using salt block type" do
+  it 'should support salt diagrams using salt block type' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -442,7 +474,7 @@ Doc Writer <doc@example.com>
     expect(b.attributes['height']).to be_nil
   end
 
-  it "should support salt diagrams using plantuml block type" do
+  it 'should support salt diagrams using plantuml block type' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -478,7 +510,7 @@ salt
     expect(b.attributes['height']).to be_nil
   end
 
-  it "should support salt diagrams containing tree widgets" do
+  it 'should support salt diagrams containing tree widgets' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -510,7 +542,7 @@ salt
     expect(b.attributes['height']).to be_nil
   end
 
-  it "should support scaling diagrams" do
+  it 'should support scaling diagrams' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -545,7 +577,7 @@ A -> B
     expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 1.5)
   end
 
-  it "should handle embedded creole images correctly" do
+  it 'should handle embedded creole images correctly' do
     creole_doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
@@ -572,7 +604,35 @@ Doc Writer <doc@example.com>
     # No real way to assert this since PlantUML doesn't produce an error on file not found
   end
 
-  it "should support substitutions" do
+  it 'should resolve !include directives with relative paths' do
+    included = <<-eos
+interface List
+List : int size()
+List : void clear()
+    eos
+
+    Dir.mkdir('dir')
+    File.write('dir/list.iuml', included)
+
+    creole_doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png"]
+----
+!include dir/List.iuml
+List <|.. ArrayList
+----
+    eos
+
+    load_asciidoc creole_doc, :attributes => {'backend' => 'html5'}
+
+    # No easy way to assert this since PlantUML doesn't produce an error on file not found
+  end
+
+  it 'should support substitutions' do
     doc = <<-eos
 = Hello, PlantUML!
 :parent-class: ParentClass

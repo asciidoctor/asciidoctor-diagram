@@ -25,7 +25,7 @@ module Asciidoctor
         if instance_variable_defined?(cmd_var)
           cmd_path = instance_variable_get(cmd_var)
         else
-          cmd_path = attr_names.map { |attr_name| parent_block.document.attributes[attr_name] }.find { |attr| !attr.nil? }
+          cmd_path = attr_names.map { |attr_name| parent_block.attr(attr_name, nil, true) }.find { |attr| !attr.nil? }
 
           unless cmd_path && File.executable?(cmd_path)
             cmd_paths = cmd_names.map do |c|
