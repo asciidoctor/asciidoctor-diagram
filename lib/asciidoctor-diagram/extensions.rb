@@ -216,13 +216,13 @@ module Asciidoctor
         def image_output_dir(parent)
           document = parent.document
 
-          images_dir = document.attr('imagesoutdir')
+          images_dir = parent.attr('imagesoutdir')
 
           if images_dir
             base_dir = nil
           else
-            base_dir = document.attr('outdir') || (document.respond_to?(:options) && document.options[:to_dir])
-            images_dir = document.attr('imagesdir')
+            base_dir = parent.attr('outdir') || (document.respond_to?(:options) && document.options[:to_dir])
+            images_dir = parent.attr('imagesdir')
           end
 
           parent.normalize_system_path(images_dir, base_dir)
@@ -231,7 +231,7 @@ module Asciidoctor
         def cache_dir(parent)
           document = parent.document
           cache_dir = '.asciidoctor/diagram'
-          base_dir = document.attr('outdir') || (document.respond_to?(:options) && document.options[:to_dir])
+          base_dir = parent.attr('outdir') || (document.respond_to?(:options) && document.options[:to_dir])
           parent.normalize_system_path(cache_dir, base_dir)
         end
 
@@ -276,7 +276,7 @@ module Asciidoctor
         #
         # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
-          FileSource.new(parent, target.empty? ? nil : parent.normalize_system_path(target, parent.document.base_dir), attributes)
+          FileSource.new(parent, target.empty? ? nil : parent.normalize_system_path(target, parent.attr('docdir')), attributes)
         end
       end
 
@@ -292,6 +292,28 @@ module Asciidoctor
         # @return [String] the String representation of the source code for the diagram
         # @abstract
         def code
+          raise NotImplementedError.new
+        end
+
+        # Get the value for the specified attribute. First look in the attributes on
+        # this node and return the value of the attribute if found. Otherwise, if
+        # this node is a child of the Document node, look in the attributes of the
+        # Document node and return the value of the attribute if found. Otherwise,
+        # return the default value, which defaults to nil.
+        #
+        # @param name [String, Symbol] the name of the attribute to lookup
+        # @param default_value [Object] the value to return if the attribute is not found
+        # @inherit [Boolean] indicates whether to check for the attribute on the AsciiDoctor::Document if not found on this node
+        #
+        # @return the value of the attribute or the default value if the attribute is not found in the attributes of this node or the document node
+        # @abstract
+        def attr(name, default_value = nil, inherit = true)
+          raise NotImplementedError.new
+        end
+
+        # @return [String] the base directory against which relative paths in this diagram should be resolved
+        # @abstract
+        def base_dir
           raise NotImplementedError.new
         end
 
@@ -333,7 +355,17 @@ module Asciidoctor
         end
 
         def image_name
-          @attributes['target'] || ('diag-' + checksum)
+          attr('target', 'diag-' + checksum)
+        end
+
+        def attr(name, default_value=nil, inherit=nil)
+          name = name.to_s if ::Symbol === name
+
+          if inherit
+            @attributes[name] || @parent.attr(name, default_value, true)
+          else
+            @attributes[name] || default_value
+          end
         end
 
         def should_process?(image_file, image_metadata)
@@ -362,7 +394,7 @@ module Asciidoctor
         def compute_checksum(code)
           md5 = Digest::MD5.new
           md5 << code
-          attributes.each do |k, v|
+          @attributes.each do |k, v|
             md5 << k.to_s if k
             md5 << v.to_s if v
           end
@@ -379,6 +411,10 @@ module Asciidoctor
           @reader = reader
         end
 
+        def base_dir
+          attr('docdir', nil, true)
+        end
+
         def code
           @code ||= @parent.apply_subs(@reader.lines, resolve_diagram_subs).join("\n")
         end
@@ -389,6 +425,10 @@ module Asciidoctor
         def initialize(parent, file_name, attributes)
           super(parent, attributes)
           @file_name = file_name
+        end
+
+        def base_dir
+          File.dirname(@file_name)
         end
 
         def image_name

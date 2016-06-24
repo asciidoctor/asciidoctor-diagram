@@ -11,6 +11,7 @@ Enhancements::
   * Issue #107: Improve error reporting when Mermaid diagram generation fails.
   * Issue #112: Update PlantUML to revision 8041 (06/03/2016)
   * Issue #114: Asciidoctor Diagram now requires Asciidoctor if it hasn't been loaded already.
+  * Issue #116: Resolve relative paths in PlantUML !include directives
 
 == 1.4.0
 
