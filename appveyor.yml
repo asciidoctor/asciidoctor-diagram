@@ -5,8 +5,8 @@ branches:
     - master
 clone_depth: 10
 install:
-  - echo %PATH%
-  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - set PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - set PATH=C:\ProgramData\chocolatey\bin;%PATH%
   # https causes certificate verification errors
   # Updating rubygems resolves this, but then gem install seems to hang for unknown reasons
   # Use http instead as a workaround
@@ -23,6 +23,7 @@ install:
   - npm install -g mermaid
   - npm install -g wavedrom-cli
 build_script:
+  - echo %PATH%
   - bundle exec rake package
 test_script:
   - bundle exec rake test
