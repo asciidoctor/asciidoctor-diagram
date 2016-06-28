@@ -14,18 +14,18 @@ module Asciidoctor
       end
       Java.classpath.concat JARS
 
-      def plantuml(parent, code, tag, mime_type)
+      def plantuml(parent, source, tag, mime_type)
         Java.load
 
-        code = preprocess_code(parent, code, tag)
+        code = preprocess_code(parent, source, tag)
 
         headers = {
             'Accept' => mime_type
         }
 
-        config_file = parent.document.attributes['plantumlconfig']
+        config_file = parent.attr('plantumlconfig', nil, true)
         if config_file
-          headers['X-PlantUML-Config'] = File.expand_path(config_file, parent.document.attributes['docdir'])
+          headers['X-PlantUML-Config'] = File.expand_path(config_file, parent.attr('docdir', nil, true))
         end
 
         dot = which(parent, 'dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
@@ -46,34 +46,45 @@ module Asciidoctor
         response[:body]
       end
 
-      def preprocess_code(parent, code, tag)
+      def preprocess_code(parent, source, tag)
+        code = source.to_s
+        base_dir = source.base_dir
+
         code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index "@start#{tag}"
 
         code.gsub!(/(?<=<img:)[^>]+(?=>)/) do |match|
-          if match =~ URI.regexp
-            uri = URI.parse(match)
-            if uri.scheme == 'file'
-              parent.normalize_system_path(uri.path, parent.attr('imagesdir'))
-            else
-              parent.normalize_web_path(match)
-            end
-          else
-            parent.normalize_system_path(match, parent.attr('imagesdir'))
-          end
+          resolve_path(match, parent, parent.attr('imagesdir'))
+        end
+
+        code.gsub!(/(?<=!include )[^!\n\r]+/) do |match|
+          resolve_path(match, parent, base_dir)
         end
 
         code
       end
 
+      def resolve_path(path, parent, base_dir)
+        if path =~ URI.regexp
+          uri = URI.parse(path)
+          if uri.scheme == 'file'
+            parent.normalize_system_path(uri.path, base_dir)
+          else
+            parent.normalize_web_path(path)
+          end
+        else
+          parent.normalize_system_path(path, base_dir)
+        end
+      end
+
       def self.included(mod)
         mod.register_format(:png, :image) do |parent, source|
-          plantuml(parent, source.to_s, mod.tag, 'image/png')
+          plantuml(parent, source, mod.tag, 'image/png')
         end
         mod.register_format(:svg, :image) do |parent, source|
-          plantuml(parent, source.to_s, mod.tag, 'image/svg+xml')
+          plantuml(parent, source, mod.tag, 'image/svg+xml')
         end
         mod.register_format(:txt, :literal) do |parent, source|
-          plantuml(parent, source.to_s, mod.tag, 'text/plain;charset=utf-8')
+          plantuml(parent, source, mod.tag, 'text/plain;charset=utf-8')
         end
       end
     end
