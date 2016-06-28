@@ -17,7 +17,7 @@ install:
 #  - ps: (new-object net.webclient).DownloadFile('https://github.com/ErwinJanssen/graphviz/releases/download/v2.38/graphviz-2.38.msi', 'graphviz.msi')
 #  - ps: msiexec /i graphviz.msi /qn /norestart
 #  - set PATH=C:\Program Files (x86)\Graphviz2.38\bin;%PATH%
-  - cinst imagemagick --version 6.9.3.9
+  - cinst imagemagick.tool
   - cinst phantomjs
   - npm install -g mermaid
   - npm install -g wavedrom-cli
