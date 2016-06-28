@@ -23,12 +23,12 @@ module Asciidoctor
         # Mermaid >= 6.0.0 requires PhantomJS 2.1; older version required 1.9
         phantomjs = which(parent, 'phantomjs', :alt_attrs => [@is_mermaid_v6 ? 'phantomjs_2' : 'phantomjs_19'])
 
-        seq_config = source.attributes['sequenceConfig'] || parent.attr('sequenceConfig')
+        seq_config = source.attr('sequenceConfig', nil, true)
         if seq_config
-          seq_config = parent.normalize_system_path(seq_config, parent.document.base_dir)
+          seq_config = parent.normalize_system_path(seq_config, source.base_dir)
         end
 
-        width = source.attributes['width']
+        width = source.attr('width')
 
         CliGenerator.generate_file(mermaid, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           output_dir = File.dirname(output_path)
