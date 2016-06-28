@@ -1,5 +1,6 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
+require_relative '../util/platform'
 require_relative '../util/which'
 
 module Asciidoctor
@@ -18,7 +19,7 @@ module Asciidoctor
 
       def shaape(parent, source, format)
         CliGenerator.generate_stdin(which(parent, 'shaape'), format.to_s, source.to_s) do |tool_path, output_path|
-          [tool_path, '-o', output_path, '-t', format.to_s, '-']
+          [tool_path, '-o', Platform.native_path(output_path), '-t', format.to_s, '-']
         end
       end
     end

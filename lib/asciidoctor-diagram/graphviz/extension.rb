@@ -1,5 +1,6 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
+require_relative '../util/platform'
 require_relative '../util/which'
 
 module Asciidoctor
@@ -18,7 +19,7 @@ module Asciidoctor
 
       def graphviz(parent, source, format)
         CliGenerator.generate_stdin(which(parent, 'dot', :alt_attrs => ['graphvizdot']), format.to_s, source.to_s) do |tool_path, output_path|
-          args = [tool_path, "-o#{output_path}", "-T#{format.to_s}"]
+          args = [tool_path, "-o#{Platform.native_path(output_path)}", "-T#{format.to_s}"]
 
           layout = source.attributes['layout']
           args << "-K#{layout}" if layout

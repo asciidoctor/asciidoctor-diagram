@@ -1,5 +1,4 @@
-require 'asciidoctor/extensions'
-require_relative 'version'
+require_relative 'extensions'
 
 Asciidoctor::Extensions.register do
   require_relative 'mermaid/extension'

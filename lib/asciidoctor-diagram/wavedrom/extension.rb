@@ -23,7 +23,7 @@ module Asciidoctor
 
         if wavedrom_cli && !wavedrom_cli.include?('WaveDromEditor') && phantomjs
           CliGenerator.generate_file(wavedrom_cli, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-            [phantomjs, tool_path, '-i', input_path, "-#{format.to_s[0]}", output_path]
+            [phantomjs, Platform.native_path(tool_path), '-i', Platform.native_path(input_path), "-#{format.to_s[0]}", Platform.native_path(output_path)]
           end
         else
           if ::Asciidoctor::Diagram::Platform.os == :macosx
@@ -36,7 +36,7 @@ module Asciidoctor
           end
 
           CliGenerator.generate_file(wavedrom, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-            [tool_path, 'source', input_path, format.to_s, output_path]
+            [tool_path, 'source', Platform.native_path(input_path), format.to_s, Platform.native_path(output_path)]
           end
         end
       end
