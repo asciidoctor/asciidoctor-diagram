@@ -5,6 +5,7 @@ branches:
     - master
 clone_depth: 10
 install:
+  - echo %PATH%
   - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
   # https causes certificate verification errors
   # Updating rubygems resolves this, but then gem install seems to hang for unknown reasons
