@@ -20,6 +20,17 @@ module Asciidoctor
         end
         )
       end
+
+      def self.native_path(path)
+        return path if path.nil?
+
+        case os
+          when :windows
+            path.to_s.gsub('/', '\\')
+          else
+            path.to_s
+        end
+      end
     end
   end
 end

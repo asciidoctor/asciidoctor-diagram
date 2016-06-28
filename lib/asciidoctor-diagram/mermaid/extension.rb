@@ -1,5 +1,6 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
+require_relative '../util/platform'
 require_relative '../util/which'
 
 module Asciidoctor
@@ -33,17 +34,17 @@ module Asciidoctor
           output_dir = File.dirname(output_path)
           output_file = File.expand_path(File.basename(input_path) + ".#{format.to_s}", output_dir)
 
-          args = [tool_path, '--phantomPath', phantomjs, "--#{format.to_s}", '-o', output_dir]
+          args = [tool_path, '--phantomPath', Platform.native_path(phantomjs), "--#{format.to_s}", '-o', Platform.native_path(output_dir)]
 
           if seq_config
-            args << '--sequenceConfig' << seq_config
+            args << '--sequenceConfig' << Platform.native_path(seq_config)
           end
 
           if width
             args << '--width' << width
           end
 
-          args << input_path
+          args << Platform.native_path(input_path)
 
           {
               :args => args,
