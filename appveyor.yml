@@ -5,7 +5,9 @@ branches:
     - master
 clone_depth: 10
 install:
-  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - set PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - echo %ChocolateyInstall%
+  - set PATH=C:\ProgramData\chocolatey\bin;%PATH%
   # https causes certificate verification errors
   # Updating rubygems resolves this, but then gem install seems to hang for unknown reasons
   # Use http instead as a workaround
@@ -17,11 +19,12 @@ install:
 #  - ps: (new-object net.webclient).DownloadFile('https://github.com/ErwinJanssen/graphviz/releases/download/v2.38/graphviz-2.38.msi', 'graphviz.msi')
 #  - ps: msiexec /i graphviz.msi /qn /norestart
 #  - set PATH=C:\Program Files (x86)\Graphviz2.38\bin;%PATH%
-  - cinst imagemagick
+  - cinst imagemagick.tool
   - cinst phantomjs
   - npm install -g mermaid
   - npm install -g wavedrom-cli
 build_script:
+  - echo %PATH%
   - bundle exec rake package
 test_script:
   - bundle exec rake test
