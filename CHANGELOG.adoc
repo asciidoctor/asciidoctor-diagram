@@ -1,6 +1,8 @@
 = Asciidoctor-diagram Changelog
 
-== 1.5.0 (Not released yet)
+== Development
+
+== 1.5.0
 
 Enhancements::
 
