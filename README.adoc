@@ -19,6 +19,7 @@ ifndef::env-site[:status:]
 :uri-blockdiag: http://blockdiag.com
 :uri-ditaa: http://ditaa.sourceforge.net/
 :uri-dot: http://www.graphviz.org/content/dot-language
+:uri-erd: https://github.com/BurntSushi/erd
 :uri-graphviz: http://www.graphviz.org
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com
@@ -108,6 +109,7 @@ The following diagram types and output formats are available:
 |{uri-actdiag}[actdiag]      |       |{check}|{check}|
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|
 |{uri-ditaa}[ditaa]          |       |{check}|       |
+|{uri-erd}[erd]              |       |{check}|{check}|
 |{uri-dot}[graphviz]         |       |{check}|{check}|
 |<<meme,meme>>               |{check}|{check}|       |
 |{uri-mermaid}[mermaid]      |       |{check}|{check}|
@@ -229,7 +231,7 @@ or load and register each extension individually.
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` can be one of `blockdiag`, `ditaa`, `graphviz`, `meme`, `mermaid`, `plantuml`, `shaape`, or `wavedrom`.
+`<extension_name>` can be one of `blockdiag`, `ditaa`, `erd`, `graphviz`, `meme`, `mermaid`, `plantuml`, `shaape`, or `wavedrom`.
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
@@ -275,6 +277,7 @@ The following table lists the tools that are required for each diagram type, the
    |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
    |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
    |ditaa        |{uri-java}[Java]                                                      |`java`
+   |erd          |{uri-erd}[Erd]                                                        |`erd`
    |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
    |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
    |mermaid      |{uri-mermaid}[Mermaid]                                                |`mermaid`

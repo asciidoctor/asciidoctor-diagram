@@ -8,6 +8,7 @@ require 'tmpdir'
 require_relative '../lib/asciidoctor-diagram'
 require_relative '../lib/asciidoctor-diagram/blockdiag/extension'
 require_relative '../lib/asciidoctor-diagram/ditaa/extension'
+require_relative '../lib/asciidoctor-diagram/erd/extension'
 require_relative '../lib/asciidoctor-diagram/graphviz/extension'
 require_relative '../lib/asciidoctor-diagram/meme/extension'
 require_relative '../lib/asciidoctor-diagram/mermaid/extension'
@@ -60,6 +61,10 @@ RSpec.configure do |c|
       c.filter_run_excluding :broken_on_osx => true
     when :windows
       c.filter_run_excluding :broken_on_windows => true
+  end
+
+  if ENV['TRAVIS']
+    c.filter_run_excluding :broken_on_travis => true
   end
 
   TEST_DIR = File.expand_path('testing')
