@@ -5,6 +5,7 @@
 Enhancements::
 
   * Apply anti-aliasing to blockdiag generated images
+  * Issue #118: Add support for Erd.
 
 Bug Fixes::
 
