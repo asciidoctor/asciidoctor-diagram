@@ -1,5 +1,6 @@
 require_relative '../extensions'
 require_relative '../util/which'
+require 'uri'
 
 module Asciidoctor
   module Diagram
@@ -64,8 +65,8 @@ module Asciidoctor
       end
 
       def resolve_path(path, parent, base_dir)
-        if path =~ URI.regexp
-          uri = URI.parse(path)
+        if path =~ ::URI.regexp
+          uri = ::URI.parse(path)
           if uri.scheme == 'file'
             parent.normalize_system_path(uri.path, base_dir)
           else

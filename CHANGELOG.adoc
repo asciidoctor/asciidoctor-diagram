@@ -2,6 +2,12 @@
 
 == Development
 
+== 1.5.1
+
+Bug Fixes::
+
+  * Issue #119: Fixed an issue where 'unresolved constant' errors could occur when using PlantUML diagrams.
+
 == 1.5.0
 
 Enhancements::
