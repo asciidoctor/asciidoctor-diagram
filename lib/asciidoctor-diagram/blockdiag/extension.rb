@@ -106,7 +106,7 @@ module Asciidoctor
         alt_cmd_name = "#{tool.downcase}3"
 
         CliGenerator.generate_stdin(which(parent, cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
-          [tool_path, '-o', Platform.native_path(output_path), "-T#{format.to_s}", '-']
+          [tool_path, '-a', '-o', Platform.native_path(output_path), "-T#{format.to_s}", '-']
         end
       end
     end
