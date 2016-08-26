@@ -2,6 +2,12 @@
 
 == Development
 
+== 1.5.2
+
+Bug Fixes::
+
+  * Issue #125: Use correct path separator when running under Cygwin.
+
 == 1.5.1
 
 Bug Fixes::

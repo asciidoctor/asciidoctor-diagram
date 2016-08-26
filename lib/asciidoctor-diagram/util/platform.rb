@@ -4,17 +4,27 @@ module Asciidoctor
   module Diagram
     module Platform
       def self.os
+        os_info[:os]
+      end
+
+      def self.path_separator
+        os_info[:path_sep]
+      end
+
+      def self.os_info
         @os ||= (
         host_os = RbConfig::CONFIG['host_os']
         case host_os
-          when /mswin|msys|mingw|cygwin|bccwin|wince|emc/
-            :windows
+          when /mswin|bccwin|wince|emc/
+            {:os => :windows, :path_sep => '\\'}
+          when /msys|mingw|cygwin/
+            {:os => :windows, :path_sep => '/'}
           when /darwin|mac os/
-            :macosx
+            {:os => :macosx, :path_sep => '\\'}
           when /linux/
-            :linux
+            {:os => :linux, :path_sep => '\\'}
           when /solaris|bsd/
-            :unix
+            {:os => :unix, :path_sep => '\\'}
           else
             raise Error::WebDriverError, "unknown os: #{host_os.inspect}"
         end
@@ -24,11 +34,11 @@ module Asciidoctor
       def self.native_path(path)
         return path if path.nil?
 
-        case os
-          when :windows
-            path.to_s.gsub('/', '\\')
-          else
-            path.to_s
+        path_sep = path_separator
+        if path_sep != '/'
+          path.to_s.gsub('/', path_sep)
+        else
+          path.to_s
         end
       end
     end
