@@ -4,6 +4,10 @@
 
 == 1.5.2
 
+Enhancements::
+
+  * Apply anti-aliasing to blockdiag generated images
+
 Bug Fixes::
 
   * Issue #125: Use correct path separator when running under Cygwin.
