@@ -20,11 +20,11 @@ module Asciidoctor
           when /msys|mingw|cygwin/
             {:os => :windows, :path_sep => '/'}
           when /darwin|mac os/
-            {:os => :macosx, :path_sep => '\\'}
+            {:os => :macosx, :path_sep => '/'}
           when /linux/
-            {:os => :linux, :path_sep => '\\'}
+            {:os => :linux, :path_sep => '/'}
           when /solaris|bsd/
-            {:os => :unix, :path_sep => '\\'}
+            {:os => :unix, :path_sep => '/'}
           else
             raise Error::WebDriverError, "unknown os: #{host_os.inspect}"
         end
