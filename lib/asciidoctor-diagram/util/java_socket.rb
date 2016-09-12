@@ -44,7 +44,7 @@ module Asciidoctor
       end
 
       def self.load
-        if @loaded
+        if defined?(@loaded) && @loaded
           return
         end
 
@@ -56,7 +56,7 @@ module Asciidoctor
         @java_exe ||= find_java
         raise "Could not find Java executable" unless @java_exe
 
-        unless @command_server
+        unless defined?(@command_server) && @command_server
           server = CommandServer.new(@java_exe, classpath)
           @command_server = server
           at_exit do
