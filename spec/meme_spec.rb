@@ -19,15 +19,15 @@ meme::man.jpg[I don't always // write unit tests, but when I do // they generate
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -51,15 +51,15 @@ meme::man.jpg[I don't always // write unit tests, but when I do // they generate
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.gif/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.gif/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil

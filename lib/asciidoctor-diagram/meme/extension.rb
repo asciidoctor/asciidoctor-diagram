@@ -36,7 +36,7 @@ module Asciidoctor
         options = c.attr('options', '').split(',')
         noupcase = options.include?('noupcase')
 
-        dimensions = CliGenerator.run_cli(identify, '-format', '%w %h', bg_img).match /(?<w>\d+) (?<h>\d+)/
+        dimensions = CliGenerator.run_cli(identify, '-format', '%w %h', bg_img).match(/(?<w>\d+) (?<h>\d+)/)
         bg_width = dimensions['w'].to_i
         bg_height = dimensions['h'].to_i
         label_width = bg_width
