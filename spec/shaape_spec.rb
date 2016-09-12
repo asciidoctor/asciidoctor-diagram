@@ -25,15 +25,15 @@ shaape::shaape.txt[format="png"]
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -62,15 +62,15 @@ Doc Writer <doc@example.com>
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -97,15 +97,15 @@ Doc Writer <doc@example.com>
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.svg/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.svg/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -123,7 +123,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { load_asciidoc doc }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error(/support.*format/i)
   end
 
   it "should not regenerate images when source has not changed" do
@@ -158,7 +158,7 @@ shaape::shaape.txt
     eos
 
     d = load_asciidoc doc
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
     target = b.attributes['target']
     mtime1 = File.mtime(target)
@@ -195,7 +195,7 @@ shaape::shaape.txt[]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('shaape.png')).to be true
+    expect(File.exist?('shaape.png')).to be true
   end
 
   it "should respect target attribute in block macros" do
@@ -221,8 +221,8 @@ shaape::shaape.txt["foobaz"]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('foobar.png')).to be true
-    expect(File.exists?('foobaz.png')).to be true
-    expect(File.exists?('shaape.png')).to be false
+    expect(File.exist?('foobar.png')).to be true
+    expect(File.exist?('foobaz.png')).to be true
+    expect(File.exist?('shaape.png')).to be false
   end
 end

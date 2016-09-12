@@ -24,15 +24,15 @@ mermaid::mermaid.txt[format="png"]
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -53,15 +53,15 @@ mermaid::mermaid.txt[format="svg"]
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.svg/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.svg/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -85,15 +85,15 @@ Doc Writer <doc@example.com>
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -115,15 +115,15 @@ Doc Writer <doc@example.com>
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.svg/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.svg/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -141,7 +141,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { load_asciidoc doc }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error(/support.*format/i)
   end
 
   it "should not regenerate images when source has not changed" do
@@ -162,7 +162,7 @@ mermaid::mermaid.txt
     eos
 
     d = load_asciidoc doc
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
     target = b.attributes['target']
     mtime1 = File.mtime(target)
@@ -190,7 +190,7 @@ mermaid::mermaid.txt[]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('mermaid.png')).to be true
+    expect(File.exist?('mermaid.png')).to be true
   end
 
   it "should respect target attribute in block macros" do
@@ -207,9 +207,9 @@ mermaid::mermaid.txt["foobaz"]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('foobar.png')).to be true
-    expect(File.exists?('foobaz.png')).to be true
-    expect(File.exists?('mermaid.png')).to be false
+    expect(File.exist?('foobar.png')).to be true
+    expect(File.exist?('foobaz.png')).to be true
+    expect(File.exist?('mermaid.png')).to be false
   end
 
   it "should respect the sequenceConfig attribute" do
@@ -245,8 +245,8 @@ mermaid::mermaid.txt["without_config"]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('with_config.png')).to be true
-    expect(File.exists?('without_config.png')).to be true
+    expect(File.exist?('with_config.png')).to be true
+    expect(File.exist?('without_config.png')).to be true
     expect(File.size('with_config.png')).to_not be File.size('without_config.png')
   end
 
@@ -270,8 +270,8 @@ mermaid::mermaid.txt["without_width"]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('with_width.png')).to be true
-    expect(File.exists?('without_width.png')).to be true
+    expect(File.exist?('with_width.png')).to be true
+    expect(File.exist?('without_width.png')).to be true
     expect(File.size('with_width.png')).to_not be File.size('without_width.png')
   end
 end

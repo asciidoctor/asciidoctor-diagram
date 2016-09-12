@@ -65,7 +65,7 @@ module Asciidoctor
       end
 
       def resolve_path(path, parent, base_dir)
-        if path =~ ::URI.regexp
+        if path =~ ::URI::ABS_URI
           uri = ::URI.parse(path)
           if uri.scheme == 'file'
             parent.normalize_system_path(uri.path, base_dir)
