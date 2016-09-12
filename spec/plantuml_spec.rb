@@ -23,15 +23,15 @@ plantuml::plantuml.txt[format="png"]
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -60,11 +60,11 @@ plantuml::plantuml.txt[format="svg", subs=attributes+]
     d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     target = b.attributes['target']
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
 
     content = File.read(target)
     expect(content).to include('ParentClass')
@@ -124,15 +124,15 @@ User --> (Use the application) : Label
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -157,15 +157,15 @@ User --> (Use the application) : Label
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.svg/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.svg/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -190,7 +190,7 @@ User --> (Use the application) : Label
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :literal }
+    b = d.find { |bl| bl.context == :literal }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :verbatim
@@ -210,7 +210,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { load_asciidoc doc }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error(/support.*format/i)
   end
 
   it 'should use plantuml configuration when specified as a document attribute' do
@@ -238,14 +238,14 @@ ArrowColor #DEADBE
     end
 
     d = load_asciidoc doc
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
 
     svg = File.read(target)
-    expect(svg).to match /<path.*fill="#DEADBE"/
+    expect(svg).to match(/<path.*fill="#DEADBE"/)
   end
 
   it 'should not regenerate images when source has not changed' do
@@ -275,7 +275,7 @@ Foo1 -> Foo2 : To boundary
     eos
 
     d = load_asciidoc doc
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     target = b.attributes['target']
     mtime1 = File.mtime(target)
 
@@ -309,7 +309,7 @@ plantuml::plantuml.txt[]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('plantuml.png')).to be true
+    expect(File.exist?('plantuml.png')).to be true
   end
 
   it 'should respect target attribute in block macros' do
@@ -333,9 +333,9 @@ plantuml::plantuml.txt["foobaz"]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('foobar.png')).to be true
-    expect(File.exists?('foobaz.png')).to be true
-    expect(File.exists?('plantuml.png')).to be false
+    expect(File.exist?('foobar.png')).to be true
+    expect(File.exist?('foobaz.png')).to be true
+    expect(File.exist?('plantuml.png')).to be false
   end
 
   it 'should respect target attribute values with relative paths in block macros' do
@@ -359,9 +359,9 @@ plantuml::plantuml.txt["test2/foobaz"]
     eos
 
     load_asciidoc doc
-    expect(File.exists?('test/foobar.png')).to be true
-    expect(File.exists?('test2/foobaz.png')).to be true
-    expect(File.exists?('plantuml.png')).to be false
+    expect(File.exist?('test/foobar.png')).to be true
+    expect(File.exist?('test2/foobaz.png')).to be true
+    expect(File.exist?('plantuml.png')).to be false
   end
 
   it 'should write files to outdir if set' do
@@ -380,12 +380,12 @@ Foo1 -> Foo2 : To boundary
     eos
 
     d = load_asciidoc doc, {:attributes => {'outdir' => 'foo'}}
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(File.exists?(target)).to be false
-    expect(File.exists?(File.expand_path(target, 'foo'))).to be true
+    expect(File.exist?(target)).to be false
+    expect(File.exist?(File.expand_path(target, 'foo'))).to be true
   end
 
   it 'should write files to imagesoutdir if set' do
@@ -404,13 +404,13 @@ Foo1 -> Foo2 : To boundary
     eos
 
     d = load_asciidoc doc, {:attributes => {'imagesoutdir' => 'bar', 'outdir' => 'foo'}}
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(File.exists?(target)).to be false
-    expect(File.exists?(File.expand_path(target, 'bar'))).to be true
-    expect(File.exists?(File.expand_path(target, 'foo'))).to be false
+    expect(File.exist?(target)).to be false
+    expect(File.exist?(File.expand_path(target, 'bar'))).to be true
+    expect(File.exist?(File.expand_path(target, 'foo'))).to be false
   end
 
   it 'should omit width/height attributes when generating docbook' do
@@ -429,11 +429,11 @@ User -> (Start)
     d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     target = b.attributes['target']
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to be_nil
     expect(b.attributes['height']).to be_nil
@@ -464,11 +464,11 @@ Doc Writer <doc@example.com>
     d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     target = b.attributes['target']
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to be_nil
     expect(b.attributes['height']).to be_nil
@@ -500,11 +500,11 @@ salt
     d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     target = b.attributes['target']
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to be_nil
     expect(b.attributes['height']).to be_nil
@@ -532,11 +532,11 @@ salt
     d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     target = b.attributes['target']
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to be_nil
     expect(b.attributes['height']).to be_nil
@@ -568,10 +568,10 @@ A -> B
     eos
 
     d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
-    unscaled_image = d.find { |b| b.context == :image }
+    unscaled_image = d.find { |bl| bl.context == :image }
 
     d = load_asciidoc scaled_doc, :attributes => {'backend' => 'html5'}
-    scaled_image = d.find { |b| b.context == :image }
+    scaled_image = d.find { |bl| bl.context == :image }
 
     expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 1.5)
     expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 1.5)
@@ -649,11 +649,11 @@ class {child-class}
     d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     target = b.attributes['target']
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
 
     content = File.read(target)
     expect(content).to include('ParentClass')

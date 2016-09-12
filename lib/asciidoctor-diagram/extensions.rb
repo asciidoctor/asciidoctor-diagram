@@ -32,7 +32,7 @@ module Asciidoctor
         def register_format(format, type, &block)
           raise "Unsupported output type: #{type}" unless type == :image || type == :literal
 
-          unless @default_format
+          unless defined?(@default_format)
             @default_format = format
           end
 
@@ -40,7 +40,7 @@ module Asciidoctor
               :type => type,
               :generator => block
           }
-       end
+        end
 
         # Returns the registered formats
         #
@@ -149,7 +149,7 @@ module Asciidoctor
           image_file = parent.normalize_system_path image_name, image_dir
           metadata_file = parent.normalize_system_path "#{image_name}.cache", cache_dir
 
-          if File.exists? metadata_file
+          if File.exist? metadata_file
             metadata = File.open(metadata_file, 'r') { |f| JSON.load f }
           else
             metadata = {}
@@ -157,7 +157,7 @@ module Asciidoctor
 
           image_attributes = source.attributes
 
-          if !File.exists?(image_file) || source.should_process?(image_file, metadata)
+          if !File.exist?(image_file) || source.should_process?(image_file, metadata)
             params = IMAGE_PARAMS[format]
 
             result = instance_exec(parent, source, &generator_info[:generator])

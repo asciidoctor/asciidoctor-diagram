@@ -27,15 +27,15 @@ graphviz::graphviz.txt[format="png"]
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -66,15 +66,15 @@ digraph foo {
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.png$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -103,15 +103,15 @@ digraph foo {
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match /\.svg$/
-    expect(File.exists?(target)).to be true
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -129,7 +129,7 @@ Doc Writer <doc@example.com>
 ----
     eos
 
-    expect { load_asciidoc doc }.to raise_error /support.*format/i
+    expect { load_asciidoc doc }.to raise_error(/support.*format/i)
   end
 
   it "should support neato layout engine" do
@@ -148,12 +148,12 @@ digraph g { rankdir=LR; Text->Graphviz->Image }
     d = load_asciidoc doc
     expect(d).to_not be_nil
 
-    b = d.find { |b| b.context == :image }
+    b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
     expect(b.content_model).to eq :empty
 
     target = b.attributes['target']
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
   end
 end

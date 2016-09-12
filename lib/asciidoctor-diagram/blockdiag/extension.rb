@@ -85,12 +85,12 @@ module Asciidoctor
         end
 
         block = Class.new(Extensions::DiagramBlockProcessor) do
-          self.instance_eval &init
+          self.instance_eval(&init)
         end
         ::Asciidoctor::Diagram.const_set("#{name}BlockProcessor", block)
 
         block_macro = Class.new(Extensions::DiagramBlockMacroProcessor) do
-          self.instance_eval &init
+          self.instance_eval(&init)
         end
 
         ::Asciidoctor::Diagram.const_set("#{name}BlockMacroProcessor", block_macro)
