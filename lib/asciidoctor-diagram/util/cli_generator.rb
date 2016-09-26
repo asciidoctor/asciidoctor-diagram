@@ -1,11 +1,11 @@
 require 'tempfile'
-require 'open3'
+require_relative 'cli'
 
 module Asciidoctor
   module Diagram
     # @private
     module CliGenerator
-      def self.generate_stdin(tool, format, code)
+      def generate_stdin(tool, format, code)
         tool_name = File.basename(tool)
 
         target_file = Tempfile.new([tool_name, ".#{format}"])
@@ -20,7 +20,7 @@ module Asciidoctor
         end
       end
 
-      def self.generate_file(tool, input_ext, output_ext, code)
+      def generate_file(tool, input_ext, output_ext, code)
         tool_name = File.basename(tool)
 
         source_file = Tempfile.new([tool_name, ".#{input_ext}"])
@@ -42,7 +42,7 @@ module Asciidoctor
         end
       end
 
-      def self.generate(opts, target_file, open3_opts = {})
+      def generate(opts, target_file, open3_opts = {})
         case opts
           when Array
             args = opts
@@ -54,7 +54,7 @@ module Asciidoctor
             raise "Block passed to generate_file should return an Array or a Hash"
         end
 
-        output = run_cli(*args, open3_opts)
+        output = ::Asciidoctor::Diagram::Cli.run(*args, open3_opts)
 
         raise "#{args[0]} failed: #{output}" unless File.exist?(out_file || target_file.path)
 
@@ -63,16 +63,6 @@ module Asciidoctor
         end
 
         File.binread(target_file.path)
-      end
-
-      def self.run_cli(*args)
-        stdout, stderr, status = Open3.capture3(*args)
-
-        if status != 0
-          raise "#{File.basename(args[0])} failed: #{stdout.empty? ? stderr : stdout}"
-        end
-
-        stdout.empty? ? stderr : stdout
       end
     end
   end

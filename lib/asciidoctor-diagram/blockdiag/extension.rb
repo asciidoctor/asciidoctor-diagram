@@ -96,6 +96,7 @@ module Asciidoctor
         ::Asciidoctor::Diagram.const_set("#{name}BlockMacroProcessor", block_macro)
       end
 
+      include CliGenerator
       include Which
 
       def blockdiag(tool, parent, source, format)
@@ -105,7 +106,7 @@ module Asciidoctor
         # a '3' suffix.
         alt_cmd_name = "#{tool.downcase}3"
 
-        CliGenerator.generate_stdin(which(parent, cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
+        generate_stdin(which(parent, cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
           [tool_path, '-a', '-o', Platform.native_path(output_path), "-T#{format.to_s}", '-']
         end
       end

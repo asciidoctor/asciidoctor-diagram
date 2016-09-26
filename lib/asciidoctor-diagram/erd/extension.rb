@@ -7,6 +7,7 @@ module Asciidoctor
   module Diagram
     # @private
     module Erd
+      include CliGenerator
       include Which
 
       def self.included(mod)
@@ -21,11 +22,11 @@ module Asciidoctor
         erd_path = which(parent, 'erd')
         dot_path = which(parent, 'dot', :alt_attrs => ['graphvizdot'])
 
-        dot_code = CliGenerator.generate_stdin(erd_path, format.to_s, source.to_s) do |tool_path, output_path|
+        dot_code = generate_stdin(erd_path, format.to_s, source.to_s) do |tool_path, output_path|
           [tool_path, '-o', Platform.native_path(output_path), '-f', 'dot']
         end
 
-        CliGenerator.generate_stdin(dot_path, format.to_s, dot_code) do |tool_path, output_path|
+        generate_stdin(dot_path, format.to_s, dot_code) do |tool_path, output_path|
           [tool_path, "-o#{Platform.native_path(output_path)}", "-T#{format.to_s}"]
         end
       end

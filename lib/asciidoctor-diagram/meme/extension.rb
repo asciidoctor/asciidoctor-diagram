@@ -36,7 +36,7 @@ module Asciidoctor
         options = c.attr('options', '').split(',')
         noupcase = options.include?('noupcase')
 
-        dimensions = CliGenerator.run_cli(identify, '-format', '%w %h', bg_img).match(/(?<w>\d+) (?<h>\d+)/)
+        dimensions = Cli.run(identify, '-format', '%w %h', bg_img).match(/(?<w>\d+) (?<h>\d+)/)
         bg_width = dimensions['w'].to_i
         bg_height = dimensions['h'].to_i
         label_width = bg_width
@@ -44,7 +44,7 @@ module Asciidoctor
 
         if top_label
           top_img = Tempfile.new(['meme', '.png'])
-          CliGenerator.run_cli(
+          Cli.run(
               convert,
               '-background', 'none',
               '-fill', fill_color,
@@ -62,7 +62,7 @@ module Asciidoctor
 
         if bottom_label
           bottom_img = Tempfile.new(['meme', '.png'])
-          CliGenerator.run_cli(
+          Cli.run(
               convert,
               '-background', 'none',
               '-fill', fill_color,
@@ -91,7 +91,7 @@ module Asciidoctor
 
         args << final_img.path
 
-        CliGenerator.run_cli(*args)
+        Cli.run(*args)
 
         File.binread(final_img)
       end

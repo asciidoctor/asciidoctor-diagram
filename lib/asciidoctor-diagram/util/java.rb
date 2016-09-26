@@ -78,7 +78,7 @@ module Asciidoctor
         if content_type.start_with? 'application/json'
           json = JSON.parse(response[:body].force_encoding(Encoding::UTF_8))
           ruby_bt = Kernel.caller(2)
-          java_bt = json['stk'].map { |java_line| "#{java_line[0]}:#{java_line[3]}: in `#{java_line[2]}'" }
+          java_bt = json['stk'].map { |java_line| "#{java_line[0]}:#{java_line[3]}: in '#{java_line[2]}'" }
           error = RuntimeError.new("#{prefix_msg}: #{json['msg']}")
           error.set_backtrace java_bt + ruby_bt
           raise error
