@@ -37,6 +37,42 @@ plantuml::plantuml.txt[format="png"]
     expect(b.attributes['height']).to_not be_nil
   end
 
+  it "should generate PNG images when format is set to 'png'" do
+    code = <<-eos
+User -> (Start)
+User --> (Use the application) : Label
+
+:Main Admin: ---> (Use the application) : Another label
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+plantuml::plantuml.txt[format="png"]
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exists?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
   it 'should support substitutions' do
     code = <<-eos
 class {parent-class}

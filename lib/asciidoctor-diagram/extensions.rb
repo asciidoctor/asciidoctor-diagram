@@ -115,7 +115,11 @@ module Asciidoctor
                 raise e
               else
                 text = "Failed to generate image: #{e.message}"
-                warn %(asciidoctor-diagram: ERROR: #{text})
+                warn_msg = text.dup
+                if $VERBOSE
+                  warn_msg << "\n" << e.backtrace.join("\n")
+                end
+                warn %(asciidoctor-diagram: ERROR: #{warn_msg})
                 text << "\n"
                 text << source.code
                 Asciidoctor::Block.new parent, :listing, :source => text, :attributes => attributes

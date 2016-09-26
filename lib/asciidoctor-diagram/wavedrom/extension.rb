@@ -7,6 +7,7 @@ module Asciidoctor
   module Diagram
     # @private
     module Wavedrom
+      include CliGenerator
       include Which
 
       def self.included(mod)
@@ -22,7 +23,7 @@ module Asciidoctor
         phantomjs = which(parent, 'phantomjs', :alt_attrs => ['phantomjs_2'], :raise_on_error => false)
 
         if wavedrom_cli && !wavedrom_cli.include?('WaveDromEditor') && phantomjs
-          CliGenerator.generate_file(wavedrom_cli, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+          generate_file(wavedrom_cli, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
             [phantomjs, Platform.native_path(tool_path), '-i', Platform.native_path(input_path), "-#{format.to_s[0]}", Platform.native_path(output_path)]
           end
         else
@@ -35,7 +36,7 @@ module Asciidoctor
             wavedrom = which(parent, 'WaveDromEditor', :alt_attrs => ['wavedrom'])
           end
 
-          CliGenerator.generate_file(wavedrom, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+          generate_file(wavedrom, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
             [tool_path, 'source', Platform.native_path(input_path), format.to_s, Platform.native_path(output_path)]
           end
         end

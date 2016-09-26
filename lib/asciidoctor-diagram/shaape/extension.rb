@@ -7,6 +7,7 @@ module Asciidoctor
   module Diagram
     # @private
     module Shaape
+      include CliGenerator
       include Which
 
       def self.included(mod)
@@ -18,7 +19,7 @@ module Asciidoctor
       end
 
       def shaape(parent, source, format)
-        CliGenerator.generate_stdin(which(parent, 'shaape'), format.to_s, source.to_s) do |tool_path, output_path|
+        generate_stdin(which(parent, 'shaape'), format.to_s, source.to_s) do |tool_path, output_path|
           [tool_path, '-o', Platform.native_path(output_path), '-t', format.to_s, '-']
         end
       end

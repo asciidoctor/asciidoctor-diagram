@@ -1,4 +1,5 @@
 require_relative '../extensions'
+require_relative '../util/cli'
 require_relative '../util/cli_generator'
 require_relative '../util/platform'
 require_relative '../util/which'
@@ -7,6 +8,7 @@ module Asciidoctor
   module Diagram
     # @private
     module Mermaid
+      include CliGenerator
       include Which
 
       def self.included(mod)
@@ -19,7 +21,7 @@ module Asciidoctor
 
       def mermaid(parent, source, format)
         mermaid = which(parent, 'mermaid')
-        @is_mermaid_v6 ||= `#{mermaid} --version`.split('.')[0].to_i >= 6
+        @is_mermaid_v6 ||= ::Asciidoctor::Diagram::Cli.run(mermaid, '--version').split('.')[0].to_i >= 6
         # Mermaid >= 6.0.0 requires PhantomJS 2.1; older version required 1.9
         phantomjs = which(parent, 'phantomjs', :alt_attrs => [@is_mermaid_v6 ? 'phantomjs_2' : 'phantomjs_19'])
 
@@ -30,7 +32,7 @@ module Asciidoctor
 
         width = source.attr('width')
 
-        CliGenerator.generate_file(mermaid, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+        generate_file(mermaid, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           output_dir = File.dirname(output_path)
           output_file = File.expand_path(File.basename(input_path) + ".#{format.to_s}", output_dir)
 

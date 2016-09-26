@@ -7,6 +7,10 @@ module Asciidoctor
         os_info[:os]
       end
 
+      def self.os_variant
+        os_info[:os_variant]
+      end
+
       def self.path_separator
         os_info[:path_sep]
       end
@@ -14,20 +18,27 @@ module Asciidoctor
       def self.os_info
         @os ||= (
         host_os = RbConfig::CONFIG['host_os']
+
+        path_sep = '/'
+        variant = nil
         case host_os
-          when /mswin|bccwin|wince|emc/
-            {:os => :windows, :path_sep => '\\'}
-          when /msys|mingw|cygwin/
-            {:os => :windows, :path_sep => '/'}
-          when /darwin|mac os/
-            {:os => :macosx, :path_sep => '/'}
-          when /linux/
-            {:os => :linux, :path_sep => '/'}
-          when /solaris|bsd/
-            {:os => :unix, :path_sep => '/'}
+          when /(mswin|bccwin|wince|emc)/i
+            os = :windows
+            variant = $1.downcase.to_sym
+            path_sep = '\\'
+          when /(msys|mingw|cygwin)/i
+            os = :windows
+            variant = $1.downcase.to_sym
+          when /darwin|mac os/i
+            os = :macosx
+          when /linux/i
+            os = :linux
           else
-            raise Error::WebDriverError, "unknown os: #{host_os.inspect}"
+            os = :unix
         end
+        {
+            :os => os, :os_variant => variant || os, :path_sep => path_sep
+        }
         )
       end
 
