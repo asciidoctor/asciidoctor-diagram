@@ -1,5 +1,6 @@
 require_relative 'asciidoctor-diagram/blockdiag'
 require_relative 'asciidoctor-diagram/ditaa'
+require_relative 'asciidoctor-diagram/erd'
 require_relative 'asciidoctor-diagram/graphviz'
 require_relative 'asciidoctor-diagram/meme'
 require_relative 'asciidoctor-diagram/mermaid'
