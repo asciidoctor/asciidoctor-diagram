@@ -15,18 +15,7 @@ module Asciidoctor
           args = []
           args << '-Djava.awt.headless=true'
           args << '-cp'
-          # special case for cygwin, it requires path translation for java to work
-          if ::Asciidoctor::Diagram::Platform.os_variant == :cygwin
-            cygpath = ::Asciidoctor::Diagram::Which.which('cygpath')
-            if cygpath != nil
-              args << classpath.flatten.map { |jar| ::Asciidoctor::Diagram::Cli.run(cygpath, '-w', jar).strip }.join(";")
-            else
-              puts 'cygwin warning: cygpath not found'
-              args << classpath.flatten.join(File::PATH_SEPARATOR)
-            end
-          else
-            args << classpath.flatten.join(File::PATH_SEPARATOR)
-          end
+          args << classpath.flatten.map { |jar| ::Asciidoctor::Diagram::Platform.host_os_path(jar).strip }.join(::Asciidoctor::Diagram::Platform.host_os_path_separator)
           args << 'org.asciidoctor.diagram.CommandServer'
 
           @server = IO.popen([java, *args])

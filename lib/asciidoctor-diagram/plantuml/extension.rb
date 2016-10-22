@@ -31,7 +31,7 @@ module Asciidoctor
 
         dot = which(parent, 'dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
         if dot
-          headers['X-Graphviz'] = dot
+          headers['X-Graphviz'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
         end
 
         response = Java.send_request(
