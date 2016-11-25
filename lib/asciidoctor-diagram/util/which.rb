@@ -63,7 +63,10 @@ module Asciidoctor
       end
 
       def find_jar(parent, source, jar)
-        jar_path = parent.attr("uri-#{jar}-jar") || find_jar_classpath(jar) || "/usr/share/#{jar}/#{jar}.jar"
+        jar_path = parent.attr("uri-#{jar}-jar")
+        jar_path ||= find_jar_classpath(jar)
+        jar_path ||= "/usr/share/#{jar}/#{jar}.jar"
+        jar_path ||= "/usr/share/java/#{jar}.jar"
         return jar_path if !jar_path.nil? && File.exists?(jar_path)
       end
 
