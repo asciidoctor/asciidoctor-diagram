@@ -266,9 +266,8 @@ When Asciidoctor Diagram writes images to disk it will go over the following opt
 
 === Specifying Diagram Generator Paths
 
-Asciidoctor Diagram depends on external tools to generates images.
-In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable.
-In case you've installed a tool in a way where the executable is not in the `PATH`, you can override its location manually using document attributes.
+Asciidoctor Diagram depends on external tools to generates images. In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable and jar files in the `CLASSPATH` environment variable.
+In case you've installed a tool in a way where the executable is not in the `PATH` or a jar is not in the `CLASSPATH`, you can override its location manually using document attributes.
 The following table lists the tools that are required for each diagram type, the location where they can be downloaded and the document attribute you can use to override their locations.
 
 [cols=">,2*<",options="header"]
@@ -277,6 +276,7 @@ The following table lists the tools that are required for each diagram type, the
    |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
    |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
    |ditaa        |{uri-java}[Java]                                                      |`java`
+   |ditaa        |{uri-ditaa-jar}[Ditaa]                                                |`ditaa-jar`
    |erd          |{uri-erd}[Erd]                                                        |`erd`
    |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
    |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
@@ -284,6 +284,7 @@ The following table lists the tools that are required for each diagram type, the
    |nwdiag       |{uri-nwdiag}[NwDiag]                                                  |`nwdiag`
    |packetdiag   |{uri-nwdiag}[NwDiag]                                                  |`packetdiag`
    |plantuml     |{uri-java}[Java]                                                      |`java`
+   |plantuml     |{uri-plantuml-jar}[PlantUml]                                          |`plantuml-jar`
    |rackdiag     |{uri-nwdiag}[NwDiag]                                                  |`rackdiag`
    |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
    |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`

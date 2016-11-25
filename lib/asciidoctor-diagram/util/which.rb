@@ -44,6 +44,34 @@ module Asciidoctor
 
         cmd_path
       end
+
+      def which_jar(parent, source, jar, options = {})
+        jar_var = '@' + jar
+
+        if instance_variable_defined?(jar_var)
+          jar_path = instance_variable_get(jar_var)
+        else
+          jar_path = find_jar(parent, source, jar)
+          instance_variable_set(jar_var, jar_path)
+        end
+
+        if jar_path.nil? && options.fetch(:raise_on_error, true)
+          raise "Could not find the #{jar} jar file in CLASSPATH; add it to CLASSPATH or specify its location using the uri-#{jar}-jar document attribute"
+        end
+
+        return [jar_path].compact
+      end
+
+      def find_jar(parent, source, jar)
+        jar_path = parent.attr("uri-#{jar}-jar") || find_jar_classpath(jar) || "/usr/share/#{jar}/#{jar}.jar"
+        return jar_path if !jar_path.nil? && File.exists?(jar_path)
+      end
+
+      def find_jar_classpath(jar)
+        if ENV["CLASSPATH"]
+          ENV["CLASSPATH"].split(Platform.classpath_separator).select { |j| j.end_with?("#{jar}.jar") }.first
+        end
+      end
     end
   end
 end

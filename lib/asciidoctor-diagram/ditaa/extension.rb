@@ -7,6 +7,7 @@ module Asciidoctor
   module Diagram
     # @private
     module Ditaa
+      include Which
       OPTIONS = {
           'scale' => lambda { |o, v| o << '--scale' << v if v },
           'tabs' => lambda { |o, v| o << '--tabs' << v if v },
@@ -20,11 +21,6 @@ module Asciidoctor
           'transparent' => lambda { |o, v| o  << '--transparent' if v == 'true'}
       }
 
-      JARS = ['ditaamini-0.10.jar'].map do |jar|
-        File.expand_path File.join('../..', jar), File.dirname(__FILE__)
-      end
-      Java.classpath.concat JARS
-
       def self.included(mod)
         mod.register_format(:png, :image) do |parent, source|
           ditaa(parent, source)
@@ -32,6 +28,9 @@ module Asciidoctor
       end
 
       def ditaa(parent, source)
+
+        ditaa_jar = which_jar(parent, source, "ditaa", :raise_on_error => false)
+        Java.classpath.concat(ditaa_jar).uniq!
         Java.load
 
         global_attributes = parent.document.attributes

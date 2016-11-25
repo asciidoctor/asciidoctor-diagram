@@ -28,7 +28,11 @@ module Asciidoctor
       def self.host_os_path_separator
         os_info[:host_os_path_sep]
       end
-      
+
+      def self.classpath_separator
+        os_info[:classpath_separator]
+      end
+
       def self.os_info
         @os ||= (
         host_os = RbConfig::CONFIG['host_os']
@@ -38,17 +42,20 @@ module Asciidoctor
         variant = nil
         path_sep = ::File::PATH_SEPARATOR
         host_os_path_sep = nil
-        
+        classpath_separator = ":"
+
         case host_os
           when /(msys|mingw|mswin|bccwin|wince|emc)/i
             os = :windows
             variant = $1.downcase.to_sym
             file_sep = '\\'
+            classpath_separator = ';'
           when /(cygwin)/i
             os = :windows
             variant = $1.downcase.to_sym
             host_os_file_sep = '\\'
             host_os_path_sep = ';'
+            classpath_separator = ';'
           when /darwin|mac os/i
             os = :macosx
           when /linux/i
