@@ -10,12 +10,10 @@ module Asciidoctor
 
       private
 
-      JARS = ['plantuml.jar'].map do |jar|
-        File.expand_path File.join('../..', jar), File.dirname(__FILE__)
-      end
-      Java.classpath.concat JARS
-
       def plantuml(parent, source, tag, mime_type)
+
+        plantuml_jar = which_jar(parent, "plantuml")
+        Java.classpath.concat(plantuml_jar).uniq!
         Java.load
 
         code = preprocess_code(parent, source, tag)

@@ -88,6 +88,9 @@ module Asciidoctor
           raise "#{prefix_msg}: #{response[:reason]}"
         end
       end
+
+      private
+
     end
   end
 end
