@@ -45,13 +45,27 @@ module Asciidoctor
         cmd_path
       end
 
-      def which_jar(parent, source, jar, options = {})
-        jar_var = '@' + jar
+      def which_jar(parent_block, jar, options = {})
+
+        attr_names = options.fetch(:alt_attrs, []) + ["uri-#{jar}-jar"]
+
+        jar_var = '@_' + attr_names[0].gsub("-", "_")
 
         if instance_variable_defined?(jar_var)
           jar_path = instance_variable_get(jar_var)
         else
-          jar_path = find_jar(parent, source, jar)
+
+          jar_paths = attr_names.map { |attr_name|
+            parent_block.attr(attr_name, nil, true)
+          }
+
+          jar_paths += [find_jar_classpath(jar), "/usr/share/#{jar}/#{jar}.jar", "/usr/share/java/#{jar}.jar"]
+          jar_paths.compact!
+
+          jar_path = jar_paths.map { |c|
+            c if File.readable?(c)
+          }.compact.first
+
           instance_variable_set(jar_var, jar_path)
         end
 
@@ -59,15 +73,7 @@ module Asciidoctor
           raise "Could not find the #{jar} jar file in CLASSPATH; add it to CLASSPATH or specify its location using the uri-#{jar}-jar document attribute"
         end
 
-        return [jar_path].compact
-      end
-
-      def find_jar(parent, source, jar)
-        jar_path = parent.attr("uri-#{jar}-jar")
-        jar_path ||= find_jar_classpath(jar)
-        jar_path ||= "/usr/share/#{jar}/#{jar}.jar"
-        jar_path ||= "/usr/share/java/#{jar}.jar"
-        return jar_path if !jar_path.nil? && File.exists?(jar_path)
+        return [jar_path]
       end
 
       def find_jar_classpath(jar)

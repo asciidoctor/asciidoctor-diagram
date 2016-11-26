@@ -29,7 +29,7 @@ module Asciidoctor
 
       def ditaa(parent, source)
 
-        ditaa_jar = which_jar(parent, source, "ditaa", :raise_on_error => false)
+        ditaa_jar = which_jar(parent, "ditaa")
         Java.classpath.concat(ditaa_jar).uniq!
         Java.load
 

@@ -12,7 +12,7 @@ module Asciidoctor
 
       def plantuml(parent, source, tag, mime_type)
 
-        plantuml_jar = which_jar(parent, source, "plantuml", :raise_on_error => false)
+        plantuml_jar = which_jar(parent, "plantuml")
         Java.classpath.concat(plantuml_jar).uniq!
         Java.load
 
