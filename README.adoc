@@ -18,6 +18,7 @@ ifndef::env-site[:status:]
 :uri-asciidoctor-extensions: http://asciidoctor.org/docs/user-manual/#extension-points
 :uri-blockdiag: http://blockdiag.com
 :uri-ditaa: http://ditaa.sourceforge.net/
+:uri-ditaa-jar: http://ditaa.sourceforge.net/
 :uri-dot: http://www.graphviz.org/content/dot-language
 :uri-erd: https://github.com/BurntSushi/erd
 :uri-graphviz: http://www.graphviz.org
@@ -28,6 +29,7 @@ ifndef::env-site[:status:]
 :uri-packetdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-phantomjs: http://phantomjs.org
 :uri-plantuml: http://plantuml.sourceforge.net
+:uri-plantuml-jar: http://plantuml.sourceforge.net
 :uri-py-plantuml: https://code.google.com/p/asciidoc-plantuml/
 :uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
