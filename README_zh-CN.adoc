@@ -21,6 +21,7 @@ ifndef::env-site[:status:]
 :uri-blockdiag: http://blockdiag.com
 :uri-ditaa: http://ditaa.sourceforge.net/
 :uri-dot: http://www.graphviz.org/content/dot-language
+:uri-erd: https://github.com/BurntSushi/erd
 :uri-graphviz: http://www.graphviz.org
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com
@@ -115,6 +116,7 @@ gem 'asciidoctor-diagram', '~> 1.4.0'
 |{uri-actdiag}[actdiag]      |       |{check}|{check}|
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|
 |{uri-ditaa}[ditaa]          |       |{check}|       |
+|{uri-erd}[erd]              |       |{check}|{check}|
 |{uri-dot}[graphviz]         |       |{check}|{check}|
 |<<meme,meme>>               |{check}|{check}|       |
 |{uri-mermaid}[mermaid]      |       |{check}|{check}|
@@ -238,7 +240,7 @@ require 'asciidoctor-diagram'
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` 可以是 `blockdiag`、`ditaa`、`graphviz`、`meme`、`mermaid`、`plantuml`、`shaape` 或 `wavedrom`。
+`<extension_name>` 可以是 `blockdiag`、`ditaa`、`erd`、`graphviz`、`meme`、`mermaid`、`plantuml`、`shaape` 或 `wavedrom`。
 
 加载一个或多个这些文件将为所有需要处理的文档自动注册这些扩展。
 
@@ -289,6 +291,7 @@ Asciidoctor Diagram 依赖外部工具来生成图片。
    |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
    |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
    |ditaa        |{uri-java}[Java]                                                      |`java`
+   |erd          |{uri-erd}[Erd]                                                         |`erd`
    |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` 或 `graphvizdot`
    |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` 和 `identify`
    |mermaid      |{uri-mermaid}[Mermaid]                                                |`mermaid`
