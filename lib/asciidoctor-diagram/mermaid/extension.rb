@@ -30,12 +30,12 @@ module Asciidoctor
           css = parent.normalize_system_path(css, source.base_dir)
         end
 
-        gantt_config = source.attr('ganttconfig', nil, 'mermaid')
+        gantt_config = source.attr('ganttConfig', nil, 'mermaid') || source.attr('ganttconfig', nil, 'mermaid')
         if gantt_config
           gantt_config = parent.normalize_system_path(gantt_config, source.base_dir)
         end
 
-        seq_config = source.attr('sequenceconfig', nil, 'mermaid')
+        seq_config = source.attr('sequenceConfig', nil, 'mermaid') || source.attr('sequenceconfig', nil, 'mermaid')
         if seq_config
           seq_config = parent.normalize_system_path(seq_config, source.base_dir)
         end
