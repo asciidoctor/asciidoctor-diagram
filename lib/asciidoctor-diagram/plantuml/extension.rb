@@ -24,7 +24,7 @@ module Asciidoctor
             'Accept' => mime_type
         }
 
-        config_file = parent.attr('plantumlconfig', nil, true)
+        config_file = parent.attr('plantumlconfig', nil, true) || parent.attr('config', nil, 'plantuml')
         if config_file
           headers['X-PlantUML-Config'] = File.expand_path(config_file, parent.attr('docdir', nil, true))
         end
