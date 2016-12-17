@@ -367,7 +367,7 @@ module Asciidoctor
           name = name.to_s if ::Symbol === name
 
           if inherit
-            @attributes[name] || @parent.attr(name, default_value, true)
+            @attributes[name] || @parent.attr("#{inherit}-#{name}", default_value, true)
           else
             @attributes[name] || default_value
           end

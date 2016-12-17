@@ -22,18 +22,18 @@ module Asciidoctor
         convert = which(p, 'convert')
         identify = which(p, 'identify')
 
-        bg_img = c.attr('background')
+        bg_img = c.attr('background', nil, 'meme')
         raise "background attribute is required" unless bg_img
 
         bg_img = p.normalize_system_path(bg_img, p.attr('imagesdir'))
 
         top_label = c.attr('top')
         bottom_label = c.attr('bottom')
-        fill_color = c.attr('fillColor', 'white')
-        stroke_color = c.attr('strokeColor', 'black')
-        stroke_width = c.attr('strokeWidth', '2')
-        font = c.attr('font', 'Impact')
-        options = c.attr('options', '').split(',')
+        fill_color = c.attr('fillColor', 'white', 'meme')
+        stroke_color = c.attr('strokeColor', 'black', 'meme')
+        stroke_width = c.attr('strokeWidth', '2', 'meme')
+        font = c.attr('font', 'Impact', 'meme')
+        options = c.attr('options', '', 'meme').split(',')
         noupcase = options.include?('noupcase')
 
         dimensions = Cli.run(identify, '-format', '%w %h', bg_img).match(/(?<w>\d+) (?<h>\d+)/)
