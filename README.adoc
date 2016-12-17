@@ -309,12 +309,62 @@ The target of the block macro tells the extension which image to use as backgrou
 The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
 Occurrences of `\\` surrounded by whitespace are interpreted as line breaks.
 
-The block macro also supports the following named attributes:
+=== Diagram Attributes
 
-. `fillColor`: the fill color for the text. Defaults to `white`.
-. `strokeColor`:  the outline color for the text. Defaults to `black`.
-. `strokeWidth`:  the width of the text outline. Defaults to `2`.
-. `font`: the font face to use for the text. Defaults to `Impact`.
-. `options`: a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
-. `target` (3rd positional attribute): the basename of the file to generate. If not specified an auto-generated name will be used.
-. `format` (4th positional attribute): the output image format. The meme extension supports `png` and `gif`.
+Certain diagram types allow image generation to be customized using attributes.
+
+==== Ditaa
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|scale        |1               |A scale factor that is applied to the image.
+|tabs         |8               |An integer value that specifies the tab size as a number of spaces.
+|background   |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
+|antialias    |true            |Enables or disables anti-aliasing.
+|separation   |true            |Prevents the separation of common edges of shapes.
+|round-corners|false           |Causes all corners to be rendered as round corners.
+|shadows      |true            |Enables or disable drop shadows.
+|debug        |false           |Renders the debug grid over the resulting image.
+|fixed-slope  |false           |Makes sides of parallelograms and trapezoids fixed slope instead of fixed width.
+|transparent  |false           |Makes the background of the image transparent instead of using the background color.
+|===
+
+==== GraphViz
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|layout       |unspecified     |The graphviz layout engine to use (dot -K option).
+|===
+
+==== Meme
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value |Description
+|fillColor     |white         |The fill color for the text.
+|strokeColor   |black         |The outline color for the text
+|strokeWidth   |2             |The width of the text outline.
+|font          |Impact        |The font face to use for the text.
+|options       |unspecified   |a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
+|===
+
+==== Mermaid
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|css           |unspecified     |Path to a CSS file to pass to mermaid.
+|ganttconfig   |unspecified     |Path to a gantt config file to pass to mermaid.
+|sequenceconfig|unspecified     |Path to a sequence config file to pass to mermaid.
+|width         |unspecified     |The width of the generated image.
+|===
+
+==== PlantUML
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|config        |unspecified     |Path to a config file to pass to PlantUML.
+|===
