@@ -25,7 +25,9 @@ install:
   - export PHANTOMJS_19=$PWD/phantomjs-1.9.8-linux-x86_64/bin/phantomjs
   - sudo apt-get install -qq graphviz
   - sudo apt-get install -qq python-gtk2
-  - pip install --user blockdiag actdiag seqdiag nwdiag
+  - sudo apt-get install -qq ttf-dejavu
+  - printf "[blockdiag]\nfontpath = /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf\n" > $HOME/.blockdiagrc
+  - pip install --user "blockdiag[pdf]" "actdiag[pdf]" "seqdiag[pdf]" "nwdiag[pdf]"
   - pip install --user shaape
   - bundle install --path vendor/bundle --jobs=3 --retry=3
   - npm install -g mermaid
