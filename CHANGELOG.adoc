@@ -2,6 +2,10 @@
 
 == Development
 
+Enhancements::
+
+  * Issue #135: Add support for PDF output for blockdiag and graphviz.
+
 == 1.5.2
 
 Enhancements::
