@@ -107,6 +107,41 @@ plantuml::plantuml.txt[format="svg", subs=attributes+]
     expect(content).to include('ChildClass')
   end
 
+  it 'should support substitutions in the target attribute' do
+    code = <<-eos
+class {parent-class}
+class {child-class}
+{parent-class} <|-- {child-class}
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+:file: plantuml
+:parent-class: ParentClass
+:child-class: ChildClass
+
+== First Section
+
+plantuml::{file}.txt[format="svg", subs=attributes+]
+    eos
+
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exist?(target)).to be true
+
+    content = File.read(target)
+    expect(content).to include('ParentClass')
+    expect(content).to include('ChildClass')
+  end
+
   it 'should resolve !include directives with relative paths' do
     included = <<-eos
 interface List

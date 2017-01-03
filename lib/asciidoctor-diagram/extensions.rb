@@ -286,7 +286,8 @@ module Asciidoctor
         #
         # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
-          FileSource.new(parent, target.empty? ? nil : parent.normalize_system_path(target, parent.attr('docdir')), attributes)
+          target = parent.sub_attributes(target, :attribute_missing => 'warn') if target
+          FileSource.new(parent, target, attributes)
         end
       end
 
