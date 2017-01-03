@@ -25,6 +25,7 @@ install:
   - export PHANTOMJS_19=$PWD/phantomjs-1.9.8-linux-x86_64/bin/phantomjs
   - sudo apt-get install -qq graphviz
   - sudo apt-get install -qq python-gtk2
+  - sudo apt-get install -qq fonts-dejavu
   - pip install --user "blockdiag[pdf]" "actdiag[pdf]" "seqdiag[pdf]" "nwdiag[pdf]"
   - pip install --user shaape
   - bundle install --path vendor/bundle --jobs=3 --retry=3
