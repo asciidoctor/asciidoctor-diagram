@@ -7,6 +7,7 @@ Enhancements::
   * Issue #124: Improve compatibility with Cygwin
   * Issue #133: Support substitutions in block macro target attribute
   * Issue #135: Add support for PDF output for blockdiag and graphviz.
+  * Update PlantUML to revision 8053 (21/12/2016)
 
 Bug Fixes::
 
