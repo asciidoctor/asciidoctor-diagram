@@ -4,7 +4,12 @@
 
 Enhancements::
 
+  * Issue #124: Improve compatibility with Cygwin
   * Issue #135: Add support for PDF output for blockdiag and graphviz.
+
+Bug Fixes::
+
+  * Resolve error when using WaveDromEditor.app on macOS
 
 == 1.5.2
 

@@ -15,21 +15,21 @@ module Asciidoctor
       end
       Java.classpath.concat JARS
 
-      def plantuml(parent, source, tag, mime_type)
+      def plantuml(parent_block, source, tag, mime_type)
         Java.load
 
-        code = preprocess_code(parent, source, tag)
+        code = preprocess_code(parent_block, source, tag)
 
         headers = {
             'Accept' => mime_type
         }
 
-        config_file = parent.attr('plantumlconfig', nil, true) || parent.attr('config', nil, 'plantuml')
+        config_file = source.attr('plantumlconfig', nil, true) || source.attr('config', nil, 'plantuml')
         if config_file
-          headers['X-PlantUML-Config'] = File.expand_path(config_file, parent.attr('docdir', nil, true))
+          headers['X-PlantUML-Config'] = File.expand_path(config_file, source.attr('docdir', nil, true))
         end
 
-        dot = which(parent, 'dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
+        dot = which(parent_block, 'dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
         if dot
           headers['X-Graphviz'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
         end
@@ -78,14 +78,14 @@ module Asciidoctor
       end
 
       def self.included(mod)
-        mod.register_format(:png, :image) do |parent, source|
-          plantuml(parent, source, mod.tag, 'image/png')
+        mod.register_format(:png, :image) do |parent_block, source|
+          plantuml(parent_block, source, mod.tag, 'image/png')
         end
-        mod.register_format(:svg, :image) do |parent, source|
-          plantuml(parent, source, mod.tag, 'image/svg+xml')
+        mod.register_format(:svg, :image) do |parent_block, source|
+          plantuml(parent_block, source, mod.tag, 'image/svg+xml')
         end
-        mod.register_format(:txt, :literal) do |parent, source|
-          plantuml(parent, source, mod.tag, 'text/plain;charset=utf-8')
+        mod.register_format(:txt, :literal) do |parent_block, source|
+          plantuml(parent_block, source, mod.tag, 'text/plain;charset=utf-8')
         end
       end
     end

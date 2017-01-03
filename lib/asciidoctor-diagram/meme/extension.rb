@@ -18,22 +18,22 @@ module Asciidoctor
         end
       end
 
-      def meme(p, c, format)
-        convert = which(p, 'convert')
-        identify = which(p, 'identify')
+      def meme(parent_block, source, format)
+        convert = which(parent_block, 'convert')
+        identify = which(parent_block, 'identify')
 
-        bg_img = c.attr('background', nil, 'meme')
+        bg_img = source.attr('background', nil, 'meme')
         raise "background attribute is required" unless bg_img
 
-        bg_img = p.normalize_system_path(bg_img, p.attr('imagesdir'))
+        bg_img = parent_block.normalize_system_path(bg_img, parent_block.attr('imagesdir'))
 
-        top_label = c.attr('top')
-        bottom_label = c.attr('bottom')
-        fill_color = c.attr('fillColor', 'white', 'meme')
-        stroke_color = c.attr('strokeColor', 'black', 'meme')
-        stroke_width = c.attr('strokeWidth', '2', 'meme')
-        font = c.attr('font', 'Impact', 'meme')
-        options = c.attr('options', '', 'meme').split(',')
+        top_label = source.attr('top')
+        bottom_label = source.attr('bottom')
+        fill_color = source.attr('fillColor', 'white', 'meme')
+        stroke_color = source.attr('strokeColor', 'black', 'meme')
+        stroke_width = source.attr('strokeWidth', '2', 'meme')
+        font = source.attr('font', 'Impact', 'meme')
+        options = source.attr('options', '', 'meme').split(',')
         noupcase = options.include?('noupcase')
 
         dimensions = Cli.run(identify, '-format', '%w %h', bg_img).match(/(?<w>\d+) (?<h>\d+)/)
