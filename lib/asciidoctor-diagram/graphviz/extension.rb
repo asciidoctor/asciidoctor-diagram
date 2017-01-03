@@ -11,7 +11,7 @@ module Asciidoctor
       include Which
 
       def self.included(mod)
-        [:png, :svg].each do |f|
+        [:pdf, :png, :svg].each do |f|
           mod.register_format(f, :image) do |parent, source|
             graphviz(parent, source, f)
           end

@@ -6,6 +6,7 @@ require 'fileutils'
 require_relative 'version'
 require_relative 'util/java'
 require_relative 'util/gif'
+require_relative 'util/pdf'
 require_relative 'util/png'
 require_relative 'util/svg'
 
@@ -74,6 +75,10 @@ module Asciidoctor
             :png => {
                 :encoding => Encoding::ASCII_8BIT,
                 :decoder => PNG
+            },
+            :pdf => {
+                :encoding => Encoding::ASCII_8BIT,
+                :decoder => PDF
             }
         }
 

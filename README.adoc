@@ -103,23 +103,23 @@ Diagram in appropriate syntax
 
 The following diagram types and output formats are available:
 
-[cols=">,4*^",options="header"]
+[cols=">,5*^",options="header"]
 |===
-|Diagram Type                |gif    |png    |svg    |txt
-|{uri-actdiag}[actdiag]      |       |{check}|{check}|
-|{uri-blockdiag}[blockdiag]  |       |{check}|{check}|
-|{uri-ditaa}[ditaa]          |       |{check}|       |
-|{uri-erd}[erd]              |       |{check}|{check}|
-|{uri-dot}[graphviz]         |       |{check}|{check}|
-|<<meme,meme>>               |{check}|{check}|       |
-|{uri-mermaid}[mermaid]      |       |{check}|{check}|
-|{uri-nwdiag}[nwdiag]        |       |{check}|{check}|
-|{uri-packetdiag}[packetdiag]|       |{check}|{check}|
-|{uri-plantuml}[plantuml]    |       |{check}|{check}|{check}
-|{uri-rackdiag}[rackdiag]    |       |{check}|{check}|
-|{uri-seqdiag}[seqdiag]      |       |{check}|{check}|
-|{uri-shaape}[shaape]        |       |{check}|{check}|
-|{uri-wavedrom}[wavedrom]    |       |{check}|{check}|
+|Diagram Type                |gif    |pdf    |png    |svg    |txt
+|{uri-actdiag}[actdiag]      |       |{check}|{check}|{check}|
+|{uri-blockdiag}[blockdiag]  |       |{check}|{check}|{check}|
+|{uri-ditaa}[ditaa]          |       |       |{check}|       |
+|{uri-erd}[erd]              |       |       |{check}|{check}|
+|{uri-dot}[graphviz]         |       |{check}|{check}|{check}|
+|<<meme,meme>>               |{check}|       |{check}|       |
+|{uri-mermaid}[mermaid]      |       |       |{check}|{check}|
+|{uri-nwdiag}[nwdiag]        |       |{check}|{check}|{check}|
+|{uri-packetdiag}[packetdiag]|       |{check}|{check}|{check}|
+|{uri-plantuml}[plantuml]    |       |       |{check}|{check}|{check}
+|{uri-rackdiag}[rackdiag]    |       |{check}|{check}|{check}|
+|{uri-seqdiag}[seqdiag]      |       |{check}|{check}|{check}|
+|{uri-shaape}[shaape]        |       |       |{check}|{check}|
+|{uri-wavedrom}[wavedrom]    |       |       |{check}|{check}|
 |===
 
 The example below illustrates the structure of a basic ditaa block written directly in an AsciiDoc document.

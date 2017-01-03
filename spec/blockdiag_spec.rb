@@ -99,6 +99,36 @@ Doc Writer <doc@example.com>
     expect(b.attributes['height']).to_not be_nil
   end
 
+  it "should generate PDF files when format is set to 'pdf'" do
+    doc = <<-eos
+= Hello, BlockDiag!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[blockdiag, format="pdf"]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.pdf/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to be_nil
+    expect(b.attributes['height']).to be_nil
+  end
+
   it "should raise an error when when format is set to an invalid value" do
     doc = <<-eos
 = Hello, BlockDiag!
