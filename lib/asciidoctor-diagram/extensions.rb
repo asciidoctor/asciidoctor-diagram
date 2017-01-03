@@ -26,7 +26,7 @@ module Asciidoctor
         #
         # Examples
         #
-        #   register_format(:png, :image ) do |parent, source|
+        #   register_format(:png, :image ) do |parent_block, source|
         #     File.read(source.to_s)
         #   end
         def register_format(format, type, &block)
@@ -133,7 +133,7 @@ module Asciidoctor
         # Creates a DiagramSource object for the block or block macro being processed. Classes using this
         # mixin must implement this method.
         #
-        # @param parent [Asciidoctor::AbstractBlock] the parent asciidoc block of the block or block macro being processed
+        # @param parent_block [Asciidoctor::AbstractBlock] the parent asciidoc block of the block or block macro being processed
         # @param reader_or_target [Asciidoctor::Reader, String] a reader that provides the contents of a block or the
         #        target value of a block macro
         # @param attributes [Hash] the attributes of the block or block macro
@@ -141,7 +141,7 @@ module Asciidoctor
         # @return [DiagramSource] an object that implements the interface described by DiagramSource
         #
         # @abstract
-        def create_source(parent, reader_or_target, attributes)
+        def create_source(parent_block, reader_or_target, attributes)
           raise NotImplementedError.new
         end
 
@@ -264,8 +264,8 @@ module Asciidoctor
         # Creates a ReaderSource from the given reader.
         #
         # @return [ReaderSource] a ReaderSource
-        def create_source(parent, reader, attributes)
-          ReaderSource.new(parent, reader, attributes)
+        def create_source(parent_block, reader, attributes)
+          ReaderSource.new(parent_block, reader, attributes)
         end
       end
 
@@ -308,11 +308,12 @@ module Asciidoctor
         #
         # @param name [String, Symbol] the name of the attribute to lookup
         # @param default_value [Object] the value to return if the attribute is not found
-        # @inherit [Boolean] indicates whether to check for the attribute on the AsciiDoctor::Document if not found on this node
+        # @inherit [Boolean, String] indicates whether to check for the attribute on the AsciiDoctor::Document if not found on this node.
+        #                            When a non-nil String is given the an attribute name "#{inherit}-#{name}" is looked for on the document.
         #
         # @return the value of the attribute or the default value if the attribute is not found in the attributes of this node or the document node
         # @abstract
-        def attr(name, default_value = nil, inherit = true)
+        def attr(name, default_value = nil, inherit = nil)
           raise NotImplementedError.new
         end
 
@@ -354,8 +355,8 @@ module Asciidoctor
 
         attr_reader :attributes
 
-        def initialize(parent, attributes)
-          @parent = parent
+        def initialize(parent_block, attributes)
+          @parent_block = parent_block
           @attributes = attributes
         end
 
@@ -366,11 +367,18 @@ module Asciidoctor
         def attr(name, default_value=nil, inherit=nil)
           name = name.to_s if ::Symbol === name
 
-          if inherit
-            @attributes[name] || @parent.attr("#{inherit}-#{name}", default_value, true)
-          else
-            @attributes[name] || default_value
+          value = @attributes[name]
+
+          if value.nil? && inherit
+            case inherit
+              when String
+                value = @parent_block.attr("#{inherit}-#{name}", default_value, true)
+              else
+                value = @parent_block.attr(name, default_value, true)
+            end
           end
+
+          value || default_value
         end
 
         def should_process?(image_file, image_metadata)
@@ -388,7 +396,7 @@ module Asciidoctor
         protected
         def resolve_diagram_subs
           if @attributes.key? 'subs'
-            subs = @parent.resolve_block_subs @attributes['subs'], nil, 'diagram'
+            subs = @parent_block.resolve_block_subs @attributes['subs'], nil, 'diagram'
             subs.empty? ? nil : subs
           else
             nil
@@ -411,8 +419,8 @@ module Asciidoctor
       class ReaderSource < BasicSource
         include DiagramSource
 
-        def initialize(parent, reader, attributes)
-          super(parent, attributes)
+        def initialize(parent_block, reader, attributes)
+          super(parent_block, attributes)
           @reader = reader
         end
 
@@ -421,14 +429,14 @@ module Asciidoctor
         end
 
         def code
-          @code ||= @parent.apply_subs(@reader.lines, resolve_diagram_subs).join("\n")
+          @code ||= @parent_block.apply_subs(@reader.lines, resolve_diagram_subs).join("\n")
         end
       end
 
       # A diagram source that retrieves the code for a diagram from an external source file.
       class FileSource < BasicSource
-        def initialize(parent, file_name, attributes)
-          super(parent, attributes)
+        def initialize(parent_block, file_name, attributes)
+          super(parent_block, attributes)
           @file_name = file_name
         end
 
@@ -458,7 +466,7 @@ module Asciidoctor
           if @file_name
             lines = File.readlines(@file_name)
             lines = ::Asciidoctor::Helpers.normalize_lines(lines)
-            @parent.apply_subs(lines, resolve_diagram_subs).join("\n")
+            @parent_block.apply_subs(lines, resolve_diagram_subs).join("\n")
           else
             ''
           end
