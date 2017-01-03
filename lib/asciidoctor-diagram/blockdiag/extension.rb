@@ -77,7 +77,7 @@ module Asciidoctor
         init = Proc.new do
           include ::Asciidoctor::Diagram::BlockDiag
 
-          [:png, :svg].each do |f|
+          [:png, :pdf, :svg].each do |f|
             register_format(f, :image) do |p, c|
               blockdiag(name, p, c, f)
             end
