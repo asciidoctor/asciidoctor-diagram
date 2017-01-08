@@ -53,7 +53,7 @@ end
 
 
 describe Asciidoctor::Diagram::UmletBlockProcessor do
-  it "should generate PNG images when format is omitted" do
+  it "should generate SVG images when format is omitted" do
     doc = <<-eos
 = Hello, Umlet!
 Doc Writer <doc@example.com>
