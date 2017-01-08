@@ -32,6 +32,7 @@ ifndef::env-site[:status:]
 :uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
 :uri-shaape: https://github.com/christiangoltz/shaape
+:uri-umlet: http://www.umlet.com/
 :uri-wavedrom: http://wavedrom.com
 :uri-wavedromeditor: https://github.com/wavedrom/wavedrom.github.io/releases
 :uri-wavedromcli: https://github.com/wavedrom/cli
@@ -119,6 +120,7 @@ The following diagram types and output formats are available:
 |{uri-rackdiag}[rackdiag]    |       |{check}|{check}|{check}|
 |{uri-seqdiag}[seqdiag]      |       |{check}|{check}|{check}|
 |{uri-shaape}[shaape]        |       |       |{check}|{check}|
+|{uri-umlet}[umlet]          |{check}|{check}|{check}|{check}|
 |{uri-wavedrom}[wavedrom]    |       |       |{check}|{check}|
 |===
 
@@ -287,6 +289,7 @@ The following table lists the tools that are required for each diagram type, the
    |rackdiag     |{uri-nwdiag}[NwDiag]                                                  |`rackdiag`
    |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
    |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
+   |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
 .2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
                  |{uri-wavedromcli}[WaveDrom CLI] and {uri-phantomjs}[PhantomJS]        |`wavedrom` and `phantomjs`
 |===
