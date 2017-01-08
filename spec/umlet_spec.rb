@@ -20,7 +20,7 @@ AsciiDoc</panel_attributes>
 eos
 
 
-describe Asciidoctor::Diagram::DiagramBlockMacroProcessor do
+describe Asciidoctor::Diagram::UmletBlockMacroProcessor do
   it "should generate SVG images when format omitted" do
     File.write('umlet.uxf', code)
 
