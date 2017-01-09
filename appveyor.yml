@@ -23,6 +23,10 @@ install:
   - cinst phantomjs
   - npm install -g mermaid
   - npm install -g wavedrom-cli
+# Install umlet
+  - curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
+  - 7z x umlet-standalone-14.2.zip
+  - set PATH=%PATH%;%cd%\umlet  
 build_script:
   - echo %PATH%
   - bundle exec rake package
