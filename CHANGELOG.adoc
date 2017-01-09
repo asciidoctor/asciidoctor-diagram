@@ -2,6 +2,10 @@
 
 == Development
 
+Enhancements::
+
+  * Add support for UMLet.
+
 == 1.5.3
 
 Enhancements::
