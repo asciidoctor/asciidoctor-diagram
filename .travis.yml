@@ -33,3 +33,9 @@ install:
   - npm install -g mermaid
   - npm install -g wavedrom-cli
   - sudo apt-get install -qq imagemagick
+# Install umlet
+  - curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
+  - unzip -qq umlet-standalone-14.2.zip
+  - cp Umlet/umlet.sh Umlet/umlet
+  - chmod +x Umlet/umlet
+  - export PATH=$PATH:$PWD/Umlet/
