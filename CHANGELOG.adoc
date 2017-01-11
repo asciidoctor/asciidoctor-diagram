@@ -6,6 +6,10 @@ Enhancements::
 
   * Add support for UMLet.
 
+Bug Fixes::
+
+  * Issue #140: Restore PNG as default format for Graphviz diagrams
+
 == 1.5.3
 
 Enhancements::
