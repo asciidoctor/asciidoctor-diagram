@@ -43,9 +43,24 @@ module Asciidoctor
         options = options.dup
         options[:trace] = true
         options[:attributes] ||= {}
+
         options[:attributes]['phantomjs_19'] = ENV['PHANTOMJS_19']
+
         options[:attributes]['phantomjs_2'] = ENV['PHANTOMJS_2']
+
+        fontpath = ENV['BLOCKDIAG_FONTPATH']
+        if fontpath
+          options[:attributes]['actdiag-fontpath'] = fontpath
+          options[:attributes]['blockdiag-fontpath'] = fontpath
+          options[:attributes]['seqdiag-fontpath'] = fontpath
+          options[:attributes]['nwdiag-fontpath'] = fontpath
+          options[:attributes]['rackdiag-fontpath'] = fontpath
+          options[:attributes]['packetdiag-fontpath'] = fontpath
+          options[:attributes]['seqdiag-fontpath'] = fontpath
+        end
+
         options[:attributes]['diagram-on-error'] = 'abort'
+
         ::Asciidoctor.load(StringIO.new(source), options.merge({:trace => true}))
       end
     end

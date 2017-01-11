@@ -106,8 +106,13 @@ module Asciidoctor
         # a '3' suffix.
         alt_cmd_name = "#{tool.downcase}3"
 
+        font_path = source.attr('fontpath', nil, tool.downcase)
+
         generate_stdin(which(parent, cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
-          [tool_path, '-a', '-o', Platform.native_path(output_path), "-T#{format.to_s}", '-']
+          args = [tool_path, '-a', '-o', Platform.native_path(output_path), "-T#{format.to_s}"]
+          args << "-f#{Platform.native_path(font_path)}" if font_path
+          args << '-'
+          args
         end
       end
     end
