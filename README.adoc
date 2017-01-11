@@ -315,6 +315,36 @@ Occurrences of `\\` surrounded by whitespace are interpreted as line breaks.
 === Diagram Attributes
 
 Certain diagram types allow image generation to be customized using attributes.
+Each attribute can be specified either at the block level or at the document level.
+This is illustrated for the blockdiag `fontpath` attribute in the example below.
+
+----
+= Asciidoctor Diagram
+:blockdiag-fontpath: /path/to/font.ttf <1>
+
+[blockdiag] <2>
+....
+....
+
+[blockdiag, fontpath="/path/to/otherfont.ttf"] <3>
+....
+....
+----
+<1> Block level attributes can be specified at the document level by prefixing them with `<blocktype>-`
+<2> The first diagram does not specify an explicit value for `fontpath` so the global value will be used
+<3> The second diagram specifies a `fontpath` value which overrrides the global value
+
+Each attribute can either be specified at the block level or at the document level.
+The attribute name at the block level should be prefixed with the name of the diagram type and a dash.
+
+
+==== Blockdiag
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|fontpath     |unspecified     |The path to the font that should be used by blockdiag
+|===
 
 ==== Ditaa
 
