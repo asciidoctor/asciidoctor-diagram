@@ -5,6 +5,7 @@
 Enhancements::
 
   * Add support for UMLet.
+  * Issue #141: Allow blockdiag fontpath to be specified via attributes
 
 Bug Fixes::
 
