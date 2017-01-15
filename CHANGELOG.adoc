@@ -6,8 +6,8 @@
 
 Enhancements::
 
-  * Add support for UMLet.
-  * Issue #141: Allow blockdiag fontpath to be specified via attributes
+  * Add support for UMLet (@basejumpa)
+  * Issue #141: Allow blockdiag fontpath to be specified via attributes (@bithium)
 
 Bug Fixes::
 
