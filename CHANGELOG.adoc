@@ -2,6 +2,10 @@
 
 == Development
 
+Bug Fixes::
+
+  * Avoid error when the `PATH` environment variable is not defined (@BrentDouglas)
+
 == 1.5.4
 
 Enhancements::
