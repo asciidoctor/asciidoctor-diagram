@@ -107,12 +107,22 @@ module Asciidoctor
     class MemeBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
       include Meme
 
+      class StringReader
+        def initialize(str)
+          @str = str
+        end
+
+        def lines
+          str.lines.map { |l| l.rstrip }
+        end
+      end
+
       option :pos_attrs, %w(top bottom target format)
 
       def create_source(parent, target, attributes)
         attributes = attributes.dup
         attributes['background'] = apply_target_subs(parent, target)
-        ::Asciidoctor::Diagram::Extensions::ReaderSource.new(parent, '', attributes)
+        ::Asciidoctor::Diagram::Extensions::ReaderSource.new(parent, StringReader.new(''), attributes)
       end
     end
   end
