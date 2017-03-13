@@ -282,12 +282,19 @@ module Asciidoctor
           subclass.option :pos_attrs, ['target', 'format']
         end
 
+        def apply_target_subs(target)
+          if target
+            parent.sub_attributes(target, :attribute_missing => 'warn')
+          else
+            nil
+          end
+        end
+
         # Creates a FileSource using target as the file name.
         #
         # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
-          target = parent.sub_attributes(target, :attribute_missing => 'warn') if target
-          FileSource.new(parent, target, attributes)
+          FileSource.new(parent, apply_target_subs(target), attributes)
         end
       end
 

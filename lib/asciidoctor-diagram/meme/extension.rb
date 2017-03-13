@@ -111,7 +111,7 @@ module Asciidoctor
 
       def create_source(parent, target, attributes)
         attributes = attributes.dup
-        attributes['background'] = target
+        attributes['background'] = apply_target_subs(target)
         ::Asciidoctor::Diagram::Extensions::ReaderSource.new(parent, '', attributes)
       end
     end
