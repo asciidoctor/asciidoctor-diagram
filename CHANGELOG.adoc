@@ -3,7 +3,7 @@
 == Development
 
 Bug Fixes::
-
+  * Issue #145: Incremental runs on documents containing meme diagrams would fail
   * Avoid error when the `PATH` environment variable is not defined (@BrentDouglas)
 
 == 1.5.4
