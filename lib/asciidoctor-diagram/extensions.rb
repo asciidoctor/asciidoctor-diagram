@@ -282,7 +282,7 @@ module Asciidoctor
           subclass.option :pos_attrs, ['target', 'format']
         end
 
-        def apply_target_subs(target)
+        def apply_target_subs(parent, target)
           if target
             parent.sub_attributes(target, :attribute_missing => 'warn')
           else
@@ -294,7 +294,7 @@ module Asciidoctor
         #
         # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
-          FileSource.new(parent, apply_target_subs(target), attributes)
+          FileSource.new(parent, apply_target_subs(parent, target), attributes)
         end
       end
 
