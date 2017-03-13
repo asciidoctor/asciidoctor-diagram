@@ -113,7 +113,7 @@ module Asciidoctor
         end
 
         def lines
-          str.lines.map { |l| l.rstrip }
+          @str.lines.map { |l| l.rstrip }
         end
       end
 
