@@ -326,7 +326,7 @@ module Asciidoctor
         # @return [String] the base directory against which relative paths in this diagram should be resolved
         # @abstract
         def base_dir
-          raise NotImplementedError.new
+          attr('docdir', nil, true)
         end
 
         # Alias for code
@@ -430,10 +430,6 @@ module Asciidoctor
           @reader = reader
         end
 
-        def base_dir
-          attr('docdir', nil, true)
-        end
-
         def code
           @code ||= @parent_block.apply_subs(@reader.lines, resolve_diagram_subs).join("\n")
         end
@@ -447,7 +443,11 @@ module Asciidoctor
         end
 
         def base_dir
-          File.dirname(@file_name)
+          if @file_name
+            File.dirname(@file_name)
+          else
+            super
+          end
         end
 
         def image_name
@@ -461,7 +461,7 @@ module Asciidoctor
         end
 
         def should_process?(image_file, image_metadata)
-          File.mtime(@file_name) > File.mtime(image_file) || super
+          (@file_name && File.mtime(@file_name) > File.mtime(image_file)) || super
         end
 
         def code
