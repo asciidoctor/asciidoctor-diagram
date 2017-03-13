@@ -12,6 +12,9 @@ rvm:
   - 2.1.0
   - jruby-1.7.19
 before_install:
+  - . $HOME/.nvm/nvm.sh
+  - nvm install stable
+  - nvm use stable
   - gem update --system
   - gem --version
   - gem install bundler
