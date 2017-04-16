@@ -730,4 +730,128 @@ class {child-class}
     expect(content).to include('ParentClass')
     expect(content).to include('ChildClass')
   end
+
+  it "should generate PNG images for jlatexmath blocks when format is set to 'png'" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml,format="png"]
+----
+@startlatex
+e^{i\\pi} + 1 = 0
+@endlatex
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it "should generate SVG images for jlatexmath blocks when format is set to 'svg'" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml,format="svg"]
+----
+@startlatex
+e^{i\\pi} + 1 = 0
+@endlatex
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it "should generate PNG images for diagrams with latex tags when format is set to 'png'" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml,format="png"]
+----
+:<latex>P(y|\\mathbf{x}) \\mbox{ or } f(\\mathbf{x})+\\epsilon</latex>;
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it "should generate SVG images for diagrams with latex tags when format is set to 'svg'" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml,format="svg"]
+----
+:<latex>P(y|\\mathbf{x}) \\mbox{ or } f(\\mathbf{x})+\\epsilon</latex>;
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
 end
