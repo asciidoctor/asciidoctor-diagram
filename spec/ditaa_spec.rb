@@ -194,7 +194,7 @@ Doc Writer <doc@example.com>
 [ditaa]
 ----
 /-----\\
-|« … »|
+|\u00AB \u2026 \u00BB|
 \\-----/
 ----
     eos
