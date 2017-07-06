@@ -20,7 +20,7 @@ module Asciidoctor
           'transparent' => lambda { |o, v| o  << '--transparent' if v == 'true'}
       }
 
-      JARS = ['ditaamini-0.10.jar'].map do |jar|
+      JARS = ['ditaa-1.3.12.jar', 'ditaamini-0.10.jar'].map do |jar|
         File.expand_path File.join('../..', jar), File.dirname(__FILE__)
       end
       Java.classpath.concat JARS
