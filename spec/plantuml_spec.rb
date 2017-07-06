@@ -790,9 +790,6 @@ e^{i\\pi} + 1 = 0
     expect(target).to_not be_nil
     expect(target).to match(/\.svg$/)
     expect(File.exist?(target)).to be true
-
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
   end
 
   it "should generate PNG images for diagrams with latex tags when format is set to 'png'" do
