@@ -10,7 +10,7 @@ module Asciidoctor
 
       private
 
-      JARS = ['plantuml-1.3.12.jar', 'plantuml.jar'].map do |jar|
+      JARS = ['plantuml-1.3.12.jar', 'plantuml.jar', 'jlatexmath-minimal-1.0.3.jar', 'batik-all-1.7.jar'].map do |jar|
         File.expand_path File.join('../..', jar), File.dirname(__FILE__)
       end
       Java.classpath.concat JARS
