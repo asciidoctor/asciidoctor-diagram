@@ -21,9 +21,9 @@ module Asciidoctor
 
       def mermaid(parent_block, source, format)
         mermaid = which(parent_block, 'mermaid')
-        @is_mermaid_v6 ||= ::Asciidoctor::Diagram::Cli.run(mermaid, '--version').split('.')[0].to_i >= 6
+        config['mermaid>=6'] ||= ::Asciidoctor::Diagram::Cli.run(mermaid, '--version').split('.')[0].to_i >= 6
         # Mermaid >= 6.0.0 requires PhantomJS 2.1; older version required 1.9
-        phantomjs = which(parent_block, 'phantomjs', :alt_attrs => [@is_mermaid_v6 ? 'phantomjs_2' : 'phantomjs_19'])
+        phantomjs = which(parent_block, 'phantomjs', :alt_attrs => [config['mermaid>=6'] ? 'phantomjs_2' : 'phantomjs_19'])
 
         css = source.attr('css', nil, 'mermaid')
         if css
