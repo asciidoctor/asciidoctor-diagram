@@ -6,4 +6,5 @@ else
 end
 
 # Specify your gem's dependencies in asciidoctor-diagram.gemspec
+gem 'asciidoctor', :github => 'asciidoctor/asciidoctor', :branch => 'master'
 gemspec
