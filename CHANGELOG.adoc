@@ -2,6 +2,8 @@
 
 == Development
 
+== 1.5.5
+
 Enhancements::
 
   * Update PlantUML to revision 2017.15
@@ -9,6 +11,7 @@ Enhancements::
   * Resolve compatibility issues with Asciidoctor 1.5.6 (@robertpanzer, @mojavelinux)
 
 Bug Fixes::
+
   * Issue #145: Incremental runs on documents containing meme diagrams would fail
   * Issue #150: Resolve Ditaa character encoding issues
   * Avoid error when the `PATH` environment variable is not defined (@BrentDouglas)
