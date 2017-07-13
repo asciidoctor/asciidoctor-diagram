@@ -409,10 +409,9 @@ module Asciidoctor
         protected
         def resolve_diagram_subs
           if @attributes.key? 'subs'
-            subs = @parent_block.resolve_block_subs @attributes['subs'], nil, 'diagram'
-            subs.empty? ? nil : subs
+            @parent_block.resolve_block_subs @attributes['subs'], nil, 'diagram'
           else
-            nil
+            []
           end
         end
 
