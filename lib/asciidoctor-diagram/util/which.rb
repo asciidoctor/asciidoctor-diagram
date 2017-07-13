@@ -20,10 +20,10 @@ module Asciidoctor
         attr_names = options[:attrs] || options.fetch(:alt_attrs, []) + [cmd]
         cmd_names = [cmd] + options.fetch(:alt_cmds, [])
 
-        cmd_var = '@' + attr_names[0]
+        cmd_var = 'cmd-' + attr_names[0]
 
-        if instance_variable_defined?(cmd_var)
-          cmd_path = instance_variable_get(cmd_var)
+        if config.key? cmd_var
+          cmd_path = config[cmd_var]
         else
           cmd_path = attr_names.map { |attr_name| parent_block.attr(attr_name, nil, true) }.find { |attr| !attr.nil? }
 
@@ -35,7 +35,7 @@ module Asciidoctor
             cmd_path = cmd_paths.reject { |c| c.nil? }.first
           end
 
-          instance_variable_set(cmd_var, cmd_path)
+          config[cmd_var] = cmd_path
 
           if cmd_path.nil? && options.fetch(:raise_on_error, true)
             raise "Could not find the #{cmd_names.map { |c| "'#{c}'" }.join(', ')} executable in PATH; add it to the PATH or specify its location using the '#{attr_names[0]}' document attribute"
