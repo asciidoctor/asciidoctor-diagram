@@ -1,3 +1,5 @@
+git:
+  depth: 1
 language: ruby
 cache:
   apt: true
@@ -11,14 +13,16 @@ rvm:
   - 2.0.0
   - 2.1.0
   - jruby-1.7.19
-gemfile:
-  - Gemfile
-  - Gemfile.master
+matrix:
+  include:
+    - rvm: 2.1.0
+      gemfile: Gemfile.master
+    - rvm: jruby-1.7.19
+      gemfile: Gemfile.master
 before_install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-  - gem update --system
   - gem --version
   - gem install bundler
   - sudo apt-get update -qq
@@ -45,3 +49,4 @@ install:
   - cp Umlet/umlet.sh Umlet/umlet
   - chmod +x Umlet/umlet
   - export PATH=$PATH:$PWD/Umlet/
+script: bundle exec rake test

@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
-gem 'asciidoctor', :git => 'https://github.com/asciidoctor/asciidoctor', :branch => 'master'
 gemspec
+
+gem 'asciidoctor', :git => 'https://github.com/asciidoctor/asciidoctor', :branch => 'master'
