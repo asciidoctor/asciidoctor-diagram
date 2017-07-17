@@ -1,4 +1,6 @@
 dist: trusty
+git:
+  depth: 1
 language: ruby
 cache:
   apt: true
@@ -37,7 +39,7 @@ install:
   - tar jxf phantomjs-1.9.8-linux-x86_64.tar.bz2
   - export PHANTOMJS_19=$PWD/phantomjs-1.9.8-linux-x86_64/bin/phantomjs
   - sudo apt-get install -qq graphviz
-  - sudo apt-get install -qq python-gtk2
+  - sudo apt-get install -qq python-gtk2 python-cairo
   - sudo apt-get install -qq ttf-dejavu
   - export BLOCKDIAG_FONTPATH=/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
   - pip install --user "blockdiag[pdf]" "actdiag[pdf]" "seqdiag[pdf]" "nwdiag[pdf]"
