@@ -27,8 +27,8 @@ before_install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-  - gem update --system
-  - gem --version
+#  - gem update --system
+#  - gem --version
   - gem install bundler
   - sudo apt-get update -qq
 install:
