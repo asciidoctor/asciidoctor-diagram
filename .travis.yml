@@ -4,6 +4,11 @@ cache:
   directories:
     - vendor/bundle
     - $HOME/.cache/pip
+sudo: required
+addons:
+  apt:
+    packages:
+      - haveged
 python:
   - 2.7
 rvm:
