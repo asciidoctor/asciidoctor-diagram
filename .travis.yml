@@ -19,7 +19,7 @@ rvm:
   - 2.0.0
   - 2.1.0
   - jruby-1.7.19
-  - jruby-head
+#  - jruby-head
 gemfile:
   - Gemfile
   - Gemfile.master
