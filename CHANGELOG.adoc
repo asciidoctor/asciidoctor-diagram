@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.4.1
+
+Enhancements::
+
+  * Resolve compatibility issues with Asciidoctor 1.5.6 (@robertpanzer, @mojavelinux)
+
 == 1.5.4
 
 Enhancements::
