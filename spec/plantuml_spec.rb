@@ -73,7 +73,7 @@ plantuml::plantuml.txt[format="png"]
     expect(b.attributes['height']).to_not be_nil
   end
 
-  it 'should support substitutions' do
+  it 'should support substitutions in diagram code' do
     code = <<-eos
 class {parent-class}
 class {child-class}
@@ -140,6 +140,40 @@ plantuml::{file}.txt[format="svg", subs=attributes+]
     content = File.read(target)
     expect(content).to include('ParentClass')
     expect(content).to include('ChildClass')
+  end
+
+  it 'should support substitutions in the format attribute' do
+    code = <<-eos
+class Parent
+class Child
+Parent <|-- Child
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+:file: plantuml
+:plantumlformat: png
+
+== First Section
+
+plantuml::{file}.txt[format="{plantumlformat}", subs=attributes+]
+    eos
+
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
   end
 
   it 'should resolve !include directives with relative paths' do
