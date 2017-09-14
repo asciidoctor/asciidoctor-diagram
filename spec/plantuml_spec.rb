@@ -207,6 +207,35 @@ plantuml::dir/plantuml.txt[format="png", subs=attributes+]
 
     # No easy way to assert this since PlantUML doesn't produce an error on file not found
   end
+
+  it 'should generate blocks with figure captions' do
+    code = <<-eos
+User -> (Start)
+User --> (Use the application) : Label
+
+:Main Admin: ---> (Use the application) : Another label
+    eos
+
+    File.write('plantuml.txt', code)
+
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+.This is a UML diagram
+plantuml::plantuml.txt[format="png"]
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.caption).to match /Figure \d+/
+  end
 end
 
 describe Asciidoctor::Diagram::PlantUmlBlockProcessor do
@@ -542,6 +571,29 @@ User -> (Start)
 
     expect(b.attributes['width']).to be_nil
     expect(b.attributes['height']).to be_nil
+  end
+
+  it 'should generate blocks with figure captions' do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+.Caption for my UML diagram
+[plantuml, format="png"]
+----
+User -> (Start)
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.caption).to match /Figure \d+/
   end
 
   it 'should support salt diagrams using salt block type' do

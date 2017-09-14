@@ -2,6 +2,10 @@
 
 == Development
 
+Bug Fixes::
+
+  * Issue #164: Restore numbered captions for diagrams when using asciidoctor >= 1.5.6
+
 == 1.5.5
 
 Enhancements::
