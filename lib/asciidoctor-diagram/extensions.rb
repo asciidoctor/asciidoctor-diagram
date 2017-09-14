@@ -217,6 +217,14 @@ module Asciidoctor
                                         'Diagram'
                                       end
 
+          parent.document.register(:images, image_name)
+          if (scaledwidth = image_attributes['scaledwidth'])
+            # append % to scaledwidth if ends in number (no units present)
+            if (48..57).include?((scaledwidth[-1] || 0).ord)
+              image_attributes['scaledwidth'] = %(#{scaledwidth}%)
+            end
+          end
+
           Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
         end
 
