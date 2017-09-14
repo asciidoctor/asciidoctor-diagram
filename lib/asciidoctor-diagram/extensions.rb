@@ -217,6 +217,8 @@ module Asciidoctor
                                         'Diagram'
                                       end
 
+          image_attributes['alt'] = parent.sub_specialchars image_attributes['alt']
+
           parent.document.register(:images, image_name)
           if (scaledwidth = image_attributes['scaledwidth'])
             # append % to scaledwidth if ends in number (no units present)
