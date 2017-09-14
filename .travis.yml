@@ -45,7 +45,7 @@ install:
   - pip install --user "blockdiag[pdf]" "actdiag[pdf]" "seqdiag[pdf]" "nwdiag[pdf]"
   - pip install --user shaape
   - bundle install --path vendor/bundle --jobs=3 --retry=3
-  - npm install -g mermaid@"< 7.1.0"
+  - npm install -g mermaid@"< 7.0.12"
   - npm install -g wavedrom-cli
   - sudo apt-get install -qq imagemagick
 # Install umlet
