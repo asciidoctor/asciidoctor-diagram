@@ -210,7 +210,13 @@ module Asciidoctor
                                         'Diagram'
                                       end
 
-          Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
+          title = image_attributes.delete 'title'
+          caption = image_attributes.delete 'caption'
+
+          block = Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
+          block.title = title
+          block.assign_caption(caption, 'figure')
+          block
         end
 
         def scale(size, factor)
