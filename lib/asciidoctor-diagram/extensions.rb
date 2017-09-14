@@ -98,7 +98,7 @@ module Asciidoctor
         def process(parent, reader_or_target, attributes)
           source = create_source(parent, reader_or_target, attributes.dup)
 
-          format = source.attributes.delete('format') || self.class.default_format
+          format = source.attributes.delete('format') || source.attr('format', self.class.default_format, name)
           format = format.to_sym if format.respond_to?(:to_sym)
 
           raise "Format undefined" unless format
@@ -115,7 +115,7 @@ module Asciidoctor
                 create_image_block(parent, source, format, generator_info)
             end
           rescue => e
-            case parent.attr('diagram-on-error') || 'log'
+            case source.attr('on-error', 'log', 'diagram')
               when 'abort'
                 raise e
               else
@@ -384,10 +384,10 @@ module Asciidoctor
 
           if value.nil? && inherit
             case inherit
-              when String
-                value = @parent_block.attr("#{inherit}-#{name}", default_value, true)
-              else
+              when NilClass
                 value = @parent_block.attr(name, default_value, true)
+              else
+                value = @parent_block.attr("#{inherit.to_s}-#{name}", default_value, true)
             end
           end
 
