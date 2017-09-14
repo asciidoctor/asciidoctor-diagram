@@ -108,12 +108,19 @@ module Asciidoctor
           raise "#{self.class.name} does not support output format #{format}" unless generator_info
 
           begin
+            title = source.attributes.delete 'title'
+            caption = source.attributes.delete 'caption'
+
             case generator_info[:type]
               when :literal
-                create_literal_block(parent, source, generator_info)
+                block = create_literal_block(parent, source, generator_info)
               else
-                create_image_block(parent, source, format, generator_info)
+                block = create_image_block(parent, source, format, generator_info)
             end
+
+            block.title = title
+            block.assign_caption(caption, 'figure')
+            block
           rescue => e
             case parent.attr('diagram-on-error') || 'log'
               when 'abort'
@@ -210,13 +217,7 @@ module Asciidoctor
                                         'Diagram'
                                       end
 
-          title = image_attributes.delete 'title'
-          caption = image_attributes.delete 'caption'
-
-          block = Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
-          block.title = title
-          block.assign_caption(caption, 'figure')
-          block
+          Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
         end
 
         def scale(size, factor)
