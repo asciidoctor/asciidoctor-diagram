@@ -158,6 +158,8 @@ module Asciidoctor
         end
 
         private
+        DIGIT_CHAR_RANGE = ('0'.ord)..('9'.ord)
+
         def create_image_block(parent, source, format, generator_info)
           image_name = "#{source.image_name}.#{format}"
           image_dir = image_output_dir(parent)
@@ -222,7 +224,7 @@ module Asciidoctor
           parent.document.register(:images, image_name)
           if (scaledwidth = image_attributes['scaledwidth'])
             # append % to scaledwidth if ends in number (no units present)
-            if (48..57).include?((scaledwidth[-1] || 0).ord)
+            if DIGIT_CHAR_RANGE.include?((scaledwidth[-1] || 0).ord)
               image_attributes['scaledwidth'] = %(#{scaledwidth}%)
             end
           end
