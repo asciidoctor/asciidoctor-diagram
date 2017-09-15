@@ -351,11 +351,12 @@ Doc Writer <doc@example.com>
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
-:plantumlconfig: test.config
+:plantuml-config: test.config
+:plantuml-format: svg
 
 == First Section
 
-[plantuml, format="svg"]
+[plantuml]
 ----
 actor Foo1
 boundary Foo2

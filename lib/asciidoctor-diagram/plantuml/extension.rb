@@ -18,13 +18,14 @@ module Asciidoctor
       def plantuml(parent_block, source, tag, mime_type)
         Java.load
 
+        inherit_prefix = name
         code = preprocess_code(parent_block, source, tag)
 
         headers = {
             'Accept' => mime_type
         }
 
-        config_file = source.attr('plantumlconfig', nil, true) || source.attr('config', nil, 'plantuml')
+        config_file = source.attr('plantumlconfig', nil, true) || source.attr('config', nil, inherit_prefix)
         if config_file
           headers['X-PlantUML-Config'] = File.expand_path(config_file, source.attr('docdir', nil, true))
         end
