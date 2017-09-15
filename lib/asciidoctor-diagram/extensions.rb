@@ -403,10 +403,10 @@ module Asciidoctor
 
           if value.nil? && inherit
             case inherit
-              when NilClass
-                value = @parent_block.attr(name, default_value, true)
-              else
+              when String, Symbol
                 value = @parent_block.attr("#{inherit.to_s}-#{name}", default_value, true)
+              else
+                value = @parent_block.attr(name, default_value, true)
             end
           end
 
