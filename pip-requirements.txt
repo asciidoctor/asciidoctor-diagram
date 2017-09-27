@@ -1,0 +1,5 @@
+blockdiag[pdf]
+actdiag[pdf]
+seqdiag[pdf]
+nwdiag[pdf]
+shaape
