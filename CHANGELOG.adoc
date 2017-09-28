@@ -4,6 +4,7 @@
 
 Enhancements::
 
+  * Issue #167: Add support for Msc diagrams
   * The output format can now be configured globally per diagram type using a document attribute with the name `<diagram_type>-format`.
     As an example to generate all plantuml diagrams as SVG set the attribute `plantuml-format` to `svg` in your document header or via the command line.
 
