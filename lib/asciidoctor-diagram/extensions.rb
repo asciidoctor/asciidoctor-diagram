@@ -108,12 +108,19 @@ module Asciidoctor
           raise "#{self.class.name} does not support output format #{format}" unless generator_info
 
           begin
+            title = source.attributes.delete 'title'
+            caption = source.attributes.delete 'caption'
+
             case generator_info[:type]
               when :literal
-                create_literal_block(parent, source, generator_info)
+                block = create_literal_block(parent, source, generator_info)
               else
-                create_image_block(parent, source, format, generator_info)
+                block = create_image_block(parent, source, format, generator_info)
             end
+
+            block.title = title
+            block.assign_caption(caption, 'figure')
+            block
           rescue => e
             case source.attr('on-error', 'log', 'diagram')
               when 'abort'
@@ -151,6 +158,8 @@ module Asciidoctor
         end
 
         private
+        DIGIT_CHAR_RANGE = ('0'.ord)..('9'.ord)
+
         def create_image_block(parent, source, format, generator_info)
           image_name = "#{source.image_name}.#{format}"
           image_dir = image_output_dir(parent)
@@ -209,6 +218,16 @@ module Asciidoctor
                                       else
                                         'Diagram'
                                       end
+
+          image_attributes['alt'] = parent.sub_specialchars image_attributes['alt']
+
+          parent.document.register(:images, image_name)
+          if (scaledwidth = image_attributes['scaledwidth'])
+            # append % to scaledwidth if ends in number (no units present)
+            if DIGIT_CHAR_RANGE.include?((scaledwidth[-1] || 0).ord)
+              image_attributes['scaledwidth'] = %(#{scaledwidth}%)
+            end
+          end
 
           Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
         end
