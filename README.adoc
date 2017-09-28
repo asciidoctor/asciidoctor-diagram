@@ -24,6 +24,7 @@ ifndef::env-site[:status:]
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com
 :uri-mermaid: http://knsv.github.io/mermaid/
+:uri-mscgen: http://www.mcternan.me.uk/mscgen/
 :uri-nwdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-packetdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-phantomjs: http://phantomjs.org
@@ -39,7 +40,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, PlantUML, Shaape and WaveDrom syntax.
+The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, Msc, PlantUML, Shaape and WaveDrom syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -114,6 +115,7 @@ The following diagram types and output formats are available:
 |{uri-dot}[graphviz]         |       |{check}|{check}|{check}|
 |<<meme,meme>>               |{check}|       |{check}|       |
 |{uri-mermaid}[mermaid]      |       |       |{check}|{check}|
+|{uri-mscgen}[msc]           |       |       |{check}|{check}|
 |{uri-nwdiag}[nwdiag]        |       |{check}|{check}|{check}|
 |{uri-packetdiag}[packetdiag]|       |{check}|{check}|{check}|
 |{uri-plantuml}[plantuml]    |       |       |{check}|{check}|{check}
@@ -233,7 +235,7 @@ or load and register each extension individually.
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` can be one of `blockdiag`, `ditaa`, `erd`, `graphviz`, `meme`, `mermaid`, `plantuml`, `shaape`, or `wavedrom`.
+`<extension_name>` can be one of `blockdiag`, `ditaa`, `erd`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, or `wavedrom`.
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
@@ -283,6 +285,7 @@ The following table lists the tools that are required for each diagram type, the
    |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
    |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
    |mermaid      |{uri-mermaid}[Mermaid]                                                |`mermaid`
+   |msc          |{uri-mscgen}[Mscgen]                                                  |`mscgen`
    |nwdiag       |{uri-nwdiag}[NwDiag]                                                  |`nwdiag`
    |packetdiag   |{uri-nwdiag}[NwDiag]                                                  |`packetdiag`
    |plantuml     |{uri-java}[Java]                                                      |`java`
@@ -392,6 +395,14 @@ The attribute name at the block level should be prefixed with the name of the di
 |ganttconfig   |unspecified     |Path to a gantt config file to pass to mermaid.
 |sequenceconfig|unspecified     |Path to a sequence config file to pass to mermaid.
 |width         |unspecified     |The width of the generated image.
+|===
+
+==== Msc
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|font         |unspecified     |The name of the font that should be used by mscgen
 |===
 
 ==== PlantUML

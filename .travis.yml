@@ -53,3 +53,4 @@ install:
   - cp Umlet/umlet.sh Umlet/umlet
   - chmod +x Umlet/umlet
   - export PATH=$PATH:$PWD/Umlet/
+  - sudo apt-get install -qq mscgen
