@@ -24,7 +24,7 @@ msc {
 }
 eos
 
-describe Asciidoctor::Diagram::MscBlockMacroProcessor, :broken_on_travis, :broken_on_windows do
+describe Asciidoctor::Diagram::MscBlockMacroProcessor, :broken_on_windows do
   it "should generate PNG images when format is set to 'png'" do
     File.write('msc.txt', code)
 
@@ -84,7 +84,7 @@ msc::msc.txt[format="svg"]
   end
 end
 
-describe Asciidoctor::Diagram::MscBlockProcessor, :broken_on_travis, :broken_on_windows do
+describe Asciidoctor::Diagram::MscBlockProcessor, :broken_on_windows do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, Msc!
