@@ -33,6 +33,7 @@ ifndef::env-site[:status:]
 :uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
 :uri-shaape: https://github.com/christiangoltz/shaape
+:uri-svgbob: https://github.com/ivanceras/svgbobrus
 :uri-umlet: http://www.umlet.com/
 :uri-wavedrom: http://wavedrom.com
 :uri-wavedromeditor: https://github.com/wavedrom/wavedrom.github.io/releases
@@ -40,7 +41,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, Msc, PlantUML, Shaape and WaveDrom syntax.
+The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, Msc, PlantUML, Shaape, SvgBob and WaveDrom syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -122,6 +123,7 @@ The following diagram types and output formats are available:
 |{uri-rackdiag}[rackdiag]    |       |{check}|{check}|{check}|
 |{uri-seqdiag}[seqdiag]      |       |{check}|{check}|{check}|
 |{uri-shaape}[shaape]        |       |       |{check}|{check}|
+|{uri-svgbob}[svgbob]        |       |       |       |{check}|
 |{uri-umlet}[umlet]          |{check}|{check}|{check}|{check}|
 |{uri-wavedrom}[wavedrom]    |       |       |{check}|{check}|
 |===
@@ -292,6 +294,7 @@ The following table lists the tools that are required for each diagram type, the
    |rackdiag     |{uri-nwdiag}[NwDiag]                                                  |`rackdiag`
    |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
    |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
+   |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
    |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
 .2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
                  |{uri-wavedromcli}[WaveDrom CLI] and {uri-phantomjs}[PhantomJS]        |`wavedrom` and `phantomjs`
