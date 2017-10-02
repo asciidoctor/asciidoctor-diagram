@@ -15,6 +15,7 @@ require_relative '../lib/asciidoctor-diagram/mermaid/extension'
 require_relative '../lib/asciidoctor-diagram/msc/extension'
 require_relative '../lib/asciidoctor-diagram/plantuml/extension'
 require_relative '../lib/asciidoctor-diagram/shaape/extension'
+require_relative '../lib/asciidoctor-diagram/svgbob/extension'
 require_relative '../lib/asciidoctor-diagram/umlet/extension'
 require_relative '../lib/asciidoctor-diagram/wavedrom/extension'
 
