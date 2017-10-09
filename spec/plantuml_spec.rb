@@ -102,7 +102,7 @@ plantuml::plantuml.txt[format="svg", subs=attributes+]
     target = b.attributes['target']
     expect(File.exist?(target)).to be true
 
-    content = File.read(target)
+    content = File.read(target, :encoding => Encoding::UTF_8)
     expect(content).to include('ParentClass')
     expect(content).to include('ChildClass')
   end
@@ -137,7 +137,7 @@ plantuml::{file}.txt[format="svg", subs=attributes+]
     target = b.attributes['target']
     expect(File.exist?(target)).to be true
 
-    content = File.read(target)
+    content = File.read(target, :encoding => Encoding::UTF_8)
     expect(content).to include('ParentClass')
     expect(content).to include('ChildClass')
   end
@@ -200,12 +200,21 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-plantuml::dir/plantuml.txt[format="png", subs=attributes+]
+plantuml::dir/plantuml.txt[format="svg", subs=attributes+]
     eos
 
-    load_asciidoc doc, :attributes => {'backend' => 'html5'}
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
 
-    # No easy way to assert this since PlantUML doesn't produce an error on file not found
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exist?(target)).to be true
+
+    content = File.read(target, :encoding => Encoding::UTF_8)
+    expect(content).to_not include('!include')
   end
 
   it 'should generate blocks with figure captions' do
@@ -379,7 +388,7 @@ ArrowColor #DEADBE
     expect(target).to_not be_nil
     expect(File.exist?(target)).to be true
 
-    svg = File.read(target)
+    svg = File.read(target, :encoding => Encoding::UTF_8)
     expect(svg).to match(/<path.*fill="#DEADBE"/)
   end
 
@@ -778,16 +787,25 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-[plantuml, format="png"]
+[plantuml, format="svg"]
 ----
 !include dir/List.iuml
 List <|.. ArrayList
 ----
     eos
 
-    load_asciidoc creole_doc, :attributes => {'backend' => 'html5'}
+    d = load_asciidoc creole_doc, :attributes => {'backend' => 'html5'}
 
-    # No easy way to assert this since PlantUML doesn't produce an error on file not found
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exist?(target)).to be true
+
+    content = File.read(target, :encoding => Encoding::UTF_8)
+    expect(content).to_not include('!include')
   end
 
   it 'should support substitutions' do
@@ -813,7 +831,7 @@ class {child-class}
     target = b.attributes['target']
     expect(File.exist?(target)).to be true
 
-    content = File.read(target)
+    content = File.read(target, :encoding => Encoding::UTF_8)
     expect(content).to include('ParentClass')
     expect(content).to include('ChildClass')
   end
