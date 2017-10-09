@@ -7,7 +7,7 @@ blockdiag {
 }
 eos
 
-describe Asciidoctor::Diagram::BlockDiagBlockMacroProcessor do
+describe Asciidoctor::Diagram::BlockDiagBlockMacroProcessor, :broken_on_appveyor do
   it "should generate PNG images when format is set to 'png'" do
     File.write('blockdiag.txt', code)
 
@@ -38,7 +38,7 @@ blockdiag::blockdiag.txt[format="png"]
   end
 end
 
-describe Asciidoctor::Diagram::BlockDiagBlockProcessor do
+describe Asciidoctor::Diagram::BlockDiagBlockProcessor, :broken_on_appveyor do
   it "should generate PNG images when format is set to 'png'" do
     doc = <<-eos
 = Hello, BlockDiag!

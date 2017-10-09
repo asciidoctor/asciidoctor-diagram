@@ -85,6 +85,10 @@ RSpec.configure do |c|
     c.filter_run_excluding :broken_on_travis => true
   end
 
+  if ENV['APPVEYOR']
+    c.filter_run_excluding :broken_on_appveyor => true
+  end
+
   TEST_DIR = File.expand_path('testing')
 
   c.before(:suite) do
