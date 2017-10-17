@@ -779,7 +779,7 @@ List : void clear()
     eos
 
     Dir.mkdir('dir')
-    File.write('dir/list.iuml', included)
+    File.write('dir/List.iuml', included)
 
     creole_doc = <<-eos
 = Hello, PlantUML!
