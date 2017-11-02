@@ -34,6 +34,7 @@ ifndef::env-site[:status:]
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
 :uri-shaape: https://github.com/christiangoltz/shaape
 :uri-svgbob: https://github.com/ivanceras/svgbobrus
+:uri-syntrax: https://kevinpt.github.io/syntrax/
 :uri-umlet: http://www.umlet.com/
 :uri-wavedrom: http://wavedrom.com
 :uri-wavedromeditor: https://github.com/wavedrom/wavedrom.github.io/releases
@@ -41,7 +42,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, Msc, PlantUML, Shaape, SvgBob and WaveDrom syntax.
+The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, Msc, PlantUML, Shaape, SvgBob, Syntrax and WaveDrom syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -124,6 +125,7 @@ The following diagram types and output formats are available:
 |{uri-seqdiag}[seqdiag]      |       |{check}|{check}|{check}|
 |{uri-shaape}[shaape]        |       |       |{check}|{check}|
 |{uri-svgbob}[svgbob]        |       |       |       |{check}|
+|{uri-syntrax}[syntrax]      |       |{check}|{check}|{check}|
 |{uri-umlet}[umlet]          |{check}|{check}|{check}|{check}|
 |{uri-wavedrom}[wavedrom]    |       |       |{check}|{check}|
 |===
@@ -237,7 +239,7 @@ or load and register each extension individually.
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` can be one of `blockdiag`, `ditaa`, `erd`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, or `wavedrom`.
+`<extension_name>` can be one of `blockdiag`, `ditaa`, `erd`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, `svgbob`, `syntrax`, or `wavedrom`.
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
@@ -295,6 +297,7 @@ The following table lists the tools that are required for each diagram type, the
    |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
    |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
    |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
+   |syntrax      |{uri-syntrax}[Syntrax]                                                |`syntrax`
    |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
 .2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
                  |{uri-wavedromcli}[WaveDrom CLI] and {uri-phantomjs}[PhantomJS]        |`wavedrom` and `phantomjs`
@@ -414,4 +417,14 @@ The attribute name at the block level should be prefixed with the name of the di
 |===
 |Name          |Default value   |Description
 |config        |unspecified     |Path to a config file to pass to PlantUML.
+|===
+
+==== Syntrax
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|scale         |1               |A scale factor that is applied to the image.
+|style         |unspecifed      |Path to a style config file to pass to Syntrax.
+|transparent   |false           |Makes the background of the image transparent instead of opaque white.
 |===
