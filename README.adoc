@@ -42,7 +42,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions support BlockDiag (BlockDiag, SeqDiag, ActDiag, NwDiag), Ditaa, GraphViz, Mermaid, Msc, PlantUML, Shaape, SvgBob, Syntrax and WaveDrom syntax.
+The extensions supports the BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet] and {uri-wavedrom}[WaveDrom] syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
