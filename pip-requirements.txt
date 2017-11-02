@@ -3,3 +3,4 @@ actdiag[pdf]
 seqdiag[pdf]
 nwdiag[pdf]
 shaape
+syntrax
