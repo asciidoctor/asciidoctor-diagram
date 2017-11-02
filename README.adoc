@@ -424,6 +424,7 @@ The attribute name at the block level should be prefixed with the name of the di
 [cols=">,<,<",options="header"]
 |===
 |Name          |Default value   |Description
+|heading       |unspecifed      |Diagram title
 |scale         |1               |A scale factor that is applied to the image.
 |style         |unspecifed      |Path to a style config file to pass to Syntrax.
 |transparent   |false           |Makes the background of the image transparent instead of opaque white.

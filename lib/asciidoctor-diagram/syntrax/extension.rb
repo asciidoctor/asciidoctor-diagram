@@ -24,6 +24,11 @@ module Asciidoctor
         generate_file(which(parent, 'syntrax'), 'spec', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           args = [tool_path, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)]
 
+          title = source.attr('heading', nil, inherit_prefix)
+          if title
+            args << '--title' << title
+          end
+
           scale = source.attr('scale', nil, inherit_prefix)
           if scale
             args << '--scale' << scale
