@@ -1,6 +1,7 @@
 *.gem
 *.rbc
 *.iml
+.asciidoctor
 .idea
 .bundle
 .config
@@ -18,3 +19,4 @@ testing
 test/tmp
 test/version_tmp
 tmp
+vendor
