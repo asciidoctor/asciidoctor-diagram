@@ -9,7 +9,7 @@ Enhancements::
 
 Bug Fixes::
 
-  * N/A
+  * Issue #173: Block macro targets are now correctly resolved against the document base directory.
 
 == 1.5.6
 
