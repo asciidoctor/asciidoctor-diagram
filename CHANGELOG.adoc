@@ -5,6 +5,7 @@
 Enhancements::
 
   * Update PlantUML to revision 2017.20
+  * Add support for Syntrax `--title` argument via the `heading` attribute (@vinipsmaker)
 
 Bug Fixes::
 
