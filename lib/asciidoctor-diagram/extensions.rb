@@ -303,7 +303,7 @@ module Asciidoctor
 
         def apply_target_subs(parent, target)
           if target
-            parent.sub_attributes(target, :attribute_missing => 'warn')
+            parent.normalize_system_path(parent.sub_attributes(target, :attribute_missing => 'warn'))
           else
             nil
           end
