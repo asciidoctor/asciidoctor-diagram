@@ -4,7 +4,7 @@
 
 Enhancements::
 
-  * N/A
+  * Update PlantUML to revision 2017.20
 
 Bug Fixes::
 
