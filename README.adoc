@@ -18,9 +18,9 @@ ifndef::env-site[:status:]
 :uri-asciidoctor-extensions: http://asciidoctor.org/docs/user-manual/#extension-points
 :uri-blockdiag: http://blockdiag.com
 :uri-ditaa: http://ditaa.sourceforge.net/
-:uri-dot: http://www.graphviz.org/content/dot-language
+:uri-dot: https://graphviz.gitlab.io/_pages/doc/info/lang.html
 :uri-erd: https://github.com/BurntSushi/erd
-:uri-graphviz: http://www.graphviz.org
+:uri-graphviz: https://graphviz.gitlab.io
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com
 :uri-mermaid: http://knsv.github.io/mermaid/
