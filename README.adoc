@@ -82,7 +82,7 @@ by first adding the following entry to your project's [.path]_Gemfile_.
 .Gemfile
 [source,ruby]
 ----
-gem 'asciidoctor-diagram', '~> 1.4.0'
+gem 'asciidoctor-diagram', '~> 1.5.7'
 ----
 
 Then execute `bundle` in the CLI.
