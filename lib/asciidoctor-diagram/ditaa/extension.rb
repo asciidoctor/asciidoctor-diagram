@@ -20,7 +20,7 @@ module Asciidoctor
           'transparent' => lambda { |o, v| o  << '--transparent' if v == 'true'}
       }
 
-      JARS = ['ditaa-1.3.12.jar', 'ditaamini-0.10.jar'].map do |jar|
+      JARS = ['ditaa-1.3.13.jar', 'ditaamini-0.11.jar'].map do |jar|
         File.expand_path File.join('../..', jar), File.dirname(__FILE__)
       end
       Java.classpath.concat JARS
@@ -29,9 +29,13 @@ module Asciidoctor
         mod.register_format(:png, :image) do |parent, source|
           ditaa(parent, source)
         end
+
+        mod.register_format(:svg, :image) do |parent, source|
+          ditaa(parent, source, ['--svg'])
+        end
       end
 
-      def ditaa(parent, source)
+      def ditaa(parent, source, extra_options = nil)
         Java.load
 
         global_attributes = parent.document.attributes
@@ -43,13 +47,17 @@ module Asciidoctor
           OPTIONS[key].call(options, value)
         end
 
-        options = options.join(' ')
+        if extra_options
+          options.concat extra_options
+        end
+
+        options_string = options.join(' ')
 
         response = Java.send_request(
             :url => '/ditaa',
             :body => source.to_s,
             :headers => {
-                'X-Options' => options
+                'X-Options' => options_string
             }
         )
 

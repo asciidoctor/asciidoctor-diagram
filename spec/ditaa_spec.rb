@@ -82,6 +82,44 @@ Doc Writer <doc@example.com>
     expect(b.attributes['height']).to_not be_nil
   end
 
+  it "should generate SVG images when format is set to 'svg'" do
+    doc = <<-eos
+= Hello, ditaa!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[ditaa, format="svg"]
+----
++--------+   +-------+    +-------+
+|        | --+ ditaa +--> |       |
+|  Text  |   +-------+    |diagram|
+|Document|   |!magic!|    |       |
+|     {d}|   |       |    |       |
++---+----+   +-------+    +-------+
+    :                         ^
+    |       Lots of work      |
+    +-------------------------+
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.svg/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
   it "should raise an error when when format is set to an invalid value" do
     doc = <<-eos
 = Hello, PlantUML!
