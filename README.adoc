@@ -112,7 +112,7 @@ The following diagram types and output formats are available:
 |Diagram Type                |gif    |pdf    |png    |svg    |txt
 |{uri-actdiag}[actdiag]      |       |{check}|{check}|{check}|
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|{check}|
-|{uri-ditaa}[ditaa]          |       |       |{check}|       |
+|{uri-ditaa}[ditaa]          |       |       |{check}|{check}|
 |{uri-erd}[erd]              |       |       |{check}|{check}|
 |{uri-dot}[graphviz]         |       |{check}|{check}|{check}|
 |<<meme,meme>>               |{check}|       |{check}|       |
