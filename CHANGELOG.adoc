@@ -1,5 +1,16 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.8
+
+Enhancements::
+
+  * Update PlantUML to revision 2018.1
+  * Add initial SVG support for Ditaa
+
+Bug Fixes::
+
+  * Issue #159: Resolve classloading issue in JRuby (@robertpanzer)
+
 == 1.5.7
 
 Enhancements::
