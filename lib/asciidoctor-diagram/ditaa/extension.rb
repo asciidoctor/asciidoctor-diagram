@@ -27,15 +27,15 @@ module Asciidoctor
 
       def self.included(mod)
         mod.register_format(:png, :image) do |parent, source|
-          ditaa(parent, source)
+          ditaa(parent, source, 'image/png')
         end
 
         mod.register_format(:svg, :image) do |parent, source|
-          ditaa(parent, source, ['--svg'])
+          ditaa(parent, source, 'image/svg+xml')
         end
       end
 
-      def ditaa(parent, source, extra_options = nil)
+      def ditaa(parent, source, mime_type)
         Java.load
 
         global_attributes = parent.document.attributes
@@ -47,18 +47,17 @@ module Asciidoctor
           OPTIONS[key].call(options, value)
         end
 
-        if extra_options
-          options.concat extra_options
-        end
-
         options_string = options.join(' ')
+
+        headers = {
+            'Accept' => mime_type,
+            'X-Options' => options_string
+        }
 
         response = Java.send_request(
             :url => '/ditaa',
             :body => source.to_s,
-            :headers => {
-                'X-Options' => options_string
-            }
+            :headers => headers
         )
 
         unless response[:code] == 200
