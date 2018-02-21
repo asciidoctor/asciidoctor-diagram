@@ -374,7 +374,7 @@ Foo1 -> Foo2 : To boundary
     eos
 
     config = <<-eos
-ArrowColor #DEADBE
+skinparam ArrowColor #DEADBE
     eos
 
     File.open('test.config', 'w') do |f|
