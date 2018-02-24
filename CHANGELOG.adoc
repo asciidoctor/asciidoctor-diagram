@@ -10,6 +10,7 @@ Enhancements::
 Bug Fixes::
 
   * Issue #159: Resolve classloading issue in JRuby (@robertpanzer)
+  * Issue #177: Resolve unused variable warning in svgbob integratin
 
 == 1.5.7
 

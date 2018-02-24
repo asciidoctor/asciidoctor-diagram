@@ -67,7 +67,7 @@ plantuml::plantuml.txt[format="png"]
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match(/\.png$/)
-    expect(File.exists?(target)).to be true
+    expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -243,7 +243,7 @@ plantuml::plantuml.txt[format="png"]
     b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
-    expect(b.caption).to match /Figure \d+/
+    expect(b.caption).to match(/Figure \d+/)
   end
 end
 
@@ -603,7 +603,7 @@ User -> (Start)
     b = d.find { |bl| bl.context == :image }
     expect(b).to_not be_nil
 
-    expect(b.caption).to match /Figure \d+/
+    expect(b.caption).to match(/Figure \d+/)
   end
 
   it 'should support salt diagrams using salt block type' do
