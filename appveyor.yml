@@ -20,8 +20,7 @@ install:
 #  - ps: msiexec /i graphviz.msi /qn /norestart
 #  - set PATH=C:\Program Files (x86)\Graphviz2.38\bin;%PATH%
   - cinst imagemagick.tool
-  - cinst phantomjs
-  - npm install -g mermaid@"< 7.0.12"
+  - npm install -g mermaid.cli
   - npm install -g wavedrom-cli
 # Install umlet
   - curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
