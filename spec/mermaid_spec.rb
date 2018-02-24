@@ -275,4 +275,30 @@ mermaid::mermaid.txt["without_width"]
     expect(File.exist?('without_width.png')).to be true
     expect(File.size('with_width.png')).to_not be File.size('without_width.png')
   end
+
+  it "should respect the theme attribute" do
+    seq_diag = <<-eos
+sequenceDiagram
+    Alice->>Bob: Hello Bob, how are you?
+    Bob->>Claire: Hello Claire, how are you?
+    Claire->>Doug: Hello Doug, how are you?
+    eos
+
+    File.write('mermaid.txt', seq_diag)
+
+    doc = <<-eos
+= Hello, Mermaid!
+Doc Writer <doc@example.com>
+
+== First Section
+
+mermaid::mermaid.txt["default", format="svg"]
+mermaid::mermaid.txt["dark", format="svg", theme="dark"]
+    eos
+
+    load_asciidoc doc
+    expect(File.exist?('default.svg')).to be true
+    expect(File.exist?('dark.svg')).to be true
+    expect(File.read('default.svg')).to_not be File.read('dark.svg')
+  end
 end
