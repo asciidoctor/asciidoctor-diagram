@@ -54,15 +54,19 @@ module Asciidoctor
             raise "Block passed to generate_file should return an Array or a Hash"
         end
 
-        output = ::Asciidoctor::Diagram::Cli.run(*args, open3_opts)
+        result = ::Asciidoctor::Diagram::Cli.run(*args, open3_opts)
 
-        raise "#{args[0]} failed: #{output}" unless File.exist?(out_file || target_file.path)
+        unless File.exist?(out_file || target_file.path)
+          raise "#{args[0]} failed: #{result[:out].empty? ? result[:err] : result[:out]}"
+        end
 
         if out_file
           File.rename(out_file, target_file.path)
         end
 
-        File.binread(target_file.path)
+        result[:data] = File.binread(target_file.path)
+
+        result
       end
     end
   end

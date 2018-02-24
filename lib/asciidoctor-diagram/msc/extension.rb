@@ -22,7 +22,7 @@ module Asciidoctor
         inherit_prefix = name
         font = source.attr('font', nil, inherit_prefix)
 
-        generate_stdin(which(parent, 'mscgen'), format.to_s, source.to_s) do |tool_path, output_path|
+        result = generate_stdin(which(parent, 'mscgen'), format.to_s, source.to_s) do |tool_path, output_path|
           args = [tool_path, '-o', Platform.native_path(output_path), '-T', format.to_s]
           if font
             args << '-F' << font
@@ -30,6 +30,8 @@ module Asciidoctor
           args << '-'
           args
         end
+
+        result[:data]
       end
     end
 

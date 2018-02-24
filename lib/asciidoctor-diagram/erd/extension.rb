@@ -26,9 +26,11 @@ module Asciidoctor
           [tool_path, '-o', Platform.native_path(output_path), '-f', 'dot']
         end
 
-        generate_stdin(dot_path, format.to_s, dot_code) do |tool_path, output_path|
+        result = generate_stdin(dot_path, format.to_s, dot_code[:data]) do |tool_path, output_path|
           [tool_path, "-o#{Platform.native_path(output_path)}", "-T#{format.to_s}"]
         end
+
+        result[:data]
       end
     end
 

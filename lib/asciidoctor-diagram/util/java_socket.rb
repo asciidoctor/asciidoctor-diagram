@@ -71,7 +71,7 @@ module Asciidoctor
           when :windows
             path_to(ENV['JAVA_HOME'], 'bin/java.exe') || registry_lookup || ::Asciidoctor::Diagram::Which.which('java')
           when :macosx
-            path_to(ENV['JAVA_HOME'], 'bin/java') || path_to(::Asciidoctor::Diagram::Cli.run('/usr/libexec/java_home').strip, 'bin/java') || ::Asciidoctor::Diagram::Which.which('java')
+            path_to(ENV['JAVA_HOME'], 'bin/java') || path_to(::Asciidoctor::Diagram::Cli.run('/usr/libexec/java_home')[:out].strip, 'bin/java') || ::Asciidoctor::Diagram::Which.which('java')
           else
             path_to(ENV['JAVA_HOME'], 'bin/java') || ::Asciidoctor::Diagram::Which.which('java')
         end
@@ -125,7 +125,7 @@ module Asciidoctor
         args << '/s' if opts[:recursive]
 
         begin
-          lines = ::Asciidoctor::Diagram::Cli.run(*args).lines.reject { |l| l.strip.empty? }.each
+          lines = ::Asciidoctor::Diagram::Cli.run(*args)[:out].lines.reject { |l| l.strip.empty? }.each
         rescue
           lines = [].each
         end
