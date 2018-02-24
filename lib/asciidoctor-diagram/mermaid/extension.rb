@@ -50,21 +50,11 @@ module Asciidoctor
           if config
             options[:config] = parent_block.normalize_system_path(config, source.base_dir)
           end
-          result = run_mmdc(mmdc, source, format, options)
+          run_mmdc(mmdc, source, format, options)
         else
           mermaid = which(parent_block, 'mermaid')
-          result = run_mermaid(mermaid, parent_block, source, format, options)
+          run_mermaid(mermaid, parent_block, source, format, options)
         end
-
-        if format == :png
-          begin
-            PNG.get_image_size(result[:data])
-          rescue
-            raise "Invalid PNG data:\nstatus: #{result[:status]}\nstdout: #{result[:out]}\nstderr: #{result[:err]}\ndata: #{result[:data]}"
-          end
-        end
-
-        result[:data]
       end
 
       private

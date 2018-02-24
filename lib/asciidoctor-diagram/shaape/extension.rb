@@ -19,11 +19,9 @@ module Asciidoctor
       end
 
       def shaape(parent, source, format)
-        result = generate_stdin(which(parent, 'shaape'), format.to_s, source.to_s) do |tool_path, output_path|
+        generate_stdin(which(parent, 'shaape'), format.to_s, source.to_s) do |tool_path, output_path|
           [tool_path, '-o', Platform.native_path(output_path), '-t', format.to_s, '-']
         end
-
-        result[:data]
       end
     end
 

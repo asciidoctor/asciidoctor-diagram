@@ -21,7 +21,7 @@ module Asciidoctor
       def syntrax(parent, source, format)
         inherit_prefix = name
 
-        result = generate_file(which(parent, 'syntrax'), 'spec', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+        generate_file(which(parent, 'syntrax'), 'spec', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           args = [tool_path, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)]
 
           title = source.attr('heading', nil, inherit_prefix)
@@ -45,8 +45,6 @@ module Asciidoctor
 
           args
         end
-
-        result[:data]
       end
     end
 

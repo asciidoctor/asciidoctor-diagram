@@ -14,7 +14,7 @@ module Asciidoctor
 
           opts = yield tool, target_file.path
 
-          generate(opts, target_file, :stdin_data => code)
+          generate(opts, target_file.path, :stdin_data => code)
         ensure
           target_file.unlink
         end
@@ -33,7 +33,7 @@ module Asciidoctor
 
             opts = yield tool, source_file.path, target_file.path
 
-            generate(opts, target_file)
+            generate(opts, target_file.path)
           ensure
             target_file.unlink
           end
@@ -42,6 +42,7 @@ module Asciidoctor
         end
       end
 
+      private
       def generate(opts, target_file, open3_opts = {})
         case opts
           when Array
@@ -56,17 +57,25 @@ module Asciidoctor
 
         result = ::Asciidoctor::Diagram::Cli.run(*args, open3_opts)
 
-        unless File.exist?(out_file || target_file.path)
+        data = read_result(target_file, out_file)
+
+        if data.empty?
           raise "#{args[0]} failed: #{result[:out].empty? ? result[:err] : result[:out]}"
         end
 
-        if out_file
-          File.rename(out_file, target_file.path)
+        data
+      end
+
+      def read_result(target_file, out_file = nil)
+        if File.exist?(out_file || target_file)
+          if out_file
+            File.rename(out_file, target_file)
+          end
+
+          File.binread(target_file)
+        else
+          ''
         end
-
-        result[:data] = File.binread(target_file.path)
-
-        result
       end
     end
   end
