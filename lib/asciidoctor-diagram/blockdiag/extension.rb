@@ -109,14 +109,12 @@ module Asciidoctor
 
         font_path = source.attr('fontpath', nil, inherit_prefix)
 
-        result = generate_stdin(which(parent, cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
+        generate_stdin(which(parent, cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
           args = [tool_path, '-a', '-o', Platform.native_path(output_path), "-T#{format.to_s}"]
           args << "-f#{Platform.native_path(font_path)}" if font_path
           args << '-'
           args
         end
-
-        result[:data]
       end
     end
 
