@@ -83,7 +83,7 @@ module Asciidoctor
         if os_variant == :cygwin
           cygpath = ::Asciidoctor::Diagram::Which.which('cygpath')
           if cygpath != nil
-            ::Asciidoctor::Diagram::Cli.run(cygpath, '-w', path)
+            ::Asciidoctor::Diagram::Cli.run(cygpath, '-w', path)[:out]
           else
             puts 'cygwin warning: cygpath not found'
             native_path(path)

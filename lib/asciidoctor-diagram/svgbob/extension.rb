@@ -19,9 +19,11 @@ module Asciidoctor
       end
 
       def svgbob(parent, source, format)
-        generate_stdin(which(parent, 'svgbob'), format.to_s, source.to_s) do |tool_path, output_path|
+        result = generate_stdin(which(parent, 'svgbob'), format.to_s, source.to_s) do |tool_path, output_path|
           [tool_path, '-o', Platform.native_path(output_path)]
         end
+
+        result[:data]
       end
     end
 

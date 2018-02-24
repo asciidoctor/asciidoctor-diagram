@@ -58,13 +58,13 @@ module Asciidoctor
 
         if format == :png
           begin
-            PNG.get_image_size(result)
+            PNG.get_image_size(result[:data])
           rescue
-            raise "Invalid PNG data: #{result}"
+            raise "Invalid PNG data:\nstatus: #{result[:status]}\nstdout: #{result[:out]}\nstderr: #{result[:err]}\ndata: #{result[:data]}"
           end
         end
 
-        result
+        result[:data]
       end
 
       private
@@ -119,7 +119,7 @@ module Asciidoctor
       end
 
       def run_mermaid(mermaid, parent_block, source, format, options = {})
-        config['mermaid>=6'] ||= ::Asciidoctor::Diagram::Cli.run(mermaid, '--version').split('.')[0].to_i >= 6
+        config['mermaid>=6'] ||= ::Asciidoctor::Diagram::Cli.run(mermaid, '--version')[:out].split('.')[0].to_i >= 6
         # Mermaid >= 6.0.0 requires PhantomJS 2.1; older version required 1.9
         phantomjs = which(parent_block, 'phantomjs', :alt_attrs => [config['mermaid>=6'] ? 'phantomjs_2' : 'phantomjs_19'])
 

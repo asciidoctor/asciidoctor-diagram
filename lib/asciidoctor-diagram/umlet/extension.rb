@@ -19,9 +19,11 @@ module Asciidoctor
       end
 
       def umlet(parent, source, format)
-        generate_file(which(parent, 'umlet'), 'uxf', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+        result = generate_file(which(parent, 'umlet'), 'uxf', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           [tool_path, '-action=convert', "-format=#{format.to_s}", "-filename=#{Platform.native_path(input_path)}", "-output=#{Platform.native_path(output_path)}"]
         end
+
+        result[:data]
       end
     end
 

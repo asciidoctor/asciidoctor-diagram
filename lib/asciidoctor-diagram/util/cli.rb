@@ -12,7 +12,11 @@ module Asciidoctor
           raise "#{File.basename(args[0])} failed: #{stdout.empty? ? stderr : stdout}"
         end
 
-        stdout.empty? ? stderr : stdout
+        {
+            :out => stdout,
+            :err => stderr,
+            :status => status
+        }
       end
     end
   end
