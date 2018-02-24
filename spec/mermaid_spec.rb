@@ -253,8 +253,9 @@ mermaid::mermaid.txt["without_config"]
   it "should respect the width attribute" do
     seq_diag = <<-eos
 sequenceDiagram
-    Alice->>John: Hello John, how are you?
-    John-->>Alice: Great!
+    Alice->>Bob: Hello Bob, how are you?
+    Bob->>Claire: Hello Claire, how are you?
+    Claire->>Doug: Hello Doug, how are you?
     eos
 
     File.write('mermaid.txt', seq_diag)
