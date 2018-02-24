@@ -4,6 +4,7 @@
 
 Enhancements::
 
+  * Issue #163: Add support for Mermaid.CLI
   * Update PlantUML to revision 2018.1
   * Add initial SVG support for Ditaa
 
