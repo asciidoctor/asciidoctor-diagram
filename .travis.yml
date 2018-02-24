@@ -27,8 +27,8 @@ addons:
       - libglib2.0-0
       - libgtk-3-0
       - libnspr4
-      - libpango-1.0-0
-      - libpangocairo-1.0-0
+      - libpango
+      - libpangocairo
       - libstdc++6
       - libx11-6
       - libx11-xcb1
