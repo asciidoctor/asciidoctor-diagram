@@ -9,6 +9,7 @@ cache:
     - $HOME/.cache/pip
 sudo: required
 addons:
+  chrome: stable
   apt:
     packages:
       - haveged
