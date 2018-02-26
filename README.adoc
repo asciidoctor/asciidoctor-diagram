@@ -13,6 +13,7 @@ ifndef::imagesdir[:imagesdir: images]
 :check: icon:check[]
 ifdef::env-github[:check: :ballot_box_with_check:]
 ifndef::env-site[:status:]
+:uri-a2s: https://github.com/dhobsd/asciitosvg
 :uri-actdiag: http://blockdiag.com/en/actdiag/index.html
 :uri-asciidoctor-api: http://asciidoctor.org/docs/user-manual/#api
 :uri-asciidoctor-extensions: http://asciidoctor.org/docs/user-manual/#extension-points
@@ -42,7 +43,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions supports the BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet] and {uri-wavedrom}[WaveDrom] syntax.
+The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet] and {uri-wavedrom}[WaveDrom] syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -110,6 +111,7 @@ The following diagram types and output formats are available:
 [cols=">,5*^",options="header"]
 |===
 |Diagram Type                |gif    |pdf    |png    |svg    |txt
+|{uri-a2s}[a2s]              |       |       |       |{check}|
 |{uri-actdiag}[actdiag]      |       |{check}|{check}|{check}|
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|{check}|
 |{uri-ditaa}[ditaa]          |       |       |{check}|{check}|
@@ -239,7 +241,7 @@ or load and register each extension individually.
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` can be one of `blockdiag`, `ditaa`, `erd`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, `svgbob`, `syntrax`, or `wavedrom`.
+`<extension_name>` can be one of `a2s`, `blockdiag`, `ditaa`, `erd`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, `svgbob`, `syntrax`, or `wavedrom`.
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
@@ -282,6 +284,7 @@ The following table lists the tools that are required for each diagram type, the
 [cols=">,2*<",options="header"]
 |===
    |Diagram Type |Tool                                                                  |Attribute
+   |a2s          |{uri-a2s}[AsciiToSvg]                                                 |`a2s`
    |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
    |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
    |ditaa        |{uri-java}[Java]                                                      |`java`
@@ -346,6 +349,14 @@ This is illustrated for the blockdiag `fontpath` attribute in the example below.
 Each attribute can either be specified at the block level or at the document level.
 The attribute name at the block level should be prefixed with the name of the diagram type and a dash.
 
+==== AsciiToSVG
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|fontfamily   |unspecified     |The font family to use in the generated SVG image
+|noblur       |unspecified     |Disable drop-shadow blurring
+|===
 
 ==== Blockdiag
 
