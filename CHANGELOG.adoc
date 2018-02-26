@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.9
+
+Enhancements::
+
+  * Add support for ASCIIToSVG
+
 == 1.5.8
 
 Enhancements::
