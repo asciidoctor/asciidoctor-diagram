@@ -60,7 +60,7 @@ ifdef::status[]
 
 image:https://travis-ci.org/asciidoctor/asciidoctor-diagram.svg?branch=master["Linux Build Status", link="https://travis-ci.org/asciidoctor/asciidoctor-diagram"]
 image:https://ci.appveyor.com/api/projects/status/4r4gkk5gy3igs6nh/branch/master?svg=true["Windows Build Status", link="https://ci.appveyor.com/project/asciidoctor/asciidoctor-diagram"]
-image:https://img.shields.io/gem/v/asciidoctor-diagram.svg?label=gem%20version[Gem Version, link=https://rubygems.org/gems/asciidoctor-diagram]
+image:https://badge.fury.io/rb/asciidoctor-diagram.svg[Gem Version, link=https://rubygems.org/gems/asciidoctor-diagram]
 endif::status[]
 
 ifeval::["{toc-placement}" == "macro"]
