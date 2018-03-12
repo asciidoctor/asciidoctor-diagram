@@ -1,6 +1,6 @@
 dist: trusty
 git:
-  depth: 1
+  depth: 10
 language: ruby
 cache:
   apt: true
