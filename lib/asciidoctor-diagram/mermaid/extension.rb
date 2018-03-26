@@ -87,19 +87,30 @@ module Asciidoctor
           if options[:config]
             args << '--configFile' << Platform.native_path(options[:config])
           elsif options[:gantt] || options[:sequence]
-            config = []
+            mermaidConfig = []
 
             if options[:gantt]
-              config << "\"gantt\": #{File.read(options[:gantt])}"
+              mermaidConfig << "\"gantt\": #{File.read(options[:gantt])}"
             end
 
             if options[:sequence]
-              config << "\"sequenceDiagram\": #{File.read(options[:sequence])}"
+              configKey = config['mmdcSequenceConfigKey'] ||= begin
+                version_parts = ::Asciidoctor::Diagram::Cli.run(mmdc, '--version')[:out].split('.').map { |p| p.to_i }
+                major = version_parts[0] || 0
+                minor = version_parts[1] || 0
+                patch = version_parts[2] || 0
+                if major > 0 || (major == 0 && minor > 4) || (major == 0 && minor == 4 && patch > 1)
+                  'sequence'
+                else
+                  'sequenceDiagram'
+                end
+              end
+              mermaidConfig << "\"#{configKey}\": #{File.read(options[:sequence])}"
             end
 
             config_file = "#{input_path}.json"
 
-            File.write(config_file, "{#{config.join ','}}")
+            File.write(config_file, "{#{mermaidConfig.join ','}}")
 
             args << '--configFile' << Platform.native_path(config_file)
           end
