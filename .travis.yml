@@ -78,6 +78,8 @@ install:
   - bundle install --path vendor/bundle --jobs=3 --retry=3
   - npm install -g mermaid.cli
   - npm install -g wavedrom-cli
+  - npm install -g vega
+  - npm install -g vega-lite
   - sudo apt-get install -qq imagemagick
 # Install umlet
   - curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
