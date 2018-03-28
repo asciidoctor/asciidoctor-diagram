@@ -20,6 +20,15 @@ module Asciidoctor
         end
       end
 
+      def generate_stdin_stdout(tool, code)
+        if block_given?
+          opts = yield tool
+        else
+          opts = [tool]
+        end
+        generate(opts, :stdout, :stdin_data => code)
+      end
+
       def generate_file(tool, input_ext, output_ext, code)
         tool_name = File.basename(tool)
 
@@ -57,7 +66,7 @@ module Asciidoctor
 
         result = ::Asciidoctor::Diagram::Cli.run(*args, open3_opts)
 
-        data = read_result(target_file, out_file)
+        data = target_file == :stdout ? result[:out] : read_result(target_file, out_file)
 
         if data.empty?
           raise "#{args[0]} failed: #{result[:out].empty? ? result[:err] : result[:out]}"

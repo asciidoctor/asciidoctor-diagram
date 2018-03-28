@@ -5,6 +5,7 @@
 Enhancements::
 
   * Add support for ASCIIToSVG
+  * Issue #181: Add support for Vega and Vega-Lite
 
 == 1.5.8
 
