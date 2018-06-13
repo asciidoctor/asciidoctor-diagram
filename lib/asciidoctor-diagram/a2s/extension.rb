@@ -28,12 +28,12 @@ module Asciidoctor
         font = source.attr('fontfamily', nil, inherit_prefix)
 
         generate_stdin(which(parent, 'a2s'), format.to_s, source.to_s) do |tool_path, output_path|
-          args = [tool_path, "-o#{Platform.native_path(output_path)}"]
+          args = [tool_path, '-o', Platform.native_path(output_path)]
 
           if sx && sy
-            args << "-s#{sx},#{sy}"
+            args << '-s' << "#{sx},#{sy}"
           elsif scale
-            args << "-s#{scale},#{scale}"
+            args << '-s' << "#{scale},#{scale}"
           end
 
           if noblur
@@ -41,7 +41,7 @@ module Asciidoctor
           end
 
           if font
-            args << "-f#{font}"
+            args << '-f' << font
           end
 
           args
