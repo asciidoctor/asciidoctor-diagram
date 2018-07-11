@@ -58,8 +58,8 @@ module Asciidoctor
           resolve_path(match, parent, parent.attr('imagesdir'))
         end
 
-        code.gsub!(/(?<=!include )[^!\n\r]+/) do |match|
-          resolve_path(match, parent, base_dir)
+        code.gsub!(/(?<=!include )\s*[^<][^!\n\r]+/) do |match|
+          resolve_path(match.lstrip, parent, base_dir)
         end
 
         code
