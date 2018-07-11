@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.10
+
+Bug Fixes::
+
+  * Issue #186: Avoid preprocessing of PlantUML stdlib !includes (@habamax)
+
 == 1.5.9
 
 Enhancements::

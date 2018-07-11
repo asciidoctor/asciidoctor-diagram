@@ -808,6 +808,54 @@ List <|.. ArrayList
     expect(content).to_not include('!include')
   end
 
+  it 'should not resolve stdlib !include directives' do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="svg"]
+----
+@startuml
+!include <font-awesome/common>
+!include <font-awesome/server>
+!include <font-awesome/database>
+
+title Styling example
+
+FA_SERVER(web1,web1) #Green
+FA_SERVER(web2,web2) #Yellow
+FA_SERVER(web3,web3) #Blue
+FA_SERVER(web4,web4) #YellowGreen
+
+FA_DATABASE(db1,LIVE,database,white) #RoyalBlue
+FA_DATABASE(db2,SPARE,database) #Red
+
+db1 <--> db2
+
+web1 <--> db1
+web2 <--> db1
+web3 <--> db1
+web4 <--> db1
+@enduml
+----
+    eos
+
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
+
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exist?(target)).to be true
+
+    content = File.read(target, :encoding => Encoding::UTF_8)
+    expect(content).to_not include('!include')
+  end
+
   it 'should support substitutions' do
     doc = <<-eos
 = Hello, PlantUML!
