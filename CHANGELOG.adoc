@@ -5,6 +5,7 @@
 Bug Fixes::
 
   * Issue #186: Avoid preprocessing of PlantUML stdlib !includes (@habamax)
+  * Issue #190: Skip 'is executable' check when trying to find `wavedrom-cli.js` script
 
 == 1.5.9
 

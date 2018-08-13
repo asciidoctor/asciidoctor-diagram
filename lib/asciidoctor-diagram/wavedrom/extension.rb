@@ -19,7 +19,7 @@ module Asciidoctor
       end
 
       def wavedrom(parent, source, format)
-        wavedrom_cli = which(parent, 'wavedrom', :raise_on_error => false)
+        wavedrom_cli = which(parent, 'wavedrom', :raise_on_error => false, :skip_executable_check => true)
         phantomjs = which(parent, 'phantomjs', :alt_attrs => ['phantomjs_2'], :raise_on_error => false)
 
         if wavedrom_cli && !wavedrom_cli.include?('WaveDromEditor') && phantomjs

@@ -9,11 +9,15 @@ module Asciidoctor
         paths.each do |path|
           exts.each { |ext|
             exe = File.join(path, "#{cmd}#{ext}")
-            return exe if File.executable? exe
+            return exe if is_valid_executable(exe, options)
           }
         end
 
         nil
+      end
+
+      def self.is_valid_executable(exe, options)
+        (options[:skip_executable_check] || File.executable?(exe))
       end
 
       def which(parent_block, cmd, options = {})
@@ -27,7 +31,7 @@ module Asciidoctor
         else
           cmd_path = attr_names.map { |attr_name| parent_block.attr(attr_name, nil, true) }.find { |attr| !attr.nil? }
 
-          unless cmd_path && File.executable?(cmd_path)
+          unless cmd_path && is_valid_executable(cmd_path, options)
             cmd_paths = cmd_names.map do |c|
               ::Asciidoctor::Diagram::Which.which(c, :path => options[:path])
             end
