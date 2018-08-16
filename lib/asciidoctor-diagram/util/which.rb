@@ -17,7 +17,11 @@ module Asciidoctor
       end
 
       def self.is_valid_executable(exe, options)
-        (options[:skip_executable_check] || File.executable?(exe))
+        if options[:skip_executable_check]
+          File.file?(exe)
+        else
+          File.executable?(exe)
+        end
       end
 
       def which(parent_block, cmd, options = {})
