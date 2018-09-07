@@ -6,7 +6,7 @@ module Asciidoctor
     # @private
     module Java
       def self.load
-        if @loaded
+        if defined?(@loaded) && @loaded
           return
         end
 
