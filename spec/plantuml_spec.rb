@@ -818,9 +818,9 @@ Doc Writer <doc@example.com>
 [plantuml, format="svg"]
 ----
 @startuml
-!include <font-awesome/common>
-!include <font-awesome/server>
-!include <font-awesome/database>
+!include <tupadr3/common>
+!include <tupadr3/font-awesome/server>
+!include <tupadr3/font-awesome/database>
 
 title Styling example
 
