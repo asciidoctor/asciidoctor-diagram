@@ -192,7 +192,7 @@ module Asciidoctor
             File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
           end
 
-          image_attributes['target'] = image_name
+          image_attributes['target'] = parent.attr('data-uri') ? image_file : image_name
 
           scale = image_attributes['scale']
           if scalematch = /(\d+(?:\.\d+))/.match(scale)
