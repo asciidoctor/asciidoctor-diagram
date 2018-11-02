@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.11
+
+Enhancements::
+
+  * Issue #198: Simplify usage of asciidoctor-diagram in combination with the `data-uri` attribute
+
 == 1.5.10
 
 Bug Fixes::
