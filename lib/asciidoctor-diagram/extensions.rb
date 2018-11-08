@@ -250,7 +250,7 @@ module Asciidoctor
           if images_dir
             base_dir = nil
           else
-            base_dir = parent.attr('outdir') || option(document, :to_dir)
+            base_dir = parent.attr('outdir') || doc_option(document, :to_dir)
             images_dir = parent.attr('imagesdir')
           end
 
@@ -260,7 +260,7 @@ module Asciidoctor
         def cache_dir(parent)
           document = parent.document
           cache_dir = '.asciidoctor/diagram'
-          base_dir = parent.attr('outdir') || option(document, :to_dir)
+          base_dir = parent.attr('outdir') || doc_option(document, :to_dir)
           parent.normalize_system_path(cache_dir, base_dir)
         end
 
@@ -274,7 +274,7 @@ module Asciidoctor
           Asciidoctor::Block.new parent, :literal, :source => result, :attributes => literal_attributes
         end
 
-        def option(document, key)
+        def doc_option(document, key)
           if document.respond_to?(:options)
             value = document.options[key]
           else
@@ -282,7 +282,7 @@ module Asciidoctor
           end
 
           if document.nested? && value.nil?
-            option(docuemnt.parent_document, key)
+            doc_option(docuemnt.parent_document, key)
           else
             value
           end
@@ -294,9 +294,9 @@ module Asciidoctor
         include DiagramProcessor
 
         def self.inherited(subclass)
-          subclass.option :pos_attrs, :to_dir, ['target', 'format']
-          subclass.option :contexts, :to_dir, [:listing, :literal, :open]
-          subclass.option :content_model, :to_dir, :simple
+          subclass.option :pos_attrs, ['target', 'format']
+          subclass.option :contexts, [:listing, :literal, :open]
+          subclass.option :content_model, :simple
         end
 
         # Creates a ReaderSource from the given reader.
@@ -312,7 +312,7 @@ module Asciidoctor
         include DiagramProcessor
 
         def self.inherited(subclass)
-          subclass.option :pos_attrs, :to_dir, ['target', 'format']
+          subclass.option :pos_attrs, ['target', 'format']
         end
 
         def apply_target_subs(parent, target)
