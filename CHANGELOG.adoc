@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.12
+
+Bug Fixes::
+
+  * Issue #201: Respect `destination-dir` CLI flag for diagrams embedded in tables
+
 == 1.5.11
 
 Enhancements::
