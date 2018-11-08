@@ -250,7 +250,7 @@ module Asciidoctor
           if images_dir
             base_dir = nil
           else
-            base_dir = parent.attr('outdir') || (document.respond_to?(:options) && document.options[:to_dir])
+            base_dir = parent.attr('outdir') || option(document, :to_dir)
             images_dir = parent.attr('imagesdir')
           end
 
@@ -260,7 +260,7 @@ module Asciidoctor
         def cache_dir(parent)
           document = parent.document
           cache_dir = '.asciidoctor/diagram'
-          base_dir = parent.attr('outdir') || (document.respond_to?(:options) && document.options[:to_dir])
+          base_dir = parent.attr('outdir') || option(document, :to_dir)
           parent.normalize_system_path(cache_dir, base_dir)
         end
 
@@ -273,6 +273,20 @@ module Asciidoctor
           result.force_encoding(Encoding::UTF_8)
           Asciidoctor::Block.new parent, :literal, :source => result, :attributes => literal_attributes
         end
+
+        def option(document, key)
+          if document.respond_to?(:options)
+            value = document.options[key]
+          else
+            value = nil
+          end
+
+          if document.nested? && value.nil?
+            option(docuemnt.parent_document, key)
+          else
+            value
+          end
+        end
       end
 
       # Base class for diagram block processors.
@@ -280,9 +294,9 @@ module Asciidoctor
         include DiagramProcessor
 
         def self.inherited(subclass)
-          subclass.option :pos_attrs, ['target', 'format']
-          subclass.option :contexts, [:listing, :literal, :open]
-          subclass.option :content_model, :simple
+          subclass.option :pos_attrs, :to_dir, ['target', 'format']
+          subclass.option :contexts, :to_dir, [:listing, :literal, :open]
+          subclass.option :content_model, :to_dir, :simple
         end
 
         # Creates a ReaderSource from the given reader.
@@ -298,7 +312,7 @@ module Asciidoctor
         include DiagramProcessor
 
         def self.inherited(subclass)
-          subclass.option :pos_attrs, ['target', 'format']
+          subclass.option :pos_attrs, :to_dir, ['target', 'format']
         end
 
         def apply_target_subs(parent, target)
@@ -333,14 +347,14 @@ module Asciidoctor
         end
 
         # Get the value for the specified attribute. First look in the attributes on
-        # this node and return the value of the attribute if found. Otherwise, if
-        # this node is a child of the Document node, look in the attributes of the
-        # Document node and return the value of the attribute if found. Otherwise,
+        # this document and return the value of the attribute if found. Otherwise, if
+        # this document is a child of the Document document, look in the attributes of the
+        # Document document and return the value of the attribute if found. Otherwise,
         # return the default value, which defaults to nil.
         #
         # @param name [String, Symbol] the name of the attribute to lookup
         # @param default_value [Object] the value to return if the attribute is not found
-        # @inherit [Boolean, String] indicates whether to check for the attribute on the AsciiDoctor::Document if not found on this node.
+        # @inherit [Boolean, String] indicates whether to check for the attribute on the AsciiDoctor::Document if not found on this document.
         #                            When a non-nil String is given the an attribute name "#{inherit}-#{name}" is looked for on the document.
         #
         # @return the value of the attribute or the default value if the attribute is not found in the attributes of this node or the document node
