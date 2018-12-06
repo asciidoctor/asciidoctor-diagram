@@ -5,6 +5,8 @@
 Bug Fixes::
 
   * Issue #201: Respect `destination-dir` CLI flag for diagrams embedded in tables
+  * Issue #203: Update Batik to 1.10
+  * Update PlantUML to 2018.13
 
 == 1.5.11
 
