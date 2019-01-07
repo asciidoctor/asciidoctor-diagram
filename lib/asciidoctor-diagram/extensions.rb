@@ -510,7 +510,13 @@ module Asciidoctor
         def read_code
           if @file_name
             lines = File.readlines(@file_name)
-            lines = ::Asciidoctor::Helpers.normalize_lines(lines)
+            lines = if ::Asciidoctor::Helpers.respond_to?(:normalize_lines)
+                      ::Asciidoctor::Helpers.normalize_lines(lines)
+                    else
+                      # normalize_lines was renamed to prepare_source_string
+                      # https://github.com/asciidoctor/asciidoctor/commit/83619ac4e1b8207614c1500a0012d30af28db68b
+                      ::Asciidoctor::Helpers.prepare_source_string(lines)
+                    end
             @parent_block.apply_subs(lines, resolve_diagram_subs).join("\n")
           else
             ''
