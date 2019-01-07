@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_development_dependency "bundler", "~> 1.3"
-  s.add_development_dependency "rake"
+  s.add_development_dependency "rake", '< 11.0' # https://stackoverflow.com/a/35893625
   s.add_development_dependency "rspec"
 
   s.add_runtime_dependency "asciidoctor", ENV["ASCIIDOCTOR_VERSION"] || "~> 1.5.0"
