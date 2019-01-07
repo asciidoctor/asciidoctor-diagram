@@ -1,5 +1,6 @@
 require_relative '../extensions'
 require_relative '../util/which'
+require_relative 'converter'
 require 'uri'
 
 module Asciidoctor
@@ -10,47 +11,25 @@ module Asciidoctor
 
       private
 
-      JARS = [
-          'plantuml-1.3.13.jar',
-          'plantuml.jar',
-          'jlatexmath-minimal-1.0.5.jar',
-          'batik-all-1.10.jar'
-      ].map do |jar|
-        File.expand_path File.join('../..', jar), File.dirname(__FILE__)
-      end
-      Java.classpath.concat JARS
-
       def plantuml(parent_block, source, tag, mime_type)
-        Java.load
-
         inherit_prefix = name
         code = preprocess_code(parent_block, source, tag)
+        opts = prepare_options(inherit_prefix, mime_type, parent_block, source)
+        PlantUmlConverter.convert(code, opts)
+      end
 
-        headers = {
-            'Accept' => mime_type
-        }
-
+      def prepare_options(inherit_prefix, mime_type, parent_block, source)
+        opts = {}
+        opts['mime_type'] = mime_type
         config_file = source.attr('plantumlconfig', nil, true) || source.attr('config', nil, inherit_prefix)
         if config_file
-          headers['X-PlantUML-Config'] = File.expand_path(config_file, source.attr('docdir', nil, true))
+          opts['config_file'] = File.expand_path(config_file, source.attr('docdir', nil, true))
         end
-
-        dot = which(parent_block, 'dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
+        dot = which(parent_block, 'dot', alt_attrs: ['graphvizdot'], raise_on_error: false)
         if dot
-          headers['X-Graphviz'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
+          opts['graphviz_bin_path'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
         end
-
-        response = Java.send_request(
-            :url => '/plantuml',
-            :body => code,
-            :headers => headers
-        )
-
-        unless response[:code] == 200
-          raise Java.create_error("PlantUML image generation failed", response)
-        end
-
-        response[:body]
+        opts
       end
 
       def preprocess_code(parent, source, tag)
