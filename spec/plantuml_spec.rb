@@ -1005,3 +1005,33 @@ Doc Writer <doc@example.com>
     expect(b.attributes['height']).to_not be_nil
   end
 end
+
+
+describe Asciidoctor::Diagram::PlantUmlConverter do
+
+  class DiagramConverter; end
+  it 'should create a valid request with headers' do
+    converter = DiagramConverter.new
+    converter.extend(Asciidoctor::Diagram::PlantUmlConverter)
+    opts = {}
+    opts['mime_type'] = 'image/png'
+    opts['config_file'] = '/path/to/plantuml.config'
+    opts['graphviz_bin_path'] = '/path/to/graphviz'
+    headers = {}
+    headers['X-PlantUML-Config']= '/path/to/plantuml.config'
+    headers['X-Graphviz']='/path/to/graphviz'
+    headers['Accept'] = 'image/png'
+    expect(converter).to receive(:send_request).with('foo', headers)
+    converter.convert('foo', opts)
+  end
+  it 'should create a valid request (mime type is mandatory)' do
+    converter = DiagramConverter.new
+    converter.extend(Asciidoctor::Diagram::PlantUmlConverter)
+    opts = {}
+    opts['mime_type'] = 'image/png'
+    headers = {}
+    headers['Accept'] = 'image/png'
+    expect(converter).to receive(:send_request).with('bar', headers)
+    converter.convert('bar', opts)
+  end
+end

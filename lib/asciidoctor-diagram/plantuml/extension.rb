@@ -8,6 +8,7 @@ module Asciidoctor
     # @private
     module PlantUml
       include Which
+      include PlantUmlConverter
 
       private
 
@@ -15,7 +16,7 @@ module Asciidoctor
         inherit_prefix = name
         code = preprocess_code(parent_block, source, tag)
         opts = prepare_options(inherit_prefix, mime_type, parent_block, source)
-        PlantUmlConverter.convert(code, opts)
+        convert(code, opts)
       end
 
       def prepare_options(inherit_prefix, mime_type, parent_block, source)

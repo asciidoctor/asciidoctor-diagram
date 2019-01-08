@@ -7,16 +7,17 @@ module Asciidoctor
       end
       Java.classpath.concat JARS
 
-      def self.convert(source, opts)
-        headers = {
-          Accept: opts['mime_type']
-        }
+      def convert(source, opts)
+        headers = {}
+        headers['Accept'] = opts['mime_type']
         headers['X-PlantUML-Config'] = opts['config_file'] if opts['config_file']
         headers['X-Graphviz'] = opts['graphviz_bin_path'] if opts['graphviz_bin_path']
         send_request(source, headers)
       end
 
-      def self.send_request(body, headers, url = '/plantuml')
+      private
+
+      def send_request(body, headers, url = '/plantuml')
         Java.load
         response = Java.send_request(
           url: url,
