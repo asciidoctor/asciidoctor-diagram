@@ -510,10 +510,47 @@ module Asciidoctor
         def read_code
           if @file_name
             lines = File.readlines(@file_name)
-            lines = ::Asciidoctor::Helpers.normalize_lines(lines)
+            lines = prepare_source_array(lines)
             @parent_block.apply_subs(lines, resolve_diagram_subs).join("\n")
           else
             ''
+          end
+        end
+
+        private
+
+        # Byte arrays for UTF-* Byte Order Marks
+        BOM_BYTES_UTF_8 = [0xef, 0xbb, 0xbf]
+        BOM_BYTES_UTF_16LE = [0xff, 0xfe]
+        BOM_BYTES_UTF_16BE = [0xfe, 0xff]
+
+        # Prepare the source data Array for parsing.
+        #
+        # Encodes the data to UTF-8, if necessary, and removes any trailing
+        # whitespace from every line.
+        #
+        # If a BOM is found at the beginning of the data, a best attempt is made to
+        # encode it to UTF-8 from the specified source encoding.
+        #
+        # data - the source data Array to prepare (no nil entries allowed)
+        #
+        # returns a String Array of prepared lines
+        def prepare_source_array data
+          return [] if data.empty?
+          if (leading_2_bytes = (leading_bytes = (first = data[0]).unpack 'C3').slice 0, 2) == BOM_BYTES_UTF_16LE
+            data[0] = first.byteslice 2, first.bytesize
+            # NOTE you can't split a UTF-16LE string using .lines when encoding is UTF-8; doing so will cause this line to fail
+            return data.map {|line| (line.encode ::Encoding::UTF_8, ::Encoding::UTF_16LE).rstrip }
+          elsif leading_2_bytes == BOM_BYTES_UTF_16BE
+            data[0] = first.byteslice 2, first.bytesize
+            return data.map {|line| (line.encode ::Encoding::UTF_8, ::Encoding::UTF_16BE).rstrip }
+          elsif leading_bytes == BOM_BYTES_UTF_8
+            data[0] = first.byteslice 3, first.bytesize
+          end
+          if first.encoding == ::Encoding::UTF_8
+            data.map {|line| line.rstrip }
+          else
+            data.map {|line| (line.encode ::Encoding::UTF_8).rstrip }
           end
         end
       end
