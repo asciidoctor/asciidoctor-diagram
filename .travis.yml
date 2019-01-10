@@ -52,23 +52,26 @@ addons:
       - wget
 python:
   - 2.7
-rvm:
-  - &release_ruby 2.6.0
-  - 2.5.3
-  - 2.4.5
-  - 2.3.8
-  - jruby-1.7.27
-#  - jruby-head
-gemfile:
-  - Gemfile
-  - Gemfile.master
+matrix:
+  include:
+    - rvm: &release_ruby 2.6.0
+      gemfile: Gemfile
+    - rvm: &release_ruby 2.6.0
+      gemfile: Gemfile.master
+    - rvm: 2.5.3
+    - rvm: 2.4.5
+    - rvm: 2.3.8
+    - rvm: jruby-1.7.27
+      env: REINSTALL_BUNDLER=true
+#   - rvm: jruby-head
 before_install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-#  - gem update --system
-#  - gem --version
-  - gem install bundler
+# - gem update --system
+# - gem --version
+  - test $REINSTALL_BUNDLER && gem install bundler -v '< 2' || true
+  - type bundle || gem install bundler -v '< 2'
   - sudo apt-get update -qq
 install:
   - sudo apt-get install -qq graphviz
@@ -82,7 +85,7 @@ install:
   - npm install -g vega
   - npm install -g vega-lite
   - sudo apt-get install -qq imagemagick
-# Install umlet
+  # Install umlet
   - curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
   - unzip -qq umlet-standalone-14.2.zip
   - cp Umlet/umlet.sh Umlet/umlet
