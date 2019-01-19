@@ -1,22 +1,77 @@
-require 'tempfile'
-require 'open3'
-
 module Asciidoctor
   module Diagram
     # @private
     module Cli
-      def self.run(*args)
-        stdout, stderr, status = Open3.capture3(*args)
+      if RUBY_PLATFORM == "java"
+        require_relative 'java'
 
-        if status.exitstatus != 0
-          raise "#{File.basename(args[0])} failed: #{stdout.empty? ? stderr : stdout}"
+        def self.run(*args)
+          opts = args.pop if args.last.is_a? Hash
+          in_data = opts && opts[:stdin_data]
+
+          pb = java.lang.ProcessBuilder.new(*args)
+          p = pb.start
+
+          stdout = ""
+          out_reader = start_stream_reader(p.getInputStream, stdout)
+          stderr = ""
+          err_reader = start_stream_reader(p.getErrorStream, stderr)
+
+          if in_data
+            p.getOutputStream.write(in_data.to_java_bytes)
+            p.getOutputStream.close
+          end
+
+          p.waitFor
+
+          out_reader.join
+          err_reader.join
+
+          status = p.exitValue
+
+          if status != 0
+            raise "#{File.basename(args[0])} failed: #{stdout.empty? ? stderr : stdout}"
+          end
+
+          {
+              :out => stdout,
+              :err => stderr,
+              :status => status
+          }
         end
 
-        {
-            :out => stdout,
-            :err => stderr,
-            :status => status
-        }
+        private
+        def self.start_stream_reader(in_stream, out_string)
+          Thread.new {
+            buffer = ::Java::byte[4096].new
+            while (bytes_read = in_stream.read(buffer)) != -1
+              if bytes_read < buffer.length
+                str = String.from_java_bytes(java.util.Arrays.copyOf(buffer, bytes_read))
+              else
+                str = String.from_java_bytes(buffer)
+              end
+              out_string << str
+            end
+          }
+        end
+      else
+        require 'open3'
+
+        def self.run(*args)
+          stdout, stderr, status = Open3.capture3(*args)
+
+          exit = status.exitstatus
+
+          if exit != 0
+            raise "#{File.basename(args[0])} failed: #{stdout.empty? ? stderr : stdout}"
+          end
+
+          {
+              :out => stdout,
+              :err => stderr,
+              :status => exit
+          }
+        end
       end
     end
   end
