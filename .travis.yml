@@ -54,24 +54,19 @@ python:
   - 2.7
 matrix:
   include:
-    - rvm: &release_ruby 2.6.0
+    - rvm: &release_ruby 2.6
       gemfile: Gemfile
-    - rvm: &release_ruby 2.6.0
+    - rvm: &release_ruby 2.6
       gemfile: Gemfile.master
-    - rvm: 2.5.3
-    - rvm: 2.4.5
-    - rvm: 2.3.8
-    - rvm: jruby-1.7.27
-      env: REINSTALL_BUNDLER=true
-#   - rvm: jruby-head
+    - rvm: 2.5
+    - rvm: 2.4
+    - rvm: 2.3
+    - rvm: jruby
 before_install:
   - . $HOME/.nvm/nvm.sh
   - nvm install stable
   - nvm use stable
-# - gem update --system
-# - gem --version
-  - test $REINSTALL_BUNDLER && gem install bundler -v '< 2' || true
-  - type bundle || gem install bundler -v '< 2'
+  - gem install bundler
   - sudo apt-get update -qq
 install:
   - sudo apt-get install -qq graphviz
