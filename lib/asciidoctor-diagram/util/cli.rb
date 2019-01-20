@@ -3,6 +3,9 @@ module Asciidoctor
     # @private
     module Cli
       if RUBY_PLATFORM == "java"
+        # Workaround for https://github.com/jruby/jruby/issues/5565
+        #   Kernel.spawn (and as a consequence Open3.capture3 which uses it)
+        #   is not reliable on all versions of JRuby.
         require_relative 'java'
 
         def self.run(*args)
