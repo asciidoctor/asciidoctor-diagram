@@ -4,7 +4,7 @@
 
 Bug Fixes::
 
-  * Issue #201: Second attempt at respecting `destination-dir` CLI flag for diagrams embedded in tables
+  * Issue #212: Fix regression introduced by fix for #201 in 1.5.12
 
 == 1.5.12
 
