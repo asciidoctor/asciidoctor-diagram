@@ -532,6 +532,60 @@ Foo1 -> Foo2 : To boundary
     expect(File.exist?(File.expand_path(target, 'foo'))).to be true
   end
 
+  it 'should write files to to_dir if set' do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="svg"]
+----
+actor Foo1
+boundary Foo2
+Foo1 -> Foo2 : To boundary
+----
+    eos
+
+    d = load_asciidoc doc, {:to_dir => 'foo'}
+    b = d.find { |bl| bl.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exist?(target)).to be false
+    expect(File.exist?(File.expand_path(target, 'foo'))).to be true
+  end
+
+  it 'should write files to to_dir if set when embedded in table' do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+|===
+|Type | Example
+
+|graphviz
+a|
+[plantuml, format="svg"]
+----
+actor Foo1
+boundary Foo2
+Foo1 -> Foo2 : To boundary
+----
+|===
+    eos
+
+    d = load_asciidoc doc, {:to_dir => 'foo'}
+    b = d.find { |bl| bl.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exist?(target)).to be false
+    expect(File.exist?(File.expand_path(target, 'foo'))).to be true
+  end
+
   it 'should write files to imagesoutdir if set' do
     doc = <<-eos
 = Hello, PlantUML!

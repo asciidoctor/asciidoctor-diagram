@@ -40,6 +40,22 @@ module Asciidoctor
       nil
     end
   end
+
+  class Table
+    def find(&block)
+      rows.by_section.each do |section, rows|
+        rows.each do |row|
+          row.each do |cell|
+            inner_doc = cell.inner_document
+            if !inner_doc.nil? && found_block = cell.inner_document.find(&block)
+              return found_block
+            end
+          end
+        end
+      end
+      nil
+    end
+  end
 end
 
 module Asciidoctor
