@@ -282,7 +282,7 @@ module Asciidoctor
           end
 
           if document.nested? && value.nil?
-            doc_option(docuemnt.parent_document, key)
+            doc_option(document.parent_document, key)
           else
             value
           end
