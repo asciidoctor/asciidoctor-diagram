@@ -2,14 +2,12 @@ require_relative '../extensions'
 require_relative '../util/cli'
 require_relative '../util/cli_generator'
 require_relative '../util/platform'
-require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
     # @private
     module Mermaid
       include CliGenerator
-      include Which
 
       def self.included(mod)
         [:png, :svg].each do |f|
@@ -41,7 +39,7 @@ module Asciidoctor
 
         options[:width] = source.attr('width', nil, inherit_prefix)
 
-        mmdc = which(parent_block, 'mmdc', :raise_on_error => false)
+        mmdc = source.find_command('mmdc', :raise_on_error => false)
         if mmdc
           options[:height] = source.attr('height', nil, inherit_prefix)
           options[:theme] = source.attr('theme', nil, inherit_prefix)
@@ -52,7 +50,7 @@ module Asciidoctor
           end
           run_mmdc(mmdc, source, format, options)
         else
-          mermaid = which(parent_block, 'mermaid')
+          mermaid = source.find_command('mermaid')
           run_mermaid(mermaid, parent_block, source, format, options)
         end
       end
@@ -122,7 +120,7 @@ module Asciidoctor
       def run_mermaid(mermaid, parent_block, source, format, options = {})
         config['mermaid>=6'] ||= ::Asciidoctor::Diagram::Cli.run(mermaid, '--version')[:out].split('.')[0].to_i >= 6
         # Mermaid >= 6.0.0 requires PhantomJS 2.1; older version required 1.9
-        phantomjs = which(parent_block, 'phantomjs', :alt_attrs => [config['mermaid>=6'] ? 'phantomjs_2' : 'phantomjs_19'])
+        phantomjs = source.find_command('phantomjs', :alt_attrs => [config['mermaid>=6'] ? 'phantomjs_2' : 'phantomjs_19'])
 
         generate_file(mermaid, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           output_dir = File.dirname(output_path)

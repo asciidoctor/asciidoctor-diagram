@@ -304,7 +304,7 @@ module Asciidoctor
         #
         # @return [ReaderSource] a ReaderSource
         def create_source(parent_block, reader, attributes)
-          ReaderSource.new(parent_block, reader, attributes)
+          ReaderSource.new(self, parent_block, reader, attributes)
         end
       end
 
@@ -328,7 +328,7 @@ module Asciidoctor
         #
         # @return [FileSource] a FileSource
         def create_source(parent, target, attributes)
-          FileSource.new(parent, apply_target_subs(parent, target), attributes)
+          FileSource.new(self, parent, apply_target_subs(parent, target), attributes)
         end
       end
 
@@ -339,9 +339,14 @@ module Asciidoctor
 
         attr_reader :attributes
 
-        def initialize(parent_block, attributes)
+        def initialize(block_processor, parent_block, attributes)
+          @block_processor = block_processor
           @parent_block = parent_block
           @attributes = attributes
+        end
+
+        def config
+          @block_processor.config
         end
 
         def image_name
@@ -402,8 +407,8 @@ module Asciidoctor
       class ReaderSource < BasicSource
         include DiagramSource
 
-        def initialize(parent_block, reader, attributes)
-          super(parent_block, attributes)
+        def initialize(block_processor, parent_block, reader, attributes)
+          super(block_processor, parent_block, attributes)
           @reader = reader
         end
 
@@ -414,8 +419,8 @@ module Asciidoctor
 
       # A diagram source that retrieves the code for a diagram from an external source file.
       class FileSource < BasicSource
-        def initialize(parent_block, file_name, attributes)
-          super(parent_block, attributes)
+        def initialize(block_processor, parent_block, file_name, attributes)
+          super(block_processor, parent_block, attributes)
           @file_name = file_name
         end
 
