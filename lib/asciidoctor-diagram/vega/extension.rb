@@ -22,7 +22,7 @@ module Asciidoctor
         code = source.to_s
 
         if code.include?('/schema/vega-lite/') || name.to_s.include?('lite') || source.attr('vegalite')
-          vega_code = generate_stdin_stdout(souce.find_command("vl2vg"), code)
+          vega_code = generate_stdin_stdout(source.find_command("vl2vg"), code)
         else
           vega_code = code
         end
