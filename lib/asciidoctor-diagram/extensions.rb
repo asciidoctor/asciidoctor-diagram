@@ -59,6 +59,16 @@ module Asciidoctor
         def default_format
           @default_format
         end
+
+        def use_converter(type)
+          converter = type.new
+          converter.supported_formats.each do |format|
+            register_format(format, :image) do |parent, source|
+              options = converter.collect_options(source, name)
+              converter.convert(source, format, options)
+            end
+          end
+        end
       end
 
       # Mixin that provides the basic machinery for image generation.
