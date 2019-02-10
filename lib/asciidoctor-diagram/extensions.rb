@@ -355,6 +355,10 @@ module Asciidoctor
           @attributes = attributes
         end
 
+        def resolve_path target, start = nil
+          @parent_block.normalize_system_path(target, start)
+        end
+
         def config
           @block_processor.config
         end
