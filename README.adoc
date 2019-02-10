@@ -26,6 +26,7 @@ ifndef::env-site[:status:]
 :uri-java: http://java.sun.com
 :uri-mermaid: https://github.com/mermaidjs/mermaid.cli
 :uri-mscgen: http://www.mcternan.me.uk/mscgen/
+:uri-nomnoml: http://nomnoml.com
 :uri-nwdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-packetdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-phantomjs: http://phantomjs.org
@@ -45,7 +46,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
+The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -124,6 +125,7 @@ The following diagram types and output formats are available:
 |<<meme,meme>>               |{check}|       |{check}|       |
 |{uri-mermaid}[mermaid]      |       |{check}|{check}|{check}|
 |{uri-mscgen}[msc]           |       |       |{check}|{check}|
+|{uri-nomnoml}[nomnoml]      |       |       |       |{check}|
 |{uri-nwdiag}[nwdiag]        |       |{check}|{check}|{check}|
 |{uri-packetdiag}[packetdiag]|       |{check}|{check}|{check}|
 |{uri-plantuml}[plantuml]    |       |       |{check}|{check}|{check}
@@ -299,6 +301,7 @@ The following table lists the tools that are required for each diagram type, the
    |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
    |mermaid      |{uri-mermaid}[Mermaid.cli]                                            |`mermaid`
    |msc          |{uri-mscgen}[Mscgen]                                                  |`mscgen`
+   |nomnoml      |{uri-nomnoml}[Nomnoml]                                                |`nomnoml`
    |nwdiag       |{uri-nwdiag}[NwDiag]                                                  |`nwdiag`
    |packetdiag   |{uri-nwdiag}[NwDiag]                                                  |`packetdiag`
    |plantuml     |{uri-java}[Java]                                                      |`java`
