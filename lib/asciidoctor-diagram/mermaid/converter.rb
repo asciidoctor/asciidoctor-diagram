@@ -43,7 +43,7 @@ module Asciidoctor
           opts[:gantt] = source.resolve_path(gantt_config)
         end
 
-        seq_config = opts[:seq_config]
+        seq_config = options[:seq_config]
         if seq_config
           opts[:sequence] = source.resolve_path(seq_config)
         end
