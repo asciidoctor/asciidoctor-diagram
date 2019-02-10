@@ -95,7 +95,7 @@ module Asciidoctor
         cmd_path
       end
 
-      def resolve_path target, start = nil
+      def resolve_path target, start = base_dir
         raise NotImplementedError.new
       end
     end

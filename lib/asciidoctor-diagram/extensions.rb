@@ -355,7 +355,7 @@ module Asciidoctor
           @attributes = attributes
         end
 
-        def resolve_path target, start = nil
+        def resolve_path target, start = base_dir
           @parent_block.normalize_system_path(target, start)
         end
 
