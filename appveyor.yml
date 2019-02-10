@@ -20,6 +20,7 @@ install:
 #  - ps: msiexec /i graphviz.msi /qn /norestart
 #  - set PATH=C:\Program Files (x86)\Graphviz2.38\bin;%PATH%
   - cinst imagemagick.tool
+  - npm install -g nomnoml
   - npm install -g mermaid.cli
   - npm install -g wavedrom-cli
 # Install umlet
