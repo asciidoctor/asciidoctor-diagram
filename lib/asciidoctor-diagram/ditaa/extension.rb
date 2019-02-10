@@ -38,12 +38,10 @@ module Asciidoctor
       def ditaa(parent, source, mime_type)
         Java.load
 
-        global_attributes = parent.document.attributes
-
         options = []
 
         OPTIONS.keys.each do |key|
-          value = source.attributes.delete(key) || global_attributes["ditaa-option-#{key}"]
+          value = source.attr(key, nil, 'ditaa') || source.attr(key, nil, 'ditaa-option')
           OPTIONS[key].call(options, value)
         end
 
