@@ -1,28 +1,26 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
 require_relative '../util/platform'
-require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
     # @private
     module TikZ
       include CliGenerator
-      include Which
 
       def self.included(mod)
         [:pdf, :svg].each do |f|
           mod.register_format(f, :image) do |parent, source|
-            tikz(parent, source, f)
+            tikz(source, f)
           end
         end
       end
 
-      def tikz(parent, source, format)
-        latexpath = which(parent, 'pdflatex')
+      def tikz(source, format)
+        latexpath = source.find_command('pdflatex')
 
         if format == :svg
-          svgpath = which(parent, 'pdf2svg')
+          svgpath = source.find_command('pdf2svg')
         else
           svgpath = nil
         end

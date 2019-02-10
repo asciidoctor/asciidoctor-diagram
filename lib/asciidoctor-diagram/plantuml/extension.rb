@@ -1,12 +1,10 @@
 require_relative '../extensions'
-require_relative '../util/which'
 require 'uri'
 
 module Asciidoctor
   module Diagram
     # @private
     module PlantUml
-      include Which
 
       private
 
@@ -35,7 +33,7 @@ module Asciidoctor
           headers['X-PlantUML-Config'] = File.expand_path(config_file, source.attr('docdir', nil, true))
         end
 
-        dot = which(parent_block, 'dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
+        dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
         if dot
           headers['X-Graphviz'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
         end

@@ -1,27 +1,25 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
 require_relative '../util/platform'
-require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
     # @private
     module Syntrax
       include CliGenerator
-      include Which
 
       def self.included(mod)
         [:png, :svg].each do |f|
           mod.register_format(f, :image) do |parent, source|
-            syntrax(parent, source, f)
+            syntrax(source, f)
           end
         end
       end
 
-      def syntrax(parent, source, format)
+      def syntrax(source, format)
         inherit_prefix = name
 
-        generate_file(which(parent, 'syntrax'), 'spec', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+        generate_file(source.find_command('syntrax'), 'spec', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           args = [tool_path, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)]
 
           title = source.attr('heading', nil, inherit_prefix)

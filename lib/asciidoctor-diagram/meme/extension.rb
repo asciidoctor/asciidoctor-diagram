@@ -1,6 +1,5 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
-require_relative '../util/which'
 require 'tempfile'
 require 'open3'
 
@@ -8,7 +7,6 @@ module Asciidoctor
   module Diagram
     # @private
     module Meme
-      include Which
 
       def self.included(mod)
         [:png, :gif].each do |format|
@@ -19,14 +17,14 @@ module Asciidoctor
       end
 
       def meme(parent_block, source, format)
-        convert = which(parent_block, 'convert')
-        identify = which(parent_block, 'identify')
+        convert = source.find_command('convert')
+        identify = source.find_command('identify')
         inherit_prefix = name
 
         bg_img = source.attr('background', nil, inherit_prefix)
         raise "background attribute is required" unless bg_img
 
-        bg_img = parent_block.normalize_system_path(bg_img, parent_block.attr('imagesdir'))
+        bg_img = parent_block.normalize_system_path(bg_img, source.attr('imagesdir'))
 
         top_label = source.attr('top')
         bottom_label = source.attr('bottom')
@@ -123,7 +121,7 @@ module Asciidoctor
       def create_source(parent, target, attributes)
         attributes = attributes.dup
         attributes['background'] = apply_target_subs(parent, target)
-        ::Asciidoctor::Diagram::Extensions::ReaderSource.new(parent, StringReader.new(''), attributes)
+        ::Asciidoctor::Diagram::Extensions::ReaderSource.new(self, parent, StringReader.new(''), attributes)
       end
     end
   end

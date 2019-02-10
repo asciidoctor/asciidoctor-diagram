@@ -1,24 +1,22 @@
 require_relative '../extensions'
 require_relative '../util/cli_generator'
 require_relative '../util/platform'
-require_relative '../util/which'
 
 module Asciidoctor
   module Diagram
     # @private
     module AsciiToSvg
       include CliGenerator
-      include Which
 
       def self.included(mod)
         [:svg].each do |f|
           mod.register_format(f, :image) do |parent, source|
-            a2s(parent, source, f)
+            a2s(source, f)
           end
         end
       end
 
-      def a2s(parent, source, format)
+      def a2s(source, format)
         inherit_prefix = name
 
         sx = source.attr('scalex', nil, inherit_prefix)
@@ -27,7 +25,7 @@ module Asciidoctor
         noblur = source.attr('noblur', 'false', inherit_prefix) == 'true'
         font = source.attr('fontfamily', nil, inherit_prefix)
 
-        generate_stdin(which(parent, 'a2s'), format.to_s, source.to_s) do |tool_path, output_path|
+        generate_stdin(source.find_command('a2s'), format.to_s, source.to_s) do |tool_path, output_path|
           args = [tool_path, '-o', Platform.native_path(output_path)]
 
           if sx && sy
