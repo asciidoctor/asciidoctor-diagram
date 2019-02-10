@@ -23,7 +23,7 @@ code = <<-eos
 [<actor>Sailor] - [<usecase>shiver me;timbers]
 eos
 
-describe Asciidoctor::Diagram::NomnomlBlockMacroProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::NomnomlBlockMacroProcessor do
   it "should generate SVG images when format is set to 'svg'" do
     File.write('nomnoml.txt', code)
 
