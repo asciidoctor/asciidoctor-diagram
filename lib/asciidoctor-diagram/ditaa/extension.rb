@@ -1,6 +1,5 @@
 require_relative 'converter'
 require_relative '../extensions'
-require_relative '../util/java'
 
 module Asciidoctor
   module Diagram

@@ -1,4 +1,5 @@
 require_relative 'converter'
+require_relative '../extensions'
 
 module Asciidoctor
   module Diagram

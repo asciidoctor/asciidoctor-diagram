@@ -1,7 +1,5 @@
 require_relative 'converter'
 require_relative '../extensions'
-require_relative '../util/cli_generator'
-require_relative '../util/platform'
 
 module Asciidoctor
   module Diagram
