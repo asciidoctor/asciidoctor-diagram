@@ -35,7 +35,7 @@ module Asciidoctor
       # @return [String] the base directory against which relative paths in this diagram should be resolved
       # @abstract
       def base_dir
-        attr('docdir', nil, true)
+        attr('docdir', nil, true) || Dir.pwd
       end
 
       # Alias for code

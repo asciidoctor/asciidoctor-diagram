@@ -7,8 +7,8 @@ module Asciidoctor
         raise NotImplementedError.new
       end
 
-      def collect_options(source)
-        raise NotImplementedError.new
+      def collect_options(source, name)
+        {}
       end
 
       def convert(source, format, options)

@@ -30,7 +30,7 @@ module Asciidoctor
 
         config_file = source.attr('plantumlconfig', nil, true) || source.attr('config', nil, inherit_prefix)
         if config_file
-          headers['X-PlantUML-Config'] = File.expand_path(config_file, source.attr('docdir', nil, true))
+          headers['X-PlantUML-Config'] = File.expand_path(config_file, source.base_dir)
         end
 
         dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
