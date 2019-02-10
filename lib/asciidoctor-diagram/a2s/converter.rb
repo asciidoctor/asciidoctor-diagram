@@ -18,7 +18,7 @@ module Asciidoctor
         options[:sx] = source.attr('scalex', nil, name)
         options[:sy] = source.attr('scaley', nil, name)
         options[:scale] = source.attr('scale', nil, name)
-        options[:noblur] = source.attr('noblur', 'false', name) == 'true'
+        options[:noblur] = source.attr('noblur', nil, name) == 'true'
         options[:font] = source.attr('fontfamily', nil, name)
         options
       end
