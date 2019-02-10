@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.14
+
+Enhancements::
+
+  * Add support for Nomnoml (@Mogztter)
+
 == 1.5.13
 
 Bug Fixes::
