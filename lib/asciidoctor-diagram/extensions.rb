@@ -418,9 +418,9 @@ module Asciidoctor
           if value.nil? && inherit
             case inherit
               when String, Symbol
-                value = @parent_block.attr("#{inherit.to_s}-#{name}", default_value, true)
+                value = @parent_block.attr("#{inherit.to_s}-#{name}", default_value)
               else
-                value = @parent_block.attr(name, default_value, true)
+                value = @parent_block.attr(name, default_value)
             end
           end
 
