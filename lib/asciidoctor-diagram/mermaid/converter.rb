@@ -103,7 +103,7 @@ module Asciidoctor
             end
 
             if options[:sequence]
-              configKey = config['mmdcSequenceConfigKey'] ||= begin
+              configKey = source.config['mmdcSequenceConfigKey'] ||= begin
                 version_parts = ::Asciidoctor::Diagram::Cli.run(mmdc, '--version')[:out].split('.').map { |p| p.to_i }
                 major = version_parts[0] || 0
                 minor = version_parts[1] || 0
@@ -129,9 +129,9 @@ module Asciidoctor
       end
 
       def run_mermaid(mermaid, source, format, options = {})
-        config['mermaid>=6'] ||= ::Asciidoctor::Diagram::Cli.run(mermaid, '--version')[:out].split('.')[0].to_i >= 6
+        source.config['mermaid>=6'] ||= ::Asciidoctor::Diagram::Cli.run(mermaid, '--version')[:out].split('.')[0].to_i >= 6
         # Mermaid >= 6.0.0 requires PhantomJS 2.1; older version required 1.9
-        phantomjs = source.find_command('phantomjs', :alt_attrs => [config['mermaid>=6'] ? 'phantomjs_2' : 'phantomjs_19'])
+        phantomjs = source.find_command('phantomjs', :alt_attrs => [source.config['mermaid>=6'] ? 'phantomjs_2' : 'phantomjs_19'])
 
         generate_file(mermaid, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           output_dir = File.dirname(output_path)
