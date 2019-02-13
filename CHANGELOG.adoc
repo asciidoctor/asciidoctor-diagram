@@ -3,8 +3,8 @@
 == 1.5.14
 
 Enhancements::
-
   * Add support for Nomnoml (@Mogztter)
+  * Use system HTTP(S) proxies in java subprocess (@hakandilek)
 
 == 1.5.13
 
