@@ -1,8 +1,7 @@
-require_relative 'extensions'
+require 'asciidoctor/extensions'
+require_relative 'umlet/extension'
 
 Asciidoctor::Extensions.register do
-  require_relative 'umlet/extension'
-
   block Asciidoctor::Diagram::UmletBlockProcessor, :umlet
   block_macro Asciidoctor::Diagram::UmletBlockMacroProcessor, :umlet
 end

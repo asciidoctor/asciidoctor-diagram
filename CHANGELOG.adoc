@@ -5,6 +5,7 @@
 Enhancements::
   * Add support for Nomnoml (@Mogztter)
   * Use system HTTP(S) proxies in java subprocess (@hakandilek)
+  * Issue #214: Improve extension loading performance
 
 == 1.5.13
 

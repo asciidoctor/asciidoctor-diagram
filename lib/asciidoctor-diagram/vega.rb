@@ -1,8 +1,7 @@
-require_relative 'extensions'
+require 'asciidoctor/extensions'
+require_relative 'vega/extension'
 
 Asciidoctor::Extensions.register do
-  require_relative 'vega/extension'
-
   block Asciidoctor::Diagram::VegaBlockProcessor, :vega
   block_macro Asciidoctor::Diagram::VegaBlockMacroProcessor, :vega
 
