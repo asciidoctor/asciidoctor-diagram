@@ -63,7 +63,13 @@ module Asciidoctor
         def use_converter(type)
           converter = type.new
           converter.supported_formats.each do |format|
-            register_format(format, :image) do |parent, source|
+            case format
+            when :txt
+              type = :literal
+            else
+              type = :image
+            end
+            register_format(format, type) do |parent, source|
               options = converter.collect_options(source, name)
               converter.convert(source, format, options)
             end
