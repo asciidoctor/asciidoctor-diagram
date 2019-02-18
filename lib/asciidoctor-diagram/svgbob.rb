@@ -1,8 +1,7 @@
-require_relative 'extensions'
+require 'asciidoctor/extensions'
+require_relative 'svgbob/extension'
 
 Asciidoctor::Extensions.register do
-  require_relative 'svgbob/extension'
-
   block Asciidoctor::Diagram::SvgBobBlockProcessor, :svgbob
   block_macro Asciidoctor::Diagram::SvgBobBlockMacroProcessor, :svgbob
 end

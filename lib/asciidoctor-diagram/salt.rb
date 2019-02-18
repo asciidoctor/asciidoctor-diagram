@@ -1,8 +1,7 @@
-require_relative 'extensions'
+require 'asciidoctor/extensions'
+require_relative 'plantuml/extension'
 
 Asciidoctor::Extensions.register do
-  require_relative 'plantuml/extension'
-
   block Asciidoctor::Diagram::SaltBlockProcessor, :salt
   block_macro Asciidoctor::Diagram::SaltBlockMacroProcessor, :salt
 end

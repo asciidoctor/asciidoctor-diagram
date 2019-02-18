@@ -1,8 +1,7 @@
-require_relative 'extensions'
+require 'asciidoctor/extensions'
+require_relative 'wavedrom/extension'
 
 Asciidoctor::Extensions.register do
-  require_relative 'wavedrom/extension'
-
   block Asciidoctor::Diagram::WavedromBlockProcessor, :wavedrom
   block_macro Asciidoctor::Diagram::WavedromBlockMacroProcessor, :wavedrom
 end
