@@ -192,7 +192,7 @@ module Asciidoctor
             File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
           end
 
-          image_attributes['target'] = parent.attr('data-uri') ? image_file : image_name
+          image_attributes['target'] = parent.attr('data-uri', nil, true) ? image_file : image_name
 
           scale = image_attributes['scale']
           if scalematch = /(\d+(?:\.\d+))/.match(scale)
@@ -245,13 +245,13 @@ module Asciidoctor
         def image_output_dir(parent)
           document = parent.document
 
-          images_dir = parent.attr('imagesoutdir')
+          images_dir = parent.attr('imagesoutdir', nil, true)
 
           if images_dir
             base_dir = nil
           else
-            base_dir = parent.attr('outdir') || doc_option(document, :to_dir)
-            images_dir = parent.attr('imagesdir')
+            base_dir = parent.attr('outdir', nil, true) || doc_option(document, :to_dir)
+            images_dir = parent.attr('imagesdir', nil, true)
           end
 
           parent.normalize_system_path(images_dir, base_dir)
@@ -260,7 +260,7 @@ module Asciidoctor
         def cache_dir(parent)
           document = parent.document
           cache_dir = '.asciidoctor/diagram'
-          base_dir = parent.attr('outdir') || doc_option(document, :to_dir)
+          base_dir = parent.attr('outdir', nil, true) || doc_option(document, :to_dir)
           parent.normalize_system_path(cache_dir, base_dir)
         end
 
