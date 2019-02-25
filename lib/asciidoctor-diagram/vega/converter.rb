@@ -15,12 +15,18 @@ module Asciidoctor
       end
 
 
+      def collect_options(source, name)
+        {
+            :vegalite => name.to_s.include?('lite') || source.attr('vegalite')
+        }
+      end
+
       def convert(source, format, options)
         base_dir = source.base_dir
 
         code = source.to_s
 
-        if code.include?('/schema/vega-lite/') || name.to_s.include?('lite') || source.attr('vegalite')
+        if code.include?('/schema/vega-lite/') || options[:vegalite]
           vega_code = generate_stdin_stdout(source.find_command("vl2vg"), code)
         else
           vega_code = code
