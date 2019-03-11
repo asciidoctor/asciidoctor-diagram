@@ -1,4 +1,3 @@
 source 'https://rubygems.org'
-ENV["ASCIIDOCTOR_VERSION"] = '~> 2.0.0.dev'
 gem 'asciidoctor', '~> 2.0.0.dev', :git => 'https://github.com/asciidoctor/asciidoctor', :branch => 'master'
 gemspec
