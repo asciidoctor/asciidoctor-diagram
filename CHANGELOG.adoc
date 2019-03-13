@@ -3,6 +3,11 @@
 == 1.5.14
 
 Enhancements::
+  * Issue #217: Relax dependency version constraint to support Asciidoctor 2.x
+
+== 1.5.14
+
+Enhancements::
   * Add support for Nomnoml (@Mogztter)
   * Use system HTTP(S) proxies in java subprocess (@hakandilek)
   * Issue #214: Improve extension loading performance
