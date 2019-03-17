@@ -99,5 +99,177 @@ module Asciidoctor
         raise NotImplementedError.new
       end
     end
+
+    # Base class for diagram source implementations that uses an md5 checksum of the source code of a diagram to
+    # determine if it has been updated or not.
+    class BasicSource
+      include DiagramSource
+
+      attr_reader :attributes
+
+      def initialize(block_processor, parent_block, attributes)
+        @block_processor = block_processor
+        @parent_block = parent_block
+        @attributes = attributes
+      end
+
+      def resolve_path target, start = base_dir
+        @parent_block.normalize_system_path(target, start)
+      end
+
+      def config
+        @block_processor.config
+      end
+
+      def image_name
+        attr('target', 'diag-' + checksum)
+      end
+
+      def attr(name, default_value = nil, inherit = nil)
+        name = name.to_s if ::Symbol === name
+
+        value = @attributes[name]
+
+        if value.nil? && inherit
+          case inherit
+          when String, Symbol
+            value = @parent_block.attr("#{inherit.to_s}-#{name}", default_value)
+          else
+            value = @parent_block.attr(name, default_value)
+          end
+        end
+
+        value || default_value
+      end
+
+      def should_process?(image_file, image_metadata)
+        image_metadata['checksum'] != checksum
+      end
+
+      def create_image_metadata
+        {'checksum' => checksum}
+      end
+
+      def checksum
+        @checksum ||= compute_checksum(code)
+      end
+
+      protected
+
+      def resolve_diagram_subs
+        if @attributes.key? 'subs'
+          @parent_block.resolve_block_subs @attributes['subs'], nil, 'diagram'
+        else
+          []
+        end
+      end
+
+      private
+
+      def compute_checksum(code)
+        md5 = Digest::MD5.new
+        md5 << code
+        @attributes.each do |k, v|
+          md5 << k.to_s if k
+          md5 << v.to_s if v
+        end
+        md5.hexdigest
+      end
+    end
+
+    # A diagram source that retrieves the code for the diagram from the contents of a block.
+    class ReaderSource < BasicSource
+      include DiagramSource
+
+      def initialize(block_processor, parent_block, reader, attributes)
+        super(block_processor, parent_block, attributes)
+        @reader = reader
+      end
+
+      def code
+        @code ||= @parent_block.apply_subs(@reader.lines, resolve_diagram_subs).join("\n")
+      end
+    end
+
+    # A diagram source that retrieves the code for a diagram from an external source file.
+    class FileSource < BasicSource
+      def initialize(block_processor, parent_block, file_name, attributes)
+        super(block_processor, parent_block, attributes)
+        @file_name = file_name
+      end
+
+      def base_dir
+        if @file_name
+          File.dirname(@file_name)
+        else
+          super
+        end
+      end
+
+      def image_name
+        if @attributes['target']
+          super
+        elsif @file_name
+          File.basename(@file_name, File.extname(@file_name))
+        else
+          checksum
+        end
+      end
+
+      def should_process?(image_file, image_metadata)
+        (@file_name && File.mtime(@file_name) > File.mtime(image_file)) || super
+      end
+
+      def code
+        @code ||= read_code
+      end
+
+      def read_code
+        if @file_name
+          lines = File.readlines(@file_name)
+          lines = prepare_source_array(lines)
+          @parent_block.apply_subs(lines, resolve_diagram_subs).join("\n")
+        else
+          ''
+        end
+      end
+
+      private
+
+      # Byte arrays for UTF-* Byte Order Marks
+      BOM_BYTES_UTF_8 = [0xef, 0xbb, 0xbf]
+      BOM_BYTES_UTF_16LE = [0xff, 0xfe]
+      BOM_BYTES_UTF_16BE = [0xfe, 0xff]
+
+      # Prepare the source data Array for parsing.
+      #
+      # Encodes the data to UTF-8, if necessary, and removes any trailing
+      # whitespace from every line.
+      #
+      # If a BOM is found at the beginning of the data, a best attempt is made to
+      # encode it to UTF-8 from the specified source encoding.
+      #
+      # data - the source data Array to prepare (no nil entries allowed)
+      #
+      # returns a String Array of prepared lines
+      def prepare_source_array data
+        return [] if data.empty?
+        if (leading_2_bytes = (leading_bytes = (first = data[0]).unpack 'C3').slice 0, 2) == BOM_BYTES_UTF_16LE
+          data[0] = first.byteslice 2, first.bytesize
+          # NOTE you can't split a UTF-16LE string using .lines when encoding is UTF-8; doing so will cause this line to fail
+          return data.map {|line| (line.encode ::Encoding::UTF_8, ::Encoding::UTF_16LE).rstrip}
+        elsif leading_2_bytes == BOM_BYTES_UTF_16BE
+          data[0] = first.byteslice 2, first.bytesize
+          return data.map {|line| (line.encode ::Encoding::UTF_8, ::Encoding::UTF_16BE).rstrip}
+        elsif leading_bytes == BOM_BYTES_UTF_8
+          data[0] = first.byteslice 3, first.bytesize
+        end
+        if first.encoding == ::Encoding::UTF_8
+          data.map {|line| line.rstrip}
+        else
+          data.map {|line| (line.encode ::Encoding::UTF_8).rstrip}
+        end
+      end
+    end
   end
 end

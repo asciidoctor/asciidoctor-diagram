@@ -1,21 +1,21 @@
 require_relative 'converter'
-require_relative '../extensions'
+require_relative '../diagram_processor'
 
 module Asciidoctor
   module Diagram
-    class PlantUmlBlockProcessor < Extensions::DiagramBlockProcessor
+    class PlantUmlBlockProcessor < DiagramBlockProcessor
       use_converter UmlConverter
     end
 
-    class PlantUmlBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
+    class PlantUmlBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter UmlConverter
     end
 
-    class SaltBlockProcessor < Extensions::DiagramBlockProcessor
+    class SaltBlockProcessor < DiagramBlockProcessor
       use_converter SaltConverter
     end
 
-    class SaltBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
+    class SaltBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter SaltConverter
     end
   end

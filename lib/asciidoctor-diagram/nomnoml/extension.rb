@@ -1,13 +1,13 @@
 require_relative 'converter'
-require_relative '../extensions'
+require_relative '../diagram_processor'
 
 module Asciidoctor
   module Diagram
-    class NomnomlBlockProcessor < Extensions::DiagramBlockProcessor
+    class NomnomlBlockProcessor < DiagramBlockProcessor
       use_converter NomnomlConverter
     end
 
-    class NomnomlBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
+    class NomnomlBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter NomnomlConverter
     end
   end

@@ -1,13 +1,13 @@
 require_relative 'converter'
-require_relative '../extensions'
+require_relative '../diagram_processor'
 
 module Asciidoctor
   module Diagram
-    class ErdBlockProcessor < Extensions::DiagramBlockProcessor
+    class ErdBlockProcessor < DiagramBlockProcessor
       use_converter ErdConverter
     end
 
-    class ErdBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
+    class ErdBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter ErdConverter
     end
   end
