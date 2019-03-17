@@ -1,7 +1,7 @@
 require 'set'
 
 require_relative '../diagram_converter'
-require_relative '../extensions'
+require_relative '../diagram_processor'
 require_relative '../util/java'
 
 module Asciidoctor

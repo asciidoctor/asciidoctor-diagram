@@ -1,9 +1,9 @@
 require_relative 'converter'
-require_relative '../extensions'
+require_relative '../diagram_processor'
 
 module Asciidoctor
   module Diagram
-    class MemeBlockMacroProcessor < Extensions::DiagramBlockMacroProcessor
+    class MemeBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter MemeConverter
 
       class StringReader
@@ -21,7 +21,7 @@ module Asciidoctor
       def create_source(parent, target, attributes)
         attributes = attributes.dup
         attributes['background'] = apply_target_subs(parent, target)
-        ::Asciidoctor::Diagram::Extensions::ReaderSource.new(self, parent, StringReader.new(''), attributes)
+        ::Asciidoctor::Diagram::ReaderSource.new(self, parent, StringReader.new(''), attributes)
       end
     end
   end
