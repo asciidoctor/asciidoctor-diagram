@@ -118,7 +118,7 @@ module Asciidoctor
         end
       end
 
-      option :pos_attrs, %w(top bottom target format)
+      option Asciidoctor::Diagram::Extensions::POSITIONAL_ATTRS_KEY, %w(top bottom target format)
 
       def create_source(parent, target, attributes)
         attributes = attributes.dup
