@@ -1,6 +1,11 @@
 = Asciidoctor-diagram Changelog
 
-== 1.5.14
+== 1.5.16
+
+Enhancements::
+  * Issue #219: Fix compatibility issue with Asciidoctor 2.0
+
+== 1.5.15
 
 Enhancements::
   * Issue #217: Relax dependency version constraint to support Asciidoctor 2.x
