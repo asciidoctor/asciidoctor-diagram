@@ -13,6 +13,12 @@ require_relative 'util/svg'
 module Asciidoctor
   module Diagram
     module Extensions
+      if Asciidoctor::VERSION =~ /1\.*/
+        POSITIONAL_ATTRS_KEY = :pos_attrs
+      else
+        POSITIONAL_ATTRS_KEY = :positional_attrs
+      end
+
       # Provides the means for diagram processors to register supported output formats and image
       # generation routines
       module FormatRegistry
@@ -294,7 +300,7 @@ module Asciidoctor
         include DiagramProcessor
 
         def self.inherited(subclass)
-          subclass.option :pos_attrs, ['target', 'format']
+          subclass.option Asciidoctor::Diagram::Extensions::POSITIONAL_ATTRS_KEY, ['target', 'format']
           subclass.option :contexts, [:listing, :literal, :open]
           subclass.option :content_model, :simple
         end
@@ -312,7 +318,7 @@ module Asciidoctor
         include DiagramProcessor
 
         def self.inherited(subclass)
-          subclass.option :pos_attrs, ['target', 'format']
+          subclass.option Asciidoctor::Diagram::Extensions::POSITIONAL_ATTRS_KEY, ['target', 'format']
         end
 
         def apply_target_subs(parent, target)
