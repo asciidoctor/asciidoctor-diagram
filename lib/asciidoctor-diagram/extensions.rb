@@ -13,7 +13,7 @@ require_relative 'util/svg'
 module Asciidoctor
   module Diagram
     module Extensions
-      if Asciidoctor::VERSION =~ /1\.*/
+      if Asciidoctor::VERSION =~ /^1\.*/
         POSITIONAL_ATTRS_KEY = :pos_attrs
       else
         POSITIONAL_ATTRS_KEY = :positional_attrs
