@@ -12,7 +12,7 @@ module Asciidoctor
 
       JARS = [
           'plantuml-1.3.13.jar',
-          'plantuml-1.2019.4.jar',
+          'plantuml.jar',
           'jlatexmath-minimal-1.0.5.jar',
           'batik-all-1.10.jar'
       ].map do |jar|
