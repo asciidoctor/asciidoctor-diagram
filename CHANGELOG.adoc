@@ -1,5 +1,10 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.17
+
+Enhancements::
+  * Issue #222: Update PlantUML to 1.2019.5
+
 == 1.5.16
 
 Enhancements::
