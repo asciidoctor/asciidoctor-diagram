@@ -1,5 +1,6 @@
 require 'asciidoctor' unless defined? ::Asciidoctor::VERSION
 require 'asciidoctor/extensions'
+require 'asciidoctor/logging'
 require 'digest'
 require 'json'
 require 'fileutils'
@@ -69,6 +70,8 @@ module Asciidoctor
       # Mixin that provides the basic machinery for image generation.
       # When this module is included it will include the FormatRegistry into the singleton class of the target class.
       module DiagramProcessor
+        include Asciidoctor::Logging
+
         IMAGE_PARAMS = {
             :svg => {
                 :encoding => Encoding::UTF_8,
@@ -104,16 +107,16 @@ module Asciidoctor
         def process(parent, reader_or_target, attributes)
           source = create_source(parent, reader_or_target, attributes.dup)
 
-          format = source.attributes.delete('format') || source.attr('format', self.class.default_format, name)
-          format = format.to_sym if format.respond_to?(:to_sym)
-
-          raise "Format undefined" unless format
-
-          generator_info = self.class.formats[format]
-
-          raise "#{self.class.name} does not support output format #{format}" unless generator_info
-
           begin
+            format = source.attributes.delete('format') || source.attr('format', self.class.default_format, name)
+            format = format.to_sym if format.respond_to?(:to_sym)
+
+            raise "Format undefined" unless format
+
+            generator_info = self.class.formats[format]
+
+            raise "#{self.class.name} does not support output format #{format}" unless generator_info
+
             title = source.attributes.delete 'title'
             caption = source.attributes.delete 'caption'
 
@@ -137,7 +140,8 @@ module Asciidoctor
                 if $VERBOSE
                   warn_msg << "\n" << e.backtrace.join("\n")
                 end
-                warn %(asciidoctor-diagram: ERROR: #{warn_msg})
+                logger.error message_with_context warn_msg, source_location: parent.source_location
+
                 text << "\n"
                 text << source.code
                 Asciidoctor::Block.new parent, :listing, :source => text, :attributes => attributes
