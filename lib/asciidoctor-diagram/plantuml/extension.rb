@@ -57,7 +57,7 @@ module Asciidoctor
         code = source.to_s
         base_dir = source.base_dir
 
-        code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index "@start#{tag}"
+        code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index("@start") && code.index("@end")
 
         code.gsub!(/(?<=<img:)[^>]+(?=>)/) do |match|
           resolve_path(match, parent, parent.attr('imagesdir'))
