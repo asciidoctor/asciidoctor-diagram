@@ -4,6 +4,7 @@
 
 Enhancements::
   * Issue #222: Update PlantUML to 1.2019.5
+  * Issue #223: Log diagram processing errors using Asciidoctor logging infrastructure
 
 == 1.5.16
 
