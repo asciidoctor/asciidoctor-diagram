@@ -101,6 +101,8 @@ module Asciidoctor
         # @param attributes [Hash] the attributes of the block or block macro
         # @return [Asciidoctor::AbstractBlock] a new block that replaces the original block or block macro
         def process(parent, reader_or_target, attributes)
+          location = parent.document.reader.cursor_at_mark
+
           source = create_source(parent, reader_or_target, attributes.dup)
 
           begin
@@ -136,7 +138,8 @@ module Asciidoctor
                 if $VERBOSE
                   warn_msg << "\n" << e.backtrace.join("\n")
                 end
-                logger.error message_with_context warn_msg, source_location: parent.source_location
+
+                logger.error message_with_context warn_msg, source_location: location
 
                 text << "\n"
                 text << source.code
