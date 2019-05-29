@@ -13,7 +13,7 @@ install:
   # Use http instead as a workaround
   # - gem update --system
   - gem sources -r https://rubygems.org/
-  - gem install bundler --no-ri --no-rdoc --source http://rubygems.org/
+  - gem install bundler --source http://rubygems.org/
   - bundle install
   - cinst graphviz.portable
 #  - ps: (new-object net.webclient).DownloadFile('https://github.com/ErwinJanssen/graphviz/releases/download/v2.38/graphviz-2.38.msi', 'graphviz.msi')
