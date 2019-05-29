@@ -3,6 +3,7 @@
 == 1.5.17
 
 Enhancements::
+  * Issue #173: Apply path resolution to PlantUML `!includesub` directives
   * Issue #222: Update PlantUML to 1.2019.6
   * Issue #223: Log diagram processing errors using Asciidoctor logging infrastructure
 
