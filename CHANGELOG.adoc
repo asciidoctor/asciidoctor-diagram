@@ -3,7 +3,7 @@
 == 1.5.17
 
 Enhancements::
-  * Issue #222: Update PlantUML to 1.2019.5
+  * Issue #222: Update PlantUML to 1.2019.6
   * Issue #223: Log diagram processing errors using Asciidoctor logging infrastructure
 
 == 1.5.16
