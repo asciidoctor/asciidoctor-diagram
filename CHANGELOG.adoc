@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.18
+
+Bug Fixes::
+
+  * Issue #224: Fix asciidoctor 1.5.x compatibility regression introduced in 1.5.17
+
 == 1.5.17
 
 Enhancements::
