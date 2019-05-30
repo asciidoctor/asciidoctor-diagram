@@ -118,7 +118,7 @@ module Asciidoctor
         end
       end
 
-      positional_attributes %w(top bottom target format)
+      name_positional_attributes %w(top bottom target format)
 
       def create_source(parent, target, attributes)
         attributes = attributes.dup
