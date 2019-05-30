@@ -1,3 +1,4 @@
 matrix:
   exclude:
   - gemfile: Gemfile
+  - gemfile: Gemfile.15x
