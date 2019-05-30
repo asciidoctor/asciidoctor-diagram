@@ -87,7 +87,7 @@ module Asciidoctor
         }
 
         def self.included(mod)
-          mod.enable_dsl
+          mod.use_dsl
           class << mod
             include FormatRegistry
           end
