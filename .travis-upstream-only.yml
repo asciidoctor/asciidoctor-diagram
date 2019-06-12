@@ -1,5 +1,4 @@
-merge_mode: deep_merge
 matrix:
-  exclude:
-  - gemfile: Gemfile
-  - gemfile: Gemfile.15x
+  include:
+  - rvm: 2.6
+    gemfile: Gemfile.master
