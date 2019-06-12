@@ -1,4 +1,4 @@
-#merge_mode: deep_merge
+merge_mode: deep_merge
 matrix:
   exclude:
   - gemfile: Gemfile
