@@ -314,7 +314,7 @@ The following table lists the tools that are required for each diagram type, the
    |vega         |{uri-vega}[vg2png] and/or {uri-vega}[vg2png]                          |`vg2png` and `vg2svg`
    |vegalite     |{uri-vegalite}[vl2vg] and {uri-vega}[vg2png] and/or {uri-vega}[vg2svg]|`vl2vg`, `vg2png` and `vg2svg`
 .2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
-                 |{uri-wavedromcli}[WaveDrom CLI] and {uri-phantomjs}[PhantomJS]        |`wavedrom` and `phantomjs`
+                 |{uri-wavedromcli}[WaveDrom CLI] (and {uri-phantomjs}[PhantomJS] for WaveDrom CLI v1)      |`wavedrom` (and `phantomjs`)
 |===
 
 If for instance you installed `actdiag` in `/home/me/actdiag/bin` and this path is not included in the `PATH` you can specify its location on the command line
