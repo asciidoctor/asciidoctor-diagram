@@ -54,11 +54,11 @@ python:
   - 2.7
 matrix:
   include:
-    - rvm: &release_ruby 2.6
-      gemfile: Gemfile
-    - rvm: &release_ruby 2.6
+    - rvm: 2.6
       gemfile: Gemfile.master
-    - rvm: &release_ruby 2.6
+    - rvm: 2.6
+      gemfile: Gemfile
+    - rvm: 2.6
       gemfile: Gemfile.15x
     - rvm: 2.5
     - rvm: 2.4
