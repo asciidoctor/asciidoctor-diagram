@@ -328,12 +328,12 @@ The meme extension provides a basic '`Advice Animal`' style image generator.
 It's usage is easiest to explain with an example.
 
 ----
-meme::yunoguy.jpg[Doc writers,Y U NO \\ AsciiDoc]
+meme::yunoguy.jpg[Doc writers,Y U NO // AsciiDoc]
 ----
 
 The target of the block macro tells the extension which image to use as background.
 The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
-Occurrences of `\\` surrounded by whitespace are interpreted as line breaks.
+Occurrences of `//` surrounded by whitespace are interpreted as line breaks.
 
 === Diagram Attributes
 
