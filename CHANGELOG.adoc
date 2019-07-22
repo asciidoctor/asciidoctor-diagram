@@ -2,6 +2,9 @@
 
 == 1.5.19
 
+Bug Fixes::
+  * Issue #233: Resolve character encoding issues with Ditaa on Windows with Java runtimes that do not use UTF-8 encoding by default
+
 Enhancements::
   * Issue #225: Add support for WaveDrom CLI 2.0.0
 
