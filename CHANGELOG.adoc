@@ -7,6 +7,7 @@ Bug Fixes::
 
 Enhancements::
   * Issue #225: Add support for WaveDrom CLI 2.0.0
+  * Issue #234: Add support for State Machine Cat
 
 == 1.5.18
 
