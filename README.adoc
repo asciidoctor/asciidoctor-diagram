@@ -448,6 +448,15 @@ The attribute name at the block level should be prefixed with the name of the di
 |config        |unspecified     |Path to a config file to pass to PlantUML.
 |===
 
+==== State Machine Cat
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|direction     |unspecifed      |The direction of the state machine diagram. One of `top-down`, `bottom-top`, `left-right` or `right-left`.
+|engine        |unspecified     |The layout engine to use. One of `dot`, `circo`, `fdp`, `neato`, `osage`, or `twopi`
+|===
+
 ==== Syntrax
 
 [cols=">,<,<",options="header"]
