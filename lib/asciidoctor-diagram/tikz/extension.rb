@@ -28,7 +28,7 @@ module Asciidoctor
         end
 
         latex = <<'END'
-\documentclass[border=2bp]{standalone}
+\documentclass[border=2bp, tikz]{standalone}
 \usepackage{tikz}
 \begin{document}
 \begingroup
