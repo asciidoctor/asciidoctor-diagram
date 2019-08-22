@@ -74,6 +74,7 @@ install:
   - sudo apt-get install -qq graphviz
   - sudo apt-get install -qq python-gtk2 python-cairo
   - sudo apt-get install -qq ttf-dejavu
+  - sudo apt-get install -qq lilypond
   - export BLOCKDIAG_FONTPATH=/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
   - pip install --user -r pip-requirements.txt -c pip-constraints.txt
   - bundle install --path vendor/bundle --jobs=3 --retry=3
