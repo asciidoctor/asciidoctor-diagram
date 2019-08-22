@@ -5,6 +5,7 @@
 Bug Fixes::
   * Issue #233: Resolve character encoding issues with Ditaa on Windows with Java runtimes that do not use UTF-8 encoding by default
   * Fix generation of SVG output for TikZ diagrams (@joelsmith)
+  * Improve TikZ image cropping (@joelsmith)  
 
 Enhancements::
   * Issue #225: Add support for WaveDrom CLI 2.0.0
