@@ -49,7 +49,7 @@ END
 
         if svgpath
           generate_file(svgpath, 'pdf', 'svg', pdf) do |tool_path, input_path, output_path|
-            [tool_path, Platform.native_path(File.dirname(input_path)), Platform.native_path(File.dirname(output_path))]
+            [tool_path, Platform.native_path(input_path), Platform.native_path(output_path)]
           end
         else
           pdf
