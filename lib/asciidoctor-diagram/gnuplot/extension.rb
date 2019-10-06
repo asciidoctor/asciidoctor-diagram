@@ -19,12 +19,18 @@ module Asciidoctor
       end
 
       def gnuplot(parent, source, format)
-        inherit_prefix = name
+        inherit_prefix = name        
         
-        width = source.attr("width", "1024", inherit_prefix)
-        height = source.attr("height", "768", inherit_prefix)
+        width = source.attr("width", nil, inherit_prefix)
+        height = source.attr("height", nil, inherit_prefix)
         
-        code = "set term #{format} size #{width},#{height}\n" + source.to_s 
+        if width.nil? or height.nil?
+          code = "set term #{format}\n"
+        else
+          code = "set term #{format} size #{width},#{height}\n"
+        end
+       
+        code << source.to_s 
         generate_stdin_stdout(which(parent, 'gnuplot'), code) do |tool_path|
           [tool_path]
         end
