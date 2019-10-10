@@ -63,6 +63,62 @@ gnuplot::gnuplot.txt[format="svg"]
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
   end
+
+  it "should generate GIF images when format is set to 'gif'" do
+    File.write('gnuplot.txt', code)
+
+    doc = <<-eos
+= Hello, Gnuplot!
+Doc Writer <doc@example.com>
+
+== First Section
+
+gnuplot::gnuplot.txt[format="gif"]
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.gif$/)
+    expect(File.exist?(target)).to be true
+    
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+
+  it "should generate literal blocks when format is set to 'txt'" do
+    doc = <<-eos
+= Hello, Gnuplot!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[gnuplot, format="txt"]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :literal }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :verbatim
+
+    expect(b.attributes['target']).to be_nil
+  end
+
+
 end
 
 describe Asciidoctor::Diagram::GnuplotBlockProcessor do
@@ -216,6 +272,186 @@ Doc Writer <doc@example.com>
 == First Section
 
 [gnuplot, format="png",width="800", height="600"]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it "should generate nocrop/notrasparent images" do
+    doc = <<-eos
+= Hello, Gnuplot!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[gnuplot, format="png", crop=false, transparent=false]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it "should generate crop/trasparent images" do
+    doc = <<-eos
+= Hello, Gnuplot!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[gnuplot, format="png", crop=true, transparent=true]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it "should generate image with font name" do
+    doc = <<-eos
+= Hello, Gnuplot!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[gnuplot, format="png", font="Arial"]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it "should generate image with font name and size" do
+    doc = <<-eos
+= Hello, Gnuplot!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[gnuplot, format="png", font="Arial,11"]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it "should generate image with font name and scale" do
+    doc = <<-eos
+= Hello, Gnuplot!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[gnuplot, format="png", font="Arial", scale="0.5"]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it %(should generate image with font background="red") do
+    doc = <<-eos
+= Hello, Gnuplot!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[gnuplot, format="png", background="red"]
 ----
 #{code}
 ----
