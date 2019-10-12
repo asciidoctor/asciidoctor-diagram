@@ -31,46 +31,24 @@ module Asciidoctor
         if format == :txt
           format = 'dumb'
         end
-        
-        if width.nil? or height.nil?
-          code = "set term #{format}"
-        else
-          code = "set term #{format} size #{width},#{height}"
-        end
+
+        code = "set term #{format}"
+        code << " size #{width},#{height}" unless width.nil? or height.nil?
 
         transparent = source.attr("transparent", nil, inherit_prefix)
-        if !transparent.nil?
-          if transparent == "true"          
-            code << " transparent"
-          else
-            code << " notransparent"
-          end
-        end        
+        code << (transparent ? " transparent" : " notransparent") unless transparent.nil?
 
         crop = source.attr("crop", nil, inherit_prefix)
-
-        if !crop.nil?
-          if crop == "true"
-            code << " crop"
-          else
-            code << " nocrop"
-          end
-        end
+        code << (crop ? " crop" : " nocrop") unless crop.nil?
 
         font = source.attr("font", nil, inherit_prefix)
-        if !font.nil?
-          code << %( font "#{font}")
-        end
+        code << %( font "#{font}") unless font.nil?
 
         font_scale = source.attr("fontscale", nil, inherit_prefix)
-        if !font_scale.nil?
-          code << " fontscale #{font_scale}"
-        end
+        code << " fontscale #{font_scale}" unless font_scale.nil?
 
         background = source.attr("background", nil, inherit_prefix)
-        if !background.nil?
-          code << %( background "#{background}")
-        end
+        code << %( background "#{background}") unless background.nil?
   
         code << "\n"
         code << source.to_s 
