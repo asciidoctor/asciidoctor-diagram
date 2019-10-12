@@ -21,6 +21,7 @@ ifndef::env-site[:status:]
 :uri-ditaa: http://ditaa.sourceforge.net/
 :uri-dot: https://graphviz.gitlab.io/_pages/doc/info/lang.html
 :uri-erd: https://github.com/BurntSushi/erd
+:uri-gnuplot: http://gnuplot.info
 :uri-graphviz: https://graphviz.gitlab.io
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com
@@ -47,7 +48,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
+The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-gnuplot}[Gnuplot], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -122,6 +123,7 @@ The following diagram types and output formats are available:
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|{check}|
 |{uri-ditaa}[ditaa]          |       |       |{check}|{check}|
 |{uri-erd}[erd]              |       |       |{check}|{check}|
+|{uri-gnuplot}[gnuplot]      |{check}|       |{check}|{check}|{check}
 |{uri-dot}[graphviz]         |       |{check}|{check}|{check}|
 |<<meme,meme>>               |{check}|       |{check}|       |
 |{uri-mermaid}[mermaid]      |       |{check}|{check}|{check}|
@@ -251,7 +253,7 @@ or load and register each extension individually.
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` can be one of `a2s`, `blockdiag`, `ditaa`, `erd`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
+`<extension_name>` can be one of `a2s`, `blockdiag`, `ditaa`, `erd`, `gnuplot`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
@@ -299,6 +301,7 @@ The following table lists the tools that are required for each diagram type, the
    |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
    |ditaa        |{uri-java}[Java]                                                      |`java`
    |erd          |{uri-erd}[Erd]                                                        |`erd`
+   |gnuplot      |{uri-gnuplot}[Gnuplot]                                                |`gnuplot`
    |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
    |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
    |mermaid      |{uri-mermaid}[Mermaid.cli]                                            |`mermaid`
@@ -395,6 +398,20 @@ The attribute name at the block level should be prefixed with the name of the di
 |debug        |false           |Renders the debug grid over the resulting image.
 |fixed-slope  |false           |Makes sides of parallelograms and trapezoids fixed slope instead of fixed width.
 |transparent  |false           |Makes the background of the image transparent instead of using the background color.
+|===
+
+==== Gnuplot
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|background   |unspecified     |Background color, e.g. `red`, `#FF0000`. Does not work with `txt`.
+|height       |unspecified     |The height of the plot. Must be specified together with `width`.
+|width        |unspecified     |The width of the plot. Must be specified together with `height`.
+|crop         |unspecified     |Trims blank space from the edges of the completed plot (true/false). Does not work with `svg`, `pdf`.
+|transparent  |unspecified     |Generate transparent background (true/false). Does not work with `svg`, `pdf`, `txt`. 
+|font         |unspecified     |The font face with optional font size to use for the text, e.g. `font="Arial"`, `font="Arial,11"`. Does not work with `txt`.
+|fontscale    |unspecified     |Scales all label for given factor. Does not work with `txt`.
 |===
 
 ==== GraphViz
