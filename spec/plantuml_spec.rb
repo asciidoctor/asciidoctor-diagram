@@ -832,8 +832,22 @@ List : int size()
 List : void clear()
     eos
 
+    sub = <<-eos
+@startuml
+A -> A : stuff1
+!startsub BASIC
+B -> B : stuff2
+!endsub
+C -> C : stuff3
+!startsub BASIC
+D -> D : stuff4
+!endsub
+@enduml
+    eos
+
     Dir.mkdir('dir')
     File.write('dir/List.iuml', included)
+    File.write('dir/Sub.iuml', sub)
 
     creole_doc = <<-eos
 = Hello, PlantUML!
@@ -844,6 +858,7 @@ Doc Writer <doc@example.com>
 [plantuml, format="svg"]
 ----
 !include dir/List.iuml
+!includesub dir/Sub.iuml!BASIC
 List <|.. ArrayList
 ----
     eos
@@ -860,6 +875,7 @@ List <|.. ArrayList
 
     content = File.read(target, :encoding => Encoding::UTF_8)
     expect(content).to_not include('!include')
+    expect(content).to_not include('!includesub')
   end
 
   it 'should not resolve stdlib !include directives' do

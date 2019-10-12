@@ -54,10 +54,12 @@ python:
   - 2.7
 matrix:
   include:
-    - rvm: &release_ruby 2.6
-      gemfile: Gemfile
-    - rvm: &release_ruby 2.6
+    - rvm: 2.6
       gemfile: Gemfile.master
+    - rvm: 2.6
+      gemfile: Gemfile
+    - rvm: 2.6
+      gemfile: Gemfile.15x
     - rvm: 2.5
     - rvm: 2.4
     - rvm: 2.3
@@ -72,15 +74,18 @@ install:
   - sudo apt-get install -qq graphviz
   - sudo apt-get install -qq python-gtk2 python-cairo
   - sudo apt-get install -qq ttf-dejavu
+  - sudo apt-get install -qq lilypond
   - export BLOCKDIAG_FONTPATH=/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
   - pip install --user -r pip-requirements.txt -c pip-constraints.txt
   - bundle install --path vendor/bundle --jobs=3 --retry=3
   - npm install -g mermaid.cli
   - npm install -g nomnoml
-  - npm install -g wavedrom-cli
+  - npm install -g state-machine-cat
   - npm install -g vega-cli
   - npm install -g vega-lite
+  - npm install -g wavedrom-cli
   - sudo apt-get install -qq imagemagick
+  - sudo apt-get install -qq gnuplot
   # Install umlet
   - curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
   - unzip -qq umlet-standalone-14.2.zip

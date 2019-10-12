@@ -13,13 +13,14 @@ install:
   # Use http instead as a workaround
   # - gem update --system
   - gem sources -r https://rubygems.org/
-  - gem install bundler --no-ri --no-rdoc --source http://rubygems.org/
+  - gem install bundler --source http://rubygems.org/
   - bundle install
   - cinst graphviz.portable
 #  - ps: (new-object net.webclient).DownloadFile('https://github.com/ErwinJanssen/graphviz/releases/download/v2.38/graphviz-2.38.msi', 'graphviz.msi')
 #  - ps: msiexec /i graphviz.msi /qn /norestart
 #  - set PATH=C:\Program Files (x86)\Graphviz2.38\bin;%PATH%
   - cinst imagemagick.tool
+  - cinst gnuplot
   - npm install -g nomnoml
   - npm install -g mermaid.cli
   - npm install -g wavedrom-cli
