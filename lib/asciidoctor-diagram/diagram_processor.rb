@@ -16,6 +16,8 @@ module Asciidoctor
     # Mixin that provides the basic machinery for image generation.
     # When this module is included it will include the FormatRegistry into the singleton class of the target class.
     module DiagramProcessor
+      include Asciidoctor::Logging
+
       module ClassMethods
         def use_converter(converter_type)
           config[:converter] = converter_type
@@ -23,6 +25,7 @@ module Asciidoctor
       end
 
       def self.included(host_class)
+        host_class.use_dsl
         host_class.extend(ClassMethods)
       end
 
@@ -53,20 +56,23 @@ module Asciidoctor
       # @param attributes [Hash] the attributes of the block or block macro
       # @return [Asciidoctor::AbstractBlock] a new block that replaces the original block or block macro
       def process(parent, reader_or_target, attributes)
+        location = parent.document.reader.cursor_at_mark
+
         source = create_source(parent, reader_or_target, attributes.dup)
 
         converter = config[:converter].new
 
         supported_formats = converter.supported_formats
 
-        format = source.attributes.delete('format') || source.attr('format', supported_formats[0], name)
-        format = format.to_sym if format.respond_to?(:to_sym)
-
-        raise "Format undefined" unless format
-
-        raise "#{self.class.name} does not support output format #{format}" unless supported_formats.include?(format)
-
         begin
+          format = source.attributes.delete('format') || source.attr('format', supported_formats[0], name)
+          format = format.to_sym if format.respond_to?(:to_sym)
+
+          raise "Format undefined" unless format
+
+          raise "#{self.class.name} does not support output format #{format}" unless supported_formats.include?(format)
+
+
           title = source.attributes.delete 'title'
           caption = source.attributes.delete 'caption'
 
@@ -90,7 +96,9 @@ module Asciidoctor
             if $VERBOSE
               warn_msg << "\n" << e.backtrace.join("\n")
             end
-            warn %(asciidoctor-diagram: ERROR: #{warn_msg})
+
+            logger.error message_with_context warn_msg, source_location: location
+
             text << "\n"
             text << source.code
             Asciidoctor::Block.new parent, :listing, :source => text, :attributes => attributes
@@ -256,9 +264,9 @@ module Asciidoctor
       include DiagramProcessor
 
       def self.inherited(subclass)
-        subclass.option :pos_attrs, ['target', 'format']
-        subclass.option :contexts, [:listing, :literal, :open]
-        subclass.option :content_model, :simple
+        subclass.name_positional_attributes ['target', 'format']
+        subclass.contexts [:listing, :literal, :open]
+        subclass.content_model :simple
       end
 
       # Creates a ReaderSource from the given reader.
@@ -274,7 +282,7 @@ module Asciidoctor
       include DiagramProcessor
 
       def self.inherited(subclass)
-        subclass.option :pos_attrs, ['target', 'format']
+        subclass.name_positional_attributes ['target', 'format']
       end
 
       def apply_target_subs(parent, target)

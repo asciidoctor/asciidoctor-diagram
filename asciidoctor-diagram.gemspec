@@ -27,5 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake'
   s.add_development_dependency 'rspec'
 
-  s.add_runtime_dependency 'asciidoctor', ENV['ASCIIDOCTOR_VERSION'] || '~> 1.5.0'
+  s.add_runtime_dependency 'asciidoctor', '>= 1.5.7', '< 3.x'
 end

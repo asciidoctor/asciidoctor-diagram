@@ -1,3 +1,4 @@
 matrix:
-  exclude:
-  - gemfile: Gemfile
+  include:
+  - rvm: 2.6
+    gemfile: Gemfile.master

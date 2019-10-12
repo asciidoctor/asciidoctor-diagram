@@ -73,13 +73,13 @@ module Asciidoctor
       def preprocess_code(source, tag)
         code = source.to_s
 
-        code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index "@start#{tag}"
+        code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index("@start") && code.index("@end")
 
         code.gsub!(/(?<=<img:)[^>]+(?=>)/) do |match|
           resolve_path(match, source, source.attr('imagesdir'))
         end
 
-        code.gsub!(/(?<=!include )\s*[^<][^!\n\r]+/) do |match|
+        code.gsub!(/(?:(?<=!include\s)|(?<=!includesub\s))\s*[^<][^!\n\r]+/) do |match|
           resolve_path(match.lstrip, source, source.base_dir)
         end
 

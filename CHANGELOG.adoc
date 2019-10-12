@@ -1,5 +1,40 @@
 = Asciidoctor-diagram Changelog
 
+== 1.5.19
+
+Bug Fixes::
+  * Issue #233: Resolve character encoding issues with Ditaa on Windows with Java runtimes that do not use UTF-8 encoding by default
+  * Fix generation of SVG output for TikZ diagrams (@joelsmith)
+  * Improve TikZ image cropping (@joelsmith)  
+
+Enhancements::
+  * Issue #225: Add support for WaveDrom CLI 2.0.0
+  * Issue #234: Add support for State Machine Cat
+  * Add support for gnuplot (@MariuszCwikla)
+
+== 1.5.18
+
+Bug Fixes::
+
+  * Issue #224: Fix asciidoctor 1.5.x compatibility regression introduced in 1.5.17
+
+== 1.5.17
+
+Enhancements::
+  * Issue #173: Apply path resolution to PlantUML `!includesub` directives
+  * Issue #222: Update PlantUML to 1.2019.6
+  * Issue #223: Log diagram processing errors using Asciidoctor logging infrastructure
+
+== 1.5.16
+
+Enhancements::
+  * Issue #219: Fix compatibility issue with Asciidoctor 2.0
+
+== 1.5.15
+
+Enhancements::
+  * Issue #217: Relax dependency version constraint to support Asciidoctor 2.x
+
 == 1.5.14
 
 Enhancements::
