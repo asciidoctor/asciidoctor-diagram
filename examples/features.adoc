@@ -160,5 +160,5 @@ Instead the name of the generated image is derived from the target propery of th
 The previous example in block macro form would look something like this with the text from the block located in a file called `activity_diagram.txt` instead of inline in the document.
 
 ----
-plantuml:activity_diagram.txt[format="svg", align="center"]
+plantuml::activity_diagram.txt[format="svg", align="center"]
 ----
