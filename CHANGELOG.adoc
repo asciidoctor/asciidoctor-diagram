@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.0.0
+
+Enhancements::
+  * Cleaned up internals of the extension
+  * Add support for BPMN (@gtudan)
+
 == 1.5.19
 
 Bug Fixes::
