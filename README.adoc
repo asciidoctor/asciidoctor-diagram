@@ -18,6 +18,7 @@ ifndef::env-site[:status:]
 :uri-asciidoctor-api: http://asciidoctor.org/docs/user-manual/#api
 :uri-asciidoctor-extensions: http://asciidoctor.org/docs/user-manual/#extension-points
 :uri-blockdiag: http://blockdiag.com
+:uri-bpmn: https://github.com/gtudan/bpmn-js-cmd
 :uri-ditaa: http://ditaa.sourceforge.net/
 :uri-dot: https://graphviz.gitlab.io/_pages/doc/info/lang.html
 :uri-erd: https://github.com/BurntSushi/erd
@@ -121,6 +122,7 @@ The following diagram types and output formats are available:
 |{uri-a2s}[a2s]              |       |       |       |{check}|
 |{uri-actdiag}[actdiag]      |       |{check}|{check}|{check}|
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|{check}|
+|{uri-bpmn}[bpmn]            |       |{check}|{check}|{check}|
 |{uri-ditaa}[ditaa]          |       |       |{check}|{check}|
 |{uri-erd}[erd]              |       |       |{check}|{check}|
 |{uri-gnuplot}[gnuplot]      |{check}|       |{check}|{check}|{check}
@@ -299,6 +301,7 @@ The following table lists the tools that are required for each diagram type, the
    |a2s          |{uri-a2s}[AsciiToSvg]                                                 |`a2s`
    |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
    |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
+   |bpmn         |{uri-bpmn}[bpmn-js-cmd]                                               |`bpmn`
    |ditaa        |{uri-java}[Java]                                                      |`java`
    |erd          |{uri-erd}[Erd]                                                        |`erd`
    |gnuplot      |{uri-gnuplot}[Gnuplot]                                                |`gnuplot`
@@ -381,6 +384,15 @@ The attribute name at the block level should be prefixed with the name of the di
 |===
 |Name         |Default value   |Description
 |fontpath     |unspecified     |The path to the font that should be used by blockdiag
+|===
+
+==== BPMN
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|height       |786             |The target height of the diagram. Does not apply for output type `svg`.
+|width        |1024            |The target width of the diagram. Does not apply for output type `svg`.
 |===
 
 ==== Ditaa
