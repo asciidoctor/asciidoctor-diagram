@@ -301,4 +301,36 @@ mermaid::mermaid.txt["dark", format="svg", theme="dark"]
     expect(File.exist?('dark.svg')).to be true
     expect(File.read('default.svg')).to_not be File.read('dark.svg')
   end
+
+  it "should respect the sequenceConfig attribute" do
+    seq_diag = <<-eos
+sequenceDiagram
+    Alice->>John: Hello John, how are you?
+    John-->>Alice: Great!
+    eos
+
+    pptr_config = <<-eos
+{
+    "args": ["--no-sandbox"]
+}
+    eos
+    File.write('pptrconfig.txt', pptr_config)
+
+    File.write('mermaid.txt', seq_diag)
+
+    doc = <<-eos
+= Hello, Mermaid!
+Doc Writer <doc@example.com>
+
+== First Section
+
+mermaid::mermaid.txt["with_config", puppeteerConfig="pptrconfig.txt"]
+mermaid::mermaid.txt["without_config"]
+    eos
+
+    load_asciidoc doc
+    expect(File.exist?('with_config.png')).to be true
+    expect(File.exist?('without_config.png')).to be true
+    expect(File.size('with_config.png')).to be File.size('without_config.png')
+  end
 end
