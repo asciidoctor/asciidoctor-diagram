@@ -9,28 +9,25 @@ module Asciidoctor
     # @private
     module Java
       class CommandServer
-        attr_reader :port
-
         def initialize(java, classpath)
           args = []
           args << '-Djava.awt.headless=true'
           args << '-Djava.net.useSystemProxies=true'
           args << '-cp'
           args << classpath.flatten.map { |jar| ::Asciidoctor::Diagram::Platform.host_os_path(jar).strip }.join(::Asciidoctor::Diagram::Platform.host_os_path_separator)
-          args << 'org.asciidoctor.diagram.CommandServer'
+          args << 'org.asciidoctor.diagram.StdInOutCommandServer'
 
-          @server = IO.popen([java, *args])
-          @port = @server.readline.strip.to_i
-          @client = TCPSocket.new 'localhost', port
+          @server = IO.popen([java, *args], 'r+')
         end
 
         def io
-          @client
+          @server
         end
 
         def shutdown
           # KILL is a bit heavy handed, but TERM does not seem to shut down the JVM on Windows.
           Process.kill('KILL', @server.pid)
+          @server.close
         end
       end
 
@@ -60,8 +57,9 @@ module Asciidoctor
 
       def self.send_request(req)
         svr = instance
-        headers = req[:headers] ||= {}
-        headers['Host'] = "localhost:#{svr.port}"
+        req[:headers] ||= {}
+        # headers = req[:headers] ||= {}
+        # headers['Host'] = "localhost:#{svr.port}"
         format_request(req, svr.io)
         parse_response(svr.io)
       end
