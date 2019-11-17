@@ -7,6 +7,7 @@ Enhancements::
   * Add support for BPMN (@gtudan)
   * Update PlantUML to v1.2019.12
   * #231 Improve PlantUML error reporting
+  * #250 Add support for Mermaid's `puppeteerConfig` option (@ldz-w)
 
 == 1.5.19
 
