@@ -450,15 +450,16 @@ The attribute name at the block level should be prefixed with the name of the di
 
 [cols=">,<,<",options="header"]
 |===
-|Name          |Default value   |Description
-|background    |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
-|css           |unspecified     |Path to a CSS file to pass to mermaid.
-|config        |unspecified     |Path to a JSON config file to pass to mermaid.
-|ganttconfig   |unspecified     |Path to a gantt config file to pass to mermaid.
-|sequenceconfig|unspecified     |Path to a sequence config file to pass to mermaid.
-|theme         |unspecified     |Theme of the chart, could be default, forest, dark or neutral.
-|width         |unspecified     |Width of the page.
-|height        |unspecified     |Height of the page.
+|Name            |Default value   |Description
+|background      |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
+|css             |unspecified     |Path to a CSS file to pass to mermaid.
+|config          |unspecified     |Path to a JSON config file to pass to mermaid.
+|ganttConfig     |unspecified     |Path to a gantt config file to pass to mermaid.
+|puppeteerConfig |unspecified     |Path to a puppeteer config file to pass to mermaid.
+|sequenceConfig  |unspecified     |Path to a sequence config file to pass to mermaid.
+|theme           |unspecified     |Theme of the chart, could be default, forest, dark or neutral.
+|width           |unspecified     |Width of the page.
+|height          |unspecified     |Height of the page.
 |===
 
 ==== Msc
