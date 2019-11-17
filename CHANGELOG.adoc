@@ -5,6 +5,8 @@
 Enhancements::
   * Cleaned up internals of the extension
   * Add support for BPMN (@gtudan)
+  * Update PlantUML to v1.2019.12
+  * #231 Improve PlantUML error reporting
 
 == 1.5.19
 
