@@ -25,7 +25,8 @@ module Asciidoctor
         options[:height] = source.attr('height', nil, name)
         options[:theme] = source.attr('theme', nil, name)
         options[:background] = source.attr('background', nil, name)
-        options[:config] = source.attr('config', nil, name) || source.attr('config', nil, name)
+        options[:config] = source.attr('config', nil, name)
+        options[:puppeteer_config] = source.attr('puppeteerConfig', nil, name)
 
         options
       end
@@ -46,6 +47,11 @@ module Asciidoctor
         seq_config = options[:seq_config]
         if seq_config
           opts[:sequence] = source.resolve_path(seq_config)
+        end
+
+        puppeteer_config = options[:puppeteer_config]
+        if puppeteer_config
+          opts[:puppeteer] = source.resolve_path(puppeteer_config)
         end
 
         opts[:width] = options[:width]
@@ -122,6 +128,10 @@ module Asciidoctor
             File.write(config_file, "{#{mermaidConfig.join ','}}")
 
             args << '--configFile' << Platform.native_path(config_file)
+          end
+
+          if options[:puppeteer]
+            args << '--puppeteerConfigFile' << Platform.native_path(options[:puppeteer])
           end
 
           args
