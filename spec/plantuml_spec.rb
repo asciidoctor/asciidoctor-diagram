@@ -1074,4 +1074,34 @@ Doc Writer <doc@example.com>
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
   end
+
+  it "should report syntax errors" do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml,format="svg"]
+----
+Bob; Alice; foo
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
 end
