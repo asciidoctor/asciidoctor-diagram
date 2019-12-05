@@ -26,7 +26,8 @@ module Asciidoctor
         options[:theme] = source.attr('theme', nil, name)
         options[:background] = source.attr('background', nil, name)
         options[:config] = source.attr('config', nil, name)
-        options[:puppeteer_config] = source.attr('puppeteerConfig', nil, name)
+        options[:puppeteer_config] = source.attr('puppeteerConfig', nil, name) || source.attr('puppeteerconfig', nil, name)
+
 
         options
       end
@@ -51,7 +52,7 @@ module Asciidoctor
 
         puppeteer_config = options[:puppeteer_config]
         if puppeteer_config
-          opts[:puppeteer] = source.resolve_path(puppeteer_config)
+          opts[:puppeteer_config] = source.resolve_path(puppeteer_config)
         end
 
         opts[:width] = options[:width]
@@ -130,8 +131,8 @@ module Asciidoctor
             args << '--configFile' << Platform.native_path(config_file)
           end
 
-          if options[:puppeteer]
-            args << '--puppeteerConfigFile' << Platform.native_path(options[:puppeteer])
+          if options[:puppeteer_config]
+            args << '--puppeteerConfigFile' << Platform.native_path(options[:puppeteer_config])
           end
 
           args
