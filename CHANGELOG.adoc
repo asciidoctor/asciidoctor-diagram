@@ -7,6 +7,7 @@ Enhancements::
   * Add support for BPMN (@gtudan)
   * Update PlantUML to v1.2019.12
   * #231 Improve PlantUML error reporting
+  * #247 Add support for document-level `diagram-svg-type` and block-level `svg-type` attributes to control SVG interactivity
   * #250 Add support for Mermaid's `puppeteerConfig` option (@ldz-w)
 
 == 1.5.19
