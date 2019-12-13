@@ -161,7 +161,11 @@ module Asciidoctor
           File.open(metadata_file, 'w') {|f| JSON.dump(metadata, f)}
         end
 
-        image_attributes['target'] = parent.attr('data-uri', nil, true) ? image_file : image_name
+        image_attributes['target'] = source.attr('data-uri', nil, true) ? image_file : image_name
+        if format == :svg
+          svg_type = source.attr('svg-type', nil, 'diagram')
+          image_attributes['opts'] = svg_type if svg_type && svg_type != 'static'
+        end
 
         scale = image_attributes['scale']
         if scalematch = /(\d+(?:\.\d+))/.match(scale)
