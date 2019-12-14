@@ -302,7 +302,7 @@ mermaid::mermaid.txt["dark", format="svg", theme="dark"]
     expect(File.read('default.svg')).to_not be File.read('dark.svg')
   end
 
-  it "should respect the sequenceConfig attribute" do
+  it "should respect the puppeteerConfig attribute" do
     seq_diag = <<-eos
 sequenceDiagram
     Alice->>John: Hello John, how are you?
