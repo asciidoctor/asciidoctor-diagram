@@ -19,14 +19,14 @@ module Asciidoctor
         options = {}
 
         options[:css] = source.attr('css', nil, name)
-        options[:gantt_config] = source.attr('ganttConfig', nil, name) || source.attr('ganttconfig', nil, name) || source.attr('gantt-config', nil, name)
-        options[:seq_config] = source.attr('sequenceConfig', nil, name) || source.attr('sequenceconfig', nil, name) || source.attr('sequence-config', nil, name)
+        options[:gantt_config] = source.attr('ganttconfig', nil, name) || source.attr('gantt-config', nil, name)
+        options[:seq_config] = source.attr('sequenceconfig', nil, name) || source.attr('sequence-config', nil, name)
         options[:width] = source.attr('width', nil, name)
         options[:height] = source.attr('height', nil, name)
         options[:theme] = source.attr('theme', nil, name)
         options[:background] = source.attr('background', nil, name)
         options[:config] = source.attr('config', nil, name)
-        options[:puppeteer_config] = source.attr('puppeteerConfig', nil, name) || source.attr('puppeteerconfig', nil, name) || source.attr('puppeteer-config', nil, name)
+        options[:puppeteer_config] = source.attr('puppeteerconfig', nil, name) || source.attr('puppeteer-config', nil, name)
 
         options
       end

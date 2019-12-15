@@ -25,9 +25,9 @@ module Asciidoctor
             :bg_img => bg_img,
             :top_label => source.attr('top'),
             :bottom_label => source.attr('bottom'),
-            :fill_color => source.attr('fillColor', nil, name),
-            :stroke_color => source.attr('strokeColor', nil, name),
-            :stroke_width => source.attr('strokeWidth', nil, name),
+            :fill_color => source.attr('fillcolor', nil, name) || source.attr('fill-color', nil, name),
+            :stroke_color => source.attr('strokecolor', nil, name) || source.attr('stroke-color', nil, name),
+            :stroke_width => source.attr('strokewidth', nil, name) || source.attr('stroke-width', nil, name),
             :font => source.attr('font', 'Impact', name),
             :noupcase => options.include?('noupcase'),
         }

@@ -58,7 +58,8 @@ module Asciidoctor
       def process(parent, reader_or_target, attributes)
         location = parent.document.reader.cursor_at_mark
 
-        source = create_source(parent, reader_or_target, attributes.dup)
+        normalised_attributes = attributes.inject({}) { |h, (k, v)| h[normalise_attribute_name(k)] = v; h }
+        source = create_source(parent, reader_or_target, normalised_attributes)
 
         converter = config[:converter].new
 
@@ -125,6 +126,17 @@ module Asciidoctor
       end
 
       private
+
+      def normalise_attribute_name(k)
+        case k
+        when String
+          k.downcase
+        when Symbol
+          k.to_s.downcase.to_sym
+        else
+          k
+        end
+      end
 
       DIGIT_CHAR_RANGE = ('0'.ord)..('9'.ord)
 
