@@ -4,6 +4,7 @@ require 'digest'
 require 'json'
 require 'fileutils'
 require_relative 'diagram_source.rb'
+require_relative 'http/converter'
 require_relative 'version'
 require_relative 'util/java'
 require_relative 'util/gif'
@@ -28,6 +29,8 @@ module Asciidoctor
         host_class.use_dsl
         host_class.extend(ClassMethods)
       end
+
+      DIAGRAM_PREFIX = 'diagram'
 
       IMAGE_PARAMS = {
           :svg => {
@@ -66,7 +69,7 @@ module Asciidoctor
         supported_formats = converter.supported_formats
 
         begin
-          format = source.attributes.delete('format') || source.attr('format', nil, name) || source.attr('format', supported_formats[0], 'diagram')
+          format = source.attributes.delete('format') || source.attr('format', nil, name) || source.attr('format', supported_formats[0], DIAGRAM_PREFIX)
           format = format.to_sym if format.respond_to?(:to_sym)
 
           raise "Format undefined" unless format
@@ -88,7 +91,7 @@ module Asciidoctor
           block.assign_caption(caption, 'figure')
           block
         rescue => e
-          case source.attr('on-error', 'log', 'diagram')
+          case source.attr('on-error', 'log', DIAGRAM_PREFIX)
           when 'abort'
             raise e
           else
@@ -158,6 +161,12 @@ module Asciidoctor
         if !File.exist?(image_file) || source.should_process?(image_file, metadata)
           params = IMAGE_PARAMS[format]
 
+          server_url = source.attr('server-url', nil, name) || source.attr('server-url', nil, DIAGRAM_PREFIX)
+          if server_url
+            server_type = source.attr('server-type', nil, name) || source.attr('server-type', 'plantuml', DIAGRAM_PREFIX)
+            converter = HttpConverter.new(server_url, server_type.to_sym, converter)
+          end
+
           options = converter.collect_options(source, name)
           result = converter.convert(source, format, options)
 
@@ -175,7 +184,7 @@ module Asciidoctor
 
         image_attributes['target'] = source.attr('data-uri', nil, true) ? image_file : image_name
         if format == :svg
-          svg_type = source.attr('svg-type', nil, name) || source.attr('svg-type', nil, 'diagram')
+          svg_type = source.attr('svg-type', nil, name) || source.attr('svg-type', nil, DIAGRAM_PREFIX)
           image_attributes['opts'] = svg_type if svg_type && svg_type != 'static'
         end
 
