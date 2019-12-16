@@ -66,7 +66,7 @@ module Asciidoctor
         supported_formats = converter.supported_formats
 
         begin
-          format = source.attributes.delete('format') || source.attr('format', supported_formats[0], name)
+          format = source.attributes.delete('format') || source.attr('format', nil, name) || source.attr('format', supported_formats[0], 'diagram')
           format = format.to_sym if format.respond_to?(:to_sym)
 
           raise "Format undefined" unless format
