@@ -81,7 +81,7 @@ module Asciidoctor
           caption = source.attributes.delete 'caption'
 
           case format
-          when :txt
+          when :txt, :atxt, :utxt
             block = create_literal_block(parent, source, converter)
           else
             block = create_image_block(parent, source, format, converter)
