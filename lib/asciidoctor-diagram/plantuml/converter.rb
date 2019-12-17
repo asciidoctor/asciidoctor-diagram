@@ -18,7 +18,7 @@ module Asciidoctor
       Java.classpath.concat JARS
 
       def supported_formats
-        [:png, :svg, :txt]
+        [:png, :svg, :txt, :atxt, :utxt]
       end
 
       def collect_options(source, name)
@@ -37,8 +37,10 @@ module Asciidoctor
           mime_type = 'image/png'
         when :svg
           mime_type = 'image/svg+xml'
-        when :txt
+        when :txt, :utxt
           mime_type = 'text/plain;charset=utf-8'
+        when :atxt
+          mime_type = 'text/plain;charset=us-ascii'
         else
           raise "Unsupported format: #{format}"
         end
