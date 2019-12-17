@@ -82,7 +82,7 @@ module Asciidoctor
 
           case format
           when :txt, :atxt, :utxt
-            block = create_literal_block(parent, source, converter)
+            block = create_literal_block(parent, source, format, converter)
           else
             block = create_image_block(parent, source, format, converter)
           end
@@ -258,12 +258,12 @@ module Asciidoctor
         parent.normalize_system_path(cache_dir, base_dir)
       end
 
-      def create_literal_block(parent, source, converter)
+      def create_literal_block(parent, source, format, converter)
         literal_attributes = source.attributes
         literal_attributes.delete('target')
 
         options = converter.collect_options(source, name)
-        result = converter.convert(source, :txt, options)
+        result = converter.convert(source, format, options)
 
         result.force_encoding(Encoding::UTF_8)
         Asciidoctor::Block.new parent, :literal, :source => result, :attributes => literal_attributes
