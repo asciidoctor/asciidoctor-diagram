@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.0.1
+
+Bug Fixes::
+
+  * Issue #254: On Windows generating PlantUML or Ditaa diagrams would cause asciidoctor-diagram to block indefinitely
+
 == 2.0.0
 
 Enhancements::
