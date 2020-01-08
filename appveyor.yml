@@ -23,7 +23,7 @@ install:
   - cinst gnuplot
   - npm install -g nomnoml
   - npm install -g mermaid.cli
-  - npm install -g wavedrom-cli
+#  - npm install -g wavedrom-cli
 # Install umlet
   - curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
   - 7z x umlet-standalone-14.2.zip
