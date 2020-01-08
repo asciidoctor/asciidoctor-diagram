@@ -17,7 +17,7 @@ module Asciidoctor
           args << classpath.flatten.map { |jar| ::Asciidoctor::Diagram::Platform.host_os_path(jar).strip }.join(::Asciidoctor::Diagram::Platform.host_os_path_separator)
           args << 'org.asciidoctor.diagram.StdInOutCommandServer'
 
-          @server = IO.popen([java, *args], 'r+')
+          @server = IO.popen([java, *args], 'r+b')
         end
 
         def io
