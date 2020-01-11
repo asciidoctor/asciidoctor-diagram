@@ -42,8 +42,8 @@ module Asciidoctor
 
         bg_img = source.resolve_path(bg_img, source.attr('imagesdir'))
 
-        top_label = options[:top]
-        bottom_label = options[:bottom]
+        top_label = options[:top_label]
+        bottom_label = options[:bottom_label]
         fill_color = options[:fill_color] || 'white'
         stroke_color = options[:stroke_color] || 'black'
         stroke_width = options[:stroke_width] || '2'
