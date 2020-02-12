@@ -29,7 +29,7 @@ module Asciidoctor
 
         opts[:width] = options[:width]
 
-        bpmnjs = source.find_command('bpmn-js', :raise_on_error => false)
+        bpmnjs = source.find_command('bpmn-js')
         opts[:height] = options[:height]
         opts[:theme] = options[:theme]
         config = options[:config]
