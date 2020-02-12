@@ -143,11 +143,11 @@ module Asciidoctor
       end
 
       def should_process?(image_file, image_metadata)
-        image_metadata['checksum'] != checksum
+        image_metadata[:checksum] != checksum
       end
 
       def create_image_metadata
-        {'checksum' => checksum}
+        {:checksum => checksum}
       end
 
       def checksum

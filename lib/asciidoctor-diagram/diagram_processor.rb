@@ -151,14 +151,15 @@ module Asciidoctor
         metadata_file = parent.normalize_system_path "#{image_name}.cache", cache_dir
 
         if File.exist? metadata_file
-          metadata = File.open(metadata_file, 'r') {|f| JSON.load f}
+          metadata = File.open(metadata_file, 'r') {|f| JSON.load(f, nil, :symbolize_names => true, :create_additions => false) }
         else
           metadata = {}
         end
 
         image_attributes = source.attributes
+        options = converter.collect_options(source, name)
 
-        if !File.exist?(image_file) || source.should_process?(image_file, metadata)
+        if !File.exist?(image_file) || source.should_process?(image_file, metadata) || options != metadata[:options]
           params = IMAGE_PARAMS[format]
 
           server_url = source.attr('server-url', nil, name) || source.attr('server-url', nil, DIAGRAM_PREFIX)
@@ -173,7 +174,8 @@ module Asciidoctor
           result.force_encoding(params[:encoding])
 
           metadata = source.create_image_metadata
-          metadata['width'], metadata['height'] = params[:decoder].get_image_size(result)
+          metadata[:options] = options
+          metadata[:width], metadata[:height] = params[:decoder].get_image_size(result)
 
           FileUtils.mkdir_p(File.dirname(image_file)) unless Dir.exist?(File.dirname(image_file))
           File.open(image_file, 'wb') {|f| f.write result}
