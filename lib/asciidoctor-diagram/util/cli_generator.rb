@@ -26,7 +26,7 @@ module Asciidoctor
         else
           opts = [tool]
         end
-        generate(opts, :stdout, :stdin_data => code)
+        generate(opts, :stdout, :stdin_data => code, :binmode => true)
       end
 
       def generate_file(tool, input_ext, output_ext, code)
