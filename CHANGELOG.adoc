@@ -2,6 +2,10 @@
 
 == 2.0.2
 
+Enhancements::
+
+  * #268: Changing diagram attribute values will now also trigger image regeneration
+
 Bug Fixes::
 
   * Issue #267: Use binary mode when reading generated images from stdout
