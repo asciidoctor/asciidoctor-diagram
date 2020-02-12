@@ -199,11 +199,11 @@ module Asciidoctor
 
         if /html/i =~ parent.document.attributes['backend']
           image_attributes.delete('scale')
-          if metadata['width'] && !image_attributes['width']
-            image_attributes['width'] = (metadata['width'] * scale_factor).to_i
+          if metadata[:width] && !image_attributes['width']
+            image_attributes['width'] = (metadata[:width] * scale_factor).to_i
           end
-          if metadata['height'] && !image_attributes['height']
-            image_attributes['height'] = (metadata['height'] * scale_factor).to_i
+          if metadata[:height] && !image_attributes['height']
+            image_attributes['height'] = (metadata[:height] * scale_factor).to_i
           end
         end
 
