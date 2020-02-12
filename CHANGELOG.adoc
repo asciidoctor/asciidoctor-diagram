@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.0.2
+
+Bug Fixes::
+
+  * Issue #267: Use binary mode when reading generated images from stdout
+
 == 2.0.1
 
 Bug Fixes::
