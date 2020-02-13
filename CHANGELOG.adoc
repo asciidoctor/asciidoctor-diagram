@@ -9,6 +9,7 @@ Enhancements::
 
 Bug Fixes::
 
+  * Issue #266: Resolve execution issue when the path for GnuPlot or Vega contains spaces
   * Issue #267: Use binary mode when reading generated images from stdout
 
 == 2.0.1

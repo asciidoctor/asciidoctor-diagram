@@ -9,7 +9,7 @@ module Asciidoctor
         require_relative 'java'
 
         def self.run(*args)
-          opts = args.pop if args.last.is_a? Hash
+          opts = args.pop.dup if args.last.is_a? Hash
           in_data = opts && opts[:stdin_data]
 
           pb = java.lang.ProcessBuilder.new(*args)
@@ -61,7 +61,17 @@ module Asciidoctor
         require 'open3'
 
         def self.run(*args)
-          stdout, stderr, status = Open3.capture3(*args)
+          if Hash === args.last
+            opts = args.pop.dup
+          else
+            opts = {}
+          end
+
+          # When the first argument is an array, we force capture3 (or better the underlying Kernel#spawn)
+          # to use a non-shell execution variant.
+          args[0] = [args[0], File.basename(args[0])]
+
+          stdout, stderr, status = Open3.capture3(*args, opts)
 
           exit = status.exitstatus
 
