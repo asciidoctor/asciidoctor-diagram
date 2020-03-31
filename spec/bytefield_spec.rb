@@ -17,7 +17,7 @@ code = <<-eos
   label."
   [span label]
   (draw-box (text label [:math {:font-size 12}]) {:span    span
-                                                  :borders #{}
+                                                  :borders \#{}
                                                   :height  14}))
 
 (defn draw-remotedb-header
