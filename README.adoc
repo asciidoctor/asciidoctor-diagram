@@ -19,6 +19,7 @@ ifndef::env-site[:status:]
 :uri-asciidoctor-extensions: http://asciidoctor.org/docs/user-manual/#extension-points
 :uri-blockdiag: http://blockdiag.com
 :uri-bpmn: https://github.com/gtudan/bpmn-js-cmd
+:uri-bytefield: https://github.com/Deep-Symmetry/bytefield-svg
 :uri-ditaa: http://ditaa.sourceforge.net/
 :uri-dot: https://graphviz.gitlab.io/_pages/doc/info/lang.html
 :uri-erd: https://github.com/BurntSushi/erd
@@ -49,7 +50,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-gnuplot}[Gnuplot], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
+The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-bytefield}[Bytefield-SVG], {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-gnuplot}[Gnuplot], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -123,6 +124,7 @@ The following diagram types and output formats are available:
 |{uri-actdiag}[actdiag]      |       |{check}|{check}|{check}|
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|{check}|
 |{uri-bpmn}[bpmn]            |       |{check}|{check}|{check}|
+|{uri-bytefield}{bytefield]  |       |       |       |{check}|
 |{uri-ditaa}[ditaa]          |       |       |{check}|{check}|
 |{uri-erd}[erd]              |       |       |{check}|{check}|
 |{uri-gnuplot}[gnuplot]      |{check}|       |{check}|{check}|{check}
@@ -255,7 +257,7 @@ or load and register each extension individually.
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` can be one of `a2s`, `blockdiag`, `ditaa`, `erd`, `gnuplot`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
+`<extension_name>` can be one of `a2s`, `blockdiag`, `bytefield`, `ditaa`, `erd`, `gnuplot`, `graphviz`, `meme`, `mermaid`, `msc`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
@@ -302,6 +304,7 @@ The following table lists the tools that are required for each diagram type, the
    |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
    |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
    |bpmn         |{uri-bpmn}[bpmn-js-cmd]                                               |`bpmn`
+   |bytefield    |{uri-bytefield}[bytefield-svg]                                        |`bytefield-svg`
    |ditaa        |{uri-java}[Java]                                                      |`java`
    |erd          |{uri-erd}[Erd]                                                        |`erd`
    |gnuplot      |{uri-gnuplot}[Gnuplot]                                                |`gnuplot`
