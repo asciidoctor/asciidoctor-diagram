@@ -69,14 +69,15 @@ module Asciidoctor
 
           # When the first argument is an array, we force capture3 (or better the underlying Kernel#spawn)
           # to use a non-shell execution variant.
-          args[0] = [args[0], File.basename(args[0])]
+          cmd = File.basename(args[0])
+          args[0] = [args[0], cmd]
 
           stdout, stderr, status = Open3.capture3(*args, opts)
 
           exit = status.exitstatus
 
           if exit != 0
-            raise "#{File.basename(args[0])} failed: #{stdout.empty? ? stderr : stdout}"
+            raise "#{cmd} failed: #{stdout.empty? ? stderr : stdout}"
           end
 
           {

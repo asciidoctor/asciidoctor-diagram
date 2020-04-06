@@ -6,6 +6,7 @@ Enhancements::
 
   * #260: Update PlantUML to v1.2020.0
   * #268: Changing diagram attribute values will now also trigger image regeneration
+  * #276: Add support for bytefield-svg
 
 Bug Fixes::
 
