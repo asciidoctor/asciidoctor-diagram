@@ -40,7 +40,7 @@ module Asciidoctor
         when :txt, :utxt
           mime_type = 'text/plain;charset=utf-8'
         when :atxt
-          mime_type = 'text/plain;charset=us-ascii'
+          mime_type = 'text/plain'
         else
           raise "Unsupported format: #{format}"
         end
