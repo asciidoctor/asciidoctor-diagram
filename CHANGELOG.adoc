@@ -5,7 +5,7 @@
 Enhancements::
 
   * #260: Update PlantUML to v1.2020.6
-  * #265: Add support for svgbob options (@hackingotter)
+  * #270: Add support for svgbob options (@hackingotter)
   * #268: Changing diagram attribute values will now also trigger image regeneration
   * #276: Add support for bytefield-svg
 
