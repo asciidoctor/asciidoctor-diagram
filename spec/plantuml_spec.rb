@@ -460,7 +460,7 @@ skinparam ArrowColor #DEADBE
     expect(File.exist?(target)).to be true
 
     svg = File.read(target, :encoding => Encoding::UTF_8)
-    expect(svg).to match(/<path.*fill="#DEADBE"/)
+    expect(svg).to match(/<[^<]+ fill=["']#DEADBE["']/)
   end
 
   it 'should not regenerate images when source has not changed' do

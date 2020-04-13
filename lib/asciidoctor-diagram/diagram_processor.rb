@@ -175,7 +175,8 @@ module Asciidoctor
 
           metadata = source.create_image_metadata
           metadata[:options] = options
-          metadata[:width], metadata[:height] = params[:decoder].get_image_size(result)
+
+          result, metadata[:width], metadata[:height] = params[:decoder].post_process_image(result)
 
           FileUtils.mkdir_p(File.dirname(image_file)) unless Dir.exist?(File.dirname(image_file))
           File.open(image_file, 'wb') {|f| f.write result}

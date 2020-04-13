@@ -6,7 +6,7 @@ module Asciidoctor
     module PNG
       PNG_SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10].pack('CCCCCCCC')
 
-      def self.get_image_size(data)
+      def self.post_process_image(data)
         bio = BinaryIO.new(data)
         png_signature = bio.read_string(8)
         raise "Invalid PNG signature" unless png_signature == PNG_SIGNATURE
@@ -18,7 +18,7 @@ module Asciidoctor
 
         width = bio.read_uint32_be
         height = bio.read_uint32_be
-        [width, height]
+        [data, width, height]
       end
     end
   end
