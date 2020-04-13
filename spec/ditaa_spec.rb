@@ -253,4 +253,36 @@ Doc Writer <doc@example.com>
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
   end
+
+  it "should report syntax errors" do
+    doc = <<-eos
+= Hello, Ditaa!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[ditaa,format="svg"]
+----
+This should cause a bug.
+
+// TODO:
+// - don't make bugs
+// - oops I wrote a comment here
+
+    +--------+   +-------+    +-------+
+    |        | --+ ditaa +--> |       |
+    |  Text  |   +-------+    |diagram|
+    |Document|   |!magic!|    |       |
+    |     {d}|   |       |    |       |
+    +---+----+   +-------+    +-------+
+        :                         ^
+        |       Lots of work      |
+        +-------------------------+
+----
+    eos
+
+    expect {
+      load_asciidoc doc
+    }.to raise_error(/Cannot follow cell/i)
+  end
 end

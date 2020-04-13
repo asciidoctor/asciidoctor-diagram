@@ -6,7 +6,7 @@ module Asciidoctor
     module Java
       def self.classpath
         @classpath ||= [
-            File.expand_path(File.join('../..', 'server-1.3.14.jar'), File.dirname(__FILE__))
+            File.expand_path(File.join('../..', 'server-1.3.15.jar'), File.dirname(__FILE__))
         ]
       end
 

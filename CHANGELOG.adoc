@@ -13,6 +13,7 @@ Bug Fixes::
 
   * Issue #266: Resolve execution issue when the path for GnuPlot or Vega contains spaces
   * Issue #267: Use binary mode when reading generated images from stdout
+  * Issue #273: Report Ditaa syntax errors correctly
 
 == 2.0.1
 
