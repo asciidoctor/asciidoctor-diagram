@@ -2,8 +2,8 @@ module Asciidoctor
   module Diagram
     # @private
     module PDF
-      def self.get_image_size(_)
-        nil
+      def self.post_process_image(data)
+        [data, nil, nil]
       end
     end
   end
