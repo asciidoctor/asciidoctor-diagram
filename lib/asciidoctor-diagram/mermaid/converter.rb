@@ -57,7 +57,8 @@ module Asciidoctor
         opts[:width] = options[:width]
 
         mmdc = source.find_command('mmdc', :raise_on_error => false)
-        if mmdc
+        node = source.find_command('node', :raise_on_error => false)
+        if mmdc && node
           opts[:height] = options[:height]
           opts[:theme] = options[:theme]
           opts[:background] = options[:background]
@@ -65,7 +66,7 @@ module Asciidoctor
           if config
             opts[:config] = source.resolve_path(config)
           end
-          run_mmdc(mmdc, source, format, opts)
+          run_mmdc(node, mmdc, source, format, opts)
         else
           mermaid = source.find_command('mermaid')
           run_mermaid(mermaid, source, format, opts)
@@ -73,9 +74,9 @@ module Asciidoctor
       end
 
       private
-      def run_mmdc(mmdc, source, format, options = {})
-        generate_file(mmdc, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-          args = [tool_path, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)]
+      def run_mmdc(node, mmdc, source, format, options = {})
+        generate_file(node, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+          args = [tool_path, '--unhandled-rejections=strict', mmdc, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)]
 
           if options[:css]
             args << '--cssFile' << Platform.native_path(options[:css])
