@@ -1,3 +1,4 @@
+require 'asciidoctor/logging'
 require 'tempfile'
 require_relative 'cli'
 
@@ -5,6 +6,8 @@ module Asciidoctor
   module Diagram
     # @private
     module CliGenerator
+      include Asciidoctor::Logging
+
       def generate_stdin(tool, format, code)
         tool_name = File.basename(tool)
 
@@ -64,6 +67,7 @@ module Asciidoctor
             raise "Block passed to generate_file should return an Array or a Hash"
         end
 
+        logger.debug "Executing #{args} with options #{open3_opts}"
         result = ::Asciidoctor::Diagram::Cli.run(*args, open3_opts)
 
         data = target_file == :stdout ? result[:out] : read_result(target_file, out_file)

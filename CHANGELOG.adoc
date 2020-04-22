@@ -1,5 +1,12 @@
 = Asciidoctor-diagram Changelog
 
+
+== 2.0.3
+
+Bug Fixes::
+
+  * Issue #257: Avoid potential hangs when generating Mermaid diagrams
+
 == 2.0.2
 
 Enhancements::
