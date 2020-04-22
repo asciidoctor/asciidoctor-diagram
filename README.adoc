@@ -27,7 +27,7 @@ ifndef::env-site[:status:]
 :uri-graphviz: https://graphviz.gitlab.io
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com
-:uri-mermaid: https://github.com/mermaidjs/mermaid.cli
+:uri-mermaid: https://github.com/mermaid-js/mermaid.cli
 :uri-mscgen: http://www.mcternan.me.uk/mscgen/
 :uri-nomnoml: http://nomnoml.com
 :uri-nwdiag: http://blockdiag.com/en/nwdiag/index.html
