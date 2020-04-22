@@ -1,3 +1,4 @@
+require 'asciidoctor/logging'
 require_relative 'util/which'
 
 module Asciidoctor
@@ -5,6 +6,8 @@ module Asciidoctor
     # This module describes the duck-typed interface that diagram sources must implement. Implementations
     # may include this module but it is not required.
     module DiagramSource
+      include Asciidoctor::Logging
+
       def image_name
         raise NotImplementedError.new
       end
@@ -75,14 +78,42 @@ module Asciidoctor
         if config.key? cmd_var
           cmd_path = config[cmd_var]
         else
-          cmd_path = attr_names.map { |attr_name| attr(attr_name, nil, true) }.find { |attr| !attr.nil? }
+          logger.debug "Finding '#{cmd}' in attributes"
+          cmd_path = attr_names.map { |attr_name|
+                                 attr = attr(attr_name, nil, true)
+                                 if logger.debug? && attr
+                                   logger.debug "Found value '#{attr}' in attribute '#{attr_name}'" if attr
+                                 end
+                                 attr
+                               }
+                               .filter { |attr| !attr.nil? }
+                               .map { |attr|
+                                 expanded = File.expand_path(attr)
+                                 if logger.debug? && attr != expanded
+                                   logger.debug "Expanded '#{attr}' to '#{expanded}'"
+                                 end
+                                 expanded
+                               }
+                               .filter { |path|
+                                 executable = File.executable?(path)
+                                 if logger.debug?
+                                   logger.debug "Is '#{path}' executable? #{executable}"
+                                 end
+                                 executable
+                               }
+                               .first
 
-          unless cmd_path && File.executable?(cmd_path)
-            cmd_paths = cmd_names.map do |c|
-              ::Asciidoctor::Diagram::Which.which(c, :path => options[:path])
-            end
-
-            cmd_path = cmd_paths.reject { |c| c.nil? }.first
+          unless cmd_path
+            logger.debug "Finding '#{cmd}' in environment"
+            cmd_path = cmd_names.map { |c|
+                             path = ::Asciidoctor::Diagram::Which.which(c, :path => options[:path])
+                             if logger.debug? && path
+                               logger.debug "Found '#{path}' in environment"
+                             end
+                             path
+                           }
+                           .filter { |path| !path.nil? }
+                           .first
           end
 
           config[cmd_var] = cmd_path
