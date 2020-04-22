@@ -310,7 +310,7 @@ The following table lists the tools that are required for each diagram type, the
    |gnuplot      |{uri-gnuplot}[Gnuplot]                                                |`gnuplot`
    |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
    |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
-   |mermaid      |{uri-mermaid}[Mermaid.cli]                                            |`mermaid`
+   |mermaid      |{uri-mermaid}[Mermaid.cli]                                            |`mmdc`
    |msc          |{uri-mscgen}[Mscgen]                                                  |`mscgen`
    |nomnoml      |{uri-nomnoml}[Nomnoml]                                                |`nomnoml`
    |nwdiag       |{uri-nwdiag}[NwDiag]                                                  |`nwdiag`
