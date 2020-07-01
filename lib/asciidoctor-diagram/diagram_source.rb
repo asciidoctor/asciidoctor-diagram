@@ -86,7 +86,7 @@ module Asciidoctor
                                  end
                                  attr
                                }
-                               .reject { |attr| !attr.nil? }
+                               .reject { |attr| attr.nil? }
                                .map { |attr|
                                  expanded = File.expand_path(attr)
                                  if logger.debug? && attr != expanded
@@ -94,7 +94,7 @@ module Asciidoctor
                                  end
                                  expanded
                                }
-                               .reject { |path|
+                               .select { |path|
                                  executable = File.executable?(path)
                                  if logger.debug?
                                    logger.debug "Is '#{path}' executable? #{executable}"
@@ -112,7 +112,7 @@ module Asciidoctor
                              end
                              path
                            }
-                           .reject { |path| !path.nil? }
+                           .reject { |path| path.nil? }
                            .first
           end
 
