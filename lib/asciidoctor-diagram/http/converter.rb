@@ -51,6 +51,7 @@ module Asciidoctor
           path << '/' unless path.end_with? '/'
           path << format.to_s
           path << '/' << data
+          uri.path = path
         when :kroki_io
           compressed = Zlib.deflate(code, Zlib::BEST_COMPRESSION)
           data = Base64.urlsafe_encode64(compressed)
@@ -60,17 +61,36 @@ module Asciidoctor
           path << options[:block_name].to_s
           path << '/' << format.to_s
           path << '/' << data
+          uri.path = path
         else
           raise "Unsupported server type: " + @type
         end
 
+        get_uri(uri)
+      end
+
+      private
+
+      def get_uri(uri, attempt = 1)
+        if attempt >= 10
+          raise "Too many redirects"
+        end
+
         Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme.downcase == 'https') do |http|
-          response = http.request_get path
+          response = http.request_get uri.path
           case response
-          when Net::HTTPSuccess
-            response.body
-          else
-            response.value
+            when Net::HTTPSuccess
+              response.body
+            when Net::HTTPRedirection then
+              location = response['Location']
+              new_uri = URI.parse(location)
+              if new_uri.relative?
+                get_uri(uri + location, attempt + 1)
+              else
+                get_uri(new_uri, attempt + 1)
+              end
+            else
+              response.value
           end
         end
       end
