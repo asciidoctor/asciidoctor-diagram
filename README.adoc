@@ -40,6 +40,7 @@ ifndef::env-site[:status:]
 :uri-shaape: https://github.com/christiangoltz/shaape
 :uri-smcat: https://github.com/sverweij/state-machine-cat
 :uri-svgbob: https://github.com/ivanceras/svgbobrus
+:uri-symbolator: https://github.com/kevinpt/symbolator
 :uri-syntrax: https://kevinpt.github.io/syntrax/
 :uri-umlet: http://www.umlet.com/
 :uri-vega: https://vega.github.io/vega/
@@ -50,7 +51,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-bytefield}[Bytefield-SVG], {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-gnuplot}[Gnuplot], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
+The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-bytefield}[Bytefield-SVG], {uri-ditaa}[Ditaa], {uri-erd}[Erd], {uri-gnuplot}[Gnuplot], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-symbolator}[Symbolator], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -141,6 +142,7 @@ The following diagram types and output formats are available:
 |{uri-shaape}[shaape]        |       |       |{check}|{check}|
 |{uri-smcat}[smcat]          |       |       |       |{check}|
 |{uri-svgbob}[svgbob]        |       |       |       |{check}|
+|{uri-symbolator}[symbolator]|       |{check}|{check}|{check}|
 |{uri-syntrax}[syntrax]      |       |{check}|{check}|{check}|
 |{uri-umlet}[umlet]          |{check}|{check}|{check}|{check}|
 |{uri-vega}[vega]            |       |       |{check}|{check}|
@@ -321,6 +323,7 @@ The following table lists the tools that are required for each diagram type, the
    |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
    |smcat        |{uri-smcat}[State Machine Cat]                                        |`smcat`
    |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
+   |symbolator   |{uri-symbolator}[Symbolator]                                          |`symbolator`
    |syntrax      |{uri-syntrax}[Syntrax]                                                |`syntrax`
    |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
    |vega         |{uri-vega}[vg2png] and/or {uri-vega}[vg2png]                          |`vg2png` and `vg2svg`
