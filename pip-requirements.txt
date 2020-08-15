@@ -2,5 +2,6 @@ blockdiag[pdf]
 actdiag[pdf]
 seqdiag[pdf]
 nwdiag[pdf]
+symbolator
 shaape
 syntrax
