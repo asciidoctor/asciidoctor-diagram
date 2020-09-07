@@ -23,6 +23,7 @@ module Asciidoctor
         options[:seq_config] = source.attr('sequenceconfig', nil, name) || source.attr('sequence-config', nil, name)
         options[:width] = source.attr('width', nil, name)
         options[:height] = source.attr('height', nil, name)
+        options[:scale] = source.attr('scale', nil, name)
         options[:theme] = source.attr('theme', nil, name)
         options[:background] = source.attr('background', nil, name)
         options[:config] = source.attr('config', nil, name)
@@ -60,6 +61,7 @@ module Asciidoctor
         node = source.find_command('node', :raise_on_error => false)
         if mmdc && node
           opts[:height] = options[:height]
+          opts[:scale] = options[:scale]
           opts[:theme] = options[:theme]
           opts[:background] = options[:background]
           config = options[:config]
@@ -92,6 +94,10 @@ module Asciidoctor
 
           if options[:height]
             args << '--height' << options[:height]
+          end
+
+          if options[:scale]
+            args << '--scale' << options[:scale]
           end
 
           if options[:background]
