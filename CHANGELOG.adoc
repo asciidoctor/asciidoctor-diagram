@@ -10,6 +10,7 @@ Enhancements::
 
 Bug Fixes::
 
+  * Issue #247: Fix `svg-type`/`diagram-svg-type`.
   * Issue #257: Avoid potential hangs when generating Mermaid diagrams
 
 == 2.0.2
