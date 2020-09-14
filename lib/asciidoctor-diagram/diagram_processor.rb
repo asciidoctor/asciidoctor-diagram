@@ -185,9 +185,17 @@ module Asciidoctor
         end
 
         image_attributes['target'] = source.attr('data-uri', nil, true) ? image_file : image_name
+
         if format == :svg
           svg_type = source.attr('svg-type', nil, name) || source.attr('svg-type', nil, DIAGRAM_PREFIX)
-          image_attributes['opts'] = svg_type if svg_type && svg_type != 'static'
+          case svg_type
+            when nil, 'static'
+            when 'inline', 'interactive'
+              image_attributes["#{svg_type}-option"] = ''
+              image_attributes['target'] = image_file
+            else
+              raise "Unsupported SVG type: #{svg_type}"
+          end
         end
 
         scale = image_attributes['scale']
