@@ -184,20 +184,6 @@ module Asciidoctor
           File.open(metadata_file, 'w') {|f| JSON.dump(metadata, f)}
         end
 
-        image_attributes['target'] = source.attr('data-uri', nil, true) ? image_file : image_name
-
-        if format == :svg
-          svg_type = source.attr('svg-type', nil, name) || source.attr('svg-type', nil, DIAGRAM_PREFIX)
-          case svg_type
-            when nil, 'static'
-            when 'inline', 'interactive'
-              image_attributes["#{svg_type}-option"] = ''
-              image_attributes['target'] = image_file
-            else
-              raise "Unsupported SVG type: #{svg_type}"
-          end
-        end
-
         scale = image_attributes['scale']
         if scalematch = /(\d+(?:\.\d+))/.match(scale)
           scale_factor = scalematch[1].to_f
@@ -215,25 +201,44 @@ module Asciidoctor
           end
         end
 
-        image_attributes['alt'] ||= if title_text = image_attributes['title']
-                                      title_text
-                                    elsif target = image_attributes['target']
-                                      (File.basename(target, File.extname(target)) || '').tr '_-', ' '
-                                    else
-                                      'Diagram'
-                                    end
-
-        image_attributes['alt'] = parent.sub_specialchars image_attributes['alt']
-
         parent.document.register(:images, image_name)
-        if (scaledwidth = image_attributes['scaledwidth'])
+
+        node = Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
+
+        alt_text = node.attr('alt')
+        alt_text ||= if title_text = image_attributes['title']
+                       title_text
+                     elsif target = image_attributes['target']
+                       (File.basename(target, File.extname(target)) || '').tr '_-', ' '
+                     else
+                       'Diagram'
+                     end
+        alt_text = parent.sub_specialchars(alt_text)
+
+        node.set_attr('alt', alt_text)
+
+        if (scaledwidth = node.attr('scaledwidth'))
           # append % to scaledwidth if ends in number (no units present)
           if DIGIT_CHAR_RANGE.include?((scaledwidth[-1] || 0).ord)
-            image_attributes['scaledwidth'] = %(#{scaledwidth}%)
+            node.set_attr('scaledwidth', %(#{scaledwidth}%))
           end
         end
 
-        Asciidoctor::Block.new parent, :image, :content_model => :empty, :attributes => image_attributes
+        node.set_attr('target', source.attr('data-uri', nil, true) ? image_file : image_name)
+
+        if format == :svg
+          svg_type = source.attr('svg-type', nil, name) || source.attr('svg-type', nil, DIAGRAM_PREFIX)
+          case svg_type
+            when nil, 'static'
+            when 'inline', 'interactive'
+              node.set_option(svg_type)
+              node.set_attr('target', image_file)
+            else
+              raise "Unsupported SVG type: #{svg_type}"
+          end
+        end
+
+        node
       end
 
       def scale(size, factor)
