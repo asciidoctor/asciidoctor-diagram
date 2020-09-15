@@ -343,7 +343,7 @@ User --> (Use the application) : Label
     expect(target).to match(/\.svg/)
     expect(File.exist?(target)).to be true
 
-    expect(b.attributes['opts']).to eq('inline')
+    expect(b.option?('inline')).to be_truthy
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
@@ -379,7 +379,7 @@ User --> (Use the application) : Label
     expect(target).to match(/\.svg/)
     expect(File.exist?(target)).to be true
 
-    expect(b.attributes['opts']).to eq('inline')
+    expect(b.option?('inline')).to be_truthy
 
     expect(b.attributes['width']).to_not be_nil
     expect(b.attributes['height']).to_not be_nil
