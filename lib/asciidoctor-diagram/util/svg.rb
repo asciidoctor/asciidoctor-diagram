@@ -9,6 +9,11 @@ module Asciidoctor
         svg = REXML::Document.new(data)
 
         root = svg.root
+
+        unless root.attributes['xmlns']
+          root.add_attribute('xmlns', 'http://www.w3.org/2000/svg')
+        end
+
         unless root.attributes['preserveAspectRatio']
           root.add_attribute('preserveAspectRatio', 'xMidYMid meet')
         end
