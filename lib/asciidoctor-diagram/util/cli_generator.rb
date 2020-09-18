@@ -54,6 +54,20 @@ module Asciidoctor
         end
       end
 
+      def generate_file_stdout(tool, input_ext, code)
+        tool_name = File.basename(tool)
+
+        source_file = Tempfile.new([tool_name, ".#{input_ext}"])
+        begin
+          File.write(source_file.path, code)
+
+          opts = yield tool, source_file.path
+          generate(opts, :stdout)
+        ensure
+          source_file.unlink
+        end
+      end
+
       private
       def generate(opts, target_file, open3_opts = {})
         case opts
