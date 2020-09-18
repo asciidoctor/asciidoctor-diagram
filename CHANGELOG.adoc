@@ -5,6 +5,7 @@
 
 Enhancements::
 
+  * Issue #261: Ensure generated SVG diagrams always specify a view box
   * Issue #284: Add support for HTTP redirect responses when using a rendering server
   * Issue #290: Add support for Pikchr
   * Add support for dpic
