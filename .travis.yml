@@ -82,9 +82,9 @@ install:
   - npm install -g mermaid.cli
   - npm install -g nomnoml
   - npm install -g state-machine-cat
-  - npm install -g vega
+  - npm install -g install-peerdeps
   - npm install -g vega-cli
-  - npm install -g vega-lite
+  - install-peerdeps -g vega-lite
   - npm install -g wavedrom-cli
   - sudo apt-get install -qq imagemagick
   - sudo apt-get install -qq gnuplot
