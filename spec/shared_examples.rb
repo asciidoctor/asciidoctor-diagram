@@ -3,7 +3,7 @@ require_relative 'test_helper'
 RSpec.shared_examples "block_macro" do |name, code, formats|
   formats.each do |format|
     if format == :txt
-      it "should generate literal blocks when format is set to 'txt'" do
+      it "#{name} should generate literal blocks when format is set to 'txt'" do
         File.write("#{name}.txt", code)
 
         doc = <<-eos
@@ -26,7 +26,7 @@ Doc Writer <doc@example.com>
         expect(b.attributes['target']).to be_nil
       end
     else
-      it "should generate image blocks when format is set to '#{format}'" do
+      it "#{name} should generate image blocks when format is set to '#{format}'" do
         File.write("#{name}.txt", code)
 
         doc = <<-eos
@@ -198,7 +198,7 @@ end
 RSpec.shared_examples "block" do |name, code, formats|
   formats.each do |format|
     if format == :txt
-      it "should generate literal blocks when format is set to 'txt'" do
+      it "#{name} should generate literal blocks when format is set to 'txt'" do
         doc = <<-eos
 = Hello, #{name}!
 Doc Writer <doc@example.com>
@@ -222,7 +222,7 @@ Doc Writer <doc@example.com>
         expect(b.attributes['target']).to be_nil
       end
     else
-      it "should generate image blocks when format is set to '#{format}'" do
+      it "#{name} should generate image blocks when format is set to '#{format}'" do
         doc = <<-eos
 = Hello, #{name}!
 Doc Writer <doc@example.com>
@@ -257,7 +257,7 @@ Doc Writer <doc@example.com>
   end
 
   if formats.include? :svg
-    it "should respect the svg-type attribute when format is set to 'svg'" do
+    it "#{name} should respect the svg-type attribute when format is set to 'svg'" do
       doc = <<-eos
 = Hello, #{name}!
 Doc Writer <doc@example.com>
@@ -291,7 +291,7 @@ Doc Writer <doc@example.com>
       end
     end
 
-    it "should respect the diagram-svg-type attribute when format is set to 'svg'" do
+    it "#{name} should respect the diagram-svg-type attribute when format is set to 'svg'" do
       doc = <<-eos
 = Hello, #{name}!
 :diagram-svg-type: inline

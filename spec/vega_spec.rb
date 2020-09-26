@@ -119,8 +119,10 @@ eos
 
 describe Asciidoctor::Diagram::VegaBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :vega, vega_code, [:svg]
+  include_examples "block_macro", :vegalite, vegalite_code, [:svg]
 end
 
 describe Asciidoctor::Diagram::VegaBlockProcessor, :broken_on_windows do
   include_examples "block", :vega, vega_code, [:svg]
+  include_examples "block", :vegalite, vegalite_code, [:svg]
 end
