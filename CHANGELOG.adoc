@@ -1,5 +1,10 @@
 = Asciidoctor-diagram Changelog
 
+== 2.0.4
+
+Bug Fixes::
+
+  * Issue #292: A regression in 2.0.3 caused SVG diagrams to get a zero width and height when documents were regenerated.
 
 == 2.0.3
 
