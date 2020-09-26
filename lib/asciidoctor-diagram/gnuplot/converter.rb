@@ -14,15 +14,15 @@ module Asciidoctor
         [:png, :svg, :gif, :txt, :literal]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         {
-            :width => source.attr('width', nil, name),
-            :height => source.attr('height', nil, name),
-            :transparent => source.attr('transparent', nil, name),
-            :crop => source.attr('crop', nil, name),
-            :font => source.attr('font', nil, name),
-            :fontscale => source.attr('fontscale', nil, name),
-            :background => source.attr('background', nil, name),
+            :width => source.attr('width'),
+            :height => source.attr('height'),
+            :transparent => source.attr('transparent'),
+            :crop => source.attr('crop'),
+            :font => source.attr('font'),
+            :fontscale => source.attr('fontscale'),
+            :background => source.attr('background'),
         }
       end
 

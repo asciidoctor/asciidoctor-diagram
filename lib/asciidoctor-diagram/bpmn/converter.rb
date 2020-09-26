@@ -15,11 +15,11 @@ module Asciidoctor
         [:png, :svg, :pdf, :jpeg]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         options = {}
 
-        options[:width] = source.attr('width', nil, name)
-        options[:height] = source.attr('height', nil, name)
+        options[:width] = source.attr('width')
+        options[:height] = source.attr('height')
 
         options
       end

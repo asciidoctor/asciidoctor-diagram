@@ -14,12 +14,12 @@ module Asciidoctor
         [:png, :svg]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         {
-            :heading => source.attr('heading', nil, name),
-            :scale => source.attr('scale', nil, name),
-            :transparent => source.attr('transparent', nil, name),
-            :style => source.attr('style', nil, name)
+            :heading => source.attr('heading'),
+            :scale => source.attr('scale'),
+            :transparent => source.attr('transparent'),
+            :style => source.attr('style')
         }
       end
 

@@ -18,15 +18,15 @@ module Asciidoctor
       def collect_options(source, name)
         options = {}
 
-        options[:css] = source.attr('css', nil, name)
-        options[:gantt_config] = source.attr('ganttconfig', nil, name) || source.attr('gantt-config', nil, name)
-        options[:seq_config] = source.attr('sequenceconfig', nil, name) || source.attr('sequence-config', nil, name)
-        options[:width] = source.attr('width', nil, name)
-        options[:height] = source.attr('height', nil, name)
-        options[:theme] = source.attr('theme', nil, name)
-        options[:background] = source.attr('background', nil, name)
-        options[:config] = source.attr('config', nil, name)
-        options[:puppeteer_config] = source.attr('puppeteerconfig', nil, name) || source.attr('puppeteer-config', nil, name)
+        options[:css] = source.attr('css')
+        options[:gantt_config] = source.attr(['ganttconfig', 'gantt-config'])
+        options[:seq_config] = source.attr(['sequenceconfig', 'sequence-config'])
+        options[:width] = source.attr('width')
+        options[:height] = source.attr('height')
+        options[:theme] = source.attr('theme')
+        options[:background] = source.attr('background')
+        options[:config] = source.attr('config')
+        options[:puppeteer_config] = source.attr(['puppeteerconfig', 'puppeteer-config'])
 
         options
       end

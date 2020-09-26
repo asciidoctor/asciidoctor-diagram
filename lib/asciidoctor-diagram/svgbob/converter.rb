@@ -21,12 +21,12 @@ module Asciidoctor
           :scale => lambda { |o, v| o << '--scale' << v if v }
       }
 
-      def collect_options(source, name)
+      def collect_options(source)
         options = {}
 
         OPTIONS.keys.each do |option|
           attr_name = option.to_s.tr('_', '-')
-          options[option] = source.attr(attr_name, nil, name) || source.attr(attr_name, nil, 'svgbob-option')
+          options[option] = source.attr(attr_name) || source.attr(attr_name, nil, 'svgbob-option')
         end
 
         options

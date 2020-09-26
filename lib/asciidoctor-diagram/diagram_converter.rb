@@ -7,7 +7,7 @@ module Asciidoctor
         raise NotImplementedError.new
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         {}
       end
 

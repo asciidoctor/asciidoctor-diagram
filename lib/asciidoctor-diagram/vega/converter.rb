@@ -15,9 +15,9 @@ module Asciidoctor
       end
 
 
-      def collect_options(source, name)
+      def collect_options(source)
         {
-            :vegalite => name.to_s.include?('lite') || source.attr('vegalite')
+            :vegalite => source.diagram_type.to_s.include?('lite') || source.attr('vegalite')
         }
       end
 

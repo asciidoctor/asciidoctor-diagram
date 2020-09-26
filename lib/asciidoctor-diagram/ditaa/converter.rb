@@ -33,12 +33,12 @@ module Asciidoctor
         [:png, :svg]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         options = {}
         
         OPTIONS.keys.each do |option|
           attr_name = option.to_s.tr('_', '-')
-          options[option] = source.attr(attr_name, nil, name) || source.attr(attr_name, nil, 'ditaa-option')
+          options[option] = source.attr(attr_name) || source.attr(attr_name, nil, 'ditaa-option')
         end
         
         options

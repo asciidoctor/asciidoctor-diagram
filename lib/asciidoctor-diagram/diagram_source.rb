@@ -8,6 +8,10 @@ module Asciidoctor
     module DiagramSource
       include Asciidoctor::Logging
 
+      def diagram_type
+        raise NotImplementedError.new
+      end
+
       def image_name
         raise NotImplementedError.new
       end
@@ -18,20 +22,24 @@ module Asciidoctor
         raise NotImplementedError.new
       end
 
+      def global_attr(name, default_value = nil)
+        attr(name) || attr(name, default_value, 'diagram')
+      end
+
       # Get the value for the specified attribute. First look in the attributes on
       # this document and return the value of the attribute if found. Otherwise, if
       # this document is a child of the Document document, look in the attributes of the
       # Document document and return the value of the attribute if found. Otherwise,
       # return the default value, which defaults to nil.
       #
-      # @param name [String, Symbol] the name of the attribute to lookup
+      # @param name [String, Symbol, Array] the name(s) of the attribute to lookup
       # @param default_value [Object] the value to return if the attribute is not found
       # @inherit [Boolean, String] indicates whether to check for the attribute on the AsciiDoctor::Document if not found on this document.
       #                            When a non-nil String is given the an attribute name "#{inherit}-#{name}" is looked for on the document.
       #
       # @return the value of the attribute or the default value if the attribute is not found in the attributes of this node or the document node
       # @abstract
-      def attr(name, default_value = nil, inherit = nil)
+      def attr(name, default_value = nil, inherit = diagram_type)
         raise NotImplementedError.new
       end
 
@@ -144,6 +152,10 @@ module Asciidoctor
         @attributes = attributes
       end
 
+      def diagram_type
+        @block_processor.name.downcase
+      end
+
       def resolve_path target, start = base_dir
         @parent_block.normalize_system_path(target, start)
       end
@@ -156,18 +168,22 @@ module Asciidoctor
         attr('target', 'diag-' + checksum)
       end
 
-      def attr(name, default_value = nil, inherit = nil)
+      def attr(name, default_value = nil, inherit = diagram_type)
         name = name.to_s if ::Symbol === name
+        name = [name] unless name.is_a?(Enumerable)
 
-        value = @attributes[name]
+        value = name.lazy.map { |n| @attributes[n] }.reject { |v| v.nil? }.first
 
         if value.nil? && inherit
-          case inherit
-          when String, Symbol
-            value = @parent_block.attr("#{inherit.to_s}-#{name}", default_value, true)
-          else
-            value = @parent_block.attr(name, default_value, inherit)
+          inherited_values = name.lazy.map do |n|
+            case inherit
+            when String, Symbol
+              @parent_block.attr("#{inherit.to_s}-#{n}", default_value, true)
+            else
+              @parent_block.attr(n, default_value, inherit)
+            end
           end
+          value = inherited_values.reject { |v| v.nil? }.first
         end
 
         value || default_value
