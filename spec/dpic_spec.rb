@@ -11,64 +11,9 @@ G: box "$G(s)$"
 eos
 
 describe Asciidoctor::Diagram::DpicBlockMacroProcessor, :broken_on_travis, :broken_on_windows do
-  it "should generate SVG images when format is set to 'svg'" do
-    File.write('dpic.txt', code)
-
-    doc = <<-eos
-= Hello, Dpic!
-Doc Writer <doc@example.com>
-
-== First Section
-
-dpic::dpic.txt[format="svg"]
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
-    target = b.attributes['target']
-    expect(target).to_not be_nil
-    expect(target).to match(/\.svg/)
-    expect(File.exist?(target)).to be true
-
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
-  end
+  include_examples "block_macro", :dpic, code, [:svg]
 end
 
 describe Asciidoctor::Diagram::DpicBlockProcessor, :broken_on_travis, :broken_on_windows do
-  it "should generate SVG images when format is set to 'svg'" do
-    doc = <<-eos
-= Hello, Dpic!
-Doc Writer <doc@example.com>
-
-== First Section
-
-[dpic, format="svg"]
-----
-#{code}
-----
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
-    target = b.attributes['target']
-    expect(target).to_not be_nil
-    expect(target).to match(/\.svg/)
-    expect(File.exist?(target)).to be true
-
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
-  end
+  include_examples "block", :dpic, code, [:svg]
 end

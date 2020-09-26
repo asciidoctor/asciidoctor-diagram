@@ -99,29 +99,9 @@ code = <<-'eos'
 eos
 
 describe Asciidoctor::Diagram::TikZBlockMacroProcessor, :broken_on_travis, :broken_on_windows do
-  it "should generate PDF images when format is set to 'pdf'" do
-    File.write('tikz.txt', code)
+  include_examples "block_macro", :tikz, code, [:pdf]
+end
 
-    doc = <<-eos
-= Hello, Tikz!
-Doc Writer <doc@example.com>
-
-== First Section
-
-tikz::tikz.txt[format="pdf"]
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
-    target = b.attributes['target']
-    expect(target).to_not be_nil
-    expect(target).to match(/\.pdf/)
-    expect(File.exist?(target)).to be true
-  end
+describe Asciidoctor::Diagram::TikZBlockProcessor, :broken_on_travis, :broken_on_windows do
+  include_examples "block", :tikz, code, [:pdf]
 end
