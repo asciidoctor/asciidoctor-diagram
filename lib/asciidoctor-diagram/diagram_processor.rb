@@ -3,6 +3,7 @@ require 'asciidoctor/extensions'
 require 'digest'
 require 'json'
 require 'fileutils'
+require 'pathname'
 require_relative 'diagram_source.rb'
 require_relative 'http/converter'
 require_relative 'version'
@@ -225,7 +226,7 @@ module Asciidoctor
           end
         end
 
-        node.set_attr('target', source.attr('data-uri', nil, true) ? image_file : image_name)
+        use_absolute_path = source.attr('data-uri', nil, true)
 
         if format == :svg
           svg_type = source.attr('svg-type', nil, name) || source.attr('svg-type', nil, DIAGRAM_PREFIX)
@@ -233,9 +234,23 @@ module Asciidoctor
             when nil, 'static'
             when 'inline', 'interactive'
               node.set_option(svg_type)
-              node.set_attr('target', image_file)
+              use_absolute_path = true
             else
               raise "Unsupported SVG type: #{svg_type}"
+          end
+        end
+
+        if use_absolute_path
+          node.set_attr('target', image_file)
+        else
+          node.set_attr('target', image_name)
+
+          if source.attr('autoimagesdir', nil, name) || source.attr('autoimagesdir', nil, DIAGRAM_PREFIX)
+            output_base_dir = output_base_dir(parent)
+            if output_base_dir
+              imagesdir = Pathname.new(image_file).relative_path_from(output_base_dir).dirname.to_s
+              node.set_attr('imagesdir', imagesdir)
+            end
           end
         end
 
@@ -253,24 +268,26 @@ module Asciidoctor
       end
 
       def image_output_dir(parent)
-        document = parent.document
-
         images_dir = parent.attr('imagesoutdir', nil, true)
 
         if images_dir
           base_dir = nil
         else
-          base_dir = parent.attr('outdir', nil, true) || doc_option(document, :to_dir)
+          base_dir = output_base_dir(parent)
           images_dir = parent.attr('imagesdir', nil, true)
         end
 
         parent.normalize_system_path(images_dir, base_dir)
       end
 
-      def cache_dir(parent)
+      def output_base_dir(parent)
         document = parent.document
+        parent.normalize_system_path(parent.attr('outdir', nil, true) || doc_option(document, :to_dir))
+      end
+
+      def cache_dir(parent)
         cache_dir = '.asciidoctor/diagram'
-        base_dir = parent.attr('outdir', nil, true) || doc_option(document, :to_dir)
+        base_dir = output_base_dir(parent)
         parent.normalize_system_path(cache_dir, base_dir)
       end
 
