@@ -10,9 +10,9 @@ indentstack(10,
 eos
 
 describe Asciidoctor::Diagram::SyntraxBlockMacroProcessor, :broken_on_appveyor do
-  include_examples "block_macro", :symbolator, code, [:png, :svg]
+  include_examples "block_macro", :syntrax, code, [:png, :svg]
 end
 
 describe Asciidoctor::Diagram::SyntraxBlockProcessor, :broken_on_appveyor do
-  include_examples "block", :symbolator, code, [:png, :svg]
+  include_examples "block", :syntrax, code, [:png, :svg]
 end

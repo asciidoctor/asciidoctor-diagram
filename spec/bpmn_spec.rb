@@ -52,5 +52,5 @@ describe Asciidoctor::Diagram::BpmnBlockMacroProcessor do
 end
 
 describe Asciidoctor::Diagram::BpmnBlockProcessor do
-  include_examples "block", :blockdiag, code, [:png, :svg, :pdf]
+  include_examples "block", :bpmn, code, [:png, :svg, :pdf]
 end
