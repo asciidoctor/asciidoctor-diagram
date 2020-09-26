@@ -2,6 +2,10 @@
 
 == 2.0.4
 
+Enhancements::
+
+  * Issue #110: Added support for an experimental attribute `diagram-autoimagesdir` that sets per image node `imagesdir` values.
+
 Bug Fixes::
 
   * Issue #292: A regression in 2.0.3 caused SVG diagrams to get a zero width and height when documents were regenerated.
