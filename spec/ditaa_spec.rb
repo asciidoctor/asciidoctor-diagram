@@ -1,8 +1,6 @@
 require_relative 'test_helper'
 
-describe Asciidoctor::Diagram::DitaaBlockMacroProcessor do
-  it "should generate PNG images when format is set to 'png'" do
-    code = <<-eos
+code = <<-eos
 +--------+   +-------+    +-------+
 |        | --+ ditaa +--> |       |
 |  Text  |   +-------+    |diagram|
@@ -12,150 +10,14 @@ describe Asciidoctor::Diagram::DitaaBlockMacroProcessor do
     :                         ^
     |       Lots of work      |
     +-------------------------+
-    eos
+eos
 
-    File.write('ditaa.txt', code)
-
-    doc = <<-eos
-= Hello, PlantUML!
-Doc Writer <doc@example.com>
-
-== First Section
-
-ditaa::ditaa.txt[format="png"]
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
-    target = b.attributes['target']
-    expect(target).to_not be_nil
-    expect(target).to match(/\.png$/)
-    expect(File.exist?(target)).to be true
-
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
-  end
+describe Asciidoctor::Diagram::DitaaBlockMacroProcessor do
+  include_examples "block_macro", :ditaa, code, [:png, :svg]
 end
 
 describe Asciidoctor::Diagram::DitaaBlockProcessor do
-  it "should generate PNG images when format is set to 'png'" do
-    doc = <<-eos
-= Hello, ditaa!
-Doc Writer <doc@example.com>
-
-== First Section
-
-[ditaa, format="png"]
-----
-+--------+   +-------+    +-------+
-|        | --+ ditaa +--> |       |
-|  Text  |   +-------+    |diagram|
-|Document|   |!magic!|    |       |
-|     {d}|   |       |    |       |
-+---+----+   +-------+    +-------+
-    :                         ^
-    |       Lots of work      |
-    +-------------------------+
-----
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
-    target = b.attributes['target']
-    expect(target).to_not be_nil
-    expect(target).to match(/\.png$/)
-    expect(File.exist?(target)).to be true
-
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
-  end
-
-  it "should generate SVG images when format is set to 'svg'" do
-    doc = <<-eos
-= Hello, ditaa!
-Doc Writer <doc@example.com>
-
-== First Section
-
-[ditaa, format="svg"]
-----
-+--------+   +-------+    +-------+
-|        | --+ ditaa +--> |       |
-|  Text  |   +-------+    |diagram|
-|Document|   |!magic!|    |       |
-|     {d}|   |       |    |       |
-+---+----+   +-------+    +-------+
-    :                         ^
-    |       Lots of work      |
-    +-------------------------+
-----
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
-    target = b.attributes['target']
-    expect(target).to_not be_nil
-    expect(target).to match(/\.svg/)
-    expect(File.exist?(target)).to be true
-
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
-  end
-
-  it "should raise an error when when format is set to an invalid value" do
-    doc = <<-eos
-= Hello, PlantUML!
-Doc Writer <doc@example.com>
-
-== First Section
-
-[ditaa, format="foobar"]
-----
-----
-    eos
-
-    expect { load_asciidoc doc }.to raise_error(/support.*format/i)
-  end
-
-  it "should use a default format when none was given" do
-    doc = <<-eos
-= Hello, PlantUML!
-Doc Writer <doc@example.com>
-
-== First Section
-
-[ditaa]
-----
-----
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-    target = b.attributes['target']
-    expect(target).to match(/\.png$/)
-    expect(File.exist?(target)).to be true
-  end
+  include_examples "block", :ditaa, code, [:png, :svg]
 
   it "should support ditaa options as attributes" do
     doc = <<-eos

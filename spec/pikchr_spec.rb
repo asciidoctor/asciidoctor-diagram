@@ -43,64 +43,9 @@ box invis wid 2*boxwid "ndtable:" with .e at Start.w
 eos
 
 describe Asciidoctor::Diagram::PikchrBlockMacroProcessor, :broken_on_travis, :broken_on_windows do
-  it "should generate SVG images when format is set to 'svg'" do
-    File.write('pikchr.txt', code)
-
-    doc = <<-eos
-= Hello, Pikchr!
-Doc Writer <doc@example.com>
-
-== First Section
-
-pikchr::pikchr.txt[format="svg"]
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
-    target = b.attributes['target']
-    expect(target).to_not be_nil
-    expect(target).to match(/\.svg/)
-    expect(File.exist?(target)).to be true
-
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
-  end
+  include_examples "block_macro", :pikchr, code, [:svg]
 end
 
 describe Asciidoctor::Diagram::ErdBlockProcessor, :broken_on_travis, :broken_on_windows do
-  it "should generate SVG images when format is set to 'svg'" do
-    doc = <<-eos
-= Hello, Pikchr!
-Doc Writer <doc@example.com>
-
-== First Section
-
-[pikchr, format="svg"]
-----
-#{code}
-----
-    eos
-
-    d = load_asciidoc doc
-    expect(d).to_not be_nil
-
-    b = d.find { |bl| bl.context == :image }
-    expect(b).to_not be_nil
-
-    expect(b.content_model).to eq :empty
-
-    target = b.attributes['target']
-    expect(target).to_not be_nil
-    expect(target).to match(/\.svg/)
-    expect(File.exist?(target)).to be true
-
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
-  end
+  include_examples "block", :pikchr, code, [:svg]
 end

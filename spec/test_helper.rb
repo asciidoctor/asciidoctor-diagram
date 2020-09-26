@@ -7,6 +7,7 @@ require 'tmpdir'
 
 require_relative '../lib/asciidoctor-diagram'
 require_relative '../lib/asciidoctor-diagram/util/platform'
+require_relative 'shared_examples'
 
 module Asciidoctor
   class AbstractBlock
