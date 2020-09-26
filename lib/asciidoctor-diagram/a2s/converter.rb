@@ -13,13 +13,13 @@ module Asciidoctor
         [:svg]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         options = {}
-        options[:sx] = source.attr('scalex', nil, name)
-        options[:sy] = source.attr('scaley', nil, name)
-        options[:scale] = source.attr('scale', nil, name)
-        options[:noblur] = source.attr('noblur', nil, name) == 'true'
-        options[:font] = source.attr('fontfamily', nil, name)
+        options[:sx] = source.attr('scalex')
+        options[:sy] = source.attr('scaley')
+        options[:scale] = source.attr('scale')
+        options[:noblur] = source.attr('noblur') == 'true'
+        options[:font] = source.attr('fontfamily')
         options
       end
 

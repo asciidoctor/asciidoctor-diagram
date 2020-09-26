@@ -19,7 +19,7 @@ module Asciidoctor
           cmd_name = self.class.const_get(:TOOL)
           alt_cmd_name = "#{cmd_name}3"
 
-          font_path = source.attr('fontpath', nil, cmd_name)
+          font_path = source.attr('fontpath')
 
           generate_stdin(source.find_command(cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
             args = [tool_path, '-a', '-o', Platform.native_path(output_path), "-T#{format.to_s}"]

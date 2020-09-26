@@ -14,8 +14,8 @@ module Asciidoctor
         [:png, :svg]
       end
 
-      def collect_options(source, name)
-        {:font => source.attr('font', nil, name)}
+      def collect_options(source)
+        {:font => source.attr('font')}
       end
 
       def convert(source, format, options)

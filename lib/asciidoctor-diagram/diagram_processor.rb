@@ -31,8 +31,6 @@ module Asciidoctor
         host_class.extend(ClassMethods)
       end
 
-      DIAGRAM_PREFIX = 'diagram'
-
       IMAGE_PARAMS = {
           :svg => {
               :encoding => Encoding::UTF_8,
@@ -70,7 +68,7 @@ module Asciidoctor
         supported_formats = converter.supported_formats
 
         begin
-          format = source.attributes.delete('format') || source.attr('format', nil, name) || source.attr('format', supported_formats[0], DIAGRAM_PREFIX)
+          format = source.attributes.delete('format') || source.global_attr('format', supported_formats[0])
           format = format.to_sym if format.respond_to?(:to_sym)
 
           raise "Format undefined" unless format
@@ -92,7 +90,7 @@ module Asciidoctor
           block.assign_caption(caption, 'figure')
           block
         rescue => e
-          case source.attr('on-error', 'log', DIAGRAM_PREFIX)
+          case source.global_attr('on-error', 'log')
           when 'abort'
             raise e
           else
@@ -158,18 +156,18 @@ module Asciidoctor
         end
 
         image_attributes = source.attributes
-        options = converter.collect_options(source, name)
+        options = converter.collect_options(source)
 
         if !File.exist?(image_file) || source.should_process?(image_file, metadata) || options != metadata[:options]
           params = IMAGE_PARAMS[format]
 
-          server_url = source.attr('server-url', nil, name) || source.attr('server-url', nil, DIAGRAM_PREFIX)
+          server_url = source.global_attr('server-url')
           if server_url
-            server_type = source.attr('server-type', nil, name) || source.attr('server-type', 'plantuml', DIAGRAM_PREFIX)
+            server_type = source.global_attr('server-type')
             converter = HttpConverter.new(server_url, server_type.to_sym, converter)
           end
 
-          options = converter.collect_options(source, name)
+          options = converter.collect_options(source)
           result = converter.convert(source, format, options)
 
           result.force_encoding(params[:encoding])
@@ -229,7 +227,7 @@ module Asciidoctor
         use_absolute_path = source.attr('data-uri', nil, true)
 
         if format == :svg
-          svg_type = source.attr('svg-type', nil, name) || source.attr('svg-type', nil, DIAGRAM_PREFIX)
+          svg_type = source.global_attr('svg-type')
           case svg_type
             when nil, 'static'
             when 'inline', 'interactive'
@@ -245,7 +243,7 @@ module Asciidoctor
         else
           node.set_attr('target', image_name)
 
-          if source.attr('autoimagesdir', nil, name) || source.attr('autoimagesdir', nil, DIAGRAM_PREFIX)
+          if source.global_attr('autoimagesdir')
             output_base_dir = output_base_dir(parent)
             if output_base_dir
               imagesdir = Pathname.new(image_file).relative_path_from(output_base_dir).dirname.to_s
@@ -281,21 +279,18 @@ module Asciidoctor
       end
 
       def output_base_dir(parent)
-        document = parent.document
-        parent.normalize_system_path(parent.attr('outdir', nil, true) || doc_option(document, :to_dir))
+        parent.normalize_system_path(parent.attr('outdir', nil, true) || doc_option(parent.document, :to_dir))
       end
 
       def cache_dir(parent)
-        cache_dir = '.asciidoctor/diagram'
-        base_dir = output_base_dir(parent)
-        parent.normalize_system_path(cache_dir, base_dir)
+        parent.normalize_system_path('.asciidoctor/diagram', output_base_dir(parent))
       end
 
       def create_literal_block(parent, source, format, converter)
         literal_attributes = source.attributes
         literal_attributes.delete('target')
 
-        options = converter.collect_options(source, name)
+        options = converter.collect_options(source)
         result = converter.convert(source, format, options)
 
         result.force_encoding(Encoding::UTF_8)

@@ -67,15 +67,15 @@ module Asciidoctor
         end
       end
 
-      def render_diagram(type, accepts, code, attributes)
+      def render_diagram(type, accepts, source, attributes)
         converter = get_converter(type.downcase.to_sym)
         return [500, "Unsupported diagram type #{type}"] unless converter
 
         format = converter.supported_formats.find {|f| accepts.call(f)}
         return [500, "Could not determine supported output format"] unless format
 
-        source = ServerSource.new(code, attributes)
-        options = converter.collect_options(source, type.downcase)
+        source = ServerSource.new(type.downcase, source, attributes)
+        options = converter.collect_options(source)
         diagram = converter.convert(source, format, options)
 
         content_type to_mime_type(format)
@@ -86,12 +86,17 @@ module Asciidoctor
     class ServerSource
       include Asciidoctor::Diagram::DiagramSource
 
-      def initialize(source, attributes)
+      def initialize(name, source, attributes)
+        @name = name
         @source = source
         @attributes = attributes
       end
 
-      def attr(name, default_value = nil, inherit = nil)
+      def diagram_type
+        @name
+      end
+
+      def attr(name, default_value = nil, inherit = diagram_type)
         @attributes[name] || default_value
       end
 

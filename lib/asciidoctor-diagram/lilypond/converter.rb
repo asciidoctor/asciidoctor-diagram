@@ -14,9 +14,9 @@ module Asciidoctor
         [:png, :pdf]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         {
-            :resolution => source.attr('resolution', nil, name)
+            :resolution => source.attr('resolution')
         }
       end
 

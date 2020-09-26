@@ -21,9 +21,9 @@ module Asciidoctor
         [:png, :svg, :txt, :atxt, :utxt]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         {
-            :config => source.attr('plantumlconfig', nil, true) || source.attr('config', nil, name)
+            :config => source.attr('plantumlconfig', nil, true) || source.attr('config')
         }
       end
 
@@ -78,7 +78,7 @@ module Asciidoctor
         code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index("@start") && code.index("@end")
 
         code.gsub!(/(?<=<img:)[^>]+(?=>)/) do |match|
-          resolve_path(match, source, source.attr('imagesdir'))
+          resolve_path(match, source, source.attr('imagesdir', nil, false))
         end
 
         code.gsub!(/(?:(?<=!include\s)|(?<=!includesub\s))\s*[^<][^!\n\r]+/) do |match|

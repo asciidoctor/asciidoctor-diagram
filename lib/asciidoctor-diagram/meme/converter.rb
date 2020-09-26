@@ -15,20 +15,20 @@ module Asciidoctor
       end
 
 
-      def collect_options(source, name)
-        bg_img = source.attr('background', nil, name)
+      def collect_options(source)
+        bg_img = source.attr('background')
         raise "background attribute is required" unless bg_img
 
-        options = source.attr('options', '', name).split(',')
+        options = source.attr('options', '').split(',')
 
         {
             :bg_img => bg_img,
             :top_label => source.attr('top'),
             :bottom_label => source.attr('bottom'),
-            :fill_color => source.attr('fillcolor', nil, name) || source.attr('fill-color', nil, name),
-            :stroke_color => source.attr('strokecolor', nil, name) || source.attr('stroke-color', nil, name),
-            :stroke_width => source.attr('strokewidth', nil, name) || source.attr('stroke-width', nil, name),
-            :font => source.attr('font', 'Impact', name),
+            :fill_color => source.attr(['fillcolor', 'fill-color']),
+            :stroke_color => source.attr(['strokecolor', 'stroke-color']),
+            :stroke_width => source.attr(['strokewidth', 'stroke-width']),
+            :font => source.attr('font', 'Impact'),
             :noupcase => options.include?('noupcase'),
         }
       end

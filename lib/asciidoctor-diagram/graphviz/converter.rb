@@ -13,8 +13,8 @@ module Asciidoctor
         [:png, :pdf, :svg]
       end
 
-      def collect_options(source, name)
-        {:layout => source.attr('layout', nil, name)}
+      def collect_options(source)
+        {:layout => source.attr('layout')}
       end
 
       def convert(source, format, options)

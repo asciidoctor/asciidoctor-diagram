@@ -14,10 +14,10 @@ module Asciidoctor
         [:svg]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         {
-            :direction => source.attr('direction', nil, name),
-            :engine => source.attr('engine', nil, name)
+            :direction => source.attr('direction'),
+            :engine => source.attr('engine')
         }
       end
 
