@@ -44,6 +44,10 @@ module Asciidoctor
         options
       end
 
+      def native_scaling?
+        true
+      end
+
       def convert(source, format, options)
         Java.load
 

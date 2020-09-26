@@ -14,6 +14,10 @@ module Asciidoctor
       def convert(source, format, options)
         raise NotImplementedError.new
       end
+
+      def native_scaling?
+        false
+      end
     end
   end
 end

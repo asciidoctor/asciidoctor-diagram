@@ -23,7 +23,6 @@ module Asciidoctor
         }
       end
 
-
       def convert(source, format, options)
         generate_file(source.find_command('syntrax'), 'spec', format.to_s, source.to_s) do |tool_path, input_path, output_path|
           args = [tool_path, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)]
@@ -49,6 +48,10 @@ module Asciidoctor
 
           args
         end
+      end
+
+      def native_scaling?
+        true
       end
     end
   end
