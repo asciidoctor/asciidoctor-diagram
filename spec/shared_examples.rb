@@ -51,8 +51,10 @@ Doc Writer <doc@example.com>
         expect(target).to match(/\.#{format}$/)
         expect(File.exist?(target)).to be true
 
-        expect(b.attributes['width']).to_not be_nil
-        expect(b.attributes['height']).to_not be_nil
+        unless format == :pdf
+          expect(b.attributes['width']).to_not be_nil
+          expect(b.attributes['height']).to_not be_nil
+        end
       end
     end
   end
@@ -104,8 +106,10 @@ Doc Writer <doc@example.com>
     expect(target).to match(/\.#{formats[0]}$/)
     expect(File.exist?(target)).to be true
 
-    expect(b.attributes['width']).to_not be_nil
-    expect(b.attributes['height']).to_not be_nil
+    unless formats[0] == :pdf
+      expect(b.attributes['width']).to_not be_nil
+      expect(b.attributes['height']).to_not be_nil
+    end
   end
 
   it 'should generate blocks with figure captions' do
@@ -244,8 +248,10 @@ Doc Writer <doc@example.com>
         expect(target).to match(/\.#{format}$/)
         expect(File.exist?(target)).to be true
 
-        expect(b.attributes['width']).to_not be_nil
-        expect(b.attributes['height']).to_not be_nil
+        unless format == :pdf
+          expect(b.attributes['width']).to_not be_nil
+          expect(b.attributes['height']).to_not be_nil
+        end
       end
     end
   end
@@ -279,8 +285,10 @@ Doc Writer <doc@example.com>
 
       expect(b.option?('inline')).to be_truthy
 
-      expect(b.attributes['width']).to_not be_nil
-      expect(b.attributes['height']).to_not be_nil
+      unless formats[0] == :pdf
+        expect(b.attributes['width']).to_not be_nil
+        expect(b.attributes['height']).to_not be_nil
+      end
     end
 
     it "should respect the diagram-svg-type attribute when format is set to 'svg'" do
@@ -312,8 +320,10 @@ Doc Writer <doc@example.com>
 
       expect(b.option?('inline')).to be_truthy
 
-      expect(b.attributes['width']).to_not be_nil
-      expect(b.attributes['height']).to_not be_nil
+      unless formats[0] == :pdf
+        expect(b.attributes['width']).to_not be_nil
+        expect(b.attributes['height']).to_not be_nil
+      end
     end
   end
 
