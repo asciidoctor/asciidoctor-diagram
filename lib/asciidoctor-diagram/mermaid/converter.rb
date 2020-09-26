@@ -15,7 +15,7 @@ module Asciidoctor
         [:png, :svg]
       end
 
-      def collect_options(source, name)
+      def collect_options(source)
         options = {}
 
         options[:css] = source.attr('css')
