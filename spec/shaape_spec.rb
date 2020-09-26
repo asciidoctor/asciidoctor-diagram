@@ -1,12 +1,10 @@
 require_relative 'test_helper'
 
 code = <<-eos
-    +--------+    +-------------+
-    |        |     \\           /
-    | Hello  |--->  \\ Goodbye /
-    |   ;)   |      /         \\
-    |        |     /           \\
-    +--------+    +-------------+
+        +-->
+       /     /\
+  >---+---->+  +
+             \/
 eos
 
 describe Asciidoctor::Diagram::ShaapeBlockMacroProcessor, :broken_on_osx, :broken_on_appveyor do
