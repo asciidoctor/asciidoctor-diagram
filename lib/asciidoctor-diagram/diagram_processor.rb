@@ -145,7 +145,7 @@ module Asciidoctor
       def create_image_block(parent, source, format, converter)
         image_name = "#{source.image_name}.#{format}"
         image_dir = image_output_dir(parent)
-        cache_dir = cache_dir(parent)
+        cache_dir = cache_dir(source, parent)
         image_file = parent.normalize_system_path image_name, image_dir
         metadata_file = parent.normalize_system_path "#{image_name}.cache", cache_dir
 
@@ -282,8 +282,8 @@ module Asciidoctor
         parent.normalize_system_path(parent.attr('outdir', nil, true) || doc_option(parent.document, :to_dir))
       end
 
-      def cache_dir(parent)
-        parent.normalize_system_path('.asciidoctor/diagram', output_base_dir(parent))
+      def cache_dir(source, parent)
+        source.global_attr('cachedir') || parent.normalize_system_path('.asciidoctor/diagram', output_base_dir(parent))
       end
 
       def create_literal_block(parent, source, format, converter)
