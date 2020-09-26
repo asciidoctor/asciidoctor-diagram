@@ -24,18 +24,18 @@ module Asciidoctor
         height = nil
 
         if (w = WIDTH_HEIGHT_REGEX.match(root.attributes['width'])) && (h = WIDTH_HEIGHT_REGEX.match(root.attributes['height']))
-          width = w[:value].to_d * to_px_factor(w[:unit])
-          height = h[:value].to_d * to_px_factor(h[:unit])
+          width = to_numeric(w[:value]) * to_px_factor(w[:unit])
+          height = to_numeric(h[:value]) * to_px_factor(h[:unit])
         end
 
         viewbox = root.attributes['viewBox']
         if (v = VIEWBOX_REGEX.match(viewbox)) && width.nil? && height.nil?
-          width = v[:width].to_d
-          height = v[:height].to_d
+          width = to_numeric(v[:width])
+          height = to_numeric(v[:height])
         end
 
         if viewbox.nil? && width && height
-          root.add_attribute('viewBox', "0 0 #{width.to_s('F')} #{height.to_s('F')}")
+          root.add_attribute('viewBox', "0 0 #{width.to_s} #{height.to_s}")
         end
 
         patched_svg = ""
@@ -45,6 +45,14 @@ module Asciidoctor
       end
 
       private
+
+      def self.to_numeric(text)
+        if text.include? '.'
+          text.to_f
+        else
+          text.to_i
+        end
+      end
 
       WIDTH_HEIGHT_REGEX = /^\s*(?<value>\d+(?:\.\d+)?)\s*(?<unit>[a-zA-Z]+)?\s*$/
       VIEWBOX_REGEX = /^\s*\d+(?:\.\d+)?\s*\d+(?:\.\d+)?\s*(?<width>\d+(?:\.\d+)?)\s*(?<height>\d+(?:\.\d+)?)\s*$/
