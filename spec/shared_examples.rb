@@ -429,7 +429,7 @@ Doc Writer <doc@example.com>
 a|
 [#{name}]
 ----
-#{code}
+#{code.gsub('|', '\|')}
 ----
 |===
     eos
