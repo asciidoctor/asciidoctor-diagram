@@ -50,6 +50,10 @@ module Asciidoctor
           args
         end
       end
+
+      def native_scaling?
+        true
+      end
     end
   end
 end

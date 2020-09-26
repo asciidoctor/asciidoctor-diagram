@@ -186,7 +186,7 @@ module Asciidoctor
         end
 
         scale = image_attributes['scale']
-        if scalematch = /(\d+(?:\.\d+))/.match(scale)
+        if !converter.native_scaling? && scalematch = /(\d+(?:\.\d+))/.match(scale)
           scale_factor = scalematch[1].to_f
         else
           scale_factor = 1.0
