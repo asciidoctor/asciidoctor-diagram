@@ -1,7 +1,7 @@
 require_relative 'test_helper'
 
 code = <<-eos
-[Pirate|eyeCount: Int|raid();pillage()|
+[Pirate
   [beard]--[parrot]
   [beard]-:>[foul mouth]
 ]
@@ -11,7 +11,7 @@ code = <<-eos
 [jollyness]->[Pirate]
 [jollyness]->[rum]
 [jollyness]->[singing]
-[Pirate]-> *[rum|tastiness: Int|swig()]
+[Pirate]-> *[rum]
 [Pirate]->[singing]
 [singing]<->[rum]
 
