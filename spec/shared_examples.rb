@@ -415,6 +415,29 @@ Doc Writer <doc@example.com>
     expect(File.exist?(File.expand_path(target, 'foo'))).to be true
   end
 
+  it 'should write files to to_dir if set in safe mode' do
+    doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[#{name}]
+----
+#{code}
+----
+    eos
+
+    to_dir = File.expand_path('foo')
+    d = load_asciidoc doc, {:to_dir => to_dir, :safe => :safe}
+    b = d.find { |bl| bl.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exist?(target)).to be false
+    expect(File.exist?(File.expand_path(target, to_dir))).to be true
+  end
+
   it 'should write files to to_dir if set when embedded in table' do
     doc = <<-eos
 = Hello, #{name}!
@@ -464,6 +487,32 @@ Doc Writer <doc@example.com>
     expect(File.exist?(target)).to be false
     expect(File.exist?(File.expand_path(target, 'bar'))).to be true
     expect(File.exist?(File.expand_path(target, 'foo'))).to be false
+  end
+
+  it 'should write files to imagesoutdir if set in safe mode' do
+    doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[#{name}]
+----
+#{code}
+----
+    eos
+
+    out_dir = File.expand_path('foo')
+    images_out_dir = File.expand_path('bar')
+
+    d = load_asciidoc doc, {:attributes => {'imagesoutdir' => images_out_dir, 'outdir' => out_dir}, :safe => :safe}
+    b = d.find { |bl| bl.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exist?(target)).to be false
+    expect(File.exist?(File.expand_path(target, images_out_dir))).to be true
+    expect(File.exist?(File.expand_path(target, out_dir))).to be false
   end
 
   it 'should omit width/height attributes when generating docbook' do
