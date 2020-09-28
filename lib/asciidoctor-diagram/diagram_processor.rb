@@ -145,9 +145,8 @@ module Asciidoctor
       def create_image_block(parent, source, format, converter)
         image_name = "#{source.image_name}.#{format}"
 
-        cache_dir = parent.normalize_system_path(cache_dir(source, parent))
         image_file = parent.normalize_system_path(image_name, image_output_dir(parent))
-        metadata_file = parent.normalize_system_path("#{image_name}.cache", cache_dir)
+        metadata_file = parent.normalize_system_path("#{image_name}.cache", cache_dir(source, parent))
 
         if File.exist? metadata_file
           metadata = File.open(metadata_file, 'r') {|f| JSON.load(f, nil, :symbolize_names => true, :create_additions => false) }
