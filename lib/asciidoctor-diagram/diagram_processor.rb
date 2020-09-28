@@ -144,10 +144,10 @@ module Asciidoctor
 
       def create_image_block(parent, source, format, converter)
         image_name = "#{source.image_name}.#{format}"
-        image_dir = image_output_dir(parent)
-        cache_dir = cache_dir(source, parent)
-        image_file = parent.normalize_system_path image_name, image_dir
-        metadata_file = parent.normalize_system_path "#{image_name}.cache", cache_dir
+
+        cache_dir = parent.normalize_system_path(cache_dir(source, parent))
+        image_file = parent.normalize_system_path(image_name, image_output_dir(parent))
+        metadata_file = parent.normalize_system_path("#{image_name}.cache", cache_dir)
 
         if File.exist? metadata_file
           metadata = File.open(metadata_file, 'r') {|f| JSON.load(f, nil, :symbolize_names => true, :create_additions => false) }
@@ -244,11 +244,11 @@ module Asciidoctor
           node.set_attr('target', image_name)
 
           if source.global_attr('autoimagesdir')
-            output_base_dir = output_base_dir(parent)
-            if output_base_dir
-              imagesdir = Pathname.new(image_file).relative_path_from(output_base_dir).dirname.to_s
-              node.set_attr('imagesdir', imagesdir)
-            end
+            image_path = Pathname.new(image_file)
+            output_path = Pathname.new(parent.normalize_system_path(output_dir(parent)))
+
+            imagesdir = image_path.relative_path_from(output_path).dirname.to_s
+            node.set_attr('imagesdir', imagesdir)
           end
         end
 
@@ -265,25 +265,43 @@ module Asciidoctor
         end
       end
 
+      # Returns the image output directory as an absolute path
       def image_output_dir(parent)
-        images_dir = parent.attr('imagesoutdir', nil, true)
+        images_out_dir = parent.attr('imagesoutdir', nil, true)
 
-        if images_dir
-          base_dir = nil
+        if images_out_dir
+          resolve_path(parent, images_out_dir)
         else
-          base_dir = output_base_dir(parent)
           images_dir = parent.attr('imagesdir', nil, true)
+          output_dir = output_dir(parent)
+          resolve_path(parent, images_dir, output_dir)
         end
-
-        parent.normalize_system_path(images_dir, base_dir)
       end
 
-      def output_base_dir(parent)
-        parent.normalize_system_path(parent.attr('outdir', nil, true) || doc_option(parent.document, :to_dir))
-      end
-
+      # Returns the cache directory as an absolute path
       def cache_dir(source, parent)
-        source.global_attr('cachedir') || parent.normalize_system_path('.asciidoctor/diagram', output_base_dir(parent))
+        cache_dir = source.global_attr('cachedir')
+        if cache_dir
+          resolve_path(parent, cache_dir)
+        else
+          output_dir = output_dir(parent)
+          resolve_path(parent, '.asciidoctor/diagram', output_dir)
+        end
+      end
+
+      # Returns the general output directory for Asciidoctor as an absolute path
+      def output_dir(parent)
+        resolve_path(parent, parent.attr('outdir', nil, true) || doc_option(parent.document, :to_dir))
+      end
+
+      def resolve_path(parent, path, base_dir = nil)
+        if path.nil?
+          # Resolve the base dir itself
+          parent.document.path_resolver.system_path(base_dir)
+        else
+          # Resolve the path with respect to the base dir
+          parent.document.path_resolver.system_path(path, base_dir)
+        end
       end
 
       def create_literal_block(parent, source, format, converter)
