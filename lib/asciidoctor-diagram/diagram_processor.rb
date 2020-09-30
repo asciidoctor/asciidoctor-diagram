@@ -352,7 +352,7 @@ module Asciidoctor
       include DiagramProcessor
 
       def self.inherited(subclass)
-        subclass.name_positional_attributes ['target', 'format']
+        subclass.name_positional_attributes ['format']
       end
 
       def apply_target_subs(parent, target)
