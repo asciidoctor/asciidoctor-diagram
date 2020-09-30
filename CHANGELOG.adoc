@@ -1,5 +1,15 @@
 = Asciidoctor-diagram Changelog
 
+== 2.0.5
+
+Enhancements::
+
+  * Improve internal target path resolution logic
+
+Bug Fixes::
+
+  * Issue #294: Treat the first positional parameter of diagram block macros as the desired output format rather than as the target.
+
 == 2.0.4
 
 Enhancements::

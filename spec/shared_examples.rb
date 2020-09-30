@@ -12,7 +12,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}::#{name}.txt[format="#{format}"]
+#{name}::#{name}.txt[#{format}]
         eos
 
         d = load_asciidoc doc
@@ -35,7 +35,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}::#{name}.txt[format="#{format}"]
+#{name}::#{name}.txt[#{format}]
         eos
 
         d = load_asciidoc doc
@@ -165,8 +165,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}::#{name}.txt["foobar"]
-#{name}::#{name}.txt["foobaz"]
+#{name}::#{name}.txt[target="foobar"]
+#{name}::#{name}.txt[target="foobaz"]
     eos
 
     load_asciidoc doc
@@ -184,8 +184,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}::#{name}.txt["test/foobar"]
-#{name}::#{name}.txt["test2/foobaz"]
+#{name}::#{name}.txt[target="test/foobar"]
+#{name}::#{name}.txt[target="test2/foobaz"]
     eos
 
     load_asciidoc doc
