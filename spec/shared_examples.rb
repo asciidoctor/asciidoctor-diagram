@@ -595,7 +595,9 @@ Doc Writer <doc@example.com>
     d = load_asciidoc scaled_doc, :attributes => {'backend' => 'html5'}
     scaled_image = d.find { |bl| bl.context == :image }
 
-    expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 1.5)
-    expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 1.5)
+    unless formats[0] == :pdf
+      expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 1.5)
+      expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 1.5)
+    end
   end
 end

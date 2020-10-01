@@ -104,4 +104,74 @@ end
 
 describe Asciidoctor::Diagram::TikZBlockProcessor, :broken_on_travis, :broken_on_windows do
   include_examples "block", :tikz, code, [:pdf]
+  
+  it "should support the preamble attribute" do
+      File.write("tikz.txt", code)
+
+      doc = <<'eos'
+= Hello, tikz!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[tikz, preamble="true"]
+----
+\usepackage{tkz-euclide}
+\usepackage{etoolbox}
+\usepackage{MnSymbol}
+\usetikzlibrary{angles,patterns,calc}
+\usepackage[most]{tcolorbox}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.7}
+~~~~
+\begin{tikzpicture}
+\tikzset{>=stealth}
+% draw axises and labels. We store a single coordinate to have the
+% direction of the x axis
+\draw[->] (-4,0) -- ++(8,0) coordinate (X) node[below] {$x$};
+\draw[->] (0,-4) -- ++(0,8) node[left] {$y$};
+
+\newcommand\CircleRadius{3cm}
+\draw (0,0) circle (\CircleRadius);
+% special method of noting the position of a point
+\coordinate (P) at (-495:\CircleRadius);
+
+\draw[thick]
+(0,0)
+coordinate (O) % store origin
+node[] {} % label
+--
+node[below left, pos=1] {$P(-\frac{\sqrt{2}}{2}, -\frac{\sqrt{2}}{2})$} % some labels
+node[below right, midway] {$r$}
+(P)
+--
+node[midway,left] {$y$}
+(P |- O) coordinate (Px) % projection onto horizontal line through
+                            % O, saved for later
+--
+node[midway, below] {$x$}
+cycle % closed path
+
+% pic trick is from the angles library, requires the three points of
+% the marked angle to be named
+
+pic [] {angle=X--O--P};
+\draw[->,red] (5mm, 0mm) arc (0:-495:5mm) node[midway,xshift=-4mm,yshift=3.5mm] {$-495^\circ$};
+% right angle marker
+\draw ($(Px)+(0.3, 0)$) -- ++(0, -0.3) -- ++(-0.3,0);
+\end{tikzpicture}
+----
+eos
+
+      d = load_asciidoc doc
+      expect(d).to_not be_nil
+
+      b = d.find { |bl| bl.context == :image }
+      expect(b).to_not be_nil
+
+      expect(b.content_model).to eq :empty
+
+      target = b.attributes['target']
+      expect(target).to_not be_nil
+  end
 end
