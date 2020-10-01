@@ -571,7 +571,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-[#{name}]
+[#{name}, target="unscaled"]
 ----
 #{code}
 ----
@@ -583,7 +583,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-[#{name}, scale="1.5"]
+[#{name}, scale="2", target="scaled"]
 ----
 #{code}
 ----
@@ -596,8 +596,8 @@ Doc Writer <doc@example.com>
     scaled_image = d.find { |bl| bl.context == :image }
 
     unless formats[0] == :pdf
-      expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 1.5)
-      expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 1.5)
+      expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 2)
+      expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 2)
     end
   end
 end
