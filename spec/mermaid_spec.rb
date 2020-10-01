@@ -10,10 +10,6 @@ eos
 
 describe Asciidoctor::Diagram::MermaidBlockMacroProcessor do
   include_examples "block_macro", :mermaid, code, [:png, :svg]
-end
-
-describe Asciidoctor::Diagram::MermaidBlockProcessor do
-  include_examples "block", :mermaid, code, [:png, :svg]
 
   it "should respect the sequenceConfig attribute" do
     seq_diag = <<-eos
@@ -135,5 +131,27 @@ mermaid::mermaid.txt[target="without_config"]
     expect(File.exist?('with_config.png')).to be true
     expect(File.exist?('without_config.png')).to be true
     expect(File.size('with_config.png')).to be File.size('without_config.png')
+  end
+end
+
+describe Asciidoctor::Diagram::MermaidBlockProcessor do
+  include_examples "block", :mermaid, code, [:png, :svg]
+
+  it "should report unsupported scaling factors" do
+    doc = <<-eos
+= Hello, Mermaid!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[mermaid, scale=1.5]
+----
+sequenceDiagram
+    Alice->>John: Hello John, how are you?
+    John-->>Alice: Great!
+----
+    eos
+
+    expect { load_asciidoc doc }.to raise_error(/support.*scale/i)
   end
 end
