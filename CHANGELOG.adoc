@@ -8,6 +8,7 @@ Enhancements::
   * TikZ diagrams can now add content to the LaTeX preamble by setting the `preamble` block attribute to `true`.
     The preamble and diagram should be separated by a line consisting of `\~~~~`. (@colbyn)
   * The `scale` attribute is now passed on to Mermaid. (@gustav-b)
+  * Issue #271: Launch UMLet directly using `java` instead of using the UMLet wrapper scripts or executables
 
 Bug Fixes::
 

@@ -1,6 +1,7 @@
 require_relative '../diagram_converter'
 require_relative '../util/cli_generator'
 require_relative '../util/platform'
+require_relative '../util/java'
 
 module Asciidoctor
   module Diagram
@@ -15,8 +16,16 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
-        generate_file(source.find_command('umlet'), 'uxf', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-          [tool_path, '-action=convert', "-format=#{format.to_s}", "-filename=#{Platform.native_path(input_path)}", "-output=#{Platform.native_path(output_path)}"]
+        java = ::Asciidoctor::Diagram::Java.java
+
+        umlet = source.find_command('umlet')
+        ext = File.extname(umlet)
+        if ext == '' || ext != '.jar'
+          umlet = File.expand_path(File.basename(umlet, '.*') + '.jar', File.dirname(umlet))
+        end
+
+        generate_file(java, 'uxf', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+          [tool_path, '-jar', Platform.native_path(umlet), '-action=convert', "-format=#{format.to_s}", "-filename=#{Platform.native_path(input_path)}", "-output=#{Platform.native_path(output_path)}"]
         end
       end
     end
