@@ -15,7 +15,7 @@ module Asciidoctor
 
       def collect_options(source)
         {
-            :preamble => source.attr('preamble')
+            :preamble => source.attr('preamble') == 'true'
         }
       end
 
@@ -28,14 +28,14 @@ module Asciidoctor
           svgpath = nil
         end
 
-        preamble = ""
-        body = ""
-        sep = "~~~~\n"
-        if options[:preamble] == "true" and source.to_s.include?(sep)
-          parts = source.to_s.split(sep)
-          preamble = parts[0]
-          body = parts[1]
+        if options[:preamble]
+          preamble, body = source.to_s.split(/^~~~~$/, 2)
+          unless body
+            body = preamble
+            preamble = ''
+          end
         else
+          preamble = ''
           body = source.to_s
         end
 
