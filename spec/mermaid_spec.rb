@@ -43,8 +43,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-mermaid::mermaid.txt["with_config", sequenceConfig="seqconfig.txt"]
-mermaid::mermaid.txt["without_config"]
+mermaid::mermaid.txt[target="with_config", sequenceConfig="seqconfig.txt"]
+mermaid::mermaid.txt[target="without_config"]
     eos
 
     load_asciidoc doc
@@ -69,8 +69,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-mermaid::mermaid.txt["with_width", width="700"]
-mermaid::mermaid.txt["without_width"]
+mermaid::mermaid.txt[target="with_width", width="700"]
+mermaid::mermaid.txt[target="without_width"]
     eos
 
     load_asciidoc doc
@@ -95,8 +95,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-mermaid::mermaid.txt["default", format="svg"]
-mermaid::mermaid.txt["dark", format="svg", theme="dark"]
+mermaid::mermaid.txt[target="default", format="svg"]
+mermaid::mermaid.txt[target="dark", format="svg", theme="dark"]
     eos
 
     load_asciidoc doc
@@ -127,8 +127,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-mermaid::mermaid.txt["with_config", puppeteerConfig="pptrconfig.txt"]
-mermaid::mermaid.txt["without_config"]
+mermaid::mermaid.txt[target="with_config", puppeteerConfig="pptrconfig.txt"]
+mermaid::mermaid.txt[target="without_config"]
     eos
 
     load_asciidoc doc
