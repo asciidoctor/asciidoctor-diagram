@@ -13,6 +13,11 @@ module Asciidoctor
         [:pdf, :svg]
       end
 
+      def collect_options(source)
+        {
+            :preamble => source.attr('preamble')
+        }
+      end
 
       def convert(source, format, options)
         latexpath = source.find_command('pdflatex')
@@ -23,14 +28,28 @@ module Asciidoctor
           svgpath = nil
         end
 
+        preamble = ""
+        body = ""
+        sep = "~~~~\n"
+        if options[:preamble] == "true" and source.to_s.include?(sep)
+          parts = source.to_s.split(sep)
+          preamble = parts[0]
+          body = parts[1]
+        else
+          body = source.to_s
+        end
+
         latex = <<'END'
 \documentclass[border=2bp, tikz]{standalone}
 \usepackage{tikz}
+END
+        latex << preamble
+        latex << <<'END'
 \begin{document}
 \begingroup
 \tikzset{every picture/.style={scale=1}}
 END
-        latex << source.to_s
+        latex << body
         latex << <<'END'
 \endgroup
 \end{document}
