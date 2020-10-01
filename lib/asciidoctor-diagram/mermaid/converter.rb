@@ -15,6 +15,10 @@ module Asciidoctor
         [:png, :svg]
       end
 
+      def native_scaling?
+        true
+      end
+
       def collect_options(source)
         options = {}
 
@@ -23,6 +27,7 @@ module Asciidoctor
         options[:seq_config] = source.attr(['sequenceconfig', 'sequence-config'])
         options[:width] = source.attr('width')
         options[:height] = source.attr('height')
+        options[:scale] = source.attr('scale')
         options[:theme] = source.attr('theme')
         options[:background] = source.attr('background')
         options[:config] = source.attr('config')
@@ -60,6 +65,7 @@ module Asciidoctor
         node = source.find_command('node', :raise_on_error => false)
         if mmdc && node
           opts[:height] = options[:height]
+          opts[:scale] = options[:scale]
           opts[:theme] = options[:theme]
           opts[:background] = options[:background]
           config = options[:config]
@@ -92,6 +98,10 @@ module Asciidoctor
 
           if options[:height]
             args << '--height' << options[:height]
+          end
+
+          if options[:scale]
+            args << '--scale' << options[:scale]
           end
 
           if options[:background]
