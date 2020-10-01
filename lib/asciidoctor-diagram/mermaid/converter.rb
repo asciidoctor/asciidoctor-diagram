@@ -29,7 +29,7 @@ module Asciidoctor
         options[:height] = source.attr('height')
         options[:scale] = source.attr('scale')
         if options[:scale]
-          raise "Mermaid only supports integer scale factors: #{options[:scale]}" if options[:scale] !=~ /^[0-9]+$/
+          raise "Mermaid only supports integer scale factors: #{options[:scale]}" unless options[:scale] =~ /^[0-9]+$/
         end
         options[:theme] = source.attr('theme')
         options[:background] = source.attr('background')
