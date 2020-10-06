@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.0.6
+
+Enhancements::
+
+  * Issue #296: Support referring to the mmdc batch script on Windows using the `mmdc` (Mermaid) document attribute.
+
 == 2.0.5
 
 Enhancements::
