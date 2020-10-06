@@ -12,7 +12,16 @@ module Asciidoctor
           opts = args.pop.dup if args.last.is_a? Hash
           in_data = opts && opts[:stdin_data]
 
+          if Hash === args.first
+            env = args.shift.dup
+          else
+            env = {}
+          end
+
           pb = java.lang.ProcessBuilder.new(*args)
+          env.each_pair do |key, value|
+            pb.environment.put(key, value)
+          end
           p = pb.start
 
           stdout = ""
@@ -67,12 +76,18 @@ module Asciidoctor
             opts = {}
           end
 
+          if Hash === args.first
+            env = args.shift.dup
+          else
+            env = {}
+          end
+
           # When the first argument is an array, we force capture3 (or better the underlying Kernel#spawn)
           # to use a non-shell execution variant.
           cmd = File.basename(args[0])
           args[0] = [args[0], cmd]
 
-          stdout, stderr, status = Open3.capture3(*args, opts)
+          stdout, stderr, status = Open3.capture3(env, *args, opts)
 
           exit = status.exitstatus
 

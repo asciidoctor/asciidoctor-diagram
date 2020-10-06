@@ -64,9 +64,15 @@ module Asciidoctor
 
         opts[:width] = options[:width]
 
-        mmdc = source.find_command('mmdc', :raise_on_error => false)
-        node = source.find_command('node', :raise_on_error => false)
-        if mmdc && node
+        mmdc = nil
+        mmdc_exception = nil
+        begin
+          mmdc = source.find_command('mmdc')
+        rescue => e
+          mmdc_exception = e
+        end
+
+        if mmdc
           opts[:height] = options[:height]
           opts[:scale] = options[:scale]
           opts[:theme] = options[:theme]
@@ -75,17 +81,25 @@ module Asciidoctor
           if config
             opts[:config] = source.resolve_path(config)
           end
-          run_mmdc(node, mmdc, source, format, opts)
+          run_mmdc(mmdc, source, format, opts)
         else
-          mermaid = source.find_command('mermaid')
-          run_mermaid(mermaid, source, format, opts)
+          begin
+            mermaid = source.find_command('mermaid')
+            run_mermaid(mermaid, source, format, opts)
+          rescue
+            if mmdc_exception
+              raise mmdc_exception
+            else
+              raise
+            end
+          end
         end
       end
 
       private
-      def run_mmdc(node, mmdc, source, format, options = {})
-        generate_file(node, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-          args = [tool_path, '--unhandled-rejections=strict', mmdc, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)]
+      def run_mmdc(mmdc, source, format, options = {})
+        generate_file(mmdc, 'mmd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
+          args = [tool_path, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)]
 
           if options[:css]
             args << '--cssFile' << Platform.native_path(options[:css])
@@ -148,7 +162,10 @@ module Asciidoctor
             args << '--puppeteerConfigFile' << Platform.native_path(options[:puppeteer])
           end
 
-          args
+          {
+              :args => args,
+              :env => {'NODE_OPTIONS' => '--unhandled-rejections=strict'}
+          }
         end
       end
 
