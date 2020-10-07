@@ -17,8 +17,15 @@ module Asciidoctor
       def convert(source, format, options)
         pikchr_path = source.find_command('pikchr')
 
-        generate_file_stdout(pikchr_path, format.to_s, source.to_s) do |tool_path, input_path|
+        output = generate_file_stdout(pikchr_path, format.to_s, source.to_s) do |tool_path, input_path|
           [tool_path, "--svg-only", input_path]
+        end
+
+        if output.start_with? '<svg'
+          output
+        else
+          error = output.gsub(/<\/?[a-z]+>\n?/i, '')
+          raise error
         end
       end
     end

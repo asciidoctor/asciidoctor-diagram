@@ -46,6 +46,24 @@ describe Asciidoctor::Diagram::PikchrBlockMacroProcessor, :broken_on_travis, :br
   include_examples "block_macro", :pikchr, code, [:svg]
 end
 
-describe Asciidoctor::Diagram::ErdBlockProcessor, :broken_on_travis, :broken_on_windows do
+describe Asciidoctor::Diagram::PikchrBlockProcessor, :broken_on_travis, :broken_on_windows do
   include_examples "block", :pikchr, code, [:svg]
+
+  it "should report syntax errors" do
+    doc = <<-eos
+= Hello, Pikchr!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[pikchr]
+----
+This should raise a syntax error.
+----
+    eos
+
+    expect {
+      load_asciidoc doc
+    }.to raise_error(/error/i)
+  end
 end
