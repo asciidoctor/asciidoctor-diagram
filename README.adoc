@@ -70,7 +70,7 @@ ifdef::status[]
 [discrete]
 == Status
 
-image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/ci-linux/badge.svg?branch=master["Linux Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/workflows/ci-linux"]
+image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/Linux%20unit%20tests/badge.svg?branch=master["Linux Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22Linux+unit+tests%22"]
 image:https://ci.appveyor.com/api/projects/status/4r4gkk5gy3igs6nh/branch/master?svg=true["Windows Build Status", link="https://ci.appveyor.com/project/asciidoctor/asciidoctor-diagram"]
 image:https://badge.fury.io/rb/asciidoctor-diagram.svg[Gem Version, link=https://rubygems.org/gems/asciidoctor-diagram]
 endif::status[]
