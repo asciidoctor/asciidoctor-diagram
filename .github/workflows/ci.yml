@@ -17,20 +17,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v1
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-      - name: Setup Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
       - name: Install Packages
         run: |
           sudo apt-get install -qq haveged
@@ -73,8 +59,27 @@ jobs:
           sudo apt-get install -qq xdg-utils
           sudo apt-get install -qq curl
           sudo apt-get install -qq ttf-dejavu
-      - name: Install Ruby dependencies
+      - name: Setup Node
+        uses: actions/setup-node@v1
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install Ruby Dependencies
         run: bundle install --path vendor/bundle --jobs=3 --retry=3
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install Python Dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install pygobject
+            pip install pycairo
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
       - name: Install Graphviz
         run: sudo apt-get install -qq graphviz
       - name: Install Lilypond
@@ -105,10 +110,12 @@ jobs:
           echo "$PWD/Umlet" >> $GITHUB_PATH
       - name: Install MSCgen
         run: sudo apt-get install -qq mscgen
-      - name: Install Python-based Tools
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r pip-requirements.txt -c pip-constraints.txt
+      - name: Install Blockdiag
+        run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
+      - name: Install Syntrax
+        run: pip install syntrax
+      - name: Install Symbolator
+        run: pip install symbolator
       - name: Run tests
         run: bundle exec rake test
         env:
