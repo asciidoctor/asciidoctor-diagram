@@ -10,8 +10,9 @@ jobs:
   test:
     strategy:
       matrix:
-        os: [ ubuntu ]
-        ruby: [ 2.5, 2.6, 2.7, jruby, truffleruby]
+        fail-fast: false
+        os: [ubuntu]
+        ruby: [2.5, 2.6, 2.7, jruby, truffleruby]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: Checkout
