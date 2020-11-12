@@ -103,6 +103,8 @@ jobs:
           install-peerdeps -g vega-lite
       - name: Install Wavedrom
         run: npm install -g wavedrom-cli
+      - name: Install ImageMagick
+        run: sudo apt-get install -qq imagemagick
       - name: Install Gnuplot
         run: sudo apt-get install -qq gnuplot
       - name: Install UMLet

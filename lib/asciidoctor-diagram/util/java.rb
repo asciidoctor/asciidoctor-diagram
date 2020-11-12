@@ -53,6 +53,10 @@ module Asciidoctor
         io.set_encoding Encoding::US_ASCII
         status_line = io.readline(CRLF)
         status_line_parts = STATUS_LINE.match status_line
+        unless status_line_parts
+          raise "Unexpected HTTP status line: #{status_line}"
+        end
+
         resp[:code] = status_line_parts[1].to_i
         resp[:reason] = status_line_parts[2]
 
