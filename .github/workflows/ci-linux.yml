@@ -1,4 +1,4 @@
-name: CI
+name: Linux unit tests
 on:
   push:
     branches: ['**']
