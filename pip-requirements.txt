@@ -1,6 +1,6 @@
 blockdiag[pdf]
-actdiag[pdf]
-seqdiag[pdf]
+actdiag
+seqdiag
 nwdiag[pdf]
 symbolator
 shaape
