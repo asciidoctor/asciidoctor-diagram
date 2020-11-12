@@ -7,104 +7,105 @@ on:
   schedule:
     - cron: '0 2 * * *'
 jobs:
-  strategy:
-    matrix:
-      os: [ ubuntu ]
-      ruby: [ 2.5, 2.6, 2.7, jruby, truffleruby]
-    runs-on: ${{ matrix.os }}-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v1
-      - name: Setup Ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          bundler-cache: true
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '2.x'
-      - name: Install Packages
-        run: |
-          apt-get install haveged
-          apt-get install gconf-service
-          apt-get install libasound2
-          apt-get install libatk1.0-0
-          apt-get install libc6
-          apt-get install libcairo2
-          apt-get install libcups2
-          apt-get install libdbus-1-3
-          apt-get install libexpat1
-          apt-get install libfontconfig1
-          apt-get install libgcc1
-          apt-get install libgconf-2-4
-          apt-get install libgdk-pixbuf2.0-0
-          apt-get install libglib2.0-0
-          apt-get install libgtk-3-0
-          apt-get install libnspr4
-          apt-get install libpango-1.0-0
-          apt-get install libpangocairo-1.0-0
-          apt-get install libstdc++6
-          apt-get install libx11-6
-          apt-get install libx11-xcb1
-          apt-get install libxcb1
-          apt-get install libxcomposite1
-          apt-get install libxcursor1
-          apt-get install libxdamage1
-          apt-get install libxext6
-          apt-get install libxfixes3
-          apt-get install libxi6
-          apt-get install libxrandr2
-          apt-get install libxrender1
-          apt-get install libxss1
-          apt-get install libxtst6
-          apt-get install ca-certificates
-          apt-get install fonts-liberation
-          apt-get install libappindicator1
-          apt-get install libnss3
-          apt-get install lsb-release
-          apt-get install xdg-utils
-          apt-get install curl
-          apt-get install python-gtk2 python-cairo
-          apt-get install ttf-dejavu
-      - name: Install Ruby dependencies
-        run: bundle install --path vendor/bundle --jobs=3 --retry=3
-      - name: Install Graphviz
-        run: apt-get install graphviz
-      - name: Install Lilypond
-        run: apt-get install lilypond
-      - name: Install BPNM-JS
-        run: npm install -g bpmn-js-cmd
-      - name: Install Mermaid
-        run: npm install -g @mermaid-js/mermaid-cli
-      - name: Install NomNoml
-        run: npm install -g nomnoml
-      - name: Install StateMachineCat
-        run: npm install -g state-machine-cat
-      - name: Install Vega
-        run: |
-          npm install -g vega-cli
-          npm install -g install-peerdeps
-          install-peerdeps -g vega-lite
-      - name: Install Wavedrom
-        run: npm install -g wavedrom-cli
-      - name: Install Gnuplot
-        run: apt-get install -qq gnuplot
-      - name: Install UMLet
-        run: |
-          curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
-          unzip -qq umlet-standalone-14.2.zip
-          cp Umlet/umlet.sh Umlet/umlet
-          chmod +x Umlet/umlet
-          export PATH=$PATH:$PWD/Umlet/
-      - name: Install MSCgen
-        run: apt-get install -qq mscgen
-      - name: Install Python-based Tools
-        run: |
-          python -m pip install --upgrade pip
-          pip install --user -r pip-requirements.txt -c pip-constraints.txt
-          export BLOCKDIAG_FONTPATH=/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
-      - name: Run tests
-        run: bundle exec ruby -w $(bundle exec ruby -e 'print File.join Gem.bindir, %q(rake)') spec
+  test:
+    strategy:
+      matrix:
+        os: [ ubuntu ]
+        ruby: [ 2.5, 2.6, 2.7, jruby, truffleruby]
+      runs-on: ${{ matrix.os }}-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Setup Node
+          uses: actions/setup-node@v1
+        - name: Setup Ruby
+          uses: actions/setup-ruby@v1
+          with:
+            ruby-version: ${{ matrix.ruby }}
+            bundler-cache: true
+        - name: Setup Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: '2.x'
+        - name: Install Packages
+          run: |
+            apt-get install haveged
+            apt-get install gconf-service
+            apt-get install libasound2
+            apt-get install libatk1.0-0
+            apt-get install libc6
+            apt-get install libcairo2
+            apt-get install libcups2
+            apt-get install libdbus-1-3
+            apt-get install libexpat1
+            apt-get install libfontconfig1
+            apt-get install libgcc1
+            apt-get install libgconf-2-4
+            apt-get install libgdk-pixbuf2.0-0
+            apt-get install libglib2.0-0
+            apt-get install libgtk-3-0
+            apt-get install libnspr4
+            apt-get install libpango-1.0-0
+            apt-get install libpangocairo-1.0-0
+            apt-get install libstdc++6
+            apt-get install libx11-6
+            apt-get install libx11-xcb1
+            apt-get install libxcb1
+            apt-get install libxcomposite1
+            apt-get install libxcursor1
+            apt-get install libxdamage1
+            apt-get install libxext6
+            apt-get install libxfixes3
+            apt-get install libxi6
+            apt-get install libxrandr2
+            apt-get install libxrender1
+            apt-get install libxss1
+            apt-get install libxtst6
+            apt-get install ca-certificates
+            apt-get install fonts-liberation
+            apt-get install libappindicator1
+            apt-get install libnss3
+            apt-get install lsb-release
+            apt-get install xdg-utils
+            apt-get install curl
+            apt-get install python-gtk2 python-cairo
+            apt-get install ttf-dejavu
+        - name: Install Ruby dependencies
+          run: bundle install --path vendor/bundle --jobs=3 --retry=3
+        - name: Install Graphviz
+          run: apt-get install graphviz
+        - name: Install Lilypond
+          run: apt-get install lilypond
+        - name: Install BPNM-JS
+          run: npm install -g bpmn-js-cmd
+        - name: Install Mermaid
+          run: npm install -g @mermaid-js/mermaid-cli
+        - name: Install NomNoml
+          run: npm install -g nomnoml
+        - name: Install StateMachineCat
+          run: npm install -g state-machine-cat
+        - name: Install Vega
+          run: |
+            npm install -g vega-cli
+            npm install -g install-peerdeps
+            install-peerdeps -g vega-lite
+        - name: Install Wavedrom
+          run: npm install -g wavedrom-cli
+        - name: Install Gnuplot
+          run: apt-get install -qq gnuplot
+        - name: Install UMLet
+          run: |
+            curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
+            unzip -qq umlet-standalone-14.2.zip
+            cp Umlet/umlet.sh Umlet/umlet
+            chmod +x Umlet/umlet
+            export PATH=$PATH:$PWD/Umlet/
+        - name: Install MSCgen
+          run: apt-get install -qq mscgen
+        - name: Install Python-based Tools
+          run: |
+            python -m pip install --upgrade pip
+            pip install --user -r pip-requirements.txt -c pip-constraints.txt
+            export BLOCKDIAG_FONTPATH=/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
+        - name: Run tests
+          run: bundle exec ruby -w $(bundle exec ruby -e 'print File.join Gem.bindir, %q(rake)') spec
