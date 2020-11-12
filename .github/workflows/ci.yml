@@ -25,6 +25,7 @@ jobs:
           sudo apt-get install -qq libatk1.0-0
           sudo apt-get install -qq libc6
           sudo apt-get install -qq libcairo2
+          sudo apt-get install -qq libcairo-gobject2
           sudo apt-get install -qq libcups2
           sudo apt-get install -qq libdbus-1-3
           sudo apt-get install -qq libexpat1
@@ -34,6 +35,7 @@ jobs:
           sudo apt-get install -qq libgdk-pixbuf2.0-0
           sudo apt-get install -qq libglib2.0-0
           sudo apt-get install -qq gobject-introspection
+          sudo apt-get install -qq libgirepository
           sudo apt-get install -qq libgtk-3-0
           sudo apt-get install -qq libnspr4
           sudo apt-get install -qq libpango-1.0-0
