@@ -10,7 +10,6 @@ Gem::Specification.new do |s|
   s.email         = ['pepijn@vaneeckhoudt.net']
   s.description   = %q{Asciidoctor diagramming extension}
   s.summary       = %q{An extension for asciidoctor that adds support for UML diagram generation using PlantUML}
-  s.platform      = $platform
   s.homepage      = 'https://github.com/asciidoctor/asciidoctor-diagram'
   s.license       = 'MIT'
 
