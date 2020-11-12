@@ -72,10 +72,10 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install Python Dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install pygobject
-            pip install pycairo
+        run: |
+          python -m pip install --upgrade pip
+          pip install pygobject
+          pip install pycairo
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
