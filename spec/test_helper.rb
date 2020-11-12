@@ -85,7 +85,7 @@ RSpec.configure do |c|
       c.filter_run_excluding :broken_on_windows => true
   end
 
-  if ENV['TRAVIS']
+  if ENV['TRAVIS'] || ENV['GITHUB_ACTIONS']
     c.filter_run_excluding :broken_on_travis => true
   end
 
