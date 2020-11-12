@@ -62,7 +62,11 @@ module Asciidoctor
         # headers = req[:headers] ||= {}
         # headers['Host'] = "localhost:#{svr.port}"
         format_request(req, svr.io)
-        parse_response(svr.io)
+        begin
+          parse_response(svr.io)
+        rescue
+          raise "Error processing request #{req}\nEncoding of input is #{req[:body].encoding}"
+        end
       end
     end
   end

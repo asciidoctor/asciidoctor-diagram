@@ -34,8 +34,16 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
-        convert = source.find_command('convert')
-        identify = source.find_command('identify')
+        magick = source.find_command('magick', :raise_on_error => false)
+        if magick
+          convert = ->(*args) { Cli.run(magick, 'convert', *args) }
+          identify = ->(*args) { Cli.run(magick, 'identify', *args) }
+        else
+          convert_cmd = source.find_command('convert')
+          convert = ->(*args) { Cli.run(convert_cmd, *args) }
+          identify_cmd = source.find_command('identify')
+          identify = ->(*args) { Cli.run(identify_cmd, *args) }
+        end
 
         bg_img = options[:bg_img]
         raise "background attribute is required" unless bg_img
@@ -50,7 +58,7 @@ module Asciidoctor
         font = options[:font] || 'Impact'
         noupcase = options[:noupcase]
 
-        dimensions = Cli.run(identify, '-format', '%w %h', bg_img)[:out].match(/(?<w>\d+) (?<h>\d+)/)
+        dimensions = identify.call('-format', '%w %h', bg_img)[:out].match(/(?<w>\d+) (?<h>\d+)/)
         bg_width = dimensions['w'].to_i
         bg_height = dimensions['h'].to_i
         label_width = bg_width
@@ -58,8 +66,7 @@ module Asciidoctor
 
         if top_label
           top_img = Tempfile.new(['meme', '.png'])
-          Cli.run(
-              convert,
+          convert.call(
               '-background', 'none',
               '-fill', fill_color,
               '-stroke', stroke_color,
@@ -76,8 +83,7 @@ module Asciidoctor
 
         if bottom_label
           bottom_img = Tempfile.new(['meme', '.png'])
-          Cli.run(
-              convert,
+          convert.call(
               '-background', 'none',
               '-fill', fill_color,
               '-stroke', stroke_color,
@@ -94,7 +100,7 @@ module Asciidoctor
 
         final_img = Tempfile.new(['meme', ".#{format.to_s}"])
 
-        args = [convert, bg_img]
+        args = [bg_img]
         if top_img
           args << top_img.path << '-geometry' << '+0+0' << '-composite'
         end
@@ -105,7 +111,7 @@ module Asciidoctor
 
         args << final_img.path
 
-        Cli.run(*args)
+        convert.call(*args)
 
         File.binread(final_img)
       end

@@ -89,7 +89,7 @@ RSpec.configure do |c|
     c.filter_run_excluding :broken_on_travis => true
   end
 
-  if ENV['APPVEYOR']
+  if ENV['APPVEYOR'] || ENV['GITHUB_ACTIONS']
     c.filter_run_excluding :broken_on_appveyor => true
   end
 
