@@ -111,4 +111,4 @@ jobs:
           pip install --user -r pip-requirements.txt -c pip-constraints.txt
           export BLOCKDIAG_FONTPATH=/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
       - name: Run tests
-        run: bundle exec ruby -w $(bundle exec ruby -e 'print File.join Gem.bindir, %q(rake)') spec
+        run: bundle exec rake test
