@@ -27,6 +27,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        java-version: 11
       - name: Install Packages
         run: |
           sudo apt-get install -qq haveged
