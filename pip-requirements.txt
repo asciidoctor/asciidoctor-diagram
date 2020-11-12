@@ -3,5 +3,7 @@ actdiag
 seqdiag
 nwdiag[pdf]
 symbolator
+pygtk
+pycairo
 shaape
 syntrax

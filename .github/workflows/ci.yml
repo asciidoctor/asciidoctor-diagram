@@ -71,7 +71,6 @@ jobs:
           sudo apt-get install -qq lsb-release
           sudo apt-get install -qq xdg-utils
           sudo apt-get install -qq curl
-          sudo apt-get install -qq python-gtk2 python-cairo
           sudo apt-get install -qq ttf-dejavu
       - name: Install Ruby dependencies
         run: bundle install --path vendor/bundle --jobs=3 --retry=3
