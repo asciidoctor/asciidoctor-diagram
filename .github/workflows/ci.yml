@@ -102,13 +102,14 @@ jobs:
           unzip -qq umlet-standalone-14.2.zip
           cp Umlet/umlet.sh Umlet/umlet
           chmod +x Umlet/umlet
-          export PATH=$PATH:$PWD/Umlet/
+          echo "$PWD/Umlet" >> $GITHUB_PATH
       - name: Install MSCgen
         run: sudo apt-get install -qq mscgen
       - name: Install Python-based Tools
         run: |
           python -m pip install --upgrade pip
           pip install -r pip-requirements.txt -c pip-constraints.txt
-          export BLOCKDIAG_FONTPATH=/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
       - name: Run tests
         run: bundle exec rake test
+        env:
+          BLOCKDIAG_FONTPATH: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
