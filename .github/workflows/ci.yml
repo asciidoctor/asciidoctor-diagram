@@ -39,6 +39,7 @@ jobs:
           sudo apt-get install -qq libnspr4
           sudo apt-get install -qq libpango-1.0-0
           sudo apt-get install -qq libpangocairo-1.0-0
+          sudo apt-get install -qq gir1.2-pango-1.0
           sudo apt-get install -qq libstdc++6
           sudo apt-get install -qq libx11-6
           sudo apt-get install -qq libx11-xcb1
