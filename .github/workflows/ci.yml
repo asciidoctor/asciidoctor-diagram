@@ -20,13 +20,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '2.x'
+          python-version: '3.x'
       - name: Install Packages
         run: |
           sudo apt-get install -qq haveged
