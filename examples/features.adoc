@@ -150,7 +150,7 @@ results in a block with the correct caption and id applied to it.
 Asciidoctor-diagram also supports the various diagram block in block macro form.
 These are macros of the form `<name>::<target>[<attrlist>]`.
 
-In asciidoctor-diagram the macro names are identical to the block styles: `ditaa`, `graphivz` and `plantuml`
+In asciidoctor-diagram the macro names are identical to the block styles: `ditaa`, `graphviz` and `plantuml`
 The target is the path to the file containing the diagram source code.
 When the target is a relative path it is resolved with respect to the location of the document being processed.
 The attribute list behaves mostly the same as with the block styles.
