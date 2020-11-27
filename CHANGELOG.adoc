@@ -383,7 +383,7 @@ Enhancements::
 
   * Add support for `graphviz` blocks which may contain diagrams specified using the Graphviz DOT language
   * The location of the Graphviz `dot` executable can now be specified using the `graphvizdot` document attribute
-  * Add support for `ditaa`, `graphivz` and `plantuml` block macros
+  * Add support for `ditaa`, `graphviz` and `plantuml` block macros
 
 == 1.0.1
 
