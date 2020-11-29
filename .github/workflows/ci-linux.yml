@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Install Packages
         run: |
+          sudo apt-get update
           sudo apt-get install -qq haveged
           sudo apt-get install -qq gconf-service
           sudo apt-get install -qq libasound2
