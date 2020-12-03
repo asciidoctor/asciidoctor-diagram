@@ -296,6 +296,15 @@ When Asciidoctor Diagram writes images to disk it will go over the following opt
 . `\{to_dir\}/\{imagesdir\}` if the `to_dir` attribute has been specified
 . `\{base_dir\}/\{imagesdir\}`
 
+=== Image Cache Location
+
+The image generation also outputs metadata files that by default are located in `.asciidoctor/diagram`.
+To place them in different location, Asciidoctor Diagram checks for (in this order).
+
+. `\{cachedir\}` attribute is specified  in the block header (ie. `[plantuml, png, cachedir=my-cache]`)
+. `\{diagram-cachedir\}` if the `diagram-cachedir` attribute has been specified
+. `\{outdir\}/\{imagesdir\}`
+
 === Specifying Diagram Generator Paths
 
 Asciidoctor Diagram depends on external tools to generates images.
@@ -443,7 +452,7 @@ The attribute name at the block level should be prefixed with the name of the di
 |height       |unspecified     |The height of the plot. Must be specified together with `width`.
 |width        |unspecified     |The width of the plot. Must be specified together with `height`.
 |crop         |unspecified     |Trims blank space from the edges of the completed plot (true/false). Does not work with `svg`, `pdf`.
-|transparent  |unspecified     |Generate transparent background (true/false). Does not work with `svg`, `pdf`, `txt`. 
+|transparent  |unspecified     |Generate transparent background (true/false). Does not work with `svg`, `pdf`, `txt`.
 |font         |unspecified     |The font face with optional font size to use for the text, e.g. `font="Arial"`, `font="Arial,11"`. Does not work with `txt`.
 |fontscale    |unspecified     |Scales all label for given factor. Does not work with `txt`.
 |===
