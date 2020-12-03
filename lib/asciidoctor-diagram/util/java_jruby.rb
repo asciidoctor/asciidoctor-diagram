@@ -10,7 +10,10 @@ module Asciidoctor
           return
         end
 
-        classpath.flatten.each { |j| require j }
+        classpath.flatten.each do |j|
+          raise "Classpath item #{j} does not exist" unless File.exist?(j)
+          require j
+        end
         @loaded = true
       end
 

@@ -10,6 +10,10 @@ module Asciidoctor
     module Java
       class CommandServer
         def initialize(java, classpath)
+          classpath.each do |file|
+            raise "Classpath item #{file} does not exist" unless File.exist?(file)
+          end
+
           args = []
           args << '-Djava.awt.headless=true'
           args << '-Djava.net.useSystemProxies=true'
