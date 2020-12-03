@@ -7,15 +7,18 @@ module Asciidoctor
     class PlantUmlConverter
       include DiagramConverter
 
-      JARS = [
-          'plantuml-1.3.16.jar',
-          'plantuml.jar',
-          'jlatexmath-minimal-1.0.5.jar',
-          'batik-all-1.10.jar'
-      ].map do |jar|
-        File.expand_path File.join('../..', jar), File.dirname(__FILE__)
-      end
-      Java.classpath.concat JARS
+      CLASSPATH_ENV = 'DIAGRAM_PLANTUML_CLASSPATH'
+      LIB_DIR = File.expand_path('../..', File.dirname(__FILE__))
+      PLANTUML_JARS = if ENV.has_key?(CLASSPATH_ENV)
+                        ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
+                      else
+                        ['plantuml.jar', 'jlatexmath-minimal-1.0.5.jar', 'batik-all-1.10.jar'].map do |j|
+                          File.expand_path(j, LIB_DIR)
+                        end
+                      end
+
+      Java.classpath << File.expand_path('plantuml-1.3.16.jar', LIB_DIR)
+      Java.classpath.concat PLANTUML_JARS
 
       def supported_formats
         [:png, :svg, :txt, :atxt, :utxt]
