@@ -7,7 +7,7 @@ module Asciidoctor
   module Diagram
     # @private
     module SVG
-      def self.post_process_image(data)
+      def self.post_process_image(data, optimise)
         svg = REXML::Document.new(data)
 
         root = svg.root
@@ -38,13 +38,36 @@ module Asciidoctor
           root.add_attribute('viewBox', "0 0 #{width.to_s} #{height.to_s}")
         end
 
+        indent = 2
+        if optimise
+          remove_comments(svg)
+          indent = -1
+        end
+
         patched_svg = ""
-        svg.write(:output => patched_svg, :indent => 2)
+        svg.write(:output => patched_svg, :indent => indent, :transitive => true)
 
         [patched_svg, width, height]
       end
 
       private
+
+      def self.remove_comments(parent)
+        comments = []
+
+        parent.each do |child|
+          case child
+            when REXML::Comment
+              comments << child
+            when REXML::Parent
+              remove_comments(child)
+          end
+        end
+
+        comments.each do |c|
+          c.remove
+        end
+      end
 
       def self.to_numeric(text)
         if text.include? '.'

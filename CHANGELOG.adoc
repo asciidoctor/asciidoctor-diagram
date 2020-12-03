@@ -5,6 +5,7 @@
 Enhancements::
 
   * Issue #296: Support referring to the mmdc batch script on Windows using the `mmdc` (Mermaid) document attribute.
+  * Issue #308: Avoid changing the semantics of SVG documents during post processing.
 
 == 2.0.5
 

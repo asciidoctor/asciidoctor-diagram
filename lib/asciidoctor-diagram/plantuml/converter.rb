@@ -8,7 +8,7 @@ module Asciidoctor
       include DiagramConverter
 
       JARS = [
-          'plantuml-1.3.15.jar',
+          'plantuml-1.3.16.jar',
           'plantuml.jar',
           'jlatexmath-minimal-1.0.5.jar',
           'batik-all-1.10.jar'
