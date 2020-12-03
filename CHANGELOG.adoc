@@ -10,6 +10,7 @@ Enhancements::
 Bug Fixes::
 
   * Issue #308: Avoid changing the semantics of SVG documents during post processing.
+  * Issue #313: Remove unneeded dependency on bigdecimal.
 
 == 2.0.5
 
