@@ -1,7 +1,5 @@
 require_relative 'binaryio'
 require 'rexml/document'
-require 'bigdecimal'
-require 'bigdecimal/util'
 
 module Asciidoctor
   module Diagram
