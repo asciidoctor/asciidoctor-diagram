@@ -66,8 +66,8 @@ matrix:
     - rvm: jruby
 before_install:
   - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
+  - nvm install 12.13.0
+  - nvm use 12.13.0
   - gem install bundler
   - sudo apt-get update -qq
 install:
