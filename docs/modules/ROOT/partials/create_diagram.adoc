@@ -16,6 +16,8 @@ Diagram in appropriate syntax
 
 The following diagram types and output formats are available:
 
+:check: icon:check[]
+
 [cols=">,5*^",options="header"]
 |===
 |Diagram Type                |gif    |pdf    |png    |svg    |txt
@@ -49,6 +51,8 @@ The following diagram types and output formats are available:
 |{uri-vegalite}[vegalite]    |       |       |{check}|{check}|
 |{uri-wavedrom}[wavedrom]    |       |       |{check}|{check}|
 |===
+
+:!check:
 
 The example below illustrates the structure of a basic ditaa block written directly in an AsciiDoc document.
 
