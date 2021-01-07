@@ -1,0 +1,294 @@
+== Advanced Usage
+
+=== Enabling Extensions
+
+In your program, you can either load and register the entire set of diagram extensions
+
+[source,ruby]
+----
+require 'asciidoctor-diagram'
+----
+
+or load and register each extension individually.
+
+[source,ruby]
+----
+require 'asciidoctor-diagram/<extension_name>'
+----
+
+`<extension_name>` can be one of `a2s`, `blockdiag`, `bytefield`, `ditaa`, `dpic`, `erd`, `gnuplot`, `graphviz`, `meme`, `mermaid`, `msc`, `pikchr`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
+
+Requiring one or more of these files will automatically register the extensions for all processed documents.
+
+If you need more fine grained control over when the extensions are enabled, `asciidoctor-diagram/<extension_name>/extension` can be used instead.
+This loads the extensions but does not register it in the Asciidoctor extension registry.
+You can then manually register the extensions at the appropriate times using the `Asciidoctor::Extensions` API.
+
+This document explains the various features of asciidoctor-diagram blocks using ditaa diagrams as an example.
+
+=== Diagram Block Macro
+
+The diagram extensions can also be used in in block macro form.
+
+.Anatomy of a diagram block macro
+----
+block-name::source-file-name[generated-file-extension] // <1> <2> <3>
+----
+<1> The macro name is the same as the block name in the block form.
+<2> The source file name specifies the external file that contains the diagram source code.
+<3> The first, optional, positional attribute assigns the file extension (i.e. `format`) to the generated diagram.
+
+When the source file name is a relative path it is resolved with respect to the location of the document being processed.
+
+=== Image Output Location
+
+When Asciidoctor Diagram writes images to disk it will go over the following options in order to determine where to write the files.
+
+. `\{imagesoutdir\}` if the `imagesoutdir` attribute has been specified
+. `\{outdir\}/\{imagesdir\}` if the `outdir` attribute has been specified
+. `\{to_dir\}/\{imagesdir\}` if the `to_dir` attribute has been specified
+. `\{base_dir\}/\{imagesdir\}`
+
+=== Image Cache Location
+
+The image generation also outputs metadata files that by default are located in `.asciidoctor/diagram`.
+To place them in different location, Asciidoctor Diagram checks for (in this order).
+
+. `\{cachedir\}` attribute is specified  in the block header (ie. `[plantuml, png, cachedir=my-cache]`)
+. `\{diagram-cachedir\}` if the `diagram-cachedir` attribute has been specified
+. `\{outdir\}/\{imagesdir\}`
+
+=== Specifying Diagram Generator Paths
+
+Asciidoctor Diagram depends on external tools to generates images.
+In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable.
+In case you've installed a tool in a way where the executable is not in the `PATH`, you can override its location manually using document attributes.
+The following table lists the tools that are required for each diagram type, the location where they can be downloaded and the document attribute you can use to override their locations.
+
+[cols=">,2*<",options="header"]
+|===
+   |Diagram Type |Tool                                                                  |Attribute
+   |a2s          |{uri-a2s}[AsciiToSvg]                                                 |`a2s`
+   |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
+   |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
+   |bpmn         |{uri-bpmn}[bpmn-js-cmd]                                               |`bpmn`
+   |bytefield    |{uri-bytefield}[bytefield-svg]                                        |`bytefield-svg`
+   |ditaa        |{uri-java}[Java]                                                      |`java`
+   |dpic         |{uri-dpic}[dpic]                                                      |`dpic`
+   |erd          |{uri-erd}[Erd]                                                        |`erd`
+   |gnuplot      |{uri-gnuplot}[Gnuplot]                                                |`gnuplot`
+   |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
+   |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
+   |mermaid      |{uri-mermaid}[Mermaid.cli]                                            |`mmdc`
+   |msc          |{uri-mscgen}[Mscgen]                                                  |`mscgen`
+   |nomnoml      |{uri-nomnoml}[Nomnoml]                                                |`nomnoml`
+   |nwdiag       |{uri-nwdiag}[NwDiag]                                                  |`nwdiag`
+   |packetdiag   |{uri-nwdiag}[NwDiag]                                                  |`packetdiag`
+   |pikchr       |{uri-pikchr}[Pikchr]                                                  |`pikchr`
+   |plantuml     |{uri-java}[Java]                                                      |`java`
+   |rackdiag     |{uri-nwdiag}[NwDiag]                                                  |`rackdiag`
+   |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
+   |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
+   |smcat        |{uri-smcat}[State Machine Cat]                                        |`smcat`
+   |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
+   |symbolator   |{uri-symbolator}[Symbolator]                                          |`symbolator`
+   |syntrax      |{uri-syntrax}[Syntrax]                                                |`syntrax`
+   |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
+   |vega         |{uri-vega}[vg2png] and/or {uri-vega}[vg2png]                          |`vg2png` and `vg2svg`
+   |vegalite     |{uri-vegalite}[vl2vg] and {uri-vega}[vg2png] and/or {uri-vega}[vg2svg]|`vl2vg`, `vg2png` and `vg2svg`
+.2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
+                 |{uri-wavedromcli}[WaveDrom CLI] (and {uri-phantomjs}[PhantomJS] for WaveDrom CLI v1)      |`wavedrom` (and `phantomjs`)
+|===
+
+If for instance you installed `actdiag` in `/home/me/actdiag/bin` and this path is not included in the `PATH` you can specify its location on the command line
+
+ $ asciidoctor -a actdiag=/home/me/actdiag/bin/actdiag -r asciidoctor-diagram sample.adoc
+
+[[meme]]
+=== The Meme Extension
+
+The meme extension provides a basic '`Advice Animal`' style image generator.
+It's usage is easiest to explain with an example.
+
+----
+meme::yunoguy.jpg[Doc writers,Y U NO // AsciiDoc]
+----
+
+The target of the block macro tells the extension which image to use as background.
+The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
+Occurrences of `//` surrounded by whitespace are interpreted as line breaks.
+
+=== Diagram Attributes
+
+Certain diagram types allow image generation to be customized using attributes.
+Each attribute can be specified per individual diagram block or for all blocks of a given diagram type in a document level.
+This is illustrated for the blockdiag `fontpath` attribute in the example below.
+
+----
+= Asciidoctor Diagram
+:blockdiag-fontpath: /path/to/font.ttf <1>
+
+[blockdiag] <2>
+....
+....
+
+[blockdiag, fontpath="/path/to/otherfont.ttf"] <3>
+....
+....
+----
+<1> Attributes can be specified for all diagram of a certain type at the document level by prefixing them with `<blocktype>-`.
+In this example, the `fontpath` attribute is specified for all diagrams of type `blockdiag`.
+<2> The first diagram does not specify an explicit value for `fontpath` so the global `blockdiag-fontpath` value will be used
+<3> The second diagram does specifie a `fontpath` value.
+This overrides the global `blockdiag-fontpath` value.
+
+Each attribute can either be specified at the block level or at the document level.
+The attribute name at the block level should be prefixed with the name of the diagram type and a dash.
+
+==== Shared Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|svg-type     |unspecified     |One of `static`, `inline` or `interactive`. This determines the style of SVG embedding that's used in certain backends. The https://asciidoctor.org/docs/user-manual/#taming-svgs[asciidoctor user guide] describes this in more detail.
+|===
+
+==== AsciiToSVG
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|fontfamily   |unspecified     |The font family to use in the generated SVG image
+|noblur       |unspecified     |Disable drop-shadow blurring
+|===
+
+==== Blockdiag
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|fontpath     |unspecified     |The path to the font that should be used by blockdiag
+|===
+
+==== BPMN
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|height       |786             |The target height of the diagram. Does not apply for output type `svg`.
+|width        |1024            |The target width of the diagram. Does not apply for output type `svg`.
+|===
+
+==== Ditaa
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|scale        |1               |A scale factor that is applied to the image.
+|tabs         |8               |An integer value that specifies the tab size as a number of spaces.
+|background   |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
+|antialias    |true            |Enables or disables anti-aliasing.
+|separation   |true            |Prevents the separation of common edges of shapes.
+|round-corners|false           |Causes all corners to be rendered as round corners.
+|shadows      |true            |Enables or disable drop shadows.
+|debug        |false           |Renders the debug grid over the resulting image.
+|fixed-slope  |false           |Makes sides of parallelograms and trapezoids fixed slope instead of fixed width.
+|transparent  |false           |Makes the background of the image transparent instead of using the background color.
+|===
+
+==== Gnuplot
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|background   |unspecified     |Background color, e.g. `red`, `#FF0000`. Does not work with `txt`.
+|height       |unspecified     |The height of the plot. Must be specified together with `width`.
+|width        |unspecified     |The width of the plot. Must be specified together with `height`.
+|crop         |unspecified     |Trims blank space from the edges of the completed plot (true/false). Does not work with `svg`, `pdf`.
+|transparent  |unspecified     |Generate transparent background (true/false). Does not work with `svg`, `pdf`, `txt`.
+|font         |unspecified     |The font face with optional font size to use for the text, e.g. `font="Arial"`, `font="Arial,11"`. Does not work with `txt`.
+|fontscale    |unspecified     |Scales all label for given factor. Does not work with `txt`.
+|===
+
+==== GraphViz
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|layout       |unspecified     |The graphviz layout engine to use (dot -K option).
+|===
+
+==== Meme
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value |Description
+|fill-color    |white         |The fill color for the text.
+|stroke-color  |black         |The outline color for the text
+|stroke-width  |2             |The width of the text outline.
+|font          |Impact        |The font face to use for the text.
+|options       |unspecified   |a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
+|===
+
+==== Mermaid
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value   |Description
+|background      |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
+|css             |unspecified     |Path to a CSS file to pass to mermaid.
+|config          |unspecified     |Path to a JSON config file to pass to mermaid.
+|gantt-config    |unspecified     |Path to a gantt config file to pass to mermaid.
+|puppeteer-config|unspecified     |Path to a puppeteer config file to pass to mermaid.
+|sequence-config |unspecified     |Path to a sequence config file to pass to mermaid.
+|theme           |unspecified     |Theme of the chart, could be default, forest, dark or neutral.
+|width           |unspecified     |Width of the page.
+|height          |unspecified     |Height of the page.
+|===
+
+==== Msc
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|font         |unspecified     |The name of the font that should be used by mscgen
+|===
+
+==== PlantUML
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|config        |unspecified     |Path to a config file to pass to PlantUML.
+|===
+
+==== State Machine Cat
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|direction     |unspecifed      |The direction of the state machine diagram. One of `top-down`, `bottom-top`, `left-right` or `right-left`.
+|engine        |unspecified     |The layout engine to use. One of `dot`, `circo`, `fdp`, `neato`, `osage`, or `twopi`
+|===
+
+==== svgbob
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|font-family   |arial           |text will be rendered with this font
+|font-size     |14              |text will be rendered with this font size
+|scale         |1               |scale the entire svg (dimensions, font size, stroke width) by this factor
+|stroke-width  |2               |stroke width for all lines
+|===
+
+==== Syntrax
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|heading       |unspecifed      |Diagram title
+|scale         |1               |A scale factor that is applied to the image.
+|style         |unspecifed      |Path to a style config file to pass to Syntrax.
+|transparent   |false           |Makes the background of the image transparent instead of opaque white.
+|===

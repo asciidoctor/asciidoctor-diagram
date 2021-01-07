@@ -1,0 +1,126 @@
+== Creating a Diagram
+
+A diagram is written inside a literal block, which can accept several attributes.
+
+.Anatomy of a diagram
+----
+[diagram-type, generated-file-name, generated-image-format] // <1> <2> <3>
+.... // <4>
+Diagram in appropriate syntax
+....
+----
+<1> The first positional attribute in the attribute list specifies the diagram that is being used.
+<2> The second, optional positional attribute assigns a file name (i.e. `target`) to the generated diagram. If a target is not specified an auto-generated name will be used.
+<3> The third, optional positional attribute specifies the image format to create, specified as a three character file extension.
+<4> Place the attribute list directly on top of the delimited literal block (+....+). You can also use an open block as an alternative (`--`).
+
+The following diagram types and output formats are available:
+
+[cols=">,5*^",options="header"]
+|===
+|Diagram Type                |gif    |pdf    |png    |svg    |txt
+|{uri-a2s}[a2s]              |       |       |       |{check}|
+|{uri-actdiag}[actdiag]      |       |{check}|{check}|{check}|
+|{uri-blockdiag}[blockdiag]  |       |{check}|{check}|{check}|
+|{uri-bpmn}[bpmn]            |       |{check}|{check}|{check}|
+|{uri-bytefield}[bytefield]  |       |       |       |{check}|
+|{uri-ditaa}[ditaa]          |       |       |{check}|{check}|
+|{uri-dpic}[dpic]            |       |       |       |{check}|
+|{uri-erd}[erd]              |       |       |{check}|{check}|
+|{uri-gnuplot}[gnuplot]      |{check}|       |{check}|{check}|{check}
+|{uri-dot}[graphviz]         |       |{check}|{check}|{check}|
+|<<meme,meme>>               |{check}|       |{check}|       |
+|{uri-mermaid}[mermaid]      |       |{check}|{check}|{check}|
+|{uri-mscgen}[msc]           |       |       |{check}|{check}|
+|{uri-nomnoml}[nomnoml]      |       |       |       |{check}|
+|{uri-nwdiag}[nwdiag]        |       |{check}|{check}|{check}|
+|{uri-packetdiag}[packetdiag]|       |{check}|{check}|{check}|
+|{uri-pikchr}[pikchr]        |       |       |       |{check}|
+|{uri-plantuml}[plantuml]    |       |       |{check}|{check}|{check}
+|{uri-rackdiag}[rackdiag]    |       |{check}|{check}|{check}|
+|{uri-seqdiag}[seqdiag]      |       |{check}|{check}|{check}|
+|{uri-shaape}[shaape]        |       |       |{check}|{check}|
+|{uri-smcat}[smcat]          |       |       |       |{check}|
+|{uri-svgbob}[svgbob]        |       |       |       |{check}|
+|{uri-symbolator}[symbolator]|       |{check}|{check}|{check}|
+|{uri-syntrax}[syntrax]      |       |{check}|{check}|{check}|
+|{uri-umlet}[umlet]          |{check}|{check}|{check}|{check}|
+|{uri-vega}[vega]            |       |       |{check}|{check}|
+|{uri-vegalite}[vegalite]    |       |       |{check}|{check}|
+|{uri-wavedrom}[wavedrom]    |       |       |{check}|{check}|
+|===
+
+The example below illustrates the structure of a basic ditaa block written directly in an AsciiDoc document.
+
+.Basic ditaa block
+[source]
+----
+[ditaa]
+....
+                   +-------------+
+                   | Asciidoctor |-------+
+                   |   diagram   |       |
+                   +-------------+       | PNG out
+                       ^                 |
+                       | ditaa in        |
+                       |                 v
+ +--------+   +--------+----+    /---------------\
+ |        | --+ Asciidoctor +--> |               |
+ |  Text  |   +-------------+    |   Beautiful   |
+ |Document|   |   !magic!   |    |    Output     |
+ |     {d}|   |             |    |               |
+ +---+----+   +-------------+    \---------------/
+     :                                   ^
+     |          Lots of work             |
+     +-----------------------------------+
+....
+----
+
+The ditaa block above results in the following generated diagram.
+
+.Rendered ditaa diagram
+image::asciidoctor-diagram-process.png[Asciidoctor Diagram process diagram,650,319]
+
+The rendered ditaa diagram above gets the file name `58372f7d2ceffae9e91fd0a7cbb080b6.png`.
+That long number is the checksum of the source code calculated by asciidoctor-diagram.
+If you want to give your generated files a more meaningful name, fill in the `target` attribute.
+
+This can be done by either specifying it as the second positional attribute or as a named attribute.
+Both examples below would result in a file called `ditaa-diagram.png`.
+
+....
+[ditaa, "ditaa-diagram"]
+----
+<snip>
+----
+
+[ditaa, target="ditaa-diagram"]
+----
+<snip>
+----
+....
+
+
+The example below illustrates the structure of a basic PlantUML block written directly in an AsciiDoc document.
+
+.PlantUML Diagram Syntax
+[source]
+----
+[plantuml, diagram-classes, png] // <1> <2> <3>
+....
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+....
+----
+<1> The diagram is written in PlantUML so the first positional attribute is assigned the `plantuml` diagram type.
+<2> The name of the generated diagram file (target) is written in the second positional attribute.
+<3> The output format is entered in the third positional attribute.
+
+.Rendered PlantUML diagram
+image::asciidoctor-diagram-classes.png[Asciidoctor Diagram classes diagram]

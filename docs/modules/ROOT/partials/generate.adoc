@@ -1,0 +1,15 @@
+== Generating a Diagram from a Terminal
+
+You can load Asciidoctor diagram in a terminal using the `-r` flag.
+
+ $ asciidoctor -r asciidoctor-diagram sample.adoc
+
+You can also use Asciidoctor diagram with other converters, such as Asciidoctor EPUB.
+Asciidoctor-epub3 is also loaded with the `-r` flag.
+
+ $ asciidoctor -r asciidoctor-diagram -r asciidoctor-epub3 -b epub3 sample.adoc
+
+Or, you can invoke Asciidoctor and the EPUB converter with the `asciidoctor-epub3` command.
+The command implicitly sets the `-r` and `-b` flags for EPUB3 output.
+
+ $ asciidoctor-epub3 -r asciidoctor-diagram sample.adoc
