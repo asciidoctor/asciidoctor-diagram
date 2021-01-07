@@ -17,6 +17,7 @@ module Asciidoctor
           args = []
           args << '-Djava.awt.headless=true'
           args << '-Djava.net.useSystemProxies=true'
+          args << '-Dfile.encoding=UTF-8'
           args << '-cp'
           args << classpath.flatten.map { |jar| ::Asciidoctor::Diagram::Platform.host_os_path(jar).strip }.join(::Asciidoctor::Diagram::Platform.host_os_path_separator)
           args << 'org.asciidoctor.diagram.StdInOutCommandServer'

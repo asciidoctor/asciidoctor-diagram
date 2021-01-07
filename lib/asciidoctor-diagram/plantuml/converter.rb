@@ -17,7 +17,7 @@ module Asciidoctor
                         end
                       end
 
-      Java.classpath << File.expand_path('plantuml-1.3.16.jar', LIB_DIR)
+      Java.classpath << File.expand_path('plantuml-1.3.17.jar', LIB_DIR)
       Java.classpath.concat PLANTUML_JARS
 
       def supported_formats
