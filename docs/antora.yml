@@ -1,2 +1,3 @@
 name: asciidoctor-diagram
-version: master
+title: Asciidoctor Diagram
+version: '2.0.5'
