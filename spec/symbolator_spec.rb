@@ -14,10 +14,10 @@ package demo is
 end package;
 eos
 
-describe Asciidoctor::Diagram::SymbolatorBlockMacroProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::SymbolatorBlockMacroProcessor, :broken_on_windows, :broken_on_osx do
   include_examples "block_macro", :symbolator, code, [:png, :svg, :pdf]
 end
 
-describe Asciidoctor::Diagram::SymbolatorBlockProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::SymbolatorBlockProcessor, :broken_on_windows, :broken_on_osx do
   include_examples "block", :symbolator, code, [:png, :svg, :pdf]
 end
