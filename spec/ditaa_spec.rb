@@ -145,6 +145,6 @@ This should cause a bug.
 
     expect {
       load_asciidoc doc
-    }.to raise_error(/Cannot follow cell/i)
+    }.to raise_error(/Ambiguous input/i)
   end
 end
