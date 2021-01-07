@@ -16,7 +16,7 @@ Diagram in appropriate syntax
 
 The following diagram types and output formats are available:
 
-:check: icon:check[]
+:check: &#10003;
 
 [cols=">,5*^",options="header"]
 |===
