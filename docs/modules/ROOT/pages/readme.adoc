@@ -1,0 +1,21 @@
+= Asciidoctor Diagram
+Pepijn Van_Eeckhoudt <https://github.com/pepijnve[@pepijnve]>; Sarah White <https://github.com/graphitefriction[@graphitefriction]>
+:description: README for the Asciidoctor Diagram extension for Asciidoctor.
+include::partial$uris.adoc[]
+
+Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
+
+The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-bytefield}[Bytefield-SVG], {uri-ditaa}[Ditaa], {uri-dpic}[dpic], {uri-erd}[Erd], {uri-gnuplot}[Gnuplot], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-pikchr}[Pikchr], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-symbolator}[Symbolator], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
+
+Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
+The generated file is then inserted into your converted document.
+
+Asciidoctor Diagram was inspired by the {uri-py-plantuml}[AsciiDoc PlantUML filter].
+
+include::partial$installation.adoc[]
+
+include::partial$create_diagram.adoc[]
+
+include::partial$generate.adoc[]
+
+include::partial$advanced.adoc[]

@@ -1,0 +1,19 @@
+== Installation
+
+Asciidoctor Diagram is a RubyGem, which can be installed using the `gem` or `bundle` commands.
+
+You can install the Asciidoctor Diagram gem by typing `gem install` in the CLI.
+
+ $ gem install asciidoctor-diagram
+
+by first adding the following entry to your project's [.path]_Gemfile_.
+
+.Gemfile
+[source,ruby]
+----
+gem 'asciidoctor-diagram'
+----
+
+Then execute `bundle` in the CLI.
+
+ $ bundle
