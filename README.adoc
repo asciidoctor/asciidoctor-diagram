@@ -71,6 +71,7 @@ ifdef::status[]
 == Status
 
 image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/Linux%20unit%20tests/badge.svg?branch=master["Linux Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22Linux+unit+tests%22"]
+image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/macOS%20unit%20tests/badge.svg?branch=master["macOS Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22macOS+unit+tests%22"]
 image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/Windows%20unit%20tests/badge.svg?branch=master["Windows Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22Windows+unit+tests%22"]
 image:https://badge.fury.io/rb/asciidoctor-diagram.svg[Gem Version, link=https://rubygems.org/gems/asciidoctor-diagram]
 endif::status[]
