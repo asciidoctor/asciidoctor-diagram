@@ -53,6 +53,8 @@ jobs:
         run: npm install -g @mermaid-js/mermaid-cli
       - name: Install NomNoml
         run: npm install -g nomnoml
+      - name: Install Blockdiag
+        run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
       - name: Install StateMachineCat
         run: npm install -g state-machine-cat
       - name: Install Vega
