@@ -11,9 +11,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows]
-        ruby: [2.7]
-    runs-on: windows-latest
+        os: [windows-latest]
+        ruby: [2.5, 2.6, 2.7, jruby]
+    runs-on: ${{ matrix.os }}
     # runs-on: self-hosted
     # Self-hosted needs:
     # - 7z installing and adding to path
