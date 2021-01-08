@@ -7,10 +7,10 @@ blockdiag {
 }
 eos
 
-describe Asciidoctor::Diagram::BlockDiagBlockMacroProcessor, :broken_on_appveyor do
+describe Asciidoctor::Diagram::BlockDiagBlockMacroProcessor do
   include_examples "block_macro", :blockdiag, code, [:png, :svg, :pdf]
 end
 
-describe Asciidoctor::Diagram::BlockDiagBlockProcessor, :broken_on_appveyor do
+describe Asciidoctor::Diagram::BlockDiagBlockProcessor do
   include_examples "block", :blockdiag, code, [:png, :svg, :pdf]
 end
