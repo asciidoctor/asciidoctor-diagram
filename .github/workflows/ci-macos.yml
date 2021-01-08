@@ -74,7 +74,11 @@ jobs:
         run: pip install syntrax
 #      - name: Install Symbolator
 #        run: pip install symbolator
+      - name: install DeJaVu Font
+        run: |
+          brew tap homebrew/cask-fonts
+          brew install font-dejavu
       - name: Run tests
         run: bundle exec rake test
         env:
-          BLOCKDIAG_FONTPATH: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
+          BLOCKDIAG_FONTPATH: /Users/runner/Library/Fonts/DejaVuSans.ttf
