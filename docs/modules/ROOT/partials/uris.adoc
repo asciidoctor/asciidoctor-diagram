@@ -24,7 +24,6 @@
 :uri-py-plantuml: https://code.google.com/p/asciidoc-plantuml/
 :uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
-:uri-shaape: https://github.com/christiangoltz/shaape
 :uri-smcat: https://github.com/sverweij/state-machine-cat
 :uri-svgbob: https://github.com/ivanceras/svgbobrus
 :uri-symbolator: https://github.com/kevinpt/symbolator
