@@ -33,14 +33,13 @@ ifndef::env-site[:status:]
 :uri-py-plantuml: https://code.google.com/p/asciidoc-plantuml/
 :uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
-:uri-shaape: https://github.com/christiangoltz/shaape
 :uri-wavedrom: http://wavedrom.com
 :uri-wavedromeditor: https://github.com/wavedrom/wavedrom.github.io/releases
 :uri-wavedromcli: https://github.com/wavedrom/cli
 
 Asciidoctor Diagram 是一组 Asciidoctor 扩展，它可以让你向 AsciiDoc 文档中添加图表，而这些图表则是使用纯文本描述的。
 
-扩展支持 BlockDiag （BlockDiag、SeqDiag、ActDiag、NwDiag）， Ditaa、GraphViz、Mermaid、PlantUML、Shaape 和 WaveDrom 语法。
+扩展支持 BlockDiag （BlockDiag、SeqDiag、ActDiag、NwDiag）， Ditaa、GraphViz、Mermaid、PlantUML 和 WaveDrom 语法。
 
 每个扩展都是运行图表处理器，然后根据输入文本来生成一个 SVG、PNG 或 TXT 文件。
 生成的文件随后插入到你处理过的文档中。
@@ -125,7 +124,6 @@ gem 'asciidoctor-diagram', '~> 1.4.0'
 |{uri-plantuml}[plantuml]    |       |{check}|{check}|{check}
 |{uri-rackdiag}[rackdiag]    |       |{check}|{check}|
 |{uri-seqdiag}[seqdiag]      |       |{check}|{check}|
-|{uri-shaape}[shaape]        |       |{check}|{check}|
 |{uri-wavedrom}[wavedrom]    |       |{check}|{check}|
 |===
 
@@ -240,7 +238,7 @@ require 'asciidoctor-diagram'
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` 可以是 `blockdiag`、`ditaa`、`erd`、`graphviz`、`meme`、`mermaid`、`plantuml`、`shaape` 或 `wavedrom`。
+`<extension_name>` 可以是 `blockdiag`、`ditaa`、`erd`、`graphviz`、`meme`、`mermaid`、`plantuml` 或 `wavedrom`。
 
 加载一个或多个这些文件将为所有需要处理的文档自动注册这些扩展。
 
@@ -300,7 +298,6 @@ Asciidoctor Diagram 依赖外部工具来生成图片。
    |plantuml     |{uri-java}[Java]                                                      |`java`
    |rackdiag     |{uri-nwdiag}[NwDiag]                                                  |`rackdiag`
    |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
-   |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
 .2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
                  |{uri-wavedromcli}[WaveDrom CLI] 和 {uri-phantomjs}[PhantomJS]        |`wavedrom` 和 `phantomjs`
 |===

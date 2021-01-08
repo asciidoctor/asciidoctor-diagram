@@ -16,7 +16,7 @@ or load and register each extension individually.
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` can be one of `a2s`, `blockdiag`, `bytefield`, `ditaa`, `dpic`, `erd`, `gnuplot`, `graphviz`, `meme`, `mermaid`, `msc`, `pikchr`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
+`<extension_name>` can be one of `a2s`, `blockdiag`, `bytefield`, `ditaa`, `dpic`, `erd`, `gnuplot`, `graphviz`, `meme`, `mermaid`, `msc`, `pikchr`, `plantuml`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
@@ -88,7 +88,6 @@ The following table lists the tools that are required for each diagram type, the
    |plantuml     |{uri-java}[Java]                                                      |`java`
    |rackdiag     |{uri-nwdiag}[NwDiag]                                                  |`rackdiag`
    |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
-   |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
    |smcat        |{uri-smcat}[State Machine Cat]                                        |`smcat`
    |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
    |symbolator   |{uri-symbolator}[Symbolator]                                          |`symbolator`
