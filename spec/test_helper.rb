@@ -85,8 +85,8 @@ RSpec.configure do |c|
       c.filter_run_excluding :broken_on_windows => true
   end
 
-  if ENV['TRAVIS'] || ENV['GITHUB_ACTIONS']
-    c.filter_run_excluding :broken_on_travis => true
+  if ENV['GITHUB_ACTIONS']
+    c.filter_run_excluding :broken_on_github => true
   end
 
   TEST_DIR = File.expand_path('testing')
