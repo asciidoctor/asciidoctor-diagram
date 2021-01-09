@@ -83,10 +83,10 @@ play        1--* play_player
 player      1--* play_player
 eos
 
-describe Asciidoctor::Diagram::ErdBlockMacroProcessor, :broken_on_travis, :broken_on_windows do
+describe Asciidoctor::Diagram::ErdBlockMacroProcessor, :broken_on_github, :broken_on_windows do
   include_examples "block_macro", :erd, code, [:svg]
 end
 
-describe Asciidoctor::Diagram::ErdBlockProcessor, :broken_on_travis, :broken_on_windows do
+describe Asciidoctor::Diagram::ErdBlockProcessor, :broken_on_github, :broken_on_windows do
   include_examples "block", :erd, code, [:svg]
 end
