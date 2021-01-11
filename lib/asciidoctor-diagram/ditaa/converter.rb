@@ -24,7 +24,6 @@ module Asciidoctor
       }
 
       CLASSPATH_ENV = 'DIAGRAM_DITAA_CLASSPATH'
-      LIB_DIR = File.expand_path('../..', File.dirname(__FILE__))
       DITAA_JARS = if ENV.has_key?(CLASSPATH_ENV)
                         ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
                       else
@@ -36,7 +35,7 @@ module Asciidoctor
                         end
                       end
 
-      Java.classpath << File.expand_path('ditaa-1.3.17.jar', LIB_DIR)
+      Java.classpath.concat Dir['*.jar', base: File.dirname(__FILE__ )].map { |j| File.expand_path(j, File.dirname(__FILE__ )) }
       Java.classpath.concat DITAA_JARS
 
       def supported_formats
