@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in asciidoctor-diagram.gemspec
-gemspec
+gemspec :name => 'asciidoctor-diagram'
+gemspec :name => 'asciidoctor-diagram-ditaamini', :path => 'deps/ditaa'
+gemspec :name => 'asciidoctor-diagram-plantuml', :path => 'deps/plantuml'

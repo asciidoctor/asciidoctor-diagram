@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   rescue
     s.files             = Dir['**/*']
   end
+
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ['lib']
@@ -27,4 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec'
 
   s.add_runtime_dependency 'asciidoctor', '>= 1.5.7', '< 3.x'
+  s.add_runtime_dependency 'asciidoctor-diagram-ditaamini', '~> 0.13'
+  s.add_runtime_dependency 'asciidoctor-diagram-plantuml', '~> 1.2020'
 end
