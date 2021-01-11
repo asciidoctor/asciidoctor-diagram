@@ -343,6 +343,7 @@ The following table lists the tools that are required for each diagram type, the
    |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
    |symbolator   |{uri-symbolator}[Symbolator]                                          |`symbolator`
    |syntrax      |{uri-syntrax}[Syntrax]                                                |`syntrax`
+   |tikz         |{uri-tikz}[TikZ]                                                      |`tikz`
    |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
    |vega         |{uri-vega}[vg2png] and/or {uri-vega}[vg2png]                          |`vg2png` and `vg2svg`
    |vegalite     |{uri-vegalite}[vl2vg] and {uri-vega}[vg2png] and/or {uri-vega}[vg2svg]|`vl2vg`, `vg2png` and `vg2svg`
@@ -517,7 +518,7 @@ The attribute name at the block level should be prefixed with the name of the di
 [cols=">,<,<",options="header"]
 |===
 |Name          |Default value   |Description
-|direction     |unspecifed      |The direction of the state machine diagram. One of `top-down`, `bottom-top`, `left-right` or `right-left`.
+|direction     |unspecified     |The direction of the state machine diagram. One of `top-down`, `bottom-top`, `left-right` or `right-left`.
 |engine        |unspecified     |The layout engine to use. One of `dot`, `circo`, `fdp`, `neato`, `osage`, or `twopi`
 |===
 
@@ -541,4 +542,12 @@ The attribute name at the block level should be prefixed with the name of the di
 |scale         |1               |A scale factor that is applied to the image.
 |style         |unspecifed      |Path to a style config file to pass to Syntrax.
 |transparent   |false           |Makes the background of the image transparent instead of opaque white.
+|===
+
+==== TikZ
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|preamble      |unspecified     |Code definitions to pass to TikZ.
 |===
