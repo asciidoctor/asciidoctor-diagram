@@ -63,7 +63,15 @@ jobs:
           sudo apt-get install -qq xdg-utils
           sudo apt-get install -qq curl
           sudo apt-get install -qq ttf-dejavu
+          sudo apt-get install -qq texlive-science
+          sudo apt-get install -qq texlive-pictures
           sudo apt-get install -qq dpic
+          sudo apt-get install -qq cargo
+          sudo apt-get install -qq tikzit
+          sudo apt-get install -qq texlive-latex-extra
+          sudo apt-get install -qq texlive-fonts-extra
+          sudo apt-get install -qq git
+          sudo apt-get install -qq haskell-stack
       - name: Setup Node
         uses: actions/setup-node@v1
       - name: Setup Ruby
@@ -81,6 +89,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install pygobject
           pip install pycairo
+      - name: Setup Golang
+        uses: actions/setup-go@v2
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
@@ -89,6 +99,27 @@ jobs:
         run: sudo apt-get install -qq graphviz
       - name: Install Lilypond
         run: sudo apt-get install -qq lilypond
+      - name: Install AsciitoSVG
+        run: |
+          go get github.com/asciitosvg/asciitosvg/cmd/a2s
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+      - name: Install Bytefield-svg
+        run: npm install -g bytefield-svg
+      - name: Install ERD
+        run: |
+          git clone git://github.com/BurntSushi/erd
+          pushd erd
+          stack install
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          popd
+      - name: Install pikchr
+        run: |
+          wget https://www.fossil-scm.org/fossil/uv/fossil-linux-x64-2.14-preview-20210106.tar.gz
+          tar -xf fossil-linux-x64-2.14-preview-20210106.tar.gz
+          ./fossil clone --nested https://pikchr.org
+          cd pikchr
+          make
+          cp pikchr "$HOME/.local/bin"
       - name: Install BPNM-JS
         run: npm install -g bpmn-js-cmd
       - name: Install Mermaid
@@ -119,6 +150,10 @@ jobs:
         run: sudo apt-get install -qq mscgen
       - name: Install Blockdiag
         run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
+      - name: Install svgbob
+        run: |
+          cargo install svgbob_cli
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
       - name: Install Syntrax
         run: pip install syntrax
       - name: Install Symbolator
