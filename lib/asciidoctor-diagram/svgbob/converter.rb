@@ -14,11 +14,15 @@ module Asciidoctor
         [:svg]
       end
 
+      def native_scaling?
+        true
+      end
+
       OPTIONS = {
           :font_family => lambda { |o, v| o << '--font-family' << v if v },
           :font_size => lambda { |o, v| o << '--font-size' << v if v },
           :stroke_width => lambda { |o, v| o << '--stroke-width' << v if v },
-          :scale => lambda { |o, v| o << '--scale' << v if v }
+          :scale => lambda { |o, v| o << '--scale' << (v.to_f * 8.0).to_s if v }
       }
 
       def collect_options(source)
