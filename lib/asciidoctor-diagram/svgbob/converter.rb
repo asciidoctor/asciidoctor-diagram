@@ -14,6 +14,10 @@ module Asciidoctor
         [:svg]
       end
 
+      def native_scaling?
+        true
+      end
+
       OPTIONS = {
           :font_family => lambda { |o, v| o << '--font-family' << v if v },
           :font_size => lambda { |o, v| o << '--font-size' << v if v },
