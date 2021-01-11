@@ -44,6 +44,7 @@ ifndef::env-site[:status:]
 :uri-svgbob: https://github.com/ivanceras/svgbobrus
 :uri-symbolator: https://github.com/kevinpt/symbolator
 :uri-syntrax: https://kevinpt.github.io/syntrax/
+:uri-tikz: https://tikzit.github.io/
 :uri-umlet: http://www.umlet.com/
 :uri-vega: https://vega.github.io/vega/
 :uri-vegalite: https://vega.github.io/vega-lite/
@@ -53,7 +54,7 @@ ifndef::env-site[:status:]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
 
-The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-bytefield}[Bytefield-SVG], {uri-ditaa}[Ditaa], {uri-dpic}[dpic], {uri-erd}[Erd], {uri-gnuplot}[Gnuplot], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-pikchr}[Pikchr], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-symbolator}[Symbolator], {uri-syntrax}[Syntrax], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
+The extensions supports the {uri-a2s}[AsciiToSVG], BlockDiag ({uri-blockdiag}[BlockDiag], {uri-seqdiag}[SeqDiag], {uri-actdiag}[ActDiag], {uri-nwdiag}[NwDiag]), {uri-bytefield}[Bytefield-SVG], {uri-ditaa}[Ditaa], {uri-dpic}[dpic], {uri-erd}[Erd], {uri-gnuplot}[Gnuplot], {uri-dot}[GraphViz], {uri-mermaid}[Mermaid], {uri-mscgen}[Msc], {uri-nomnoml}[Nomnoml], {uri-pikchr}[Pikchr], {uri-plantuml}[PlantUML], {uri-shaape}[Shaape], {uri-smcat}[State Machine Cat], {uri-svgbob}[SvgBob], {uri-symbolator}[Symbolator], {uri-syntrax}[Syntrax], {uri-tikz}[TikZ], {uri-umlet}[UMLet], {uri-vega}[Vega], {uri-vegalite}[Vega-Lite] and {uri-wavedrom}[WaveDrom] syntax.
 
 Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
 The generated file is then inserted into your converted document.
@@ -149,6 +150,7 @@ The following diagram types and output formats are available:
 |{uri-svgbob}[svgbob]        |       |       |       |{check}|
 |{uri-symbolator}[symbolator]|       |{check}|{check}|{check}|
 |{uri-syntrax}[syntrax]      |       |{check}|{check}|{check}|
+|{uri-tikz}[tikz]            |       |{check}|       |{check}|
 |{uri-umlet}[umlet]          |{check}|{check}|{check}|{check}|
 |{uri-vega}[vega]            |       |       |{check}|{check}|
 |{uri-vegalite}[vegalite]    |       |       |{check}|{check}|
