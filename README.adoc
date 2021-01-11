@@ -343,7 +343,7 @@ The following table lists the tools that are required for each diagram type, the
    |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
    |symbolator   |{uri-symbolator}[Symbolator]                                          |`symbolator`
    |syntrax      |{uri-syntrax}[Syntrax]                                                |`syntrax`
-   |tikz         |{uri-tikz}[TikZ]                                                      |`tikz`
+   |tikz         |A TeX distribution that supports {uri-tikz}[TikZ]                     |`pdflatex` and `pdf2svg`
    |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
    |vega         |{uri-vega}[vg2png] and/or {uri-vega}[vg2png]                          |`vg2png` and `vg2svg`
    |vegalite     |{uri-vegalite}[vl2vg] and {uri-vega}[vg2png] and/or {uri-vega}[vg2svg]|`vl2vg`, `vg2png` and `vg2svg`
