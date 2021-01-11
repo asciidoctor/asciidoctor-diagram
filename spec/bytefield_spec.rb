@@ -83,10 +83,10 @@ code = <<-eos
 (draw-bottom)
 eos
 
-describe Asciidoctor::Diagram::BytefieldBlockMacroProcessor, :broken_on_github, :broken_on_windows do
+describe Asciidoctor::Diagram::BytefieldBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :bytefield, code, [:svg]
 end
 
-describe Asciidoctor::Diagram::BytefieldBlockProcessor, :broken_on_github, :broken_on_windows do
+describe Asciidoctor::Diagram::BytefieldBlockProcessor, :broken_on_windows do
   include_examples "block", :bytefield, code, [:svg]
 end
