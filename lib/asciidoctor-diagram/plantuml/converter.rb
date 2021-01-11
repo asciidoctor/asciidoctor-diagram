@@ -12,8 +12,11 @@ module Asciidoctor
       PLANTUML_JARS = if ENV.has_key?(CLASSPATH_ENV)
                         ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
                       else
-                        ['plantuml.jar', 'jlatexmath-minimal-1.0.5.jar', 'batik-all-1.10.jar'].map do |j|
-                          File.expand_path(j, LIB_DIR)
+                        begin
+                          require 'asciidoctor-diagram/plantuml/classpath'
+                          ::Asciidoctor::Diagram::PlantUmlClasspath::PLANTUML_JARS
+                        rescue LoadError
+                          raise "Could not load PlantUML. Eiter require 'asciidoctor-diagram-plantuml' or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_PLANTUML_CLASSPATH' environment variable."
                         end
                       end
 

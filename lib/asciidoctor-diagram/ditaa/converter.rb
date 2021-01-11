@@ -23,11 +23,21 @@ module Asciidoctor
           :transparent => lambda { |o, v| o  << '--transparent' if v == 'true'}
       }
 
-      JARS = ['ditaa-1.3.17.jar', 'ditaamini-0.13.jar'].map do |jar|
-        File.expand_path File.join('../..', jar), File.dirname(__FILE__)
-      end
-      Java.classpath.concat JARS
+      CLASSPATH_ENV = 'DIAGRAM_DITAA_CLASSPATH'
+      LIB_DIR = File.expand_path('../..', File.dirname(__FILE__))
+      DITAA_JARS = if ENV.has_key?(CLASSPATH_ENV)
+                        ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
+                      else
+                        begin
+                          require 'asciidoctor-diagram/ditaa/classpath'
+                          ::Asciidoctor::Diagram::DitaaClasspath::DITAA_JARS
+                        rescue LoadError
+                          raise "Could not load PlantUML. Eiter require 'asciidoctor-diagram-ditaamini' or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_DITAA_CLASSPATH' environment variable."
+                        end
+                      end
 
+      Java.classpath << File.expand_path('ditaa-1.3.17.jar', LIB_DIR)
+      Java.classpath.concat DITAA_JARS
 
       def supported_formats
         [:png, :svg]

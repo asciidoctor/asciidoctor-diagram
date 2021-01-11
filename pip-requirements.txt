@@ -1,6 +1,0 @@
-blockdiag[pdf]
-actdiag
-seqdiag
-nwdiag[pdf]
-symbolator
-syntrax
