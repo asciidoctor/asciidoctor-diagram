@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        ruby: [2.2, 2.7, 3.0, jruby]
+        ruby: [2.3, 2.7, 3.0, jruby]
     runs-on: ${{ matrix.os }}
     # runs-on: self-hosted
     # Self-hosted needs:
