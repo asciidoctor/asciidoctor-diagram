@@ -5,7 +5,7 @@ module Asciidoctor
     # @private
     module Java
       def self.classpath
-        @classpath ||= Dir['*.jar', base: File.dirname(__FILE__ )].map { |j| File.expand_path(j, File.dirname(__FILE__ )) }
+        @classpath ||= Dir[File.join(File.dirname(__FILE__), '*.jar')]
       end
 
       CRLF = "\r\n".encode(Encoding::US_ASCII)
