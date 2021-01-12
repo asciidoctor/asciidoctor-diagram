@@ -79,6 +79,8 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
       - name: Install Ruby Dependencies
         run: bundle install --path vendor/bundle --jobs=3 --retry=3
+      - name: Setup Golang
+        uses: actions/setup-go@v2
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -88,8 +90,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install pygobject
           pip install pycairo
-      - name: Setup Golang
-        uses: actions/setup-go@v2
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
@@ -102,23 +102,21 @@ jobs:
         run: |
           go get github.com/asciitosvg/asciitosvg/cmd/a2s
           echo "$HOME/go/bin" >> $GITHUB_PATH
-      - name: Install Bytefield-svg
+      - name: Install Bytefield-SVG
         run: npm install -g bytefield-svg
       - name: Install ERD
         run: |
           git clone git://github.com/BurntSushi/erd
-          pushd erd
+          cd erd
           stack install
           echo "$HOME/.local/bin" >> $GITHUB_PATH
-          popd
       - name: Install pikchr
         run: |
-          wget https://www.fossil-scm.org/fossil/uv/fossil-linux-x64-2.14-preview-20210106.tar.gz
-          tar -xf fossil-linux-x64-2.14-preview-20210106.tar.gz
-          ./fossil clone --nested https://pikchr.org
+          wget https://pikchr.org/home/tarball/trunk/pikchr.tgz
+          tar -xf pikchr.tgz
           cd pikchr
           make
-          cp pikchr "$HOME/.local/bin"
+          echo "$HOME/pikchr" >> $GITHUB_PATH
       - name: Install BPNM-JS
         run: npm install -g bpmn-js-cmd
       - name: Install Mermaid

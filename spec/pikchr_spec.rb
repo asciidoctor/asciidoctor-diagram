@@ -42,11 +42,11 @@ arrow dashed from last circle.w to 5/8<last circle.w,2nd last box> chop
 box invis wid 2*boxwid "ndtable:" with .e at Start.w
 eos
 
-describe Asciidoctor::Diagram::PikchrBlockMacroProcessor, :broken_on_osx, :broken_on_windows do
+describe Asciidoctor::Diagram::PikchrBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :pikchr, code, [:svg]
 end
 
-describe Asciidoctor::Diagram::PikchrBlockProcessor, :broken_on_osx, :broken_on_windows do
+describe Asciidoctor::Diagram::PikchrBlockProcessor, :broken_on_windows do
   include_examples "block", :pikchr, code, [:svg]
 
   it "should report syntax errors" do
