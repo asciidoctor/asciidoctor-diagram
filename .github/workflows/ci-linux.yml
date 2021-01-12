@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu]
-        ruby: [2.5, 2.6, 2.7, jruby, truffleruby]
+        ruby: [2.2, 2.7, 3.0, jruby, truffleruby]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: Checkout
