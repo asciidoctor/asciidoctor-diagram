@@ -14,7 +14,7 @@ module Asciidoctor
                       else
                         begin
                           require 'asciidoctor-diagram/plantuml/classpath'
-                          ::Asciidoctor::Diagram::PlantUmlClasspath::PLANTUML_JARS
+                          ::Asciidoctor::Diagram::PlantUmlClasspath::JAR_FILES
                         rescue LoadError
                           raise "Could not load PlantUML. Eiter require 'asciidoctor-diagram-plantuml' or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_PLANTUML_CLASSPATH' environment variable."
                         end

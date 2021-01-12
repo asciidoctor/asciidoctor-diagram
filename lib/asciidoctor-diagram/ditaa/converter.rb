@@ -29,7 +29,7 @@ module Asciidoctor
                       else
                         begin
                           require 'asciidoctor-diagram/ditaa/classpath'
-                          ::Asciidoctor::Diagram::DitaaClasspath::DITAA_JARS
+                          ::Asciidoctor::Diagram::DitaaClasspath::JAR_FILES
                         rescue LoadError
                           raise "Could not load PlantUML. Eiter require 'asciidoctor-diagram-ditaamini' or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_DITAA_CLASSPATH' environment variable."
                         end
