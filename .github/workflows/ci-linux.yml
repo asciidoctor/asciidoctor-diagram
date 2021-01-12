@@ -115,7 +115,8 @@ jobs:
           wget https://pikchr.org/home/tarball/trunk/pikchr.tgz
           tar -xf pikchr.tgz
           cd pikchr
-          make install
+          make
+          echo "$(pwd)" >> $GITHUB_PATH
       - name: Install BPNM-JS
         run: npm install -g bpmn-js-cmd
       - name: Install Mermaid
