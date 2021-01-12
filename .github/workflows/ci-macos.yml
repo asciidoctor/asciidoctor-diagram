@@ -23,10 +23,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - name: Setup Golang
-        uses: actions/setup-go@v2
       - name: Install Ruby Dependencies
         run: bundle install --path vendor/bundle --jobs=3 --retry=3
+      - name: Setup Golang
+        uses: actions/setup-go@v2
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -38,19 +38,33 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Install svgbob
-        run: |
-          cargo install svgbob_cli
       - name: Install Graphviz
         run: brew install graphviz
 #      - name: Install Lilypond
 #        run: brew install lilypond
+      - name: Install AsciitoSVG
+        run: |
+          go get github.com/asciitosvg/asciitosvg/cmd/a2s
+          echo "$HOME/go/bin" >> $GITHUB_PATH
+      - name: Install Bytefield-SVG
+        run: npm install -g bytefield-svg
+      - name: Install ERD
+        run: |
+          git clone git://github.com/BurntSushi/erd
+          cd erd
+          stack install
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install pikchr
+        run: |
+          wget https://pikchr.org/home/tarball/trunk/pikchr.tgz
+          tar -xf pikchr.tgz
+          cd pikchr
+          make
+          echo "$HOME/pikchr" >> $GITHUB_PATH
       - name: Install BPNM-JS
         run: npm install -g bpmn-js-cmd
       - name: Install Mermaid
         run: npm install -g @mermaid-js/mermaid-cli
-      - name: Install Bytefield-SVG
-        run: npm install -g bytefield-svg
       - name: Install NomNoml
         run: npm install -g nomnoml
       - name: Install StateMachineCat
@@ -60,8 +74,6 @@ jobs:
           npm install -g vega-cli
           npm install -g install-peerdeps
           install-peerdeps -g vega-lite
-      - name: Install AsciitoSVG
-        run: go get github.com/asciitosvg/asciitosvg/cmd/a2s
       - name: Install Wavedrom
         run: npm install -g wavedrom-cli
       - name: Install ImageMagick
@@ -79,6 +91,10 @@ jobs:
         run: brew install mscgen
       - name: Install Blockdiag
         run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
+      - name: Install svgbob
+        run: |
+          cargo install svgbob_cli
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
       - name: Install Syntrax
         run: pip install syntrax
 #      - name: Install Symbolator
