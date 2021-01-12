@@ -35,7 +35,7 @@ module Asciidoctor
                         end
                       end
 
-      Java.classpath.concat Dir['*.jar', base: File.dirname(__FILE__ )].map { |j| File.expand_path(j, File.dirname(__FILE__ )) }
+      Java.classpath.concat Dir[File.join(File.dirname(__FILE__), '*.jar')]
       Java.classpath.concat DITAA_JARS
 
       def supported_formats
