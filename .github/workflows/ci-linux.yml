@@ -110,13 +110,12 @@ jobs:
           cd erd
           stack install
           echo "$HOME/.local/bin" >> $GITHUB_PATH
-      - name: Install pikchr
+      - name: Install Pikchr
         run: |
           wget https://pikchr.org/home/tarball/trunk/pikchr.tgz
           tar -xf pikchr.tgz
           cd pikchr
-          make
-          echo "$HOME/pikchr" >> $GITHUB_PATH
+          make install
       - name: Install BPNM-JS
         run: npm install -g bpmn-js-cmd
       - name: Install Mermaid
