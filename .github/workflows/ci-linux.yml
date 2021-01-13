@@ -65,7 +65,6 @@ jobs:
           sudo apt-get install -qq ttf-dejavu
           sudo apt-get install -qq texlive-science
           sudo apt-get install -qq texlive-pictures
-          sudo apt-get install -qq dpic
           sudo apt-get install -qq cargo
           sudo apt-get install -qq texlive-latex-extra
           sudo apt-get install -qq texlive-fonts-extra
@@ -110,6 +109,8 @@ jobs:
           cd erd
           stack install
           echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install DPIC
+        run: sudo apt-get install -qq dpic
       - name: Install Pikchr
         run: |
           wget https://pikchr.org/home/tarball/trunk/pikchr.tgz

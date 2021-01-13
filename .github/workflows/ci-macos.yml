@@ -54,6 +54,13 @@ jobs:
           cd erd
           stack install
           echo "$HOME/.local/bin" >> $GITHUB_PATH
+      - name: Install DPIC
+        run: |
+          wget https://ece.uwaterloo.ca/~aplevich/dpic/dpic-2021.01.01.tar.gz
+          tar -xf dpic-2021.01.01.tar.gz
+          cd dpic-2021.01.01
+          ./configure
+          make install
       - name: Install Pikchr
         run: |
           wget https://pikchr.org/home/tarball/trunk/pikchr.tgz
