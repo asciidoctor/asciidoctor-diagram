@@ -60,7 +60,8 @@ jobs:
           tar -xf dpic-2021.01.01.tar.gz
           cd dpic-2021.01.01
           ./configure
-          make install
+          make
+          sudo make install
       - name: Install Pikchr
         run: |
           wget https://pikchr.org/home/tarball/trunk/pikchr.tgz
