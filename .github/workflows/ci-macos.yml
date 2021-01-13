@@ -27,21 +27,37 @@ jobs:
         run: bundle install --path vendor/bundle --jobs=3 --retry=3
       - name: Setup Golang
         uses: actions/setup-go@v2
-      - name: Setup Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
       - name: Install Python Dependencies
         run: |
-          brew install py3cairo
+          export HOMEBREW_NO_INSTALL_CLEANUP=1
+          brew install cairo
+          brew install pango
+          pip3 install pycairo
+          pip3 install pygobject
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Install MacTex
+        run: |
+          export HOMEBREW_NO_INSTALL_CLEANUP=1
+          brew install --cask mactex
+          echo "/Library/TeX/texbin" >> $GITHUB_PATH
       - name: Install Graphviz
-        run: brew install graphviz
-#      - name: Install Lilypond
-#        run: brew install lilypond
+        run: export HOMEBREW_NO_INSTALL_CLEANUP=1 && brew install graphviz
+      #- name: Install Lilypond
+      #  run: |
+      #    curl -L "https://dl.bintray.com/marnen/lilypond-darwin-64/lilypond-2.20.0.build20200311175017-darwin-64.tar.gz" -o lilypond.tar.gz
+      #    tar -xf lilypond.tar.gz
+      #    cat <<'EOF' >> lilypond
+      #    #!/bin/bash
+      #    exec ~/LilyPond.app/Contents/Resources/bin/lilypond "$@"
+      #    EOF
+      #    chmod u+x lilypond
+      #    mkdir "$HOME/bin"
+      #    cp lilypond "$HOME/bin"
+      #    echo "$HOME/.local/bin" >> $GITHUB_PATH
+      #    sudo spctl --master-disable
       - name: Install AsciitoSVG
         run: |
           go get github.com/asciitosvg/asciitosvg/cmd/a2s
@@ -85,9 +101,9 @@ jobs:
       - name: Install Wavedrom
         run: npm install -g wavedrom-cli
       - name: Install ImageMagick
-        run: brew install imagemagick
+        run: export HOMEBREW_NO_INSTALL_CLEANUP=1 && brew install imagemagick
       - name: Install Gnuplot
-        run: brew install gnuplot
+        run: export HOMEBREW_NO_INSTALL_CLEANUP=1 && brew install gnuplot
       - name: Install UMLet
         run: |
           curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
@@ -96,19 +112,20 @@ jobs:
           chmod +x Umlet/umlet
           echo "$PWD/Umlet" >> $GITHUB_PATH
       - name: Install MSCgen
-        run: brew install mscgen
+        run: export HOMEBREW_NO_INSTALL_CLEANUP=1 && brew install mscgen
       - name: Install Blockdiag
-        run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
+        run: pip3 install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
       - name: Install svgbob
         run: |
           cargo install svgbob_cli
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
       - name: Install Syntrax
-        run: pip install syntrax
-#      - name: Install Symbolator
-#        run: pip install symbolator
+        run: pip3 install syntrax
+      - name: Install Symbolator
+        run: pip3 install symbolator
       - name: install DeJaVu Font
         run: |
+          export HOMEBREW_NO_INSTALL_CLEANUP=1
           brew tap homebrew/cask-fonts
           brew install font-dejavu
       - name: Run tests
