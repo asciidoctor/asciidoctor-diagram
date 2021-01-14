@@ -46,6 +46,7 @@ The following diagram types and output formats are available:
 |{uri-svgbob}[svgbob]        |       |       |       |{check}|
 |{uri-symbolator}[symbolator]|       |{check}|{check}|{check}|
 |{uri-syntrax}[syntrax]      |       |{check}|{check}|{check}|
+|{uri-tikz}[tikz]            |       |{check}|       |{check}|
 |{uri-umlet}[umlet]          |{check}|{check}|{check}|{check}|
 |{uri-vega}[vega]            |       |       |{check}|{check}|
 |{uri-vegalite}[vegalite]    |       |       |{check}|{check}|

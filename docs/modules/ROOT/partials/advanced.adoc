@@ -93,11 +93,12 @@ The following table lists the tools that are required for each diagram type, the
    |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
    |symbolator   |{uri-symbolator}[Symbolator]                                          |`symbolator`
    |syntrax      |{uri-syntrax}[Syntrax]                                                |`syntrax`
+   |tikz         |A TeX distribution that supports {uri-tikz}[TikZ]                     |`pdflatex` and `pdf2svg`
    |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
    |vega         |{uri-vega}[vg2png] and/or {uri-vega}[vg2png]                          |`vg2png` and `vg2svg`
    |vegalite     |{uri-vegalite}[vl2vg] and {uri-vega}[vg2png] and/or {uri-vega}[vg2svg]|`vl2vg`, `vg2png` and `vg2svg`
 .2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
-                 |{uri-wavedromcli}[WaveDrom CLI] (and {uri-phantomjs}[PhantomJS] for WaveDrom CLI v1)      |`wavedrom` (and `phantomjs`)
+                <|{uri-wavedromcli}[WaveDrom CLI] (and {uri-phantomjs}[PhantomJS] for WaveDrom CLI v1)      |`wavedrom` (and `phantomjs`)
 |===
 
 If for instance you installed `actdiag` in `/home/me/actdiag/bin` and this path is not included in the `PATH` you can specify its location on the command line
@@ -291,4 +292,12 @@ The attribute name at the block level should be prefixed with the name of the di
 |scale         |1               |A scale factor that is applied to the image.
 |style         |unspecifed      |Path to a style config file to pass to Syntrax.
 |transparent   |false           |Makes the background of the image transparent instead of opaque white.
+|===
+
+==== TikZ
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|preamble      |unspecified     |Code definitions to pass to TikZ.
 |===
