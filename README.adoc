@@ -11,7 +11,14 @@ Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add di
 The extension will run the appropriate diagram processor to generate an image from the input text.
 The generated image is then inserted into your converted document.
 
-As an example this enables you to embed a plain text diagram as a block in your document
+Detailed usage instructions can be found on the https://docs.asciidoctor.org/diagram-extension/latest/[Asciidoctor documentation site].
+
+Asciidoctor Diagram was inspired by the https://code.google.com/p/asciidoc-plantuml/[AsciiDoc PlantUML filter].
+
+== Example
+
+The Asciidoctor Diagram enables you to embed a plain text diagram as a block in your document.
+The example below shows an embedded Ditaa diagram block.
 
 ---------
 [ditaa]
@@ -29,10 +36,6 @@ As an example this enables you to embed a plain text diagram as a block in your 
 ----
 ---------
 
-and get a rendered diagram in your output file.
+After processing by Asciidoctor, the output file will show a rendered version of the diagram instead of the diagram source code.
 
 image::docs/modules/ROOT/images/asciidoctor-diagram-process.png[]
-
-Detailed usage instructions can be found on the https://docs.asciidoctor.org/diagram-extension/latest/[Asciidoctor documentation site].
-
-Asciidoctor Diagram was inspired by the https://code.google.com/p/asciidoc-plantuml/[AsciiDoc PlantUML filter].
