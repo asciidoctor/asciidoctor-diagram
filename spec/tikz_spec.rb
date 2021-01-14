@@ -98,11 +98,11 @@ code = <<-'eos'
 \end{tikzpicture}
 eos
 
-describe Asciidoctor::Diagram::TikZBlockMacroProcessor, :broken_on_osx, :broken_on_windows do
+describe Asciidoctor::Diagram::TikZBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :tikz, code, [:pdf]
 end
 
-describe Asciidoctor::Diagram::TikZBlockProcessor, :broken_on_osx, :broken_on_windows do
+describe Asciidoctor::Diagram::TikZBlockProcessor, :broken_on_windows do
   include_examples "block", :tikz, code, [:pdf]
   
   it "should support the preamble attribute" do
