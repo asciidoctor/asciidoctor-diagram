@@ -45,19 +45,12 @@ jobs:
           echo "/Library/TeX/texbin" >> $GITHUB_PATH
       - name: Install Graphviz
         run: export HOMEBREW_NO_INSTALL_CLEANUP=1 && brew install graphviz
-      #- name: Install Lilypond
-      #  run: |
-      #    curl -L "https://dl.bintray.com/marnen/lilypond-darwin-64/lilypond-2.20.0.build20200311175017-darwin-64.tar.gz" -o lilypond.tar.gz
-      #    tar -xf lilypond.tar.gz
-      #    cat <<'EOF' >> lilypond
-      #    #!/bin/bash
-      #    exec ~/LilyPond.app/Contents/Resources/bin/lilypond "$@"
-      #    EOF
-      #    chmod u+x lilypond
-      #    mkdir "$HOME/bin"
-      #    cp lilypond "$HOME/bin"
-      #    echo "$HOME/.local/bin" >> $GITHUB_PATH
-      #    sudo spctl --master-disable
+      - name: Install Lilypond
+        run: |
+          curl -L "https://dl.bintray.com/marnen/lilypond-darwin-64/lilypond-2.20.0.build20200311175017-darwin-64.tar.gz" -o lilypond.tar.gz
+          tar -xf lilypond.tar.gz
+          echo "$PWD/LilyPond.app/Contents/Resources/bin" >> $GITHUB_PATH
+          sudo spctl --add "$PWD/LilyPond.app"
       - name: Install AsciitoSVG
         run: |
           go get github.com/asciitosvg/asciitosvg/cmd/a2s
