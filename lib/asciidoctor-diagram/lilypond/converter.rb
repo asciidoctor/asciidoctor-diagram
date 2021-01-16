@@ -9,6 +9,16 @@ module Asciidoctor
       include DiagramConverter
       include CliGenerator
 
+      EXTRA_PATH = []
+
+      if ::Asciidoctor::Diagram::Platform.os == :macosx
+        lilypond_app = ::Asciidoctor::Diagram::Which.which('LilyPond.app', :path => ['/Applications'])
+        if lilypond_app
+          EXTRA_PATH << File.join(lilypond_app, 'Contents/Resources/bin')
+        end
+      end
+
+      EXTRA_PATH.freeze
 
       def supported_formats
         [:png, :pdf]
@@ -34,7 +44,7 @@ module Asciidoctor
 
         resolution = options[:resolution]
 
-        generate_stdin(source.find_command('lilypond'), format.to_s, code) do |tool_path, output_path|
+        generate_stdin(source.find_command('lilypond', :path => EXTRA_PATH), format.to_s, code) do |tool_path, output_path|
           args = [tool_path, '-daux-files=#f', '-dbackend=eps', '-dno-gs-load-fonts', '-dinclude-eps-fonts', '-o', Platform.native_path(output_path), '-f', format.to_s]
 
           args << '-dsafe'
