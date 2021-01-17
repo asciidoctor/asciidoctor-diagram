@@ -23,12 +23,6 @@ module Asciidoctor
         @converter.supported_formats
       end
 
-      def collect_options(source, name)
-        {
-            :block_name => name
-        }
-      end
-
       def convert(source, format, options)
         code = source.code
 
@@ -58,7 +52,7 @@ module Asciidoctor
 
           path = uri.path
           path << '/' unless path.end_with? '/'
-          path << options[:block_name].to_s
+          path << source.diagram_type.to_s
           path << '/' << format.to_s
           path << '/' << data
           uri.path = path

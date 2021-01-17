@@ -137,6 +137,43 @@ end
 describe Asciidoctor::Diagram::MermaidBlockProcessor do
   include_examples "block", :mermaid, code, [:png, :svg]
 
+  it "mermaid should work with kroki" do
+    doc = <<-eos
+= Hello, kroki!
+:diagram-server-url: https://kroki.io/
+:diagram-server-type: kroki_io
+Doc Writer <doc@example.com>
+
+== First Section
+
+[mermaid, format=svg]
+----
+graph TD
+  A[ Anyone ] -->|Can help | B( Go to github.com/yuzutech/kroki )
+  B --> C{ How to contribute? }
+  C --> D[ Reporting bugs ]
+  C --> E[ Sharing ideas ]
+  C --> F[ Advocating ]
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    expect(b.content_model).to eq :empty
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
   it "should report unsupported scaling factors" do
     doc = <<-eos
 = Hello, Mermaid!
