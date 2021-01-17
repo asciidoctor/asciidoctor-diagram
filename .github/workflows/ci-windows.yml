@@ -32,6 +32,8 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
       - name: Install Ruby Dependencies
         run: bundle install --path vendor/bundle --jobs=3 --retry=3
+      - name: Setup Golang
+        uses: actions/setup-go@v2
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -48,6 +50,10 @@ jobs:
         run: |
           cinst graphviz -r -y --no-progress
           dot -c
+      - name: Install AsciitoSVG
+        run: |
+          go get github.com/asciitosvg/asciitosvg/cmd/a2s
+          echo "$(go env GOPATH)/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Install BPNM-JS
         run: npm install -g bpmn-js-cmd
       - name: Install Mermaid
