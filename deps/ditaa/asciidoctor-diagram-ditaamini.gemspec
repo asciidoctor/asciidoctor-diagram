@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name          = 'asciidoctor-diagram-ditaamini'
-  s.version       = '0.13'
+  s.version       = '0.13.1'
   s.authors       = ['Pepijn Van Eeckhoudt']
   s.email         = ['pepijn@vaneeckhoudt.net']
   s.description   = %q{Ditaa JAR files wrapped in a Ruby gem}
