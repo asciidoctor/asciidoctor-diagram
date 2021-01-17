@@ -137,7 +137,7 @@ end
 describe Asciidoctor::Diagram::MermaidBlockProcessor do
   include_examples "block", :mermaid, code, [:png, :svg]
 
-  it "mermaid should work with kroki" do
+  it "should work with kroki.io" do
     doc = <<-eos
 = Hello, kroki!
 :diagram-server-url: https://kroki.io/
