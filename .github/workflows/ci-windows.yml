@@ -58,6 +58,39 @@ jobs:
         run: npm install -g bpmn-js-cmd
       - name: Install Bytefield-SVG
         run: npm install -g bytefield-svg
+      - name: Install Dpic
+        run: |
+          mkdir dpic
+          @"
+          function DownloadWithRetry([string] `$url, [string] `$downloadLocation, [int] `$retries)
+          {
+              while(`$true)
+              {
+                  try
+                  {
+                      Invoke-WebRequest `$url -OutFile `$downloadLocation
+                      break
+                  }
+                  catch
+                  {
+                      `$exceptionMessage = `$_.Exception.Message
+                      Write-Host "Failed to download '`$url': `$exceptionMessage"
+                      if (`$retries -gt 0) {
+                          `$retries--
+                          Write-Host "Waiting 10 seconds before retrying. Retries left: `$retries"
+                          Start-Sleep -Seconds 10
+                      }
+                      else
+                      {
+                          `$exception = `$_.Exception
+                          throw `$exception
+                      }
+                  }
+              }
+          }
+          "@ | Tee-Object -FilePath "DownloadWithRetry.ps1" -Append
+          . .\DownloadWithRetry.ps1; DownloadWithRetry -url "https://ece.uwaterloo.ca/~aplevich/dpic/Windows/dpic.exe" -downloadLocation "dpic\dpic.exe" -retries 5
+          echo "$PWD\dpic" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Install Mermaid
         run: npm install -g @mermaid-js/mermaid-cli
       - name: Install Mscgen
@@ -74,7 +107,7 @@ jobs:
       - name: Install Vega
         run: |
           npm install -g vega-cli
-          npm install -g install-peerdeps
+          npm install -g install-peerdeps@2.0.3
           install-peerdeps -g vega-lite
       - name: Install Wavedrom
         run: npm install -g wavedrom-cli
@@ -95,7 +128,7 @@ jobs:
         run: cargo install svgbob_cli
       - name: Install UMLet
         run: |
-          Invoke-WebRequest -Uri "https://www.umlet.com/download/umlet_14_3/umlet-standalone-14.3.0.zip" -OutFile umlet.zip
+          . .\DownloadWithRetry.ps1; DownloadWithRetry -url "https://www.umlet.com/umlet_14_3/umlet-standalone-14.3.0.zip" -downloadLocation umlet.zip -retries 5
           7z x umlet.zip
           echo "$PWD/Umlet" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Run tests
