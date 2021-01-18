@@ -20,10 +20,10 @@ code = <<-eos
                                       '---------------------------------------'
 eos
 
-describe Asciidoctor::Diagram::AsciiToSvgBlockMacroProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::AsciiToSvgBlockMacroProcessor do
   include_examples "block_macro", :a2s, code, [:svg]
 end
 
-describe Asciidoctor::Diagram::AsciiToSvgBlockProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::AsciiToSvgBlockProcessor do
   include_examples "block", :svgbob, code, [:svg]
 end
