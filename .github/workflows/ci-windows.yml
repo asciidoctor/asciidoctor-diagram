@@ -56,6 +56,8 @@ jobs:
           echo "$(go env GOPATH)/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Install BPNM-JS
         run: npm install -g bpmn-js-cmd
+      - name: Install Bytefield-SVG
+        run: npm install -g bytefield-svg
       - name: Install Mermaid
         run: npm install -g @mermaid-js/mermaid-cli
       - name: Install NomNoml
