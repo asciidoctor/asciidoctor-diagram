@@ -24,10 +24,10 @@ msc {
 }
 eos
 
-describe Asciidoctor::Diagram::MscBlockMacroProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::MscBlockMacroProcessor do
   include_examples "block_macro", :msc, code, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::MscBlockProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::MscBlockProcessor do
   include_examples "block", :msc, code, [:png, :svg]
 end
