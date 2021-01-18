@@ -27,6 +27,6 @@ describe Asciidoctor::Diagram::NomnomlBlockMacroProcessor do
   include_examples "block_macro", :nomnoml, code, [:svg]
 end
 
-describe Asciidoctor::Diagram::NomnomlBlockProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::NomnomlBlockProcessor do
   include_examples "block", :nomnoml, code, [:svg]
 end
