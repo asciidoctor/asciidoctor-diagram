@@ -1,11 +1,14 @@
 = Asciidoctor-diagram Changelog
 
-== 2.0.6
+== 2.1.0
 
 Enhancements::
 
+  * Issue #226: Add initial support to delegate rendering of diagrams to https://kroki.io[kroki.io]. Add `:diagram-server-url: https://kroki.io/` and `:diagram-server-type: kroki_io` to your document to enable this.
   * Issue #296: Support referring to the mmdc batch script on Windows using the `mmdc` (Mermaid) document attribute.
-  * Issue #312: Update PlantUML to v1.2020.26
+  * Issue #312: Update PlantUML to v1.2021.0. +
+    Starting with version 2.1.0 you can now also override the bundled version of PlantUML with a different version.
+    If the `DIAGRAM_PLANTUML_CLASSPATH` environment variable is set, asciidoctor-diagram will parse this value as a series of paths to JAR files separated by the native path separator (`:` or `;`) and use those JAR files instead of the bundled ones.
 
 Bug Fixes::
 
@@ -44,7 +47,7 @@ Enhancements::
   * Issue #284: Add support for HTTP redirect responses when using a rendering server
   * Issue #290: Add support for Pikchr
   * Add support for dpic
-  * Add support for Symboloator (@gsmecher)
+  * Add support for Symbolator (@gsmecher)
 
 Bug Fixes::
 
