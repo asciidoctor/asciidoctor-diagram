@@ -99,8 +99,8 @@ jobs:
         run: export HOMEBREW_NO_INSTALL_CLEANUP=1 && brew install gnuplot
       - name: Install UMLet
         run: |
-          curl -s -O http://www.umlet.com/umlet_14_2/umlet-standalone-14.2.zip
-          unzip -qq umlet-standalone-14.2.zip
+          curl -s -O https://www.umlet.com/download/umlet_14_3/umlet-standalone-14.3.0.zip
+          unzip -qq umlet-standalone-14.3.0.zip
           cp Umlet/umlet.sh Umlet/umlet
           chmod +x Umlet/umlet
           echo "$PWD/Umlet" >> $GITHUB_PATH
