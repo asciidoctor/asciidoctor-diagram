@@ -74,7 +74,7 @@ jobs:
       - name: Install Vega
         run: |
           npm install -g vega-cli
-          npm install -g install-peerdeps
+          npm install -g install-peerdeps@2.0.3
           install-peerdeps -g vega-lite
       - name: Install Wavedrom
         run: npm install -g wavedrom-cli
