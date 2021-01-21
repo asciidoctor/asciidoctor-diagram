@@ -23,6 +23,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+      - name: Cache Ruby Dependencies
+        uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ matrix.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ matrix.os }}-${{ matrix.ruby }}-gems-
       - name: Install Ruby Dependencies
         run: bundle install --path vendor/bundle --jobs=3 --retry=3
       - name: Setup Golang
