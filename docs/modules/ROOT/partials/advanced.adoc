@@ -140,18 +140,20 @@ This is illustrated for the blockdiag `fontpath` attribute in the example below.
 <1> Attributes can be specified for all diagram of a certain type at the document level by prefixing them with `<blocktype>-`.
 In this example, the `fontpath` attribute is specified for all diagrams of type `blockdiag`.
 <2> The first diagram does not specify an explicit value for `fontpath` so the global `blockdiag-fontpath` value will be used
-<3> The second diagram does specifie a `fontpath` value.
+<3> The second diagram does specify a `fontpath` value.
 This overrides the global `blockdiag-fontpath` value.
 
 Each attribute can either be specified at the block level or at the document level.
-The attribute name at the block level should be prefixed with the name of the diagram type and a dash.
+The attribute name at the document level should be prefixed with the diagram type name and a dash.
 
 ==== Shared Attributes
 
 [cols=">,<,<",options="header"]
 |===
 |Name         |Default value   |Description
-|svg-type     |unspecified     |One of `static`, `inline` or `interactive`. This determines the style of SVG embedding that's used in certain backends. The https://asciidoctor.org/docs/user-manual/#taming-svgs[asciidoctor user guide] describes this in more detail.
+|svg-type     |unspecified     |One of `static`, `inline` or `interactive`.
+This determines the style of SVG embedding that's used in certain backends.
+The xref:asciidoc:macros:image-svg.adoc[asciidoc spec] describes this in more detail.
 |===
 
 ==== AsciiToSVG
