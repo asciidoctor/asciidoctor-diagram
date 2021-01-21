@@ -131,6 +131,8 @@ jobs:
           cinst gnuplot -r -y --no-progress
           echo "C:\Program Files\gnuplot\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
           Set-Content -Path $env:APPDATA\gnuplot.ini -Value 'set term debug'
+      - name: Install StateMachineCat
+        run: npm install -g state-machine-cat
       - name: Install Svgbob
         run: cargo install svgbob_cli
       - name: Install UMLet
