@@ -29,7 +29,8 @@ module Asciidoctor
 
       def collect_options(source)
         {
-            :config => source.attr('plantumlconfig', nil, true) || source.attr('config')
+            :config => source.attr('plantumlconfig', nil, true) || source.attr('config'),
+            :size_limit => source.attr('size_limit', '4096')
         }
       end
 
@@ -58,6 +59,11 @@ module Asciidoctor
         config_file = options[:config]
         if config_file
           headers['X-PlantUML-Config'] = File.expand_path(config_file, source.base_dir)
+        end
+
+        size_limit = options[:size_limit]
+        if size_limit
+          headers['X-PlantUML-SizeLimit'] = size_limit
         end
 
         dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
