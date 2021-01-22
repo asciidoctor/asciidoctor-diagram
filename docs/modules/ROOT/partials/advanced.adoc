@@ -263,6 +263,7 @@ The xref:asciidoc:macros:image-svg.adoc[asciidoc spec] describes this in more de
 |===
 |Name          |Default value   |Description
 |config        |unspecified     |Path to a config file to pass to PlantUML.
+|size-limit    |4096            |The maximum dimensions (width and height) of generated diagrams.
 |===
 
 ==== State Machine Cat
