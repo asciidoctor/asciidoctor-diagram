@@ -30,7 +30,7 @@ module Asciidoctor
       def collect_options(source)
         {
             :config => source.attr('plantumlconfig', nil, true) || source.attr('config'),
-            :size_limit => source.attr('size_limit', '4096')
+            :size_limit => source.attr('size-limit', '4096')
         }
       end
 
