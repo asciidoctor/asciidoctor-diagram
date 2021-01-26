@@ -104,7 +104,7 @@ module Asciidoctor
         nil
       end
 
-      def code
+      def load_code
         @source
       end
 

@@ -19,6 +19,10 @@ module Asciidoctor
       # @return [String] the String representation of the source code for the diagram
       # @abstract
       def code
+        @code ||= load_code
+      end
+
+      def load_code
         raise NotImplementedError.new
       end
 
@@ -233,8 +237,8 @@ module Asciidoctor
         @reader = reader
       end
 
-      def code
-        @code ||= @parent_block.apply_subs(@reader.lines, resolve_diagram_subs).join("\n")
+      def load_code
+        @parent_block.apply_subs(@reader.lines, resolve_diagram_subs).join("\n")
       end
     end
 
@@ -267,11 +271,7 @@ module Asciidoctor
         (@file_name && File.mtime(@file_name) > File.mtime(image_file)) || super
       end
 
-      def code
-        @code ||= read_code
-      end
-
-      def read_code
+      def load_code
         if @file_name
           lines = File.readlines(@file_name)
           lines = prepare_source_array(lines)
