@@ -24,7 +24,7 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
-        code = source.code
+        code = @converter.load_code_from_source(source, options)
 
         uri = URI(@base_uri)
 

@@ -1,5 +1,12 @@
 = Asciidoctor-diagram Changelog
 
+== 2.1.1
+
+Enhancements::
+
+  * Issue #335: The PlantUML preprocessor is now run locally before passing delegating rendering to Kroki.
+    This avoids file not found errors when using the PlantUML `!include` directive.
+
 == 2.1.0
 
 Enhancements::

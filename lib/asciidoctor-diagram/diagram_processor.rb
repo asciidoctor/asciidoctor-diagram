@@ -61,9 +61,9 @@ module Asciidoctor
         location = parent.document.reader.cursor_at_mark
 
         normalised_attributes = attributes.inject({}) { |h, (k, v)| h[normalise_attribute_name(k)] = v; h }
-        source = create_source(parent, reader_or_target, normalised_attributes)
-
         converter = config[:converter].new
+
+        source = converter.wrap_source(create_source(parent, reader_or_target, normalised_attributes))
 
         supported_formats = converter.supported_formats
 
