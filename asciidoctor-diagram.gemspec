@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.authors       = ['Pepijn Van Eeckhoudt']
   s.email         = ['pepijn@vaneeckhoudt.net']
   s.description   = %q{Asciidoctor diagramming extension}
-  s.summary       = %q{An extension for asciidoctor that adds support for UML diagram generation using PlantUML}
+  s.summary       = %q{A family of Asciidoctor extensions that generate images from a broad range of embedded plain text diagram descriptions, including PlantUML, ditaa, Kroki, and many others.}
   s.homepage      = 'https://github.com/asciidoctor/asciidoctor-diagram'
   s.license       = 'MIT'
 
