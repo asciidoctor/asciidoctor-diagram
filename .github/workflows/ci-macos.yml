@@ -1,7 +1,7 @@
 name: macOS unit tests
 on:
   push:
-    branches: ['**']
+    branches: ['master']
     tags-ignore: ['**']
   pull_request:
   schedule:
