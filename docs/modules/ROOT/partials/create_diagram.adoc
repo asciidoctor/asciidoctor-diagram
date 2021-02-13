@@ -26,6 +26,7 @@ The following diagram types and output formats are available:
 |{uri-blockdiag}[blockdiag]  |       |{check}|{check}|{check}|
 |{uri-bpmn}[bpmn]            |       |{check}|{check}|{check}|
 |{uri-bytefield}[bytefield]  |       |       |       |{check}|
+|{uri-diagrams}[diagrams]    |       |{check}|{check}|{check}|
 |{uri-ditaa}[ditaa]          |       |       |{check}|{check}|
 |{uri-dpic}[dpic]            |       |       |       |{check}|
 |{uri-erd}[erd]              |       |       |{check}|{check}|

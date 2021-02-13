@@ -140,5 +140,7 @@ jobs:
           . .\DownloadWithRetry.ps1; DownloadWithRetry -url "https://www.umlet.com/umlet_14_3/umlet-standalone-14.3.0.zip" -downloadLocation umlet.zip -retries 5
           7z x umlet.zip
           echo "$PWD/Umlet" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: Install Diagrams
+        run: pip install diagrams
       - name: Run tests
         run: bundle exec rake test
