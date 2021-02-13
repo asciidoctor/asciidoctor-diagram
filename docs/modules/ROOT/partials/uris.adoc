@@ -5,6 +5,7 @@
 :uri-blockdiag: http://blockdiag.com
 :uri-bpmn: https://github.com/gtudan/bpmn-js-cmd
 :uri-bytefield: https://github.com/Deep-Symmetry/bytefield-svg
+:uri-diagrams: https://diagrams.mingrammer.com
 :uri-ditaa: http://ditaa.sourceforge.net/
 :uri-dpic: https://gitlab.com/aplevich/dpic
 :uri-dot: https://graphviz.gitlab.io/_pages/doc/info/lang.html
@@ -22,6 +23,7 @@
 :uri-pikchr: https://pikchr.org
 :uri-plantuml: http://plantuml.sourceforge.net
 :uri-py-plantuml: https://code.google.com/p/asciidoc-plantuml/
+:uri-python: https://www.python.org
 :uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
 :uri-shaape: https://github.com/christiangoltz/shaape

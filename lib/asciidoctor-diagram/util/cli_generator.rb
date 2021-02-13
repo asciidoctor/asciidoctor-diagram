@@ -9,18 +9,20 @@ module Asciidoctor
       include Asciidoctor::Logging
 
       def generate_stdin(tool, format, code)
-        tool_name = File.basename(tool)
-
-        target_file = Tempfile.new([tool_name, ".#{format}"])
+        target_file = Tempfile.new([File.basename(tool), ".#{format}"])
         begin
           target_file.close
-
-          opts = yield tool, target_file.path
-
-          generate(opts, target_file.path, :stdin_data => code)
+          generate_stdin_file(tool, code, target_file.path) do |t|
+            yield t, target_file.path
+          end
         ensure
           target_file.unlink
         end
+      end
+
+      def generate_stdin_file(tool, code, target_file_path)
+        opts = yield tool
+        generate(opts, target_file_path, :stdin_data => code)
       end
 
       def generate_stdin_stdout(tool, code)
