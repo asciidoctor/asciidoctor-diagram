@@ -113,20 +113,14 @@ module Asciidoctor
 
         code = "@start#{@tag}\n#{code}\n@end#{@tag}" unless code.index("@start") && code.index("@end")
 
-        code.gsub!(/(?<=<img:)[^>]+(?=>)/) do |match|
-          resolve_path_or_uri(match, attr('imagesdir', nil, false))
-        end
-
-        code.gsub!(/(?:(?<=!include\s)|(?<=!includesub\s))\s*[^<][^!\n\r]+/) do |match|
-          resolve_path_or_uri(match.lstrip, base_dir)
-        end
-
         headers = {}
 
         config_file = attr('plantumlconfig', nil, true) || attr('config')
         if config_file
           headers['X-PlantUML-Config'] = File.expand_path(config_file, base_dir)
         end
+
+        headers['X-PlantUML-Basedir'] = Platform.native_path(File.expand_path(base_dir))
 
         response = Java.send_request(
           :url => '/plantumlpreprocessor',
@@ -142,19 +136,6 @@ module Asciidoctor
         code.force_encoding(Encoding::UTF_8)
 
         code
-      end
-
-      def resolve_path_or_uri(path, base_dir)
-        if path =~ ::URI::ABS_URI
-          uri = ::URI.parse(path)
-          if uri.scheme == 'file'
-            resolve_path(uri.path, base_dir)
-          else
-            path
-          end
-        else
-          resolve_path(path, base_dir)
-        end
       end
     end
   end
