@@ -635,7 +635,7 @@ Rel_R(api, db, "Reads/Writes")
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match(/\.svg$/)
+    expect(target).to match(/\.png$/)
     expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
