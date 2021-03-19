@@ -4,7 +4,7 @@
 
 Enhancements::
 
-  * Issue #335: The PlantUML preprocessor is now run locally before passing delegating rendering to Kroki.
+  * Issue #335: The PlantUML preprocessor is now run locally before delegating rendering to Kroki.
     This avoids file not found errors when using the PlantUML `!include` directive.
   * Issue #339: Add support for a `size-limit` attribute on PlantUML blocks that controls the maximum size of PlantUML diagrams.
   * Issue #341: Add support for https://diagrams.mingrammer.com[Minigrammer Diagrams].
