@@ -20,56 +20,57 @@ jobs:
       - name: Install Packages
         run: |
           sudo apt-get update
-          sudo apt-get install -qq haveged
-          sudo apt-get install -qq gconf-service
-          sudo apt-get install -qq libasound2
-          sudo apt-get install -qq libatk1.0-0
-          sudo apt-get install -qq libc6
-          sudo apt-get install -qq libcairo2
-          sudo apt-get install -qq libcairo-gobject2
-          sudo apt-get install -qq libcups2
-          sudo apt-get install -qq libdbus-1-3
-          sudo apt-get install -qq libexpat1
-          sudo apt-get install -qq libfontconfig1
-          sudo apt-get install -qq libgcc1
-          sudo apt-get install -qq libgconf-2-4
-          sudo apt-get install -qq libgdk-pixbuf2.0-0
-          sudo apt-get install -qq libglib2.0-0
-          sudo apt-get install -qq libgirepository1.0-dev
-          sudo apt-get install -qq libgtk-3-0
-          sudo apt-get install -qq libnspr4
-          sudo apt-get install -qq libpango-1.0-0
-          sudo apt-get install -qq libpangocairo-1.0-0
-          sudo apt-get install -qq gir1.2-pango-1.0
-          sudo apt-get install -qq libstdc++6
-          sudo apt-get install -qq libx11-6
-          sudo apt-get install -qq libx11-xcb1
-          sudo apt-get install -qq libxcb1
-          sudo apt-get install -qq libxcomposite1
-          sudo apt-get install -qq libxcursor1
-          sudo apt-get install -qq libxdamage1
-          sudo apt-get install -qq libxext6
-          sudo apt-get install -qq libxfixes3
-          sudo apt-get install -qq libxi6
-          sudo apt-get install -qq libxrandr2
-          sudo apt-get install -qq libxrender1
-          sudo apt-get install -qq libxss1
-          sudo apt-get install -qq libxtst6
-          sudo apt-get install -qq ca-certificates
-          sudo apt-get install -qq fonts-liberation
-          sudo apt-get install -qq libappindicator1
-          sudo apt-get install -qq libnss3
-          sudo apt-get install -qq lsb-release
-          sudo apt-get install -qq xdg-utils
-          sudo apt-get install -qq curl
-          sudo apt-get install -qq ttf-dejavu
-          sudo apt-get install -qq texlive-science
-          sudo apt-get install -qq texlive-pictures
-          sudo apt-get install -qq cargo
-          sudo apt-get install -qq texlive-latex-extra
-          sudo apt-get install -qq texlive-fonts-extra
-          sudo apt-get install -qq git
-          sudo apt-get install -qq haskell-stack
+          sudo apt-get install -qq haveged \
+                                   gconf-service \
+                                   libasound2 \
+                                   libatk1.0-0 \
+                                   libc6 \
+                                   libcairo2 \
+                                   libcairo-gobject2 \
+                                   libcups2 \
+                                   libdbus-1-3 \
+                                   libexpat1 \
+                                   libfontconfig1 \
+                                   libgcc1 \
+                                   libgconf-2-4 \
+                                   libgdk-pixbuf2.0-0 \
+                                   libglib2.0-0 \
+                                   libgirepository1.0-dev \
+                                   libgtk-3-0 \
+                                   libnspr4 \
+                                   libpango-1.0-0 \
+                                   libpangocairo-1.0-0 \
+                                   gir1.2-pango-1.0 \
+                                   libstdc++6 \
+                                   libx11-6 \
+                                   libx11-xcb1 \
+                                   libxcb1 \
+                                   libxcomposite1 \
+                                   libxcursor1 \
+                                   libxdamage1 \
+                                   libxext6 \
+                                   libxfixes3 \
+                                   libxi6 \
+                                   libxrandr2 \
+                                   libxrender1 \
+                                   libxss1 \
+                                   libxtst6 \
+                                   ca-certificates \
+                                   fonts-liberation \
+                                   libappindicator1 \
+                                   libnss3 \
+                                   lsb-release \
+                                   xdg-utils \
+                                   curl \
+                                   ttf-dejavu \
+                                   ttf-mscorefonts-installer \
+                                   texlive-science \
+                                   texlive-pictures \
+                                   cargo \
+                                   texlive-latex-extra \
+                                   texlive-fonts-extra \
+                                   git \
+                                   haskell-stack
       - name: Setup Node
         uses: actions/setup-node@v1
       - name: Setup Ruby
