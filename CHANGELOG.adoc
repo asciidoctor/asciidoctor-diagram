@@ -9,6 +9,10 @@ Enhancements::
   * Issue #339: Add support for a `size-limit` attribute on PlantUML blocks that controls the maximum size of PlantUML diagrams.
   * Issue #341: Add support for https://diagrams.mingrammer.com[Minigrammer Diagrams].
 
+Bug Fixes::
+
+  * Issue #343: The PlantUML preprocessor is now used to resolve `!include` statements instead of using the previous logic provided by this gem.
+
 == 2.1.0
 
 Enhancements::
