@@ -149,15 +149,20 @@ The attribute name at the document level should be prefixed with the diagram typ
 
 ==== Shared Attributes
 
+The set of shared attributes applies to all diagram types.
+The value for these attributes can be defined at the document level for a single diagram type using the diagram type as prefix or for all diagram types using `diagram` as prefix.
+
 [cols=">,<,<",options="header"]
 |===
-|Name                 |Default value   |Description
-|svg-type             |unspecified     |One of `static`, `inline` or `interactive`.
+|Name          |Default value   |Description
+|svg-type      |unspecified     |One of `static`, `inline` or `interactive`.
 This determines the style of SVG embedding that's used in certain backends.
 The xref:asciidoc:macros:image-svg.adoc[asciidoc spec] describes this in more detail.
-|diagram-server-url    |unspecified    |External service to render diagram.
+|server-url    |unspecified    |External service to render diagram.
 Usage removes the need to depend on external tools to be installed locally.
-|diagram-server-type   |unspecified    |One of `plantuml` or `kroki_io`
+|server-type   |unspecified    |One of `plantuml` or `kroki_io`
+|max-get-size  |1024           |The maximum size of the URI path for HTTP GET requests.
+If the maximum size is exceeded, POST requests are used instead
 |===
 
 ==== AsciiToSVG
