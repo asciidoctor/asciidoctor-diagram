@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-code = <<-eos
+CODE = <<-eos
 title {label: "nfldb Entity-Relationship diagram (condensed)", size: "20"}
 
 # Entities
@@ -84,9 +84,9 @@ player      1--* play_player
 eos
 
 describe Asciidoctor::Diagram::ErdBlockMacroProcessor, :broken_on_windows do
-  include_examples "block_macro", :erd, code, [:png, :svg]
+  include_examples "block_macro", :erd, CODE, [:png, :svg]
 end
 
 describe Asciidoctor::Diagram::ErdBlockProcessor, :broken_on_windows do
-  include_examples "block", :erd, code, [:png, :svg]
+  include_examples "block", :erd, CODE, [:png, :svg]
 end
