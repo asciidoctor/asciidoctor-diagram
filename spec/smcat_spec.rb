@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-code = <<-eos
+CODE = <<-eos
 initial,
 doing: entry/ write unit test
        do/ write code
@@ -18,9 +18,9 @@ testing      => final        : test ok;
 eos
 
 describe Asciidoctor::Diagram::SmcatBlockMacroProcessor do
-  include_examples "block_macro", :smcat, code, [:svg]
+  include_examples "block_macro", :smcat, CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::SmcatBlockProcessor do
-  include_examples "block", :smcat, code, [:svg]
+  include_examples "block", :smcat, CODE, [:svg]
 end

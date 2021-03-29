@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-code = <<-eos
+CODE = <<-eos
 +--------+   +-------+    +-------+
 |        | --+ ditaa +--> |       |
 |  Text  |   +-------+    |diagram|
@@ -13,11 +13,11 @@ code = <<-eos
 eos
 
 describe Asciidoctor::Diagram::DitaaBlockMacroProcessor do
-  include_examples "block_macro", :ditaa, code, [:png, :svg]
+  include_examples "block_macro", :ditaa, CODE, [:png, :svg]
 end
 
 describe Asciidoctor::Diagram::DitaaBlockProcessor do
-  include_examples "block", :ditaa, code, [:png, :svg]
+  include_examples "block", :ditaa, CODE, [:png, :svg]
 
   it "should support ditaa options as attributes" do
     doc = <<-eos

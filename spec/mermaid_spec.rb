@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-code = <<-eos
+CODE = <<-eos
 graph LR
     A[Square Rect] -- Link text --> B((Circle))
     A --> C(Round Rect)
@@ -9,7 +9,7 @@ graph LR
 eos
 
 describe Asciidoctor::Diagram::MermaidBlockMacroProcessor do
-  include_examples "block_macro", :mermaid, code, [:png, :svg]
+  include_examples "block_macro", :mermaid, CODE, [:png, :svg]
 
   it "should respect the sequenceConfig attribute" do
     seq_diag = <<-eos
@@ -135,7 +135,7 @@ mermaid::mermaid.txt[target="without_config"]
 end
 
 describe Asciidoctor::Diagram::MermaidBlockProcessor do
-  include_examples "block", :mermaid, code, [:png, :svg]
+  include_examples "block", :mermaid, CODE, [:png, :svg]
 
   it "should work with kroki.io" do
     doc = <<-eos

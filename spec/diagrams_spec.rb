@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-code = <<-eos
+CODE = <<-eos
 from diagrams import Diagram
 from diagrams.aws.compute import EC2
 from diagrams.aws.database import RDS
@@ -15,9 +15,9 @@ with Diagram("Grouped Workers", show=False, direction="TB"):
 eos
 
 describe Asciidoctor::Diagram::DiagramsBlockMacroProcessor do
-  include_examples "block_macro", :diagrams, code, [:png, :svg]
+  include_examples "block_macro", :diagrams, CODE, [:png, :svg]
 end
 
 describe Asciidoctor::Diagram::DiagramsBlockProcessor do
-  include_examples "block", :diagrams, code, [:png, :svg]
+  include_examples "block", :diagrams, CODE, [:png, :svg]
 end

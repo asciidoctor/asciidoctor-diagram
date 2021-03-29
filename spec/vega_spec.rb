@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-vega_code = <<-eos
+VEGA_CODE = <<-eos
 {
   "$schema": "https://vega.github.io/schema/vega/v3.json",
   "width": 400,
@@ -98,7 +98,7 @@ vega_code = <<-eos
 }
 eos
 
-vegalite_code = <<-eos
+VEGALITE_CODE = <<-eos
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
   "description": "A simple bar chart with embedded data.",
@@ -118,11 +118,11 @@ vegalite_code = <<-eos
 eos
 
 describe Asciidoctor::Diagram::VegaBlockMacroProcessor, :broken_on_windows do
-  include_examples "block_macro", :vega, vega_code, [:svg]
-  # include_examples "block_macro", :vegalite, vegalite_code, [:svg]
+  include_examples "block_macro", :vega, VEGA_CODE, [:svg]
+  # include_examples "block_macro", :vegalite, VEGALITE_CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::VegaBlockProcessor, :broken_on_windows do
-  include_examples "block", :vega, vega_code, [:svg]
-  # include_examples "block", :vegalite, vegalite_code, [:svg]
+  include_examples "block", :vega, VEGA_CODE, [:svg]
+  # include_examples "block", :vegalite, VEGALITE_CODE, [:svg]
 end

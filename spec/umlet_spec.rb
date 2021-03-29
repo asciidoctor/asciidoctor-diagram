@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-code = <<-eos
+CODE = <<-eos
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
   <zoom_level>10</zoom_level>
@@ -21,9 +21,9 @@ eos
 
 
 describe Asciidoctor::Diagram::UmletBlockMacroProcessor do
-  include_examples "block_macro", :umlet, code, [:svg]
+  include_examples "block_macro", :umlet, CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::UmletBlockProcessor do
-  include_examples "block", :umlet, code, [:svg]
+  include_examples "block", :umlet, CODE, [:svg]
 end
