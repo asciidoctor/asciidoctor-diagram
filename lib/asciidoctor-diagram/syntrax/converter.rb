@@ -19,7 +19,7 @@ module Asciidoctor
             :heading => source.attr('heading'),
             :scale => source.attr('scale'),
             :transparent => source.attr('transparent'),
-            :style => source.attr('style')
+            :style => source.attr('style-file')
         }
       end
 

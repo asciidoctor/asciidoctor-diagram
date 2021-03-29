@@ -306,7 +306,7 @@ No specific attributes.
 |Name          |Default value   |Description
 |heading       |unspecifed      |Diagram title
 |scale         |1               |A scale factor that is applied to the image.
-|style         |unspecifed      |Path to a style config file to pass to Syntrax.
+|style-file    |unspecifed      |Path to a style config file to pass to Syntrax.
 |transparent   |false           |Makes the background of the image transparent instead of opaque white.
 |===
 
