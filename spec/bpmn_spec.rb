@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<EOF
+BPNM_CODE = <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0zt4mn9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="5.1.2">
   <bpmn:process id="Process_081h9u7" isExecutable="false">
@@ -48,9 +48,9 @@ CODE = <<EOF
 EOF
 
 describe Asciidoctor::Diagram::BpmnBlockMacroProcessor do
-  include_examples "block_macro", :bpmn, CODE, [:png, :svg, :pdf]
+  include_examples "block_macro", :bpmn, BPNM_CODE, [:png, :svg, :pdf]
 end
 
 describe Asciidoctor::Diagram::BpmnBlockProcessor do
-  include_examples "block", :bpmn, CODE, [:png, :svg, :pdf]
+  include_examples "block", :bpmn, BPNM_CODE, [:png, :svg, :pdf]
 end

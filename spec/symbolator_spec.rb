@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+SYMBOLATOR_CODE = <<-eos
 library ieee;
 use ieee.std_logic_1164.all;
 
@@ -15,9 +15,9 @@ end package;
 eos
 
 describe Asciidoctor::Diagram::SymbolatorBlockMacroProcessor, :broken_on_windows do
-  include_examples "block_macro", :symbolator, CODE, [:png, :svg, :pdf]
+  include_examples "block_macro", :symbolator, SYMBOLATOR_CODE, [:png, :svg, :pdf]
 end
 
 describe Asciidoctor::Diagram::SymbolatorBlockProcessor, :broken_on_windows do
-  include_examples "block", :symbolator, CODE, [:png, :svg, :pdf]
+  include_examples "block", :symbolator, SYMBOLATOR_CODE, [:png, :svg, :pdf]
 end

@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+DPIC_CODE = <<-eos
   arrow "$u$" above
 S: circle rad 10/72.27  # 10 pt
   line right 0.35
@@ -11,9 +11,9 @@ G: box "$G(s)$"
 eos
 
 describe Asciidoctor::Diagram::DpicBlockMacroProcessor, :broken_on_windows do
-  include_examples "block_macro", :dpic, CODE, [:svg]
+  include_examples "block_macro", :dpic, DPIC_CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::DpicBlockProcessor, :broken_on_windows do
-  include_examples "block", :dpic, CODE, [:svg]
+  include_examples "block", :dpic, DPIC_CODE, [:svg]
 end

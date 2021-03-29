@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+DOT_CODE = <<-eos
 digraph foo {
   node [style=rounded]
   node1 [shape=box]
@@ -12,9 +12,9 @@ digraph foo {
 eos
 
 describe Asciidoctor::Diagram::GraphvizBlockMacroProcessor do
-  include_examples "block_macro", :graphviz, CODE, [:png, :svg]
+  include_examples "block_macro", :graphviz, DOT_CODE, [:png, :svg]
 end
 
 describe Asciidoctor::Diagram::GraphvizBlockProcessor do
-  include_examples "block", :graphviz, CODE, [:png, :svg]
+  include_examples "block", :graphviz, DOT_CODE, [:png, :svg]
 end

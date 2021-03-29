@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+PLANTUML_CODE = <<-eos
 User -> (Start)
 User --> (Use the application) : Label
 
@@ -8,7 +8,7 @@ User --> (Use the application) : Label
 eos
 
 describe Asciidoctor::Diagram::PlantUmlBlockMacroProcessor do
-  include_examples "block_macro", :plantuml, CODE, [:png, :svg, :txt]
+  include_examples "block_macro", :plantuml, PLANTUML_CODE, [:png, :svg, :txt]
 
   it 'should support substitutions in diagram code' do
     code = <<-eos
@@ -156,7 +156,7 @@ plantuml::dir/plantuml.txt[format="svg", subs=attributes+]
 end
 
 describe Asciidoctor::Diagram::PlantUmlBlockProcessor do
-  include_examples "block", :plantuml, CODE, [:png, :svg, :txt]
+  include_examples "block", :plantuml, PLANTUML_CODE, [:png, :svg, :txt]
 
   it "should work with plantuml.com" do
     doc = <<-eos
@@ -169,7 +169,7 @@ Doc Writer <doc@example.com>
 
 [plantuml, format=svg]
 ----
-#{CODE}
+#{PLANTUML_CODE}
 ----
     eos
 
