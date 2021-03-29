@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+PIKCHR_CODE = <<-eos
 # Change from the original:
 #    * Expand the macro by hand, as Pikchr does not support
 #      macros
@@ -43,11 +43,11 @@ box invis wid 2*boxwid "ndtable:" with .e at Start.w
 eos
 
 describe Asciidoctor::Diagram::PikchrBlockMacroProcessor, :broken_on_windows do
-  include_examples "block_macro", :pikchr, CODE, [:svg]
+  include_examples "block_macro", :pikchr, PIKCHR_CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::PikchrBlockProcessor, :broken_on_windows do
-  include_examples "block", :pikchr, CODE, [:svg]
+  include_examples "block", :pikchr, PIKCHR_CODE, [:svg]
 
   it "should report syntax errors" do
     doc = <<-eos

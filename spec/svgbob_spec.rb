@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+SVGBOB_CODE = <<-eos
                       .--.            .---.  .---. .---.  .---.    .---.  .---. 
                       |  |   OS API   '---'  '---' '---'  '---'    '---'  '---' 
                       v  |              |      |     |      |        |      |   
@@ -21,9 +21,9 @@ CODE = <<-eos
 eos
 
 describe Asciidoctor::Diagram::SvgBobBlockMacroProcessor do
-  include_examples "block_macro", :svgbob, CODE, [:svg]
+  include_examples "block_macro", :svgbob, SVGBOB_CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::SvgBobBlockProcessor do
-  include_examples "block", :svgbob, CODE, [:svg]
+  include_examples "block", :svgbob, SVGBOB_CODE, [:svg]
 end

@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+NOMNOML_CODE = <<-eos
 [Pirate
   [beard]--[parrot]
   [beard]-:>[foul mouth]
@@ -24,9 +24,9 @@ CODE = <<-eos
 eos
 
 describe Asciidoctor::Diagram::NomnomlBlockMacroProcessor do
-  include_examples "block_macro", :nomnoml, CODE, [:svg]
+  include_examples "block_macro", :nomnoml, NOMNOML_CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::NomnomlBlockProcessor do
-  include_examples "block", :nomnoml, CODE, [:svg]
+  include_examples "block", :nomnoml, NOMNOML_CODE, [:svg]
 end

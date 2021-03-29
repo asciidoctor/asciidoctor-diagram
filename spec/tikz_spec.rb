@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-'eos'
+TIKZ_CODE = <<-'eos'
 \begin{tikzpicture}[font=\LARGE] 
 
 % Figure parameters (tta and k needs to have the same sign)
@@ -99,14 +99,14 @@ CODE = <<-'eos'
 eos
 
 describe Asciidoctor::Diagram::TikZBlockMacroProcessor, :broken_on_windows do
-  include_examples "block_macro", :tikz, CODE, [:pdf]
+  include_examples "block_macro", :tikz, TIKZ_CODE, [:pdf]
 end
 
 describe Asciidoctor::Diagram::TikZBlockProcessor, :broken_on_windows do
-  include_examples "block", :tikz, CODE, [:pdf]
+  include_examples "block", :tikz, TIKZ_CODE, [:pdf]
   
   it "should support the preamble attribute" do
-      File.write("tikz.txt", CODE)
+      File.write("tikz.txt", TIKZ_CODE)
 
       doc = <<'eos'
 = Hello, tikz!

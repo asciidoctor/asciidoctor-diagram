@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+SYNTRAX_CODE = <<-eos
 indentstack(10,
   line(opt('-'), choice('0', line('1-9', loop(None, '0-9'))),
     opt('.', loop('0-9', None))),
@@ -10,9 +10,9 @@ indentstack(10,
 eos
 
 describe Asciidoctor::Diagram::SyntraxBlockMacroProcessor, :broken_on_windows do
-  include_examples "block_macro", :syntrax, CODE, [:png, :svg]
+  include_examples "block_macro", :syntrax, SYNTRAX_CODE, [:png, :svg]
 end
 
 describe Asciidoctor::Diagram::SyntraxBlockProcessor, :broken_on_windows do
-  include_examples "block", :syntrax, CODE, [:png, :svg]
+  include_examples "block", :syntrax, SYNTRAX_CODE, [:png, :svg]
 end

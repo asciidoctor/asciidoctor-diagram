@@ -1,15 +1,15 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+GNUPLOT_CODE = <<-eos
 plot [0:5][0:20] x**2 title 'O(n^2)'
 eos
 
 describe Asciidoctor::Diagram::GnuplotBlockMacroProcessor do
-  include_examples "block_macro", :gnuplot, CODE, [:png, :svg, :gif, :txt]
+  include_examples "block_macro", :gnuplot, GNUPLOT_CODE, [:png, :svg, :gif, :txt]
 end
 
 describe Asciidoctor::Diagram::GnuplotBlockProcessor do
-  include_examples "block", :gnuplot, CODE, [:png, :svg, :gif, :txt]
+  include_examples "block", :gnuplot, GNUPLOT_CODE, [:png, :svg, :gif, :txt]
 
   it "should generate images with user defined size" do
     doc = <<-eos
@@ -20,7 +20,7 @@ Doc Writer <doc@example.com>
 
 [gnuplot, format="png",width="800", height="600"]
 ----
-#{CODE}
+#{GNUPLOT_CODE}
 ----
     eos
 
@@ -50,7 +50,7 @@ Doc Writer <doc@example.com>
 
 [gnuplot, format="png", crop=false, transparent=false]
 ----
-#{CODE}
+#{GNUPLOT_CODE}
 ----
     eos
 
@@ -80,7 +80,7 @@ Doc Writer <doc@example.com>
 
 [gnuplot, format="png", crop=true, transparent=true]
 ----
-#{CODE}
+#{GNUPLOT_CODE}
 ----
     eos
 
@@ -110,7 +110,7 @@ Doc Writer <doc@example.com>
 
 [gnuplot, format="png", font="Arial"]
 ----
-#{CODE}
+#{GNUPLOT_CODE}
 ----
     eos
 
@@ -140,7 +140,7 @@ Doc Writer <doc@example.com>
 
 [gnuplot, format="png", font="Arial,11"]
 ----
-#{CODE}
+#{GNUPLOT_CODE}
 ----
     eos
 
@@ -170,7 +170,7 @@ Doc Writer <doc@example.com>
 
 [gnuplot, format="png", font="Arial", scale="0.5"]
 ----
-#{CODE}
+#{GNUPLOT_CODE}
 ----
     eos
 
@@ -200,7 +200,7 @@ Doc Writer <doc@example.com>
 
 [gnuplot, format="png", background="red"]
 ----
-#{CODE}
+#{GNUPLOT_CODE}
 ----
     eos
 

@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+A2S_CODE = <<-eos
                       .--.            .---.  .---. .---.  .---.    .---.  .---. 
                       |  |   OS API   '---'  '---' '---'  '---'    '---'  '---' 
                       v  |              |      |     |      |        |      |   
@@ -21,9 +21,9 @@ CODE = <<-eos
 eos
 
 describe Asciidoctor::Diagram::AsciiToSvgBlockMacroProcessor do
-  include_examples "block_macro", :a2s, CODE, [:svg]
+  include_examples "block_macro", :a2s, A2S_CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::AsciiToSvgBlockProcessor do
-  include_examples "block", :svgbob, CODE, [:svg]
+  include_examples "block", :svgbob, A2S_CODE, [:svg]
 end

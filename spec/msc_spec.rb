@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+MSC_CODE = <<-eos
 # MSC for some fictional process
 msc {
   hscale = "2";
@@ -25,9 +25,9 @@ msc {
 eos
 
 describe Asciidoctor::Diagram::MscBlockMacroProcessor do
-  include_examples "block_macro", :msc, CODE, [:png, :svg]
+  include_examples "block_macro", :msc, MSC_CODE, [:png, :svg]
 end
 
 describe Asciidoctor::Diagram::MscBlockProcessor do
-  include_examples "block", :msc, CODE, [:png, :svg]
+  include_examples "block", :msc, MSC_CODE, [:png, :svg]
 end

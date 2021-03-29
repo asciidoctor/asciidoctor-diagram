@@ -1,6 +1,6 @@
 require_relative 'test_helper'
 
-CODE = <<-eos
+BYTEFIELD_CODE = <<-eos
 ;; This the source for the sample diagram illustrated in the project Read Me.
 
 ;; Some nice default background colors, used to distinguish header sections.
@@ -84,9 +84,9 @@ CODE = <<-eos
 eos
 
 describe Asciidoctor::Diagram::BytefieldBlockMacroProcessor do
-  include_examples "block_macro", :bytefield, CODE, [:svg]
+  include_examples "block_macro", :bytefield, BYTEFIELD_CODE, [:svg]
 end
 
 describe Asciidoctor::Diagram::BytefieldBlockProcessor do
-  include_examples "block", :bytefield, CODE, [:svg]
+  include_examples "block", :bytefield, BYTEFIELD_CODE, [:svg]
 end
