@@ -6,6 +6,10 @@ Enhancements::
 
   * Issue #345: Switch to POST requests when URI length becomes too long
 
+Bug Fixes::
+
+  * Issue #348: Rename Syntrax `style` attribute to `style-file` to avoid clashing with the built-in block style attribute.
+
 == 2.1.1
 
 Enhancements::
