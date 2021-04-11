@@ -64,9 +64,9 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install DPIC
         run: |
-          wget https://ece.uwaterloo.ca/~aplevich/dpic/dpic-2021.01.01.tar.gz
-          tar -xf dpic-2021.01.01.tar.gz
-          cd dpic-2021.01.01
+          wget https://ece.uwaterloo.ca/~aplevich/dpic/dpic-2021.04.10.tar.gz
+          tar -xf dpic-2021.04.10.tar.gz
+          cd dpic-2021.04.10
           ./configure
           make
           make PREFIX=local install
