@@ -31,6 +31,7 @@
 :uri-svgbob: https://github.com/ivanceras/svgbobrus
 :uri-symbolator: https://github.com/kevinpt/symbolator
 :uri-syntrax: https://kevinpt.github.io/syntrax/
+:uri-jsyntrax: https://atp-mipt.github.io/jsyntrax/
 :uri-tikz: https://github.com/pgf-tikz/pgf
 :uri-umlet: http://www.umlet.com/
 :uri-vega: https://vega.github.io/vega/
