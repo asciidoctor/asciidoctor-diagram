@@ -650,7 +650,9 @@ Container(spa, "SPA", "angular", "The main interface that the customer interacts
 Container(api, "API", "java", "Handles all business logic", "java")
 ContainerDb(db, "Database", "Microsoft SQL", "Holds product, order and invoice information", "msql_server")
 
-Rel(user, spa, "Uses", "https")
+!$protocol ?= "https"
+
+Rel(user, spa, "Uses", $protocol)
 Rel(spa, api, "Uses", "https")
 Rel_R(api, db, "Reads/Writes")
 @enduml
