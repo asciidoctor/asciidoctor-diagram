@@ -1,4 +1,4 @@
-:uri-a2s: https://github.com/dhobsd/asciitosvg
+:uri-a2s: https://github.com/asciitosvg/asciitosvg
 :uri-actdiag: http://blockdiag.com/en/actdiag/index.html
 :uri-asciidoctor-api: http://asciidoctor.org/docs/user-manual/#api
 :uri-asciidoctor-extensions: http://asciidoctor.org/docs/user-manual/#extension-points
