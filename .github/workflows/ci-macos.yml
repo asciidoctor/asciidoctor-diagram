@@ -46,7 +46,7 @@ jobs:
         run: export HOMEBREW_NO_INSTALL_CLEANUP=1 && brew install graphviz
       - name: Install Lilypond
         run: |
-          curl -L "https://dl.bintray.com/marnen/lilypond-darwin-64/lilypond-2.20.0.build20200311175017-darwin-64.tar.gz" -o lilypond.tar.gz
+          curl -L "https://gitlab.com/marnen/lilypond-mac-builder/-/package_files/9872804/download" -o lilypond.tar.gz
           tar -xf lilypond.tar.gz
           echo "$PWD" >> $GITHUB_PATH
           sudo spctl --add "$PWD/LilyPond.app"
