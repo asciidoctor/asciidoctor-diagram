@@ -13,6 +13,7 @@ jobs:
       matrix:
         os: [windows-latest]
         ruby: [2.3, 2.7, 3.0, jruby]
+        node: [14]
     runs-on: ${{ matrix.os }}
     # runs-on: self-hosted
     # Self-hosted needs:
@@ -23,7 +24,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         env:

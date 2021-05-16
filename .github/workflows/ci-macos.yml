@@ -13,12 +13,15 @@ jobs:
       matrix:
         os: [macos]
         ruby: [2.3, 2.7, 3.0, jruby, truffleruby]
+        node: [14]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
