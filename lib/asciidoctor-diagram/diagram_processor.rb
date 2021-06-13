@@ -63,11 +63,15 @@ module Asciidoctor
         normalised_attributes = attributes.inject({}) { |h, (k, v)| h[normalise_attribute_name(k)] = v; h }
         converter = config[:converter].new
 
-        source = converter.wrap_source(create_source(parent, reader_or_target, normalised_attributes))
-
         supported_formats = converter.supported_formats
 
+        source = create_source(parent, reader_or_target, normalised_attributes)
+        # memorize current code here for error message to avoid calling wrapped source's code method later
+        code = source.code
+
         begin
+          source = converter.wrap_source(source)
+
           format = source.attributes.delete('format') || source.global_attr('format', supported_formats[0])
           format = format.to_sym if format.respond_to?(:to_sym)
 
@@ -103,7 +107,7 @@ module Asciidoctor
             logger.error message_with_context warn_msg, source_location: location
 
             text << "\n"
-            text << source.code
+            text << code
             Asciidoctor::Block.new parent, :listing, :source => text, :attributes => attributes
           end
 

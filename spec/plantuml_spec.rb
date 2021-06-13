@@ -190,6 +190,29 @@ Doc Writer <doc@example.com>
     expect(b.attributes['height']).to_not be_nil
   end
 
+  it "should handle syntax errors gracefully" do
+    doc = <<-eos
+[plantuml]
+----
+@startuml
+xxx
+@enduml
+----
+    eos
+
+    options = {}
+    options[:attributes] = {}
+    options[:attributes]['diagram-on-error'] = 'log'
+
+    d = load_asciidoc doc, options
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :listing }
+    expect(b).to_not be_nil
+
+    expect(b.source).to include 'Failed to generate image'
+  end
+
   it 'should use plantuml configuration when specified as a document attribute' do
     doc = <<-eos
 = Hello, PlantUML!

@@ -65,7 +65,9 @@ module Asciidoctor
           options[:attributes]['seqdiag-fontpath'] = fontpath
         end
 
-        options[:attributes]['diagram-on-error'] = 'abort'
+        unless options[:attributes]['diagram-on-error']
+          options[:attributes]['diagram-on-error'] = 'abort'
+        end
 
         ::Asciidoctor.load(StringIO.new(source), options.merge({:trace => true}))
       end
