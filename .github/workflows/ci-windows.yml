@@ -120,7 +120,7 @@ jobs:
       - name: Install ImageMagick
         run: |
           cinst imagemagick -r -y --no-progress
-          echo "C:\Program Files\ImageMagick-7.0.11-Q16-HDRI" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          echo "C:\Program Files\ImageMagick-7.1.0-Q16-HDRI" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Install Gnuplot
         run: |
           cinst gnuplot -r -y --no-progress
