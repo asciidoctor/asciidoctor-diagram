@@ -9,6 +9,7 @@ Enhancements::
 Bug Fixes::
 
   * Issue #348: Rename Syntrax `style` attribute to `style-file` to avoid clashing with the built-in block style attribute.
+  * Issue #350: Restore support for document level `syntrax-style` attribute.
 
 == 2.1.1
 
