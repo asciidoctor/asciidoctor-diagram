@@ -138,6 +138,22 @@ module Asciidoctor
         cmd_path
       end
 
+      def ensure_gem(name, version)
+        begin
+          gem_var = "gem-#{name}"
+          unless config.key? gem_var
+            gem(name, version)
+            config[gem_var] = true
+          end
+        rescue Gem::LoadError => e
+          msg = "You are using functionality that requires the optional gem dependency `#{e.name}` which could not be loaded. Add `gem '#{e.name}', '#{e.requirement}'` to your Gemfile."
+          err = Gem::LoadError.new(msg)
+          err.name = e.name
+          err.requirement = e.requirement
+          raise err
+        end
+      end
+
       def resolve_path target, start = base_dir
         raise NotImplementedError.new
       end
