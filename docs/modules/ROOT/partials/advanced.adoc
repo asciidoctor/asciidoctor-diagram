@@ -120,6 +120,38 @@ The target of the block macro tells the extension which image to use as backgrou
 The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
 Occurrences of `//` surrounded by whitespace are interpreted as line breaks.
 
+[[barcode]]
+=== The Barcode Extension
+
+The barcode extension provides barcode rendering.
+This implementation tries to be as compatible as possible with the AsciidoctorJ barcode extension.
+
+----
+barcode::codabar[A123456A]
+----
+
+The target of the block macro tells the extension which type of barcode is being requested.
+The first positional attribute is the data that should be encoded in the barcode.
+
+The following barcode types are supported:
+
+- bookland
+- codabar
+- code_25
+- code_25_iata
+- code_25_interleaved
+- code_39
+- code_93
+- code_128
+- code_128a
+- code_128b
+- code_128c
+- ean_8
+- ean_13
+- gs1_128
+- pdf_417
+- upc_a
+
 === Diagram Attributes
 
 Certain diagram types allow image generation to be customized using attributes.
@@ -172,6 +204,19 @@ If the maximum size is exceeded, POST requests are used instead
 |Name         |Default value   |Description
 |fontfamily   |unspecified     |The font family to use in the generated SVG image
 |noblur       |unspecified     |Disable drop-shadow blurring
+|===
+
+==== Barcode
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value |Description
+|height        |100           |The height of the bars. (1D only, 2D uses ydim)
+|xdim          |1             |The width of the narrowest bar in a barcode. Thicker bars are multiples of the xdim.
+|ydim          |Same as xdim  |This is the same as xdim, but for the height of the blocks in a 2D barcode.
+|margin        |10            |The width of the quiet zone around the barcode.
+|foreground    |black         |The color of the bars specified as a 3 or 6 digit hex RGB value or HTML color name.
+|background    |white         |The color of the background specified as a 3 or 6 digit hex RGB value or HTML color name.
 |===
 
 ==== Blockdiag
