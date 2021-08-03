@@ -23,6 +23,7 @@ The following diagram types and output formats are available:
 |Diagram Type                      |gif    |pdf    |png    |svg    |txt
 |{uri-a2s}[a2s]                    |       |       |       |{check}|
 |{uri-actdiag}[actdiag]            |       |{check}|{check}|{check}|
+|<barcode,barcode>>                |       |       |{check}|       |{check}
 |{uri-blockdiag}[blockdiag]        |       |{check}|{check}|{check}|
 |{uri-bpmn}[bpmn]                  |       |{check}|{check}|{check}|
 |{uri-bytefield}[bytefield]        |       |       |       |{check}|

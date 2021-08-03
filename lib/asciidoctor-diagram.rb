@@ -1,4 +1,5 @@
 require_relative 'asciidoctor-diagram/a2s'
+require_relative 'asciidoctor-diagram/barcode'
 require_relative 'asciidoctor-diagram/blockdiag'
 require_relative 'asciidoctor-diagram/bpmn'
 require_relative 'asciidoctor-diagram/bytefield'

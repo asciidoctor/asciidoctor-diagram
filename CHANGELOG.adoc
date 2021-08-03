@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.0
+
+Enhancements::
+
+  * Add support for barcodes
+
 == 2.1.2
 
 Enhancements::
