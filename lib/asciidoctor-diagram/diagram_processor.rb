@@ -50,6 +50,8 @@ module Asciidoctor
           }
       }
 
+      TEXT_FORMATS = [:txt, :atxt, :utxt]
+
       # Processes the diagram block or block macro by converting it into an image or literal block.
       #
       # @param parent [Asciidoctor::AbstractBlock] the parent asciidoc block of the block or block macro being processed
@@ -57,13 +59,14 @@ module Asciidoctor
       #        target value of a block macro
       # @param attributes [Hash] the attributes of the block or block macro
       # @return [Asciidoctor::AbstractBlock] a new block that replaces the original block or block macro
+
       def process(parent, reader_or_target, attributes)
         location = parent.document.reader.cursor_at_mark
 
         normalised_attributes = attributes.inject({}) { |h, (k, v)| h[normalise_attribute_name(k)] = v; h }
         converter = config[:converter].new
 
-        supported_formats = converter.supported_formats
+        supported_formats = supported_formats(converter)
 
         source = create_source(parent, reader_or_target, normalised_attributes)
         # memorize current code here for error message to avoid calling wrapped source's code method later
@@ -84,7 +87,7 @@ module Asciidoctor
           caption = source.attributes.delete 'caption'
 
           case format
-          when :txt, :atxt, :utxt
+          when *TEXT_FORMATS
             block = create_literal_block(parent, source, format, converter)
           else
             block = create_image_block(parent, source, format, converter)
@@ -132,6 +135,10 @@ module Asciidoctor
       end
 
       private
+
+      def supported_formats(converter)
+        converter.supported_formats
+      end
 
       def normalise_attribute_name(k)
         case k
@@ -366,6 +373,43 @@ module Asciidoctor
         else
           nil
         end
+      end
+
+      # Creates a FileSource using target as the file name.
+      #
+      # @return [FileSource] a FileSource
+      def create_source(parent, target, attributes)
+        FileSource.new(self, parent, apply_target_subs(parent, target), attributes)
+      end
+    end
+
+    # Base class for diagram inline macro processors.
+    class DiagramInlineMacroProcessor < Asciidoctor::Extensions::InlineMacroProcessor
+      include DiagramProcessor
+
+      def self.inherited(subclass)
+        subclass.name_positional_attributes ['format']
+      end
+
+      def apply_target_subs(parent, target)
+        if target
+          parent.normalize_system_path(parent.sub_attributes(target, :attribute_missing => 'warn'))
+        else
+          nil
+        end
+      end
+
+      alias_method(:generate_block,:process)
+
+      def process(parent, reader_or_target, attributes)
+        block = generate_block(parent, reader_or_target, attributes)
+        attrs = block.attributes.dup
+        target = attrs.delete('target')
+        create_inline(parent, :image, nil, :type => 'image', :target => target, :attributes => attrs).convert
+      end
+
+      def supported_formats(converter)
+        converter.supported_formats.reject { |f| TEXT_FORMATS.include?(f) }
       end
 
       # Creates a FileSource using target as the file name.
