@@ -14,9 +14,8 @@ BARCODES = {
   :code128c => '123456',
   :ean8 => '0170725',
   :ean13 => '070071967072',
-  :gs1_128 => '[FNC1] 00 12345678 0000000001',
-  # :pdf417 => '',
-  :qr => 'http://github.com/',
+  :gs1_128 => '(FNC1)(SP)00(SP)12345678(SP)0000000001',
+  :qrcode => 'http://github.com/',
   :upca => '12360105707',
 }
 
@@ -29,7 +28,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-[barcode,#{type},test,png,xdim=1,margin=10,height=100,foreground=darkgray,background=azure]
+[#{type},test,png,xdim=1,margin=10,height=100,foreground=darkgray,background=azure]
 ----
 #{code}
 ----
@@ -60,7 +59,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-[barcode,qr]
+[qrcode]
 ----
 BEGIN:VCARD
 VERSION:3.0
@@ -117,7 +116,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-barcode::#{type}[#{code},xdim=1,margin=10,height=100,foreground=darkgray,background=azure]
+#{type}::#{code}[xdim=1,margin=10,height=100,foreground=darkgray,background=azure]
       eos
 
       d = load_asciidoc doc
@@ -148,7 +147,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-barcode:#{type}[#{code},xdim=1,margin=10,height=100,foreground=darkgray,background=azure]
+#{type}:#{code}[xdim=1,margin=10,height=100,foreground=darkgray,background=azure]
       eos
 
       d = load_asciidoc doc
