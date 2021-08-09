@@ -1,14 +1,33 @@
 require_relative '../diagram_converter'
-require 'barby'
+require_relative 'dependencies'
 
 module Asciidoctor
   module Diagram
     # @private
     class BarcodeConverter
+      BARCODE_TYPES = [
+        :bookland,
+        :codabar,
+        :code25,
+        :code25iata,
+        :code25interleaved,
+        :code39,
+        :code93,
+        :code128,
+        :code128a,
+        :code128b,
+        :code128c,
+        :ean8,
+        :ean13,
+        :gs1_128,
+        :qrcode,
+        :upca,
+      ]
+
       include DiagramConverter
 
       def supported_formats
-        [:png, :txt]
+        [:png, :svg, :txt]
       end
 
       def collect_options(source)
@@ -27,87 +46,86 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
-        source.ensure_gem('barby', '~> 0.6.8')
+        BarcodeDependencies::BARCODE_DEPENDENCIES.each_pair { |n, v| source.ensure_gem(n, v) }
         require 'barby'
 
         code = source.code
-        type = source.attr('type')
+        type = source.config[:type]
 
         case type
-          when 'bookland'
+          when :bookland
             require 'barby/barcode/bookland'
             barcode = Barby::Bookland.new(code)
-          when 'codabar'
+          when :codabar
             require 'barby/barcode/codabar'
             barcode = Barby::Codabar.new(code)
-          when 'code25', 'code_25'
+          when :code25
             require 'barby/barcode/code_25'
             barcode = Barby::Code25.new(code)
-          when 'code25iata', 'code_25_iata'
+          when :code25iata
             require 'barby/barcode/code_25_iata'
             barcode = Barby::Code25IATA.new(code)
-          when 'code25interleaved', 'code_25_interleaved'
+          when :code25interleaved
             require 'barby/barcode/code_25_interleaved'
             barcode = Barby::Code25Interleaved.new(code)
-          when 'code39', 'code_39'
+          when :code39
             require 'barby/barcode/code_39'
             barcode = Barby::Code39.new(code)
-          when 'code93', 'code_93'
+          when :code93
             require 'barby/barcode/code_93'
             barcode = Barby::Code93.new(code)
-          when 'code128', 'code_128'
+          when :code128
             require 'barby/barcode/code_128'
             barcode = Barby::Code128.new(code)
-          when 'code128a', 'code_128a'
+          when :code128a
             require 'barby/barcode/code_128'
             barcode = Barby::Code128A.new(code)
-          when 'code128b', 'code_128b'
+          when :code128b
             require 'barby/barcode/code_128'
             barcode = Barby::Code128B.new(code)
-          when 'code128c', 'code_128c'
+          when :code128c
             require 'barby/barcode/code_128'
             barcode = Barby::Code128C.new(code)
-          when 'ean8', 'ean_8'
+          when :ean8
             require 'barby/barcode/ean_8'
             barcode = Barby::EAN8.new(code)
-          when 'ean13', 'ean_13'
+          when :ean13
             require 'barby/barcode/ean_13'
             barcode = Barby::EAN13.new(code)
-          when 'gs1_128'
+          when :gs1_128
             require 'barby/barcode/code_128'
-            code = code.gsub /\[[^\]]+\]/ do |control|
+            code = code.gsub /\([^)]+\)/ do |control|
               case control.upcase
-                when '[FNC1]'
+                when '(FNC1)'
                   Barby::Code128::FNC1
-                when '[FNC2]'
+                when '(FNC2)'
                   Barby::Code128::FNC2
-                when '[FNC3]'
+                when '(FNC3)'
                   Barby::Code128::FNC3
-                when '[FNC4]'
+                when '(FNC4)'
                   Barby::Code128::FNC4
-                when '[CODEA]'
+                when '(CODEA)'
                   Barby::Code128::CODEA
-                when '[CODEB]'
+                when '(CODEB)'
                   Barby::Code128::CODEB
-                when '[CODEC]'
+                when '(CODEC)'
                   Barby::Code128::CODEC
-                when '[SHIFT]'
+                when '(SHIFT)'
                   Barby::Code128::SHIFT
+                when '(SP)'
+                  ' '
                 else
-                  raise "Unsupported control sequence: #{m.group(1)}"
+                  control
               end
             end
             code = code.gsub(/\s+/, '')
             code = code.prepend(Barby::Code128::FNC1) unless code[0] == Barby::Code128::FNC1
             barcode = Barby::Code128.new(code)
-          when 'pdf417', 'pdf_417'
-            require 'barby/barcode/pdf_417'
-            barcode = Barby::Pdf417.new(code)
-          when 'qr', 'qrcode', 'qr_code'
-            source.ensure_gem('rqrcode', '~> 2.0.0')
+          when :qrcode
+            BarcodeDependencies::QRCODE_DEPENDENCIES.each_pair { |n, v| source.ensure_gem(n, v) }
             require 'barby/barcode/qr_code'
             barcode = Barby::QrCode.new(code)
-          when 'upca', 'upc_a'
+          when :upca
             require 'barby/barcode/ean_13'
             barcode = Barby::UPCA.new(code)
           else
@@ -116,9 +134,17 @@ module Asciidoctor
 
         case format
           when :png
-            source.ensure_gem('chunky_png', '~> 1.4.0')
+            BarcodeDependencies::PNG_DEPENDENCIES.each_pair { |n, v| source.ensure_gem(n, v) }
             require 'barby/outputter/png_outputter'
+            require 'chunky_png/color'
+            options[:foreground] = ChunkyPNG::Color(options[:foreground]) if options[:foreground]
+            options[:background] = ChunkyPNG::Color(options[:background]) if options[:background]
             barcode.to_png(options)
+          when :svg
+            require_relative 'svg_outputter'
+            options[:foreground] = "##{options[:foreground]}" if options[:foreground] =~ /^[0-9a-f]+$/i
+            options[:background] = "##{options[:background]}" if options[:background] =~ /^[0-9a-f]+$/i
+            barcode.to_svg(options)
           when :txt
             require 'barby/outputter/ascii_outputter'
             barcode.to_ascii
