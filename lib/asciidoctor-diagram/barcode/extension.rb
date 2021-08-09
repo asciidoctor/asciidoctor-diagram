@@ -3,39 +3,44 @@ require_relative '../diagram_processor'
 
 module Asciidoctor
   module Diagram
-    class BarcodeBlockProcessor < DiagramBlockProcessor
-      name_positional_attributes ['type', 'target', 'format']
-      use_converter BarcodeConverter
+    module BarcodeProcessor
+      def self.check_config(config = {})
+        type = config[:type]
+        raise "Barcode type not specified in config" if type.nil?
+        raise "Unsupported barcode type: '#{type}'" unless BarcodeConverter::BARCODE_TYPES.include?(type)
+      end
+
+      def initialize(name = nil, config = {})
+        super
+        BarcodeProcessor.check_config(config)
+      end
     end
 
     module BarcodeMacroProcessor
-      class StringReader
-        def initialize(str)
-          @str = str
-        end
-
-        def lines
-          @str.lines.map { |l| l.rstrip }
-        end
-      end
-
       def create_source(parent, target, attributes)
-        attributes = attributes.dup
-        attributes['type'] = parent.sub_attributes(target, :attribute_missing => 'warn')
-        code = attributes['code'] || ''
-        ::Asciidoctor::Diagram::ReaderSource.new(self, parent, StringReader.new(code), attributes)
+        if attributes['external']
+          super
+        else
+          code = parent.sub_attributes(target, :attribute_missing => 'warn')
+          ::Asciidoctor::Diagram::ReaderSource.new(self, parent, code, attributes)
+        end
       end
     end
 
-    class BarcodeBlockMacroProcessor < DiagramBlockMacroProcessor
-      name_positional_attributes ['code', 'format']
+    class BarcodeBlockProcessor < DiagramBlockProcessor
       use_converter BarcodeConverter
+      include BarcodeProcessor
+    end
+
+    class BarcodeBlockMacroProcessor < DiagramBlockMacroProcessor
+      use_converter BarcodeConverter
+      include BarcodeProcessor
       include BarcodeMacroProcessor
     end
 
     class BarcodeInlineMacroProcessor < DiagramInlineMacroProcessor
-      name_positional_attributes ['code', 'format']
       use_converter BarcodeConverter
+      include BarcodeProcessor
       include BarcodeMacroProcessor
     end
   end
