@@ -140,7 +140,7 @@ Barcode macros can be specified using blocks, inline macros or block macros usin
 // Barcode inline macro
 <type>::<content>[<attributes>]
 ------
-<1> Type barcode type. One of `bookland`, `codabar`, `code_25`, `code_25_iata`, `code_25_interleaved`, `code_39`, `code_93`, `code_128`, `code_128a`, `code_128b`, `code_128c`, `ean_8`, `ean_13`, `gs1_128`, `pdf_417`, or `upc_a`.
+<1> Type barcode type. One of `bookland`, `codabar`, `code25`, `code25iata`, `code25interleaved`, `code39`, `code93`, `code128`, `code128a`, `code128b`, `code128c`, `ean8`, `ean13`, `gs1_128`, `qrcode`, or `upca`.
 <2> Barcode attributes (see the <<barcode_attributes>> attributes section)
 <3> The content to encode in the barcode
 
