@@ -10,5 +10,9 @@ module Asciidoctor
     class WavedromBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter WavedromConverter
     end
+
+    class WavedromInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter WavedromConverter
+    end
   end
 end

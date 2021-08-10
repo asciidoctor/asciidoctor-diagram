@@ -10,5 +10,9 @@ module Asciidoctor
     class BytefieldBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter BytefieldConverter
     end
+
+    class BytefieldInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter BytefieldConverter
+    end
   end
 end

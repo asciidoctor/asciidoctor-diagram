@@ -11,11 +11,19 @@ module Asciidoctor
       use_converter UmlConverter
     end
 
+    class PlantUmlInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter UmlConverter
+    end
+
     class SaltBlockProcessor < DiagramBlockProcessor
       use_converter SaltConverter
     end
 
     class SaltBlockMacroProcessor < DiagramBlockMacroProcessor
+      use_converter SaltConverter
+    end
+
+    class SaltInlineMacroProcessor < DiagramInlineMacroProcessor
       use_converter SaltConverter
     end
   end

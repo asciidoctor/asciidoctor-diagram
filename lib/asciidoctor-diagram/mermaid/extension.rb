@@ -10,5 +10,9 @@ module Asciidoctor
     class MermaidBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter MermaidConverter
     end
+
+    class MermaidInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter MermaidConverter
+    end
   end
 end

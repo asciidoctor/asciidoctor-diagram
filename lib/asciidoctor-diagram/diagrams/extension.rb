@@ -10,5 +10,9 @@ module Asciidoctor
     class DiagramsBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter DiagramsConverter
     end
+
+    class DiagramsInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter DiagramsConverter
+    end
   end
 end

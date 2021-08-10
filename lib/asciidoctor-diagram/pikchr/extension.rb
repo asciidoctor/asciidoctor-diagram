@@ -10,5 +10,9 @@ module Asciidoctor
     class PikchrBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter PikchrConverter
     end
+
+    class PikchrInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter PikchrConverter
+    end
   end
 end

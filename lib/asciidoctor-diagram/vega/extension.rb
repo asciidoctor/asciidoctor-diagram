@@ -10,5 +10,9 @@ module Asciidoctor
     class VegaBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter VegaConverter
     end
+
+    class VegaInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter VegaConverter
+    end
   end
 end
