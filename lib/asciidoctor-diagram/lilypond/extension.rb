@@ -10,5 +10,9 @@ module Asciidoctor
     class LilypondBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter LilypondConverter
     end
+
+    class LilypondInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter LilypondConverter
+    end
   end
 end

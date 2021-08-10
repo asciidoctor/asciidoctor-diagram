@@ -10,5 +10,9 @@ module Asciidoctor
     class DpicBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter DpicConverter
     end
+
+    class DpicInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter DpicConverter
+    end
   end
 end

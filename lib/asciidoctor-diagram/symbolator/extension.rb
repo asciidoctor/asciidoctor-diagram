@@ -10,5 +10,9 @@ module Asciidoctor
     class SymbolatorBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter SymbolatorConverter
     end
+
+    class SymbolatorInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter SymbolatorConverter
+    end
   end
 end

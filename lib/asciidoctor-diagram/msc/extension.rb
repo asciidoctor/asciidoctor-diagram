@@ -10,5 +10,9 @@ module Asciidoctor
     class MscBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter MscgenConverter
     end
+    
+    class MscInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter MscgenConverter
+    end
   end
 end

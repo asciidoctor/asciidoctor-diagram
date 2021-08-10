@@ -10,5 +10,9 @@ module Asciidoctor
     class TikZBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter TikZConverter
     end
+
+    class TikZInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter TikZConverter
+    end
   end
 end

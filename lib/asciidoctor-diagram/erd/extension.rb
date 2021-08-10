@@ -10,5 +10,9 @@ module Asciidoctor
     class ErdBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter ErdConverter
     end
+
+    class ErdInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter ErdConverter
+    end
   end
 end

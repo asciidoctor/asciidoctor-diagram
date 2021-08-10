@@ -10,5 +10,9 @@ module Asciidoctor
     class SvgBobBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter SvgbobConverter
     end
+
+    class SvgBobInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter SvgbobConverter
+    end
   end
 end

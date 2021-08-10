@@ -10,5 +10,9 @@ module Asciidoctor
     class GnuplotBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter GnuplotConverter
     end
+
+    class GnuplotInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter GnuplotConverter
+    end
   end
 end

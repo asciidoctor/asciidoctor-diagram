@@ -10,5 +10,9 @@ module Asciidoctor
     class DitaaBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter DitaaConverter
     end
+
+    class DitaaInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter DitaaConverter
+    end
   end
 end

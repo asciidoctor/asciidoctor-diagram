@@ -10,5 +10,9 @@ module Asciidoctor
     class SyntraxBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter SyntraxConverter
     end
+
+    class SyntraxInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter SyntraxConverter
+    end
   end
 end
