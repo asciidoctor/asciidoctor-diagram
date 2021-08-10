@@ -10,5 +10,9 @@ module Asciidoctor
     class BpmnBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter BpmnConverter
     end
+
+    class BpmnInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter BpmnConverter
+    end
   end
 end

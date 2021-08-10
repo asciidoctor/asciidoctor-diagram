@@ -10,5 +10,9 @@ module Asciidoctor
     class SmcatBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter SmcatConverter
     end
+
+    class SmcatInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter SmcatConverter
+    end
   end
 end

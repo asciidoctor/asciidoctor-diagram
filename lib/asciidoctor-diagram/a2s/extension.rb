@@ -10,5 +10,9 @@ module Asciidoctor
     class AsciiToSvgBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter AsciiToSvgConverter
     end
+
+    class AsciiToSvgInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter AsciiToSvgConverter
+    end
   end
 end

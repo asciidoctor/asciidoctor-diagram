@@ -10,5 +10,9 @@ module Asciidoctor
     class GraphvizBlockMacroProcessor < DiagramBlockMacroProcessor
       use_converter GraphvizConverter
     end
+
+    class GraphvizInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter GraphvizConverter
+    end
   end
 end
