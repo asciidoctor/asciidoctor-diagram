@@ -197,7 +197,7 @@ end
 
 RSpec.shared_examples "inline_macro" do |name, code, formats|
   formats.each do |format|
-    it "#{name} should generate image blocks when format is set to '#{format}'" do
+    it "#{name} should generate image tags when format is set to '#{format}'" do
       File.write("#{name}.txt", code)
 
       doc = <<-eos
@@ -228,8 +228,10 @@ Doc Writer <doc@example.com>
       expect(src).to match(/\.#{format}$/)
       expect(File.exist?(src)).to be true
 
-      expect(/width="([^"]*)"/.match(img)).to_not be_nil
-      expect(/height="([^"]*)"/.match(img)).to_not be_nil
+      unless format == :pdf
+        expect(/width="([^"]*)"/.match(img)).to_not be_nil
+        expect(/height="([^"]*)"/.match(img)).to_not be_nil
+      end
     end
   end
 
