@@ -47,6 +47,10 @@ BPNM_CODE = <<EOF
 </bpmn:definitions>
 EOF
 
+describe Asciidoctor::Diagram::BpmnInlineMacroProcessor do
+  include_examples "inline_macro", :bpmn, BPNM_CODE, [:png, :svg, :pdf]
+end
+
 describe Asciidoctor::Diagram::BpmnBlockMacroProcessor do
   include_examples "block_macro", :bpmn, BPNM_CODE, [:png, :svg, :pdf]
 end

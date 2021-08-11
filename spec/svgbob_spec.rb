@@ -20,6 +20,10 @@ SVGBOB_CODE = <<-eos
                                       '---------------------------------------'
 eos
 
+describe Asciidoctor::Diagram::SvgBobInlineMacroProcessor do
+  include_examples "inline_macro", :svgbob, SVGBOB_CODE, [:svg]
+end
+
 describe Asciidoctor::Diagram::SvgBobBlockMacroProcessor do
   include_examples "block_macro", :svgbob, SVGBOB_CODE, [:svg]
 end

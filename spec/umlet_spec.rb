@@ -19,6 +19,9 @@ AsciiDoc</panel_attributes>
 </diagram>
 eos
 
+describe Asciidoctor::Diagram::UmletInlineMacroProcessor do
+  include_examples "inline_macro", :umlet, CODE, [:svg]
+end
 
 describe Asciidoctor::Diagram::UmletBlockMacroProcessor do
   include_examples "block_macro", :umlet, CODE, [:svg]

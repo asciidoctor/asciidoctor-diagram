@@ -23,6 +23,10 @@ NOMNOML_CODE = <<-eos
 [<actor>Sailor] - [<usecase>shiver me;timbers]
 eos
 
+describe Asciidoctor::Diagram::NomnomlInlineMacroProcessor do
+  include_examples "inline_macro", :nomnoml, NOMNOML_CODE, [:svg]
+end
+
 describe Asciidoctor::Diagram::NomnomlBlockMacroProcessor do
   include_examples "block_macro", :nomnoml, NOMNOML_CODE, [:svg]
 end

@@ -83,6 +83,10 @@ BYTEFIELD_CODE = <<-eos
 (draw-bottom)
 eos
 
+describe Asciidoctor::Diagram::BytefieldInlineMacroProcessor do
+  include_examples "inline_macro", :bytefield, BYTEFIELD_CODE, [:svg]
+end
+
 describe Asciidoctor::Diagram::BytefieldBlockMacroProcessor do
   include_examples "block_macro", :bytefield, BYTEFIELD_CODE, [:svg]
 end

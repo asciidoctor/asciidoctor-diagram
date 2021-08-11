@@ -10,6 +10,10 @@ G: box "$G(s)$"
   "$-\;$" below rjust
 eos
 
+describe Asciidoctor::Diagram::DpicInlineMacroProcessor, :broken_on_windows do
+  include_examples "inline_macro", :dpic, DPIC_CODE, [:svg]
+end
+
 describe Asciidoctor::Diagram::DpicBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :dpic, DPIC_CODE, [:svg]
 end
