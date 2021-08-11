@@ -98,6 +98,10 @@ TIKZ_CODE = <<-'eos'
 \end{tikzpicture}
 eos
 
+describe Asciidoctor::Diagram::TikZInlineMacroProcessor, :broken_on_windows do
+  include_examples "inline_macro", :tikz, TIKZ_CODE, [:pdf]
+end
+
 describe Asciidoctor::Diagram::TikZBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :tikz, TIKZ_CODE, [:pdf]
 end

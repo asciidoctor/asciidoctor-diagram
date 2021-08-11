@@ -8,6 +8,10 @@ graph LR
     C --> D
 eos
 
+describe Asciidoctor::Diagram::MermaidInlineMacroProcessor do
+  include_examples "inline_macro", :mermaid, MERMAID_CODE, [:png, :svg]
+end
+
 describe Asciidoctor::Diagram::MermaidBlockMacroProcessor do
   include_examples "block_macro", :mermaid, MERMAID_CODE, [:png, :svg]
 

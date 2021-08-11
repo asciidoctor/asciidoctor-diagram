@@ -11,6 +11,10 @@ digraph foo {
 }
 eos
 
+describe Asciidoctor::Diagram::GraphvizInlineMacroProcessor do
+  include_examples "inline_macro", :graphviz, DOT_CODE, [:png, :svg]
+end
+
 describe Asciidoctor::Diagram::GraphvizBlockMacroProcessor do
   include_examples "block_macro", :graphviz, DOT_CODE, [:png, :svg]
 end

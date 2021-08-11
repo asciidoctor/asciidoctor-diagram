@@ -117,6 +117,11 @@ VEGALITE_CODE = <<-eos
 }
 eos
 
+describe Asciidoctor::Diagram::VegaInlineMacroProcessor, :broken_on_windows do
+  include_examples "inline_macro", :vega, VEGA_CODE, [:svg]
+  # include_examples "inline_macro", :vegalite, VEGALITE_CODE, [:svg]
+end
+
 describe Asciidoctor::Diagram::VegaBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :vega, VEGA_CODE, [:svg]
   # include_examples "block_macro", :vegalite, VEGALITE_CODE, [:svg]

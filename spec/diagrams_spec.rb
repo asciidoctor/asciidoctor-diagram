@@ -14,6 +14,10 @@ with Diagram("Grouped Workers", show=False, direction="TB"):
                   EC2("worker5")] >> RDS("events")
 eos
 
+describe Asciidoctor::Diagram::DiagramsInlineMacroProcessor do
+  include_examples "inline_macro", :diagrams, DIAGRAMS_CODE, [:png, :svg]
+end
+
 describe Asciidoctor::Diagram::DiagramsBlockMacroProcessor do
   include_examples "block_macro", :diagrams, DIAGRAMS_CODE, [:png, :svg]
 end

@@ -7,6 +7,10 @@ blockdiag {
 }
 eos
 
+describe Asciidoctor::Diagram::BlockDiagInlineMacroProcessor do
+  include_examples "inline_macro", :blockdiag, BLOCKDIAG_CODE, [:png, :svg, :pdf]
+end
+
 describe Asciidoctor::Diagram::BlockDiagBlockMacroProcessor do
   include_examples "block_macro", :blockdiag, BLOCKDIAG_CODE, [:png, :svg, :pdf]
 end

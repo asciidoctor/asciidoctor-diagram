@@ -83,6 +83,10 @@ play        1--* play_player
 player      1--* play_player
 eos
 
+describe Asciidoctor::Diagram::ErdInlineMacroProcessor, :broken_on_windows do
+  include_examples "inline_macro", :erd, ERD_CODE, [:png, :svg]
+end
+
 describe Asciidoctor::Diagram::ErdBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :erd, ERD_CODE, [:png, :svg]
 end

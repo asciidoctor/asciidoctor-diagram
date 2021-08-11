@@ -195,6 +195,165 @@ Doc Writer <doc@example.com>
   end
 end
 
+RSpec.shared_examples "inline_macro" do |name, code, formats|
+  formats.each do |format|
+    it "#{name} should generate image blocks when format is set to '#{format}'" do
+      File.write("#{name}.txt", code)
+
+      doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+
+== First Section
+
+#{name}:#{name}.txt[#{format}]
+      eos
+
+      d = load_asciidoc doc
+      expect(d).to_not be_nil
+
+      b = d.find { |bl| bl.context == :paragraph }
+      expect(b).to_not be_nil
+
+      output = b.convert
+      img_match = /<img[^>]*>/.match(output)
+      expect(img_match).to_not be_nil
+      img = img_match.to_s
+
+      src_match = /src="([^"]*)"/.match(img)
+      expect(src_match).to_not be_nil
+      src = src_match[1]
+
+      expect(src).to_not be_nil
+      expect(src).to match(/\.#{format}$/)
+      expect(File.exist?(src)).to be true
+
+      expect(/width="([^"]*)"/.match(img)).to_not be_nil
+      expect(/height="([^"]*)"/.match(img)).to_not be_nil
+    end
+  end
+
+  it 'should support substitutions in the target attribute' do
+    File.write("#{name}.txt", code)
+
+    doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+:file: #{name}
+
+== First Section
+
+#{name}:{file}.txt[subs=attributes+]
+    eos
+
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :paragraph }
+    expect(b).to_not be_nil
+
+    output = b.convert
+    img_match = /<img[^>]*>/.match(output)
+    expect(img_match).to_not be_nil
+    img = img_match.to_s
+
+    src_match = /src="([^"]*)"/.match(img)
+    expect(src_match).to_not be_nil
+    src = src_match[1]
+
+    expect(src).to_not be_nil
+    expect(src).to match(/\.#{formats[0]}$/)
+    expect(File.exist?(src)).to be true
+  end
+
+  it 'should support substitutions in the format attribute' do
+    File.write("#{name}.txt", code)
+
+    doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+:file: #{name}
+:outputformat: #{formats[0]}
+
+== First Section
+
+#{name}:{file}.txt[format="{outputformat}", subs=attributes+]
+    eos
+
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :paragraph }
+    expect(b).to_not be_nil
+
+    output = b.convert
+    img_match = /<img[^>]*>/.match(output)
+    expect(img_match).to_not be_nil
+    img = img_match.to_s
+
+    src_match = /src="([^"]*)"/.match(img)
+    expect(src_match).to_not be_nil
+    src = src_match[1]
+
+    expect(src).to_not be_nil
+    expect(src).to match(/\.#{formats[0]}$/)
+    expect(File.exist?(src)).to be true
+
+    unless formats[0] == :pdf
+      expect(/width="([^"]*)"/.match(img)).to_not be_nil
+      expect(/height="([^"]*)"/.match(img)).to_not be_nil
+    end
+  end
+
+  it 'should respect target attribute in inline macros' do
+    File.write("#{name}.txt", code)
+
+    doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+
+== First Section
+
+#{name}:#{name}.txt[target="foobar"]
+#{name}:#{name}.txt[target="foobaz"]
+    eos
+
+    d = load_asciidoc doc
+
+    b = d.find { |bl| bl.context == :paragraph }
+    expect(b).to_not be_nil
+    b.convert
+
+    expect(File.exist?("foobar.#{formats[0]}")).to be true
+    expect(File.exist?("foobaz.#{formats[0]}")).to be true
+    expect(File.exist?("#{name}.#{formats[0]}")).to be false
+  end
+
+  it 'should respect target attribute values with relative paths in inline macros' do
+    File.write("#{name}.txt", code)
+
+    doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+
+== First Section
+
+#{name}:#{name}.txt[target="test/foobar"]
+#{name}:#{name}.txt[target="test2/foobaz"]
+    eos
+
+    d = load_asciidoc doc
+
+    b = d.find { |bl| bl.context == :paragraph }
+    expect(b).to_not be_nil
+    b.convert
+
+    expect(File.exist?("test/foobar.#{formats[0]}")).to be true
+    expect(File.exist?("test2/foobaz.#{formats[0]}")).to be true
+    expect(File.exist?("#{name}.#{formats[0]}")).to be false
+  end
+end
+
 RSpec.shared_examples "block" do |name, code, formats|
   formats.each do |format|
     if format == :txt

@@ -20,6 +20,10 @@ A2S_CODE = <<-eos
                                       '---------------------------------------'
 eos
 
+describe Asciidoctor::Diagram::AsciiToSvgInlineMacroProcessor do
+  include_examples "inline_macro", :a2s, A2S_CODE, [:svg]
+end
+
 describe Asciidoctor::Diagram::AsciiToSvgBlockMacroProcessor do
   include_examples "block_macro", :a2s, A2S_CODE, [:svg]
 end

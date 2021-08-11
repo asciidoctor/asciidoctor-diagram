@@ -12,6 +12,10 @@ DITAA_CODE = <<-eos
     +-------------------------+
 eos
 
+describe Asciidoctor::Diagram::DitaaInlineMacroProcessor do
+  include_examples "inline_macro", :ditaa, DITAA_CODE, [:png, :svg]
+end
+
 describe Asciidoctor::Diagram::DitaaBlockMacroProcessor do
   include_examples "block_macro", :ditaa, DITAA_CODE, [:png, :svg]
 end

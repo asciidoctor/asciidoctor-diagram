@@ -17,6 +17,10 @@ testing      => "on backlog" : test not ok;
 testing      => final        : test ok;
 eos
 
+describe Asciidoctor::Diagram::SmcatInlineMacroProcessor do
+  include_examples "inline_macro", :smcat, SMCAT_CODE, [:svg]
+end
+
 describe Asciidoctor::Diagram::SmcatBlockMacroProcessor do
   include_examples "block_macro", :smcat, SMCAT_CODE, [:svg]
 end

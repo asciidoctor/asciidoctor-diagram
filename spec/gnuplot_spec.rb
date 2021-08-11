@@ -4,6 +4,10 @@ GNUPLOT_CODE = <<-eos
 plot [0:5][0:20] x**2 title 'O(n^2)'
 eos
 
+describe Asciidoctor::Diagram::GnuplotInlineMacroProcessor do
+  include_examples "inline_macro", :gnuplot, GNUPLOT_CODE, [:png, :svg, :gif]
+end
+
 describe Asciidoctor::Diagram::GnuplotBlockMacroProcessor do
   include_examples "block_macro", :gnuplot, GNUPLOT_CODE, [:png, :svg, :gif, :txt]
 end

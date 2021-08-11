@@ -42,6 +42,10 @@ arrow dashed from last circle.w to 5/8<last circle.w,2nd last box> chop
 box invis wid 2*boxwid "ndtable:" with .e at Start.w
 eos
 
+describe Asciidoctor::Diagram::PikchrInlineMacroProcessor, :broken_on_windows do
+  include_examples "inline_macro", :pikchr, PIKCHR_CODE, [:svg]
+end
+
 describe Asciidoctor::Diagram::PikchrBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :pikchr, PIKCHR_CODE, [:svg]
 end

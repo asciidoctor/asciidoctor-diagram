@@ -7,6 +7,10 @@ User --> (Use the application) : Label
 :Main Admin: ---> (Use the application) : Another label
 eos
 
+describe Asciidoctor::Diagram::PlantUmlInlineMacroProcessor do
+  include_examples "inline_macro", :plantuml, PLANTUML_CODE, [:png, :svg]
+end
+
 describe Asciidoctor::Diagram::PlantUmlBlockMacroProcessor do
   include_examples "block_macro", :plantuml, PLANTUML_CODE, [:png, :svg, :txt]
 
