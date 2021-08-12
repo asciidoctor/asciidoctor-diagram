@@ -26,9 +26,9 @@ You can then manually register the extensions at the appropriate times using the
 
 This document explains the various features of asciidoctor-diagram blocks using ditaa diagrams as an example.
 
-=== Diagram Block Macro
+=== Diagram Macros
 
-The diagram extensions can also be used in in block macro form.
+The diagram extensions can also be used in inline, or block macro form.
 
 .Anatomy of a diagram block macro
 ----
