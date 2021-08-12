@@ -4,7 +4,13 @@
 
 Enhancements::
 
+  * Add inline diagram macros
   * Add support for barcodes
+
+Bug Fixes::
+
+  * Issue #358: Improve error handling when rendering is delegated to an external server (@ahus1)
+  * Issue #350: Restore support for document level `syntrax-style` attribute.
 
 == 2.1.2
 
@@ -15,7 +21,6 @@ Enhancements::
 Bug Fixes::
 
   * Issue #348: Rename Syntrax `style` attribute to `style-file` to avoid clashing with the built-in block style attribute.
-  * Issue #350: Restore support for document level `syntrax-style` attribute.
 
 == 2.1.1
 
