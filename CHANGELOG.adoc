@@ -4,7 +4,7 @@
 
 Enhancements::
 
-  * Add inline diagram macros
+  * All diagram macros can now be used as inline macros
   * Add support for barcodes
 
 Bug Fixes::
