@@ -4,14 +4,14 @@ A diagram is written inside a literal block, which can accept several attributes
 
 .Anatomy of a diagram
 ----
-[diagram-type, generated-file-name, generated-image-format] // <1> <2> <3>
+[diagram-type, target=output-file-name, format=output-format] // <1> <2> <3>
 .... // <4>
 Diagram in appropriate syntax
 ....
 ----
-<1> The first positional attribute in the attribute list specifies the diagram that is being used.
-<2> The second, optional positional attribute assigns a file name (i.e. `target`) to the generated diagram. If a target is not specified an auto-generated name will be used.
-<3> The third, optional positional attribute specifies the image format to create, specified as a three character file extension.
+<1> The first value in the attribute list specifies the diagram syntax that is being used.
+<2> The `target` attribute specifies the basename of the image file that will be generated. If this attribute is omitted an auto-generated name will be used instead.
+<3> The `format` attribute determines the output image format to use. If a format is not specified, the default output format for the chosen diagram type will be used.
 <4> Place the attribute list directly on top of the delimited literal block (+....+). You can also use an open block as an alternative (`--`).
 
 The following diagram types and output formats are available:
@@ -84,25 +84,25 @@ The example below illustrates the structure of a basic ditaa block written direc
 ....
 ----
 
-The ditaa block above results in the following generated diagram.
+The ditaa block above results in the following diagram.
 
 .Rendered ditaa diagram
 image::asciidoctor-diagram-process.png[Asciidoctor Diagram process diagram,650,319]
 
 The rendered ditaa diagram above gets the file name `58372f7d2ceffae9e91fd0a7cbb080b6.png`.
 That long number is the checksum of the source code calculated by asciidoctor-diagram.
-If you want to give your generated files a more meaningful name, fill in the `target` attribute.
+If you want to give your image files a more meaningful name, fill in the `target` attribute.
 
 This can be done by either specifying it as the second positional attribute or as a named attribute.
 Both examples below would result in a file called `ditaa-diagram.png`.
 
 ....
-[ditaa, "ditaa-diagram"]
+[ditaa, target="ditaa-diagram"]
 ----
 <snip>
 ----
 
-[ditaa, target="ditaa-diagram"]
+[ditaa, "ditaa-diagram"]
 ----
 <snip>
 ----
@@ -114,7 +114,7 @@ The example below illustrates the structure of a basic PlantUML block written di
 .PlantUML Diagram Syntax
 [source]
 ----
-[plantuml, diagram-classes, png] // <1> <2> <3>
+[plantuml, target=diagram-classes, format=png] // <1> <2> <3>
 ....
 class BlockProcessor
 class DiagramBlock
@@ -127,8 +127,8 @@ DiagramBlock <|-- PlantUmlBlock
 ....
 ----
 <1> The diagram is written in PlantUML so the first positional attribute is assigned the `plantuml` diagram type.
-<2> The name of the generated diagram file (target) is written in the second positional attribute.
-<3> The output format is entered in the third positional attribute.
+<2> The name of the diagram file is given by the `target` attribute.
+<3> The output format is specified using the `format` attribute
 
 .Rendered PlantUML diagram
 image::asciidoctor-diagram-classes.png[Asciidoctor Diagram classes diagram]

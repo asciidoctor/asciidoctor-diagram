@@ -32,11 +32,11 @@ The diagram extensions can also be used in inline, or block macro form.
 
 .Anatomy of a diagram block macro
 ----
-block-name::source-file-name[generated-file-extension] // <1> <2> <3>
+diagram-type::source-file-name[format=output-format] // <1> <2> <3>
 ----
-<1> The macro name is the same as the block name in the block form.
+<1> The macro name specifies the diagram syntax that is being used.
 <2> The source file name specifies the external file that contains the diagram source code.
-<3> The first, optional, positional attribute assigns the file extension (i.e. `format`) to the generated diagram.
+<3> The `format` attribute determines the output image format to use. If a format is not specified, the default output format for the chosen diagram type will be used.
 
 When the source file name is a relative path it is resolved with respect to the location of the document being processed.
 
@@ -129,9 +129,9 @@ Barcode macros can be specified using blocks, inline macros or block macros usin
 [source, asciidoc]
 ------
 // Barcode block
-[<type> <1>, <attributes> <2>]
+[<type>, <attributes>] <1> <2>
 ----
-<content>
+<content> <3>
 ----
 
 // Barcode block macro
@@ -144,7 +144,7 @@ Barcode macros can be specified using blocks, inline macros or block macros usin
 <2> Barcode attributes (see the <<barcode_attributes>> attributes section)
 <3> The content to encode in the barcode
 
-By default the target field of the barcode macros will be interpreted as the barcode content.
+By default the `content` field of the barcode macros will be interpreted as the barcode content.
 This works fine for simple barcodes, but for complex data (e.g., a vCard encoded as a QR code) this is not practical.
 If the `external` attribute is set on a barcode macro, the target is interpreted as a file path.
 The barcode content will then be obtained by reading the contents of the referenced file.
