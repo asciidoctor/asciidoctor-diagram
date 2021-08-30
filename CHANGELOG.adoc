@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.1
+
+Bug Fixes::
+
+* Issue #367: Resolve compatibility issue with rqrcode 2.1.0
+
 == 2.2.0
 
 Enhancements::
