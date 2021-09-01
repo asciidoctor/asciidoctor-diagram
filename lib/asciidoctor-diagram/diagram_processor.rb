@@ -238,9 +238,17 @@ module Asciidoctor
         use_absolute_path = source.attr('data-uri', nil, true)
 
         if format == :svg
-          svg_type = source.global_attr('svg-type')
+          if node.option? 'inline'
+            svg_type = 'inline'
+          elsif node.option? 'interactive'
+            svg_type = 'interactive'
+          else
+            svg_type = source.global_attr('svg-type')
+          end
+
           case svg_type
             when nil, 'static'
+              # Nothing to do
             when 'inline', 'interactive'
               node.set_option(svg_type)
               use_absolute_path = true
