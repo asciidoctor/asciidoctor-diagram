@@ -6,6 +6,7 @@ Bug Fixes::
 
 * Issue #366: Improve correctness of SVG images produced by Ditaa
 * Issue #367: Resolve compatibility issue with rqrcode 2.1.0
+* Issue #368: Respect `options` attribute when generating SVG images
 
 == 2.2.0
 
