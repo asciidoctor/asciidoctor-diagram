@@ -249,9 +249,11 @@ module Asciidoctor
           case svg_type
             when nil, 'static'
               # Nothing to do
-            when 'inline', 'interactive'
+            when 'inline'
               node.set_option(svg_type)
               use_absolute_path = true
+            when 'interactive'
+              node.set_option(svg_type)
             else
               raise "Unsupported SVG type: #{svg_type}"
           end

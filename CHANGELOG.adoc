@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.2
+
+Bug Fixes::
+
+* Issue #370: Only use absolute paths for 'interactive' style SVGs when 'data-uri' is also in use.
+
 == 2.2.1
 
 Bug Fixes::
