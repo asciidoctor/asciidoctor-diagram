@@ -95,11 +95,6 @@ jobs:
           echo "$PWD\dpic" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Install Mermaid
         run: npm install -g @mermaid-js/mermaid-cli
-      - name: Install Mscgen
-        run: |
-          Invoke-WebRequest -Uri "https://www.mcternan.me.uk/mscgen/software/mscgen-w32-0.20.zip" -OutFile mscgen.zip
-          7z x mscgen.zip
-          echo "$PWD\mscgen-0.20\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Install NomNoml
         run: npm install -g nomnoml
       - name: Install Blockdiag
