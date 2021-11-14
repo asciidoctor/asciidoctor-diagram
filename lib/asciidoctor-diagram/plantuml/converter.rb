@@ -122,6 +122,11 @@ module Asciidoctor
 
         headers['X-PlantUML-Basedir'] = Platform.native_path(File.expand_path(base_dir))
 
+        include_dir = attr('plantuml-includedir', nil, true) || attr('includedir')
+        if include_dir
+          headers['X-PlantUML-IncludeDir'] = Platform.native_path(File.expand_path(include_dir, base_dir))
+        end
+
         response = Java.send_request(
           :url => '/plantumlpreprocessor',
           :body => code,
