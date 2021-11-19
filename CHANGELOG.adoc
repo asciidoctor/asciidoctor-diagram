@@ -2,6 +2,10 @@
 
 == 2.2.2
 
+Enhancements::
+
+* Issue #375: Add support for PlantUML include directories (@mskyaxl)
+
 Bug Fixes::
 
 * Issue #370: Only use absolute paths for 'interactive' style SVGs when 'data-uri' is also in use.
