@@ -156,10 +156,10 @@ jobs:
         run: |
           cargo install svgbob_cli
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-      - name: Install Syntrax
-        run: pip install syntrax
-      - name: Install Symbolator
-        run: pip install symbolator
+#      - name: Install Syntrax
+#        run: pip install syntrax
+#      - name: Install Symbolator
+#        run: pip install symbolator
       - name: Install Diagrams
         run: pip install diagrams
       - name: Run tests
