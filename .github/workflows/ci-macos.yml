@@ -114,8 +114,8 @@ jobs:
         run: |
           cargo install svgbob_cli
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
-      - name: Install Symbolator
-        run: pip3 install symbolator
+#      - name: Install Symbolator
+#        run: pip3 install symbolator
       - name: install DeJaVu Font
         run: |
           export HOMEBREW_NO_INSTALL_CLEANUP=1
