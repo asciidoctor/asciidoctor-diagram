@@ -108,10 +108,10 @@ jobs:
           install-peerdeps -g vega-lite
       - name: Install Wavedrom
         run: npm install -g wavedrom-cli
-      - name: Install LilyPond
-        run: |
-          cinst lilypond -r -y --no-progress
-          echo "C:\Program Files (x86)\LilyPond\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+#      - name: Install LilyPond
+#        run: |
+#          cinst lilypond -r -y --no-progress
+#          echo "C:\Program Files (x86)\LilyPond\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Install ImageMagick
         run: |
           cinst imagemagick -r -y --no-progress
