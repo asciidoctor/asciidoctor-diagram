@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.description   = %q{PlantUML JAR files wrapped in a Ruby gem}
   s.summary       = %q{PlantUML JAR files wrapped in a Ruby gem}
   s.homepage      = 'https://github.com/asciidoctor/asciidoctor-diagram'
-  s.license       = 'Apache Software License Version v2'
+  s.license       = 'Apache-2.0'
 
   s.files         = Dir['**/*']
   s.require_paths = ['lib']
