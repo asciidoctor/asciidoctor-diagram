@@ -44,7 +44,7 @@ module Asciidoctor
           OPTIONS[option].call(flags, value)
         end
         
-        generate_stdin(source.find_command('svgbob'), format.to_s, source.to_s) do |tool_path, output_path|
+        generate_stdin(source.find_command('svgbob', :alt_cmds => ['svgbob_cli']), format.to_s, source.to_s) do |tool_path, output_path|
           ([tool_path, '-o', Platform.native_path(output_path)] + flags)
         end
       end
