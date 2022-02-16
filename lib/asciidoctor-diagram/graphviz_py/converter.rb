@@ -14,7 +14,10 @@ module Asciidoctor
       end
 
       def collect_options(source)
-        {:layout => source.attr('layout')}
+        {
+            :layout => source.attr('layout'),
+            :argument => source.attr('argument')
+        }
       end
 
       def convert(source, format, options)
@@ -23,6 +26,13 @@ module Asciidoctor
 
           layout = options[:layout]
           args << "-K#{layout}" if layout
+
+          argument = options[:argument]
+
+          if argument
+            args << "-a"
+            args << argument
+          end
 
           args
         end
