@@ -31,6 +31,8 @@ jobs:
         uses: actions/setup-go@v2
       - name: Setup Haskell
         uses: haskell/actions/setup@v2
+        with:
+          enable-stack: true
       - name: Install Python Dependencies
         run: |
           export HOMEBREW_NO_INSTALL_CLEANUP=1
@@ -63,7 +65,10 @@ jobs:
         run: npm install -g bytefield-svg
       - name: Install ERD
         run: |
-          cabal new-install erd
+          git clone https://github.com/BurntSushi/erd
+          cd erd
+          stack install
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
       - name: Install DPIC
         run: |
           wget https://ece.uwaterloo.ca/~aplevich/dpic/dpic.tar.gz
