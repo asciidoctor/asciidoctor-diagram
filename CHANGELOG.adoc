@@ -6,6 +6,7 @@ Enhancements::
 
 * Issue #375: Add support for PlantUML include directories (@mskyaxl)
 * Add support for `graphviz-py` (@Alwinator)
+* Issue #380: Allow local PlantUML preprocessing to be disabled using the `preprocess` attribute
 
 Bug Fixes::
 
