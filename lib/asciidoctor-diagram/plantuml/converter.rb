@@ -113,32 +113,36 @@ module Asciidoctor
 
         code = "@start#{@tag}\n#{code}\n@end#{@tag}" unless code.index("@start") && code.index("@end")
 
-        headers = {}
+        should_preprocess = attr('preprocess', 'true') == 'true'
 
-        config_file = attr('plantumlconfig', nil, true) || attr('config')
-        if config_file
-          headers['X-PlantUML-Config'] = File.expand_path(config_file, base_dir)
+        if should_preprocess
+          headers = {}
+
+          config_file = attr('plantumlconfig', nil, true) || attr('config')
+          if config_file
+            headers['X-PlantUML-Config'] = File.expand_path(config_file, base_dir)
+          end
+
+          headers['X-PlantUML-Basedir'] = Platform.native_path(File.expand_path(base_dir))
+
+          include_dir = attr('includedir')
+          if include_dir
+            headers['X-PlantUML-IncludeDir'] = Platform.native_path(File.expand_path(include_dir, base_dir))
+          end
+
+          response = Java.send_request(
+            :url => '/plantumlpreprocessor',
+            :body => code,
+            :headers => headers
+          )
+
+          unless response[:code] == 200
+            raise Java.create_error("PlantUML preprocessing failed", response)
+          end
+
+          code = response[:body]
+          code.force_encoding(Encoding::UTF_8)
         end
-
-        headers['X-PlantUML-Basedir'] = Platform.native_path(File.expand_path(base_dir))
-
-        include_dir = attr('includedir')
-        if include_dir
-          headers['X-PlantUML-IncludeDir'] = Platform.native_path(File.expand_path(include_dir, base_dir))
-        end
-
-        response = Java.send_request(
-          :url => '/plantumlpreprocessor',
-          :body => code,
-          :headers => headers
-        )
-
-        unless response[:code] == 200
-          raise Java.create_error("PlantUML preprocessing failed", response)
-        end
-
-        code = response[:body]
-        code.force_encoding(Encoding::UTF_8)
 
         code
       end

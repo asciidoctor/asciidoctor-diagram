@@ -317,10 +317,11 @@ No specific attributes.
 
 [cols=">,<,<",options="header"]
 |===
-|Name          |Default value   |Description
-|config        |unspecified     |Path to a config file to pass to PlantUML.
-|size-limit    |4096            |The maximum dimensions (width and height) of generated diagrams.
-|includedir    |unspecified     |sets a common directory for puml includes (plantuml.include.path)
+|Name            |Default value   |Description
+|config          |unspecified     |Path to a config file to pass to PlantUML.
+|size-limit      |4096            |The maximum dimensions (width and height) of generated diagrams.
+|includedir      |unspecified     |sets a common directory for puml includes (plantuml.include.path)
+|preprocess      |true            |Preprocess PlantUML code before rendering the diagram.
 |===
 
 ==== State Machine Cat
