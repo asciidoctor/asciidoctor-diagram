@@ -20,14 +20,14 @@ A -- C [headlabel="cos"];
 }
 eos
 
-describe Asciidoctor::Diagram::GraphvizPyInlineMacroProcessor do
+describe Asciidoctor::Diagram::GraphvizPyInlineMacroProcessor, :broken_on_github do
   include_examples "inline_macro", :graphviz_py, GRAPHVIZ_PY_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::GraphvizPyBlockMacroProcessor do
+describe Asciidoctor::Diagram::GraphvizPyBlockMacroProcessor, :broken_on_github do
   include_examples "block_macro", :graphviz_py, GRAPHVIZ_PY_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::GraphvizPyBlockProcessor do
+describe Asciidoctor::Diagram::GraphvizPyBlockProcessor, :broken_on_github do
   include_examples "block", :graphviz_py, GRAPHVIZ_PY_CODE, [:png, :svg]
 end

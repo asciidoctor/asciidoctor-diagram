@@ -5,6 +5,7 @@
 Enhancements::
 
 * Issue #375: Add support for PlantUML include directories (@mskyaxl)
+* Add support for `graphviz-py` (@Alwinator)
 
 Bug Fixes::
 
