@@ -118,6 +118,31 @@ graph ethane {
 }
 ----
 
+With https://github.com/Alwinator/graphviz-py[graphviz_py] you can also use variables and Python code to do calculations:
+
+[graphviz_py, "graphviz_py_example", "svg"]
+----
+graph python_graph {
+{{
+import math
+
+value = 0.5
+sin = math.sin(value)
+cos = math.cos(value)
+}}
+
+A [label="{{= value }}"];
+B [label="{{= sin }}"];
+C [label="{{= cos }}"];
+
+A -- B [headlabel="sin"];
+A -- C [headlabel="cos"];
+
+}
+----
+
+Don't forget to install graphviz-py as described https://github.com/Alwinator/graphviz-py#installation[here].
+
 == Using standard asciidoc features
 
 Any remaining other attributes that are specified on a diagram block are copied over to the generated block.
