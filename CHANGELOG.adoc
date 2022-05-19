@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.3
+
+Enhancements::
+
+* Issue #373: Add support for rendering Ditaa diagrams via PlantUML using ditaamini
+
 == 2.2.2
 
 Enhancements::
