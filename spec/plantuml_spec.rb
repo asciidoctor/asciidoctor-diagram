@@ -393,6 +393,36 @@ salt
     expect(b.attributes['height']).to be_nil
   end
 
+  it 'should support ditaa diagrams' do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png"]
+----
+@startditaa -E
++---------+
+| example |
++---------+
+@endditaa
+----
+    eos
+
+    d = load_asciidoc doc, :attributes => {'backend' => 'docbook5'}
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+
+    target = b.attributes['target']
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to be_nil
+    expect(b.attributes['height']).to be_nil
+  end
+
   it 'should handle embedded creole images correctly' do
     creole_doc = <<-eos
 = Hello, PlantUML!
