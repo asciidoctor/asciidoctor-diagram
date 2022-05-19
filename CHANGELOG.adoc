@@ -5,6 +5,7 @@
 Enhancements::
 
 * Issue #373: Add support for rendering Ditaa diagrams via PlantUML using ditaamini
+* Issue #383: Allow bullet characters for Ditaa to be overridden
 
 == 2.2.2
 
