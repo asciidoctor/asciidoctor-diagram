@@ -253,6 +253,7 @@ No specific attributes.
 |debug        |false           |Renders the debug grid over the resulting image.
 |fixed-slope  |false           |Makes sides of parallelograms and trapezoids fixed slope instead of fixed width.
 |transparent  |false           |Makes the background of the image transparent instead of using the background color.
+|bullet-characters|*o          |The characters to recognize as bullets
 |===
 
 ==== Gnuplot

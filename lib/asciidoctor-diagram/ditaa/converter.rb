@@ -20,7 +20,8 @@ module Asciidoctor
           :shadows => lambda { |o, v| o  << '--no-shadows' if v == 'false'},
           :debug => lambda { |o, v| o  << '--debug' if v == 'true'},
           :fixed_slope => lambda { |o, v| o  << '--fixed-slope' if v == 'true'},
-          :transparent => lambda { |o, v| o  << '--transparent' if v == 'true'}
+          :transparent => lambda { |o, v| o  << '--transparent' if v == 'true'},
+          :bullet_characters => lambda { |o, v| o  << '--bullet-characters' << v if v }
       }
 
       CLASSPATH_ENV = 'DIAGRAM_DITAA_CLASSPATH'
