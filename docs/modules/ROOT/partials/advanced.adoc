@@ -20,7 +20,7 @@ require 'asciidoctor-diagram/<extension_name>'
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
-If you need more fine grained control over when the extensions are enabled, `asciidoctor-diagram/<extension_name>/extension` can be used instead.
+If you need more fine-grained control over when the extensions are enabled, `asciidoctor-diagram/<extension_name>/extension` can be used instead.
 This loads the extensions but does not register it in the Asciidoctor extension registry.
 You can then manually register the extensions at the appropriate times using the `Asciidoctor::Extensions` API.
 
@@ -110,7 +110,7 @@ If for instance you installed `actdiag` in `/home/me/actdiag/bin` and this path 
 === The Meme Extension
 
 The meme extension provides a basic '`Advice Animal`' style image generator.
-It's usage is easiest to explain with an example.
+Its usage is easiest to explain with an example.
 
 ----
 meme::yunoguy.jpg[Doc writers,Y U NO // AsciiDoc]
