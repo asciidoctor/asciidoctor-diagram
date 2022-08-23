@@ -20,7 +20,7 @@ require 'asciidoctor-diagram/<extension_name>'
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 
-If you need more fine grained control over when the extensions are enabled, `asciidoctor-diagram/<extension_name>/extension` can be used instead.
+If you need more fine-grained control over when the extensions are enabled, `asciidoctor-diagram/<extension_name>/extension` can be used instead.
 This loads the extensions but does not register it in the Asciidoctor extension registry.
 You can then manually register the extensions at the appropriate times using the `Asciidoctor::Extensions` API.
 
@@ -54,13 +54,13 @@ When Asciidoctor Diagram writes images to disk it will go over the following opt
 The image generation also outputs metadata files that by default are located in `.asciidoctor/diagram`.
 To place them in different location, Asciidoctor Diagram checks for (in this order).
 
-. `\{cachedir\}` attribute is specified  in the block header (ie. `[plantuml, png, cachedir=my-cache]`)
+. `\{cachedir\}` attribute is specified  in the block header (i.e. `[plantuml, png, cachedir=my-cache]`)
 . `\{diagram-cachedir\}` if the `diagram-cachedir` attribute has been specified
 . `\{outdir\}/\{imagesdir\}`
 
 === Specifying Diagram Generator Paths
 
-Asciidoctor Diagram depends on external tools to generates images.
+Asciidoctor Diagram depends on external tools to generate images.
 In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable.
 In case you've installed a tool in a way where the executable is not in the `PATH`, you can override its location manually using document attributes.
 The following table lists the tools that are required for each diagram type, the location where they can be downloaded and the document attribute you can use to override their locations.
@@ -110,7 +110,7 @@ If for instance you installed `actdiag` in `/home/me/actdiag/bin` and this path 
 === The Meme Extension
 
 The meme extension provides a basic '`Advice Animal`' style image generator.
-It's usage is easiest to explain with an example.
+Its usage is easiest to explain with an example.
 
 ----
 meme::yunoguy.jpg[Doc writers,Y U NO // AsciiDoc]
@@ -144,7 +144,7 @@ Barcode macros can be specified using blocks, inline macros or block macros usin
 <2> Barcode attributes (see the <<barcode_attributes>> attributes section)
 <3> The content to encode in the barcode
 
-By default the `content` field of the barcode macros will be interpreted as the barcode content.
+By default, the `content` field of the barcode macros will be interpreted as the barcode content.
 This works fine for simple barcodes, but for complex data (e.g., a vCard encoded as a QR code) this is not practical.
 If the `external` attribute is set on a barcode macro, the target is interpreted as a file path.
 The barcode content will then be obtained by reading the contents of the referenced file.
