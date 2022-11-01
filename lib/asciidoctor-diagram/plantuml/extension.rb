@@ -15,6 +15,18 @@ module Asciidoctor
       use_converter UmlConverter
     end
 
+    class PlantUmlEbnfBlockProcessor < DiagramBlockProcessor
+      use_converter EbnfConverter
+    end
+
+    class PlantUmlEbnfBlockMacroProcessor < DiagramBlockMacroProcessor
+      use_converter EbnfConverter
+    end
+
+    class PlantUmlEbnfInlineMacroProcessor < DiagramInlineMacroProcessor
+      use_converter EbnfConverter
+    end
+
     class SaltBlockProcessor < DiagramBlockProcessor
       use_converter SaltConverter
     end

@@ -90,6 +90,12 @@ module Asciidoctor
       end
     end
 
+    class EbnfConverter < PlantUmlConverter
+      def self.tag
+        'ebnf'
+      end
+    end
+
     class SaltConverter < PlantUmlConverter
       def self.tag
         'salt'
