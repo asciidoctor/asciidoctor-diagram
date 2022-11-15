@@ -28,8 +28,10 @@ module Asciidoctor
 
         viewbox = root.attributes['viewBox']
         if (v = VIEWBOX_REGEX.match(viewbox)) && width.nil? && height.nil?
-          width = to_numeric(v[:width])
-          height = to_numeric(v[:height])
+          min_x = to_numeric(v[:min_x])
+          min_y = to_numeric(v[:min_y])
+          width ||= to_numeric(v[:width]) - min_x
+          height ||= to_numeric(v[:height]) - min_y
         end
 
         if viewbox.nil? && width && height
@@ -76,7 +78,7 @@ module Asciidoctor
       end
 
       WIDTH_HEIGHT_REGEX = /^\s*(?<value>\d+(?:\.\d+)?)\s*(?<unit>[a-zA-Z]+)?\s*$/
-      VIEWBOX_REGEX = /^\s*\d+(?:\.\d+)?\s*\d+(?:\.\d+)?\s*(?<width>\d+(?:\.\d+)?)\s*(?<height>\d+(?:\.\d+)?)\s*$/
+      VIEWBOX_REGEX = /^\s*(?<min_x>-?\d+(?:\.\d+)?)\s*(?<min_y>-?\d+(?:\.\d+)?)\s*(?<width>\d+(?:\.\d+)?)\s*(?<height>\d+(?:\.\d+)?)\s*$/
 
       def self.to_px_factor(unit)
         case unit
