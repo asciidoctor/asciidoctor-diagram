@@ -64,7 +64,7 @@ jobs:
                                    lsb-release \
                                    xdg-utils \
                                    curl \
-                                   ttf-dejavu \
+                                   fonts-dejavu \
                                    ttf-mscorefonts-installer \
                                    texlive-science \
                                    texlive-pictures \
