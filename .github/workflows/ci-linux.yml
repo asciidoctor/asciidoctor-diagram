@@ -165,4 +165,4 @@ jobs:
       - name: Run tests
         run: bundle exec rake test
         env:
-          BLOCKDIAG_FONTPATH: /usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf
+          BLOCKDIAG_FONTPATH: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
