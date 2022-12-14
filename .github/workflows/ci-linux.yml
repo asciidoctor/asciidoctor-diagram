@@ -103,7 +103,7 @@ jobs:
         run: sudo apt-get install -qq lilypond
       - name: Install AsciitoSVG
         run: |
-          go get github.com/asciitosvg/asciitosvg/cmd/a2s
+          go install github.com/asciitosvg/asciitosvg/cmd/a2s@latest
           echo "$HOME/go/bin" >> $GITHUB_PATH
       - name: Install Bytefield-SVG
         run: npm install -g bytefield-svg
