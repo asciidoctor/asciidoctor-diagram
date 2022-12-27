@@ -20,6 +20,26 @@ module Asciidoctor
         raise "background attribute is required" unless bg_img
 
         options = source.attr('options', '').split(',')
+        margin = source.attr('margin', '')
+        margin_parts = margin.split(' ')
+        case margin_parts.length
+          when 0
+            ml = mr = mt = mb = nil
+          when 1
+            ml = mr = mt = mb = margin_parts[0]
+          when 2
+            mt = mb = margin_parts[0]
+            ml = mr = margin_parts[1]
+          when 3
+            mt = margin_parts[0]
+            ml = mr = margin_parts[1]
+            mb = margin_parts[2]
+          else
+            mt = margin_parts[0]
+            mr = margin_parts[1]
+            mb = margin_parts[2]
+            ml = margin_parts[3]
+        end
 
         {
             :bg_img => bg_img,
@@ -29,6 +49,12 @@ module Asciidoctor
             :stroke_color => source.attr(['strokecolor', 'stroke-color']),
             :stroke_width => source.attr(['strokewidth', 'stroke-width']),
             :font => source.attr('font', 'Impact'),
+            :font_size => source.attr('font_size', nil),
+            :alignment => source.attr('alignment', nil),
+            :margin_left => ml,
+            :margin_right => mr,
+            :margin_top => mt,
+            :margin_bottom => mb,
             :noupcase => options.include?('noupcase'),
         }
       end
