@@ -320,6 +320,7 @@ No specific attributes.
 |===
 |Name            |Default value   |Description
 |config          |unspecified     |Path to a config file to pass to PlantUML.
+|theme           |unspecified     |PlantUML theme to use.
 |size-limit      |4096            |The maximum dimensions (width and height) of generated diagrams.
 |includedir      |unspecified     |sets a common directory for puml includes (plantuml.include.path)
 |preprocess      |true            |Preprocess PlantUML code before rendering the diagram.

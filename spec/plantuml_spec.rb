@@ -253,6 +253,34 @@ skinparam ArrowColor #DEADBE
     expect(svg).to match(/<[^<]+ fill=["']#DEADBE["']/)
   end
 
+  it 'should use plantuml theme when specified as a document attribute' do
+    doc = <<-eos
+= Hello, PlantUML!
+Doc Writer <doc@example.com>
+:plantuml-format: svg
+:plantuml-theme: spacelab
+
+== First Section
+
+[plantuml]
+----
+actor Foo1
+boundary Foo2
+Foo1 -> Foo2 : To boundary
+----
+    eos
+
+    d = load_asciidoc doc
+    b = d.find { |bl| bl.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
+    expect(File.exist?(target)).to be true
+
+    svg = File.read(target, :encoding => Encoding::UTF_8)
+    expect(svg).to match(/<[^<]+ fill=["']url\(#gvl9ibi66ipfc0\)["']/)
+  end
+
   it 'should use plantuml include dir when specified as a document attribute' do
     doc = <<-eos
 = Hello, PlantUML!

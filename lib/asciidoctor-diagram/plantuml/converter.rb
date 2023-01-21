@@ -25,7 +25,7 @@ module Asciidoctor
       Java.classpath.concat PLANTUML_JARS
 
       def wrap_source(source)
-        PlantUMLPreprocessedSource.new(source, self.class.tag)
+        PlantUMLPreprocessedSource.new(source, self)
       end
 
       def supported_formats
@@ -33,9 +33,42 @@ module Asciidoctor
       end
 
       def collect_options(source)
-        {
+        options = {
             :size_limit => source.attr('size-limit', '4096')
         }
+
+        theme = source.attr('theme', nil)
+        options[:theme] = theme if theme
+
+        options
+      end
+
+      def should_preprocess(source)
+        source.attr('preprocess', 'true') == 'true'
+      end
+
+      def add_common_headers(headers, source)
+        base_dir = source.base_dir
+
+        config_file = source.attr('plantumlconfig', nil, true) || source.attr('config')
+        if config_file
+          headers['X-PlantUML-Config'] = File.expand_path(config_file, base_dir)
+        end
+
+        headers['X-PlantUML-Basedir'] = Platform.native_path(File.expand_path(base_dir))
+
+        include_dir = source.attr('includedir')
+        if include_dir
+          headers['X-PlantUML-IncludeDir'] = Platform.native_path(File.expand_path(include_dir, base_dir))
+        end
+      end
+
+      def add_theme_header(headers, theme)
+        headers['X-PlantUML-Theme'] = theme if theme
+      end
+
+      def add_size_limit_header(headers, limit)
+        headers['X-PlantUML-SizeLimit'] = limit if limit
       end
 
       def convert(source, format, options)
@@ -60,10 +93,12 @@ module Asciidoctor
             'Accept' => mime_type
         }
 
-        size_limit = options[:size_limit]
-        if size_limit
-          headers['X-PlantUML-SizeLimit'] = size_limit
+        unless should_preprocess(source)
+          add_common_headers(headers, source)
         end
+
+        add_theme_header(headers, options[:theme])
+        add_size_limit_header(headers, options[:size_limit])
 
         dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
         if dot
@@ -97,9 +132,9 @@ module Asciidoctor
     end
 
     class PlantUMLPreprocessedSource < SimpleDelegator
-      def initialize(source, tag)
+      def initialize(source, converter)
         super(source)
-        @tag = tag
+        @converter = converter
       end
 
       def code
@@ -111,24 +146,13 @@ module Asciidoctor
 
         code = __getobj__.code
 
-        code = "@start#{@tag}\n#{code}\n@end#{@tag}" unless code.index("@start") && code.index("@end")
+        tag = @converter.class.tag
+        code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index("@start") && code.index("@end")
 
-        should_preprocess = attr('preprocess', 'true') == 'true'
-
-        if should_preprocess
+        if @converter.should_preprocess(self)
           headers = {}
-
-          config_file = attr('plantumlconfig', nil, true) || attr('config')
-          if config_file
-            headers['X-PlantUML-Config'] = File.expand_path(config_file, base_dir)
-          end
-
-          headers['X-PlantUML-Basedir'] = Platform.native_path(File.expand_path(base_dir))
-
-          include_dir = attr('includedir')
-          if include_dir
-            headers['X-PlantUML-IncludeDir'] = Platform.native_path(File.expand_path(include_dir, base_dir))
-          end
+          @converter.add_common_headers(headers, self)
+          @converter.add_theme_header(headers, @converter.collect_options(self)[:theme])
 
           response = Java.send_request(
             :url => '/plantumlpreprocessor',
