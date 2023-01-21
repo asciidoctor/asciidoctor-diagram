@@ -4,6 +4,12 @@
 
 Enhancements::
 
+* Issue #399: Add support for PlantUML theme attribute
+
+== 2.2.3
+
+Enhancements::
+
 * Issue #373: Add support for rendering Ditaa diagrams via PlantUML using ditaamini
 * Issue #383: Allow bullet characters for Ditaa to be overridden
 
