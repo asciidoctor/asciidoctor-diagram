@@ -10,6 +10,7 @@
 :uri-dpic: https://gitlab.com/aplevich/dpic
 :uri-dot: https://graphviz.gitlab.io/_pages/doc/info/lang.html
 :uri-erd: https://github.com/BurntSushi/erd
+:uri-erd-go: https://github.com/kaishuu0123/erd-go
 :uri-gnuplot: http://gnuplot.info
 :uri-graphviz: https://graphviz.gitlab.io
 :uri-imagemagick: http://www.imagemagick.org

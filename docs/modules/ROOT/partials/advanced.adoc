@@ -76,7 +76,7 @@ The following table lists the tools that are required for each diagram type, the
    |diagrams     |{uri-python}[Python]                                                  |`diagrams-python`
    |ditaa        |{uri-java}[Java]                                                      |`java`
    |dpic         |{uri-dpic}[dpic]                                                      |`dpic`
-   |erd          |{uri-erd}[Erd]                                                        |`erd`
+   |erd          |{uri-erd}[Erd] or {uri-erd-go}[Erd Go]                                |`erd`
    |gnuplot      |{uri-gnuplot}[Gnuplot]                                                |`gnuplot`
    |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
    |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
