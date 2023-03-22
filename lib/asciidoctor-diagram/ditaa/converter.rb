@@ -40,7 +40,7 @@ module Asciidoctor
       Java.classpath.concat DITAA_JARS
 
       def supported_formats
-        [:png, :svg]
+        [:png, :svg, :txt]
       end
 
       def collect_options(source)
@@ -59,6 +59,8 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
+        return source.to_s if format == :txt
+
         Java.load
 
         flags = []

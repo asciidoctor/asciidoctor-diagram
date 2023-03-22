@@ -17,11 +17,11 @@ describe Asciidoctor::Diagram::DitaaInlineMacroProcessor do
 end
 
 describe Asciidoctor::Diagram::DitaaBlockMacroProcessor do
-  include_examples "block_macro", :ditaa, DITAA_CODE, [:png, :svg]
+  include_examples "block_macro", :ditaa, DITAA_CODE, [:png, :svg, :txt]
 end
 
 describe Asciidoctor::Diagram::DitaaBlockProcessor do
-  include_examples "block", :ditaa, DITAA_CODE, [:png, :svg]
+  include_examples "block", :ditaa, DITAA_CODE, [:png, :svg, :txt]
 
   it "should support ditaa options as attributes" do
     doc = <<-eos

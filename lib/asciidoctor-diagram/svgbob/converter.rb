@@ -11,7 +11,7 @@ module Asciidoctor
 
 
       def supported_formats
-        [:svg]
+        [:svg, :txt]
       end
 
       def native_scaling?
@@ -38,6 +38,7 @@ module Asciidoctor
 
 
       def convert(source, format, options)
+        return source.to_s if format == :txt
 
         flags = []
         options.each do |option, value|

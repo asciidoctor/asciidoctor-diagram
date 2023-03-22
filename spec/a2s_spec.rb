@@ -25,9 +25,9 @@ describe Asciidoctor::Diagram::AsciiToSvgInlineMacroProcessor do
 end
 
 describe Asciidoctor::Diagram::AsciiToSvgBlockMacroProcessor do
-  include_examples "block_macro", :a2s, A2S_CODE, [:svg]
+  include_examples "block_macro", :a2s, A2S_CODE, [:svg, :txt]
 end
 
 describe Asciidoctor::Diagram::AsciiToSvgBlockProcessor do
-  include_examples "block", :svgbob, A2S_CODE, [:svg]
+  include_examples "block", :svgbob, A2S_CODE, [:svg, :txt]
 end
