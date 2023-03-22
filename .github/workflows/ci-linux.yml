@@ -71,8 +71,7 @@ jobs:
                                    cargo \
                                    texlive-latex-extra \
                                    texlive-fonts-extra \
-                                   git \
-                                   haskell-stack
+                                   git
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -109,10 +108,7 @@ jobs:
         run: npm install -g bytefield-svg
       - name: Install ERD
         run: |
-          git clone https://github.com/BurntSushi/erd
-          cd erd
-          stack install
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          go install github.com/kaishuu0123/erd-go@latest
       - name: Install DPIC
         run: sudo apt-get install -qq dpic
       - name: Install Pikchr

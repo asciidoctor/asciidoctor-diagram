@@ -15,7 +15,7 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
-        erd_path = source.find_command('erd')
+        erd_path = source.find_command('erd', :alt_cmds => ['erd-go'])
         dot_path = source.find_command('dot', :alt_attrs => ['graphvizdot'])
 
         dot_code = generate_stdin(erd_path, format.to_s, source.to_s) do |tool_path, output_path|
