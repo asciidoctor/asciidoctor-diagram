@@ -21,14 +21,14 @@ The following diagram types and output formats are available:
 [cols=">,5*^",options="header"]
 |===
 |Diagram Type                      |gif    |pdf    |png    |svg    |txt
-|{uri-a2s}[a2s]                    |       |       |       |{check}|
+|{uri-a2s}[a2s]                    |       |       |       |{check}|{check}
 |{uri-actdiag}[actdiag]            |       |{check}|{check}|{check}|
 |<<barcode,barcode>>               |       |       |{check}|       |{check}
 |{uri-blockdiag}[blockdiag]        |       |{check}|{check}|{check}|
 |{uri-bpmn}[bpmn]                  |       |{check}|{check}|{check}|
 |{uri-bytefield}[bytefield]        |       |       |       |{check}|
 |{uri-diagrams}[diagrams]          |       |{check}|{check}|{check}|
-|{uri-ditaa}[ditaa]                |       |       |{check}|{check}|
+|{uri-ditaa}[ditaa]                |       |       |{check}|{check}|{check}
 |{uri-dpic}[dpic]                  |       |       |       |{check}|
 |{uri-erd}[erd]                    |       |       |{check}|{check}|
 |{uri-gnuplot}[gnuplot]            |{check}|       |{check}|{check}|{check}
@@ -45,7 +45,7 @@ The following diagram types and output formats are available:
 |{uri-seqdiag}[seqdiag]            |       |{check}|{check}|{check}|
 |{uri-shaape}[shaape]              |       |       |{check}|{check}|
 |{uri-smcat}[smcat]                |       |       |       |{check}|
-|{uri-svgbob}[svgbob]              |       |       |       |{check}|
+|{uri-svgbob}[svgbob]              |       |       |       |{check}|{check}
 |{uri-symbolator}[symbolator]      |       |{check}|{check}|{check}|
 |{uri-syntrax}[syntrax] (Syntrax)  |       |{check}|{check}|{check}|
 |{uri-jsyntrax}[syntrax] (JSyntrax)|       |       |{check}|{check}|

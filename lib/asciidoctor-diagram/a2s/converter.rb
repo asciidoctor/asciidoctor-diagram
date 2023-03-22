@@ -10,7 +10,7 @@ module Asciidoctor
       include CliGenerator
 
       def supported_formats
-        [:svg]
+        [:svg, :txt]
       end
 
       def collect_options(source)
@@ -24,6 +24,8 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
+        return source.to_s if format == :txt
+
         sx = options[:sx]
         sy = options[:sy]
         scale = options[:scale]
