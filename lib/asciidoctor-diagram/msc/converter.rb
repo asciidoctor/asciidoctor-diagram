@@ -21,7 +21,7 @@ module Asciidoctor
       def convert(source, format, options)
         font = options[:font]
 
-        generate_stdin(source.find_command('mscgen'), format.to_s, source.to_s) do |tool_path, output_path|
+        generate_stdin(source.find_command('mscgen', :alt_cmds => ['mscgen_js']), format.to_s, source.to_s) do |tool_path, output_path|
           args = [tool_path, '-o', Platform.native_path(output_path), '-T', format.to_s]
           if font
             args << '-F' << font

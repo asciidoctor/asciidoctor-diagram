@@ -17,6 +17,7 @@
 :uri-java: http://java.sun.com
 :uri-mermaid: https://github.com/mermaid-js/mermaid-cli
 :uri-mscgen: http://www.mcternan.me.uk/mscgen/
+:uri-mscgen-js: https://github.com/mscgenjs/mscgenjs-cli
 :uri-nomnoml: http://nomnoml.com
 :uri-nwdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-packetdiag: http://blockdiag.com/en/nwdiag/index.html

@@ -145,7 +145,7 @@ jobs:
           chmod +x Umlet/umlet
           echo "$PWD/Umlet" >> $GITHUB_PATH
       - name: Install MSCgen
-        run: sudo apt-get install -qq mscgen
+        run: npm install --global mscgenjs-cli
       - name: Install Blockdiag
         run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
       - name: Install svgbob
