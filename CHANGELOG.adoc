@@ -4,6 +4,7 @@
 
 Enhancements::
 
+* Issue #401: Add passthrough `txt` output format support for A2S, Ditaa, and Svgbob
 * Issue #402: Add https://github.com/kaishuu0123/erd-go[erd-go] support
 
 == 2.2.4

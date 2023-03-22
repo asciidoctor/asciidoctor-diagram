@@ -25,9 +25,9 @@ describe Asciidoctor::Diagram::SvgBobInlineMacroProcessor do
 end
 
 describe Asciidoctor::Diagram::SvgBobBlockMacroProcessor do
-  include_examples "block_macro", :svgbob, SVGBOB_CODE, [:svg]
+  include_examples "block_macro", :svgbob, SVGBOB_CODE, [:svg, :txt]
 end
 
 describe Asciidoctor::Diagram::SvgBobBlockProcessor do
-  include_examples "block", :svgbob, SVGBOB_CODE, [:svg]
+  include_examples "block", :svgbob, SVGBOB_CODE, [:svg, :txt]
 end
