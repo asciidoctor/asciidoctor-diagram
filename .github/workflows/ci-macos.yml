@@ -114,7 +114,7 @@ jobs:
           echo "$PWD/Umlet" >> $GITHUB_PATH
 
       - name: Install MSCgen
-        run: export HOMEBREW_NO_INSTALL_CLEANUP=1 && brew install mscgen
+        run: npm install --global mscgenjs-cli
       - name: Install Blockdiag
         run: pip3 install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
       - name: Install svgbob
