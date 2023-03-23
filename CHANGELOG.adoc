@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.6
+
+Enhancements::
+
+* Add support for PlantUML 1.2023.x
+
 == 2.2.5
 
 Enhancements::
