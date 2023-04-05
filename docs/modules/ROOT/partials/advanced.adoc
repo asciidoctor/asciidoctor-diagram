@@ -74,6 +74,7 @@ The following table lists the tools that are required for each diagram type, the
    |bpmn         |{uri-bpmn}[bpmn-js-cmd]                                               |`bpmn`
    |bytefield    |{uri-bytefield}[bytefield-svg]                                        |`bytefield-svg`
    |diagrams     |{uri-python}[Python]                                                  |`diagrams-python`
+   |D2           |{uri-d2}[D2]                                                          |`d2`
    |ditaa        |{uri-java}[Java]                                                      |`java`
    |dpic         |{uri-dpic}[dpic]                                                      |`dpic`
    |erd          |{uri-erd}[Erd] or {uri-erd-go}[Erd Go]                                |`erd`
@@ -232,6 +233,21 @@ If the maximum size is exceeded, POST requests are used instead
 |Name         |Default value   |Description
 |height       |786             |The target height of the diagram. Does not apply for output type `svg`.
 |width        |1024            |The target width of the diagram. Does not apply for output type `svg`.
+|===
+
+==== D2
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value                 |Description
+|layout          |dagre                         |Set the diagram layout engine
+|theme           |0                             |Set the diagram theme ID
+|pad             |100                           |Pixels padded around the rendered diagram
+|animate-interval|                              |If given, multiple boards are packaged as 1 SVG which transitions through each board at the interval (in milliseconds). Can only be used with SVG exports.
+|sketch          |false                         |Renders the diagram to look like it was sketched by hand
+|font-regular    |Source Sans Pro Regular       |Path to .ttf file to use for the regular font
+|font-italic     |Source Sans Pro Regular-Italic|Path to .ttf file to use for the italic font
+|font-bol        |Source Sans Pro Bold          |Path to .ttf file to use for the bold font
 |===
 
 ==== Diagrams
