@@ -83,6 +83,9 @@ jobs:
           bundler-cache: true
       - name: Setup Golang
         uses: actions/setup-go@v2
+      - name: Setup Go path
+        run: |
+          echo "$HOME/go/bin" >> $GITHUB_PATH
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
@@ -103,7 +106,6 @@ jobs:
       - name: Install AsciitoSVG
         run: |
           go install github.com/asciitosvg/asciitosvg/cmd/a2s@latest
-          echo "$HOME/go/bin" >> $GITHUB_PATH
       - name: Install Bytefield-SVG
         run: npm install -g bytefield-svg
       - name: Install ERD
@@ -158,6 +160,9 @@ jobs:
 #        run: pip install symbolator
       - name: Install Diagrams
         run: pip install diagrams
+      - name: Install D2
+        run: |
+          go install oss.terrastruct.com/d2@latest
       - name: Run tests
         run: bundle exec rake test
         env:
