@@ -29,6 +29,9 @@ jobs:
           bundler-cache: true
       - name: Setup Golang
         uses: actions/setup-go@v2
+      - name: Setup Go path
+        run: |
+          echo "$HOME/go/bin" >> $GITHUB_PATH
       - name: Install Python Dependencies
         run: |
           export HOMEBREW_NO_INSTALL_CLEANUP=1
@@ -56,7 +59,6 @@ jobs:
       - name: Install AsciitoSVG
         run: |
           go install github.com/asciitosvg/asciitosvg/cmd/a2s@latest
-          echo "$HOME/go/bin" >> $GITHUB_PATH
       - name: Install Bytefield-SVG
         run: npm install -g bytefield-svg
       - name: Install ERD
@@ -130,6 +132,9 @@ jobs:
           brew install font-dejavu
       - name: Install Diagrams
         run: pip3 install diagrams
+      - name: Install D2
+        run: |
+          go install oss.terrastruct.com/d2@latest
       - name: Run tests
         run: bundle exec rake test
         env:

@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.7
+
+Enhancements::
+
+* Issue #407: Add https://d2lang.com[D2] support
+
 == 2.2.6
 
 Enhancements::

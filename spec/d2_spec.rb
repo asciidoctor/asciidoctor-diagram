@@ -1,0 +1,37 @@
+require_relative 'test_helper'
+
+D2_CODE = <<-eos
+# Actors
+hans: Hans Niemann
+
+defendants: {
+  mc: Magnus Carlsen
+  playmagnus: Play Magnus Group
+  chesscom: Chess.com
+  naka: Hikaru Nakamura
+
+  mc -> playmagnus: Owns majority
+  playmagnus <-> chesscom: Merger talks
+  chesscom -> naka: Sponsoring
+}
+
+# Accusations
+hans -> defendants: 'sueing for $100M'
+
+# Offense
+defendants.naka -> hans: Accused of cheating on his stream
+defendants.mc -> hans: Lost then withdrew with accusations
+defendants.chesscom -> hans: 72 page report of cheating
+eos
+
+describe Asciidoctor::Diagram::D2InlineMacroProcessor, :broken_on_windows do
+  include_examples "inline_macro", :d2, D2_CODE, [:svg]
+end
+
+describe Asciidoctor::Diagram::D2BlockMacroProcessor, :broken_on_windows do
+  include_examples "block_macro", :d2, D2_CODE, [:svg]
+end
+
+describe Asciidoctor::Diagram::D2BlockProcessor, :broken_on_windows do
+  include_examples "block", :d2, D2_CODE, [:svg]
+end
