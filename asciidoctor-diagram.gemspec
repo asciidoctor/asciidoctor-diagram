@@ -12,9 +12,16 @@ Gem::Specification.new do |s|
   s.summary       = %q{A family of Asciidoctor extensions that generate images from a broad range of embedded plain text diagram descriptions, including PlantUML, ditaa, Kroki, and many others.}
   s.homepage      = 'https://github.com/asciidoctor/asciidoctor-diagram'
   s.license       = 'MIT'
+  s.metadata = {
+    "bug_tracker_uri"   => "https://github.com/asciidoctor/asciidoctor-diagram/issues",
+    "changelog_uri"     => "https://github.com/asciidoctor/asciidoctor-diagram/blob/master/CHANGELOG.adoc",
+    "documentation_uri" => "https://docs.asciidoctor.org/diagram-extension/latest/",
+    "homepage_uri"      => "https://github.com/asciidoctor/asciidoctor-diagram",
+    "source_code_uri"   => "https://github.com/asciidoctor/asciidoctor-diagram.git",
+  }
 
   begin
-    s.files             = `git ls-files -z --exclude=deps/* -- */* :!:deps {CHANGELOG,LICENSE,README,Rakefile}*`.split "\0"
+    s.files             = `git ls-files -z --exclude=deps/* -- */* :!:deps {CHANGELOG,LICENSE,README,Rakefile,pkg}*`.split "\0"
   rescue
     s.files             = Dir['**/*']
   end
