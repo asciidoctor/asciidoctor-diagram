@@ -278,7 +278,7 @@ Foo1 -> Foo2 : To boundary
     expect(File.exist?(target)).to be true
 
     svg = File.read(target, :encoding => Encoding::UTF_8)
-    expect(svg).to match(/<[^<]+ fill=["']url\(#gvl9ibi66ipfc0\)["']/)
+    expect(svg).to match(/<[^<]+ stop-color=["']#7C9AB9["']/)
   end
 
   it 'should use plantuml include dir when specified as a document attribute' do
