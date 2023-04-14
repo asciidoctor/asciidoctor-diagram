@@ -108,6 +108,8 @@ jobs:
           go install github.com/asciitosvg/asciitosvg/cmd/a2s@latest
       - name: Install Bytefield-SVG
         run: npm install -g bytefield-svg
+      - name: Install dbml-renderer
+        run: npm install -g @softwaretechnik/dbml-renderer
       - name: Install ERD
         run: |
           go install github.com/kaishuu0123/erd-go@latest
