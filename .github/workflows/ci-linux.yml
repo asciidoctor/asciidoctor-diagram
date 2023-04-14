@@ -145,10 +145,10 @@ jobs:
         id: cache-umlet
         uses: actions/cache@v3
         with:
-          path: |
-            umlet-standalone-15.1.zip
+          key: umlet-standalone-15.1
+          path: umlet-standalone-15.1.zip
       - name: Download UMLet
-        if: steps.cache-primes.outputs.cache-hit != 'true'
+        if: steps.cache-umlet.outputs.cache-hit != 'true'
         run: |
           curl -s -O https://www.umlet.com/download/umlet_15_1/umlet-standalone-15.1.zip
       - name: Install UMLet
