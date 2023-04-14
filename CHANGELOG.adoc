@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.8
+
+Enhancements::
+
+* Issue #386: Add basic https://structurizr.com[Structurizr] support
+
 == 2.2.7
 
 Enhancements::
