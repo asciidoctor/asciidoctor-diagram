@@ -357,6 +357,7 @@ No specific attributes.
 [cols=">,<,<",options="header"]
 |===
 |Name          |Default value   |Description
+|renderer      |plantuml-c4     |The rendering backend to use. One of `d2`, `graphviz`, `mermaid`, `plantuml`, or `plantuml-c4`
 |view          |unspecified     |The key of the view to render
 |===
 
