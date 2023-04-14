@@ -13,7 +13,7 @@ jobs:
       matrix:
         os: [ubuntu]
         ruby: [2.3, 2.7, 3.0, jruby, truffleruby]
-        node: [14]
+        node: [18]
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: Checkout
