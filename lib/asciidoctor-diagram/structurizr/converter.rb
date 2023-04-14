@@ -19,11 +19,13 @@ module Asciidoctor
                            lib_dir = File.expand_path('lib', ENV[CLI_HOME_ENV])
                            Dir.children(lib_dir).select { |c| c.end_with? '.jar' }.map { |c| File.expand_path(c, lib_dir) }
                          else
-                           raise "Could not load Structurizr. Specify the location of the Structurizr JAR(s) using the 'DIAGRAM_STRUCTURIZRCLI_HOME' or DIAGRAM_STRUCTURIZR_CLASSPATH' environment variable."
+                           nil
                          end
 
-      Java.classpath.concat Dir[File.join(File.dirname(__FILE__), '*.jar')]
-      Java.classpath.concat STRUCTURIZR_JARS
+      if STRUCTURIZR_JARS
+        Java.classpath.concat Dir[File.join(File.dirname(__FILE__), '*.jar')]
+        Java.classpath.concat STRUCTURIZR_JARS
+      end
 
       def supported_formats
         [:txt]
@@ -37,6 +39,10 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
+        unless STRUCTURIZR_JARS
+          raise "Could not load Structurizr. Specify the location of the Structurizr JAR(s) using the 'DIAGRAM_STRUCTURIZRCLI_HOME' or DIAGRAM_STRUCTURIZR_CLASSPATH' environment variable."
+        end
+
         Java.load
 
         headers = {

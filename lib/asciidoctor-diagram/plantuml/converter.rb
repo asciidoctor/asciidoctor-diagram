@@ -17,12 +17,14 @@ module Asciidoctor
                           require 'asciidoctor-diagram/plantuml/classpath'
                           ::Asciidoctor::Diagram::PlantUmlClasspath::JAR_FILES
                         rescue LoadError
-                          raise "Could not load PlantUML. Eiter require 'asciidoctor-diagram-plantuml' or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_PLANTUML_CLASSPATH' environment variable."
+                          nil
                         end
                       end
 
-      Java.classpath.concat Dir[File.join(File.dirname(__FILE__), '*.jar')].freeze
-      Java.classpath.concat PLANTUML_JARS
+      if PLANTUML_JARS
+        Java.classpath.concat Dir[File.join(File.dirname(__FILE__), '*.jar')].freeze
+        Java.classpath.concat PLANTUML_JARS
+      end
 
       def wrap_source(source)
         PlantUMLPreprocessedSource.new(source, self)
@@ -72,6 +74,9 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
+        unless PLANTUML_JARS
+          raise "Could not load PlantUML. Either require 'asciidoctor-diagram-plantuml' or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_PLANTUML_CLASSPATH' environment variable."
+        end
         Java.load
 
         code = source.code

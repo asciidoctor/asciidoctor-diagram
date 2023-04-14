@@ -32,12 +32,14 @@ module Asciidoctor
                           require 'asciidoctor-diagram/ditaa/classpath'
                           ::Asciidoctor::Diagram::DitaaClasspath::JAR_FILES
                         rescue LoadError
-                          raise "Could not load Ditaa. Eiter require 'asciidoctor-diagram-ditaamini' or specify the location of the Ditaa JAR(s) using the 'DIAGRAM_DITAA_CLASSPATH' environment variable."
+                          nil
                         end
                       end
 
-      Java.classpath.concat Dir[File.join(File.dirname(__FILE__), '*.jar')]
-      Java.classpath.concat DITAA_JARS
+      if DITAA_JARS
+        Java.classpath.concat Dir[File.join(File.dirname(__FILE__), '*.jar')]
+        Java.classpath.concat DITAA_JARS
+      end
 
       def supported_formats
         [:png, :svg, :txt]
@@ -60,6 +62,10 @@ module Asciidoctor
 
       def convert(source, format, options)
         return source.to_s if format == :txt
+
+        unless DITAA_JARS
+          raise "Could not load Ditaa. Either require 'asciidoctor-diagram-ditaamini' or specify the location of the Ditaa JAR(s) using the 'DIAGRAM_DITAA_CLASSPATH' environment variable."
+        end
 
         Java.load
 
