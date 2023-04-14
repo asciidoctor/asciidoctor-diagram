@@ -31,6 +31,7 @@ Enhancements::
 Enhancements::
 
 * Issue #399: Add support for PlantUML theme attribute
+* Add DBML support via https://github.com/softwaretechnik-berlin/dbml-renderer[dbml-renderer]
 
 == 2.2.3
 

@@ -6,6 +6,7 @@
 :uri-bpmn: https://github.com/gtudan/bpmn-js-cmd
 :uri-bytefield: https://github.com/Deep-Symmetry/bytefield-svg
 :uri-d2: https://d2lang.com
+:uri-dbml: https://github.com/softwaretechnik-berlin/dbml-renderer
 :uri-diagrams: https://diagrams.mingrammer.com
 :uri-ditaa: http://ditaa.sourceforge.net/
 :uri-dpic: https://gitlab.com/aplevich/dpic

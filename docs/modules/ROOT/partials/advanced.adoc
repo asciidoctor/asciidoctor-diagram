@@ -75,6 +75,7 @@ The following table lists the tools that are required for each diagram type, the
    |bytefield    |{uri-bytefield}[bytefield-svg]                                        |`bytefield-svg`
    |diagrams     |{uri-python}[Python]                                                  |`diagrams-python`
    |D2           |{uri-d2}[D2]                                                          |`d2`
+   |DBML         |{uri-dbml}[dbml-renderer]                                             |`dbml-renderer`
    |ditaa        |{uri-java}[Java]                                                      |`java`
    |dpic         |{uri-dpic}[dpic]                                                      |`dpic`
    |erd          |{uri-erd}[Erd] or {uri-erd-go}[Erd Go]                                |`erd`
@@ -250,6 +251,10 @@ If the maximum size is exceeded, POST requests are used instead
 |font-italic     |Source Sans Pro Regular-Italic|Path to .ttf file to use for the italic font
 |font-bol        |Source Sans Pro Bold          |Path to .ttf file to use for the bold font
 |===
+
+==== DBML
+
+No specific attributes.
 
 ==== Diagrams
 
