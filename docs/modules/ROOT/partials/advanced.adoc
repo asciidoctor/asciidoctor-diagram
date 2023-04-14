@@ -92,6 +92,7 @@ The following table lists the tools that are required for each diagram type, the
    |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
    |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
    |smcat        |{uri-smcat}[State Machine Cat]                                        |`smcat`
+   |structurizr  |{uri-java}[Java] and {uri-structurizr}[Structurizr CLI]               |`java` and the `DIAGRAM_STRUCTURIZRCLI_HOME` environment variable
    |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
    |symbolator   |{uri-symbolator}[Symbolator]                                          |`symbolator`
    |syntrax      |{uri-syntrax}[Syntrax]/{uri-jsyntrax}[JSyntrax]                       |`syntrax`
@@ -347,8 +348,16 @@ No specific attributes.
 [cols=">,<,<",options="header"]
 |===
 |Name          |Default value   |Description
-|direction     |unspecifed      |The direction of the state machine diagram. One of `top-down`, `bottom-top`, `left-right` or `right-left`.
+|direction     |unspecified     |The direction of the state machine diagram. One of `top-down`, `bottom-top`, `left-right` or `right-left`.
 |engine        |unspecified     |The layout engine to use. One of `dot`, `circo`, `fdp`, `neato`, `osage`, or `twopi`
+|===
+
+==== Structurizr
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|view          |unspecified     |The key of the view to render
 |===
 
 ==== svgbob
@@ -367,9 +376,9 @@ No specific attributes.
 [cols=">,<,<",options="header"]
 |===
 |Name          |Default value   |Description
-|heading       |unspecifed      |Diagram title
+|heading       |unspecified      |Diagram title
 |scale         |1               |A scale factor that is applied to the image.
-|style-file    |unspecifed      |Path to a style config file to pass to Syntrax.
+|style-file    |unspecified      |Path to a style config file to pass to Syntrax.
 |transparent   |false           |Makes the background of the image transparent instead of opaque white.
 |===
 

@@ -31,6 +31,7 @@
 :uri-seqdiag: http://blockdiag.com/en/seqdiag/index.html
 :uri-shaape: https://github.com/christiangoltz/shaape
 :uri-smcat: https://github.com/sverweij/state-machine-cat
+:uri-structurizr: https://structurizr.com
 :uri-svgbob: https://github.com/ivanceras/svgbobrus
 :uri-symbolator: https://github.com/kevinpt/symbolator
 :uri-syntrax: https://kevinpt.github.io/syntrax/

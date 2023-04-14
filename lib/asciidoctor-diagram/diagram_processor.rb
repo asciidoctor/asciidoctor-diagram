@@ -356,6 +356,7 @@ module Asciidoctor
       include DiagramProcessor
 
       def self.inherited(subclass)
+        subclass.use_dsl
         subclass.name_positional_attributes ['target', 'format']
         subclass.contexts [:listing, :literal, :open]
         subclass.content_model :simple
@@ -374,6 +375,7 @@ module Asciidoctor
       include DiagramProcessor
 
       def self.inherited(subclass)
+        subclass.use_dsl
         subclass.name_positional_attributes ['format']
       end
 
