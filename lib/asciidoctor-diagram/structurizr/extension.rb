@@ -1,8 +1,10 @@
 require_relative 'converter'
+require_relative 'renderers.rb'
 require_relative '../diagram_processor'
 
 module Asciidoctor
   module Diagram
+
     class StructurizrConvertBlockProcessor < DiagramBlockProcessor
       use_converter StructurizrConverter
     end
@@ -13,15 +15,15 @@ module Asciidoctor
       def initialize(name = nil, config = nil)
         super
         @structurizr = StructurizrConvertBlockMacroProcessor.new(name)
-        @plantuml = PlantUmlBlockProcessor.new(name)
+        @renderers = Renderers.new(name)
       end
 
       def process parent, reader, attributes
         structurizr_attrs = attributes.dup
         structurizr_attrs['format'] = 'txt'
 
-        plantuml_block = @structurizr.process(parent, reader, structurizr_attrs)
-        @plantuml.process(parent, plantuml_block, attributes)
+        renderer_block = @structurizr.process(parent, reader, structurizr_attrs)
+        @renderers.get_renderer(BasicSource.new(self, parent, attributes)).process(parent, renderer_block, attributes)
       end
     end
 
@@ -35,15 +37,15 @@ module Asciidoctor
       def initialize(name = nil, config = nil)
         super
         @structurizr = StructurizrConvertBlockMacroProcessor.new(name)
-        @plantuml = PlantUmlBlockProcessor.new(name)
+        @renderers = Renderers.new(name)
       end
 
       def process parent, target, attributes
         structurizr_attrs = attributes.dup
         structurizr_attrs['format'] = 'txt'
 
-        plantuml_block = @structurizr.process(parent, target, structurizr_attrs)
-        @plantuml.process(parent, plantuml_block, attributes)
+        renderer_block = @structurizr.process(parent, target, structurizr_attrs)
+        @renderers.get_renderer(BasicSource.new(self, parent, attributes)).process(parent, renderer_block, attributes)
       end
     end
   end

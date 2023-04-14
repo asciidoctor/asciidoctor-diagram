@@ -8,7 +8,8 @@ require_relative '../util/java'
 module Asciidoctor
   module Diagram
     # @private
-    class StructurizrConverter < PlantUmlConverter
+    class StructurizrConverter
+      include DiagramConverter
 
       CLASSPATH_ENV = 'DIAGRAM_STRUCTURIZR_CLASSPATH'
       CLI_HOME_ENV = 'DIAGRAM_STRUCTURIZRCLI_HOME'
@@ -30,7 +31,8 @@ module Asciidoctor
 
       def collect_options(source)
         {
-          :view => source.attr('view')
+          :view => source.attr('view'),
+          :renderer => Renderers.get_renderer_type(source)
         }
       end
 
@@ -38,43 +40,9 @@ module Asciidoctor
         Java.load
 
         headers = {
-          'Accept' => 'text/x-plantuml-c4'
+          'Accept' => Renderers.mime_type(options[:renderer])
         }
         headers['X-Structurizr-View'] = options[:view] if options[:view]
-
-        response = Java.send_request(
-          :url => '/structurizr',
-          :body => source.to_s,
-          :headers => headers
-        )
-
-        unless response[:code] == 200
-          raise Java.create_error("Structurizr code generation failed", response)
-        end
-
-        response[:body].force_encoding(Encoding::UTF_8)
-      end
-    end
-
-    class StructurizrToPlantUMLSource < SimpleDelegator
-      def initialize(source, converter)
-        super(source)
-        @converter = converter
-      end
-
-      def code
-        @code ||= load_code
-      end
-
-      def load_code
-        Java.load
-
-        headers = {
-          'Accept' => 'text/x-plantuml-c4'
-        }
-
-        view = attr('view')
-        headers['X-Structurizr-View'] = view if view
 
         response = Java.send_request(
           :url => '/structurizr',
