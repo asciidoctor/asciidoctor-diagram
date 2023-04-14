@@ -15,7 +15,7 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
-        generate_stdin_stdout(source.find_command('dbml-renderer'), code)
+        generate_stdin_stdout(source.find_command('dbml-renderer'), source.code)
       end
     end
   end
