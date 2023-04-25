@@ -23,7 +23,7 @@ module Asciidoctor
           :font_regular => source.attr('font-regular'),
           :font_italic => source.attr('font-italic'),
           :font_bold => source.attr('font-bold')
-        }.delete_if { |key, value| value.nil? }
+        }
       end
 
       def convert(source, format, options)
@@ -31,11 +31,14 @@ module Asciidoctor
           args = [tool_path, '--browser', 'false']
 
           options.each_pair do |key, value|
-            args << "--#{key.to_s.gsub('_', '-')}"
+            flag = "--#{key.to_s.gsub('_', '-')}"
 
-            if key.to_s.start_with?('font')
+            if key == :sketch && value != 'false'
+              args << flag
+            elsif key.to_s.start_with?('font') && !value.nil?
               args << Platform.native_path(value)
-            else
+            elsif !value.nil?
+              args << flag
               args << value
             end
           end

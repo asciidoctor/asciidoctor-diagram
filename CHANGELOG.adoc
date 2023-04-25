@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.9
+
+Bugfixes::
+
+* Issue #409: Fix handling of the D2 `sketch` attribute
+
 == 2.2.8
 
 Enhancements::
