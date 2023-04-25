@@ -81,11 +81,12 @@ module Asciidoctor
             args = opts[:args]
             out_file = opts[:out_file]
             env = opts[:env] || {}
+            open3_opts[:chdir] = opts[:chdir] if opts[:chdir]
           else
             raise "Block passed to generate_file should return an Array or a Hash"
         end
 
-        logger.debug "Executing #{args} with options #{open3_opts} and environment #{env}"
+        puts "Executing #{args} with options #{open3_opts} and environment #{env}"
         result = ::Asciidoctor::Diagram::Cli.run(env, *args, open3_opts)
 
         data = target_file == :stdout ? result[:out] : read_result(target_file, out_file)

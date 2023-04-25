@@ -19,6 +19,10 @@ module Asciidoctor
           end
 
           pb = java.lang.ProcessBuilder.new(*args)
+
+          chdir = opts[:chdir]
+          pb.directory(java.io.File.new(chdir)) if chdir
+
           env.each_pair do |key, value|
             pb.environment.put(key, value)
           end
