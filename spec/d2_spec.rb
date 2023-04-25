@@ -34,4 +34,27 @@ end
 
 describe Asciidoctor::Diagram::D2BlockProcessor, :broken_on_windows do
   include_examples "block", :d2, D2_CODE, [:svg]
+
+  it "should support sketch mode" do
+    doc = <<-eos
+= Hello, D2!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[d2, sketch=true]
+----
+#{D2_CODE}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+    target = b.attributes['target']
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+  end
 end
