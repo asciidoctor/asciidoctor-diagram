@@ -20,8 +20,7 @@ module Asciidoctor
 
           pb = java.lang.ProcessBuilder.new(*args)
 
-          chdir = opts[:chdir]
-          pb.directory(java.io.File.new(chdir)) if chdir
+          pb.directory(java.io.File.new(opts[:chdir] || Dir.pwd))
 
           env.each_pair do |key, value|
             pb.environment.put(key, value)
