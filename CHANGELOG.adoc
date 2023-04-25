@@ -11,6 +11,7 @@ Bugfixes::
 Enhancements::
 
 * Issue #386: Add basic https://structurizr.com[Structurizr] support
+* Issue #410: Ensure current directory is always set to document base directory when invoking subprocesses
 
 == 2.2.7
 
