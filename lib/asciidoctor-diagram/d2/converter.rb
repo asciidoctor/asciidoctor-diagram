@@ -45,6 +45,11 @@ module Asciidoctor
 
           args << Platform.native_path(input_path)
           args << Platform.native_path(output_path)
+
+          {
+            :args => args,
+            :chdir => source.base_dir
+          }
         end
       end
     end

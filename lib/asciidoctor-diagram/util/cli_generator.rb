@@ -81,6 +81,7 @@ module Asciidoctor
             args = opts[:args]
             out_file = opts[:out_file]
             env = opts[:env] || {}
+            open3_opts[:chdir] = opts[:chdir] if opts[:chdir]
           else
             raise "Block passed to generate_file should return an Array or a Hash"
         end

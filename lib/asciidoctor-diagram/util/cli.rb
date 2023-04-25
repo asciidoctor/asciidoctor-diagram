@@ -9,8 +9,13 @@ module Asciidoctor
         require_relative 'java'
 
         def self.run(*args)
-          opts = args.pop.dup if args.last.is_a? Hash
-          in_data = opts && opts[:stdin_data]
+          if args.last.is_a? Hash
+            opts = args.pop.dup
+          else
+            opts = {}
+          end
+
+          in_data = opts[:stdin_data]
 
           if Hash === args.first
             env = args.shift.dup
@@ -19,6 +24,9 @@ module Asciidoctor
           end
 
           pb = java.lang.ProcessBuilder.new(*args)
+
+          pb.directory(java.io.File.new(opts[:chdir] || Dir.pwd))
+
           env.each_pair do |key, value|
             pb.environment.put(key, value)
           end
