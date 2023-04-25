@@ -50,7 +50,7 @@ module Asciidoctor
       # @return [String] the base directory against which relative paths in this diagram should be resolved
       # @abstract
       def base_dir
-        attr('docdir', nil, true) || Dir.pwd
+        File.expand_path(attr('docdir', "", true))
       end
 
       # Alias for code
@@ -262,7 +262,7 @@ module Asciidoctor
     class FileSource < BasicSource
       def initialize(block_processor, parent_block, file_name, attributes)
         super(block_processor, parent_block, attributes)
-        @file_name = file_name
+        @file_name = File.expand_path(file_name)
       end
 
       def base_dir
