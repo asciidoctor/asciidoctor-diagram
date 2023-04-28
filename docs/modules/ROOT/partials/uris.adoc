@@ -17,6 +17,7 @@
 :uri-graphviz: https://graphviz.gitlab.io
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com
+:uri-jsyntrax: https://atp-mipt.github.io/jsyntrax/
 :uri-mermaid: https://github.com/mermaid-js/mermaid-cli
 :uri-mscgen: http://www.mcternan.me.uk/mscgen/
 :uri-mscgen-js: https://github.com/mscgenjs/mscgenjs-cli
@@ -36,7 +37,6 @@
 :uri-svgbob: https://github.com/ivanceras/svgbobrus
 :uri-symbolator: https://github.com/kevinpt/symbolator
 :uri-syntrax: https://kevinpt.github.io/syntrax/
-:uri-jsyntrax: https://atp-mipt.github.io/jsyntrax/
 :uri-tikz: https://github.com/pgf-tikz/pgf
 :uri-umlet: http://www.umlet.com/
 :uri-vega: https://vega.github.io/vega/
