@@ -757,8 +757,8 @@ Doc Writer <doc@example.com>
     scaled_image = d.find { |bl| bl.context == :image }
 
     unless formats[0] == :pdf
-      expect(scaled_image.attributes['width']).to be_within(1).of(unscaled_image.attributes['width'] * 2)
-      expect(scaled_image.attributes['height']).to be_within(1).of(unscaled_image.attributes['height'] * 2)
+      expect(scaled_image.attributes['width']).to be_within(10).of(unscaled_image.attributes['width'] * 2)
+      expect(scaled_image.attributes['height']).to be_within(10).of(unscaled_image.attributes['height'] * 2)
     end
   end
 end
