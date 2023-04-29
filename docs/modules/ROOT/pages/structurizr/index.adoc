@@ -1,0 +1,247 @@
+= Structurizr
+include::partial$uris.adoc[]
+
+The following diagram types and output formats are available:
+
+:check: &#10003;
+
+[cols=">,5*^",options="header"]
+|===
+|Diagram Type                      |gif    |pdf    |png    |svg    |txt
+|{uri-a2s}[a2s]                    |       |       |       |{check}|{check}
+|{uri-actdiag}[actdiag]            |       |{check}|{check}|{check}|
+|<<barcode,barcode>>               |       |       |{check}|       |{check}
+|{uri-blockdiag}[blockdiag]        |       |{check}|{check}|{check}|
+|{uri-bpmn}[bpmn]                  |       |{check}|{check}|{check}|
+|{uri-bytefield}[bytefield]        |       |       |       |{check}|
+|{uri-d2}[D2]                      |       |{check}|{check}|{check}|
+|{uri-diagrams}[diagrams]          |       |{check}|{check}|{check}|
+|{uri-ditaa}[ditaa]                |       |       |{check}|{check}|{check}
+|{uri-dpic}[dpic]                  |       |       |       |{check}|
+|{uri-erd}[erd]                    |       |       |{check}|{check}|
+|{uri-gnuplot}[gnuplot]            |{check}|       |{check}|{check}|{check}
+|{uri-dot}[graphviz]               |       |{check}|{check}|{check}|
+|<<meme,meme>>                     |{check}|       |{check}|       |
+|{uri-mermaid}[mermaid]            |       |{check}|{check}|{check}|
+|{uri-mscgen}[msc]                 |       |       |{check}|{check}|
+|{uri-nomnoml}[nomnoml]            |       |       |       |{check}|
+|{uri-nwdiag}[nwdiag]              |       |{check}|{check}|{check}|
+|{uri-packetdiag}[packetdiag]      |       |{check}|{check}|{check}|
+|{uri-pikchr}[pikchr]              |       |       |       |{check}|
+|{uri-plantuml}[plantuml]          |       |       |{check}|{check}|{check}
+|{uri-rackdiag}[rackdiag]          |       |{check}|{check}|{check}|
+|{uri-seqdiag}[seqdiag]            |       |{check}|{check}|{check}|
+|{uri-shaape}[shaape]              |       |       |{check}|{check}|
+|{uri-smcat}[smcat]                |       |       |       |{check}|
+|{uri-structurizr}[structurizr]    |       |       |{check}|{check}|
+|{uri-svgbob}[svgbob]              |       |       |       |{check}|{check}
+|{uri-symbolator}[symbolator]      |       |{check}|{check}|{check}|
+|{uri-syntrax}[syntrax] (Syntrax)  |       |{check}|{check}|{check}|
+|{uri-jsyntrax}[syntrax] (JSyntrax)|       |       |{check}|{check}|
+|{uri-tikz}[tikz]                  |       |{check}|       |{check}|
+|{uri-umlet}[umlet]                |{check}|{check}|{check}|{check}|
+|{uri-vega}[vega]                  |       |       |{check}|{check}|
+|{uri-vegalite}[vegalite]          |       |       |{check}|{check}|
+|{uri-wavedrom}[wavedrom]          |       |       |{check}|{check}|
+|===
+
+:!check:
+
+==== AsciiToSVG
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|fontfamily   |unspecified     |The font family to use in the generated SVG image
+|noblur       |unspecified     |Disable drop-shadow blurring
+|===
+
+[[barcode_attributes]]
+==== Barcode
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value |Description
+|height        |100           |The height of the bars. (1D only, 2D uses ydim)
+|xdim          |1             |The width of the narrowest bar in a barcode. Thicker bars are multiples of the xdim.
+|ydim          |Same as xdim  |This is the same as xdim, but for the height of the blocks in a 2D barcode.
+|margin        |10            |The width of the quiet zone around the barcode.
+|foreground    |black         |The color of the bars specified as a 3 or 6 digit hex RGB value or HTML color name.
+|background    |white         |The color of the background specified as a 3 or 6 digit hex RGB value or HTML color name.
+|===
+
+==== Blockdiag
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|fontpath     |unspecified     |The path to the font that should be used by blockdiag
+|===
+
+==== BPMN
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|height       |786             |The target height of the diagram. Does not apply for output type `svg`.
+|width        |1024            |The target width of the diagram. Does not apply for output type `svg`.
+|===
+
+==== D2
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value                 |Description
+|layout          |dagre                         |Set the diagram layout engine
+|theme           |0                             |Set the diagram theme ID
+|pad             |100                           |Pixels padded around the rendered diagram
+|animate-interval|                              |If given, multiple boards are packaged as 1 SVG which transitions through each board at the interval (in milliseconds). Can only be used with SVG exports.
+|sketch          |false                         |Renders the diagram to look like it was sketched by hand
+|font-regular    |Source Sans Pro Regular       |Path to .ttf file to use for the regular font
+|font-italic     |Source Sans Pro Regular-Italic|Path to .ttf file to use for the italic font
+|font-bol        |Source Sans Pro Bold          |Path to .ttf file to use for the bold font
+|===
+
+==== DBML
+
+No specific attributes.
+
+==== Diagrams
+
+No specific attributes.
+
+==== Ditaa
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|scale        |1               |A scale factor that is applied to the image.
+|tabs         |8               |An integer value that specifies the tab size as a number of spaces.
+|background   |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
+|antialias    |true            |Enables or disables anti-aliasing.
+|separation   |true            |Prevents the separation of common edges of shapes.
+|round-corners|false           |Causes all corners to be rendered as round corners.
+|shadows      |true            |Enables or disable drop shadows.
+|debug        |false           |Renders the debug grid over the resulting image.
+|fixed-slope  |false           |Makes sides of parallelograms and trapezoids fixed slope instead of fixed width.
+|transparent  |false           |Makes the background of the image transparent instead of using the background color.
+|bullet-characters|*o          |The characters to recognize as bullets
+|===
+
+==== Gnuplot
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|background   |unspecified     |Background color, e.g. `red`, `#FF0000`. Does not work with `txt`.
+|height       |unspecified     |The height of the plot. Must be specified together with `width`.
+|width        |unspecified     |The width of the plot. Must be specified together with `height`.
+|crop         |unspecified     |Trims blank space from the edges of the completed plot (true/false). Does not work with `svg`, `pdf`.
+|transparent  |unspecified     |Generate transparent background (true/false). Does not work with `svg`, `pdf`, `txt`.
+|font         |unspecified     |The font face with optional font size to use for the text, e.g. `font="Arial"`, `font="Arial,11"`. Does not work with `txt`.
+|fontscale    |unspecified     |Scales all label for given factor. Does not work with `txt`.
+|===
+
+==== GraphViz
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|layout       |unspecified     |The graphviz layout engine to use (dot -K option).
+|===
+
+==== Meme
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value |Description
+|fill-color    |white         |The fill color for the text.
+|stroke-color  |black         |The outline color for the text
+|stroke-width  |2             |The width of the text outline.
+|font          |Impact        |The font face to use for the text.
+|options       |unspecified   |a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
+|===
+
+==== Mermaid
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value   |Description
+|background      |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
+|css             |unspecified     |Path to a CSS file to pass to mermaid.
+|config          |unspecified     |Path to a JSON config file to pass to mermaid.
+|gantt-config    |unspecified     |Path to a gantt config file to pass to mermaid.
+|puppeteer-config|unspecified     |Path to a puppeteer config file to pass to mermaid.
+|sequence-config |unspecified     |Path to a sequence config file to pass to mermaid.
+|theme           |unspecified     |Theme of the chart, could be default, forest, dark or neutral.
+|width           |unspecified     |Width of the page.
+|height          |unspecified     |Height of the page.
+|===
+
+==== Msc
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|font         |unspecified     |The name of the font that should be used by mscgen
+|===
+
+==== PlantUML
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value   |Description
+|config          |unspecified     |Path to a config file to pass to PlantUML.
+|theme           |unspecified     |PlantUML theme to use.
+|size-limit      |4096            |The maximum dimensions (width and height) of generated diagrams.
+|includedir      |unspecified     |sets a common directory for puml includes (plantuml.include.path)
+|preprocess      |true            |Preprocess PlantUML code before rendering the diagram.
+|===
+
+==== State Machine Cat
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|direction     |unspecified     |The direction of the state machine diagram. One of `top-down`, `bottom-top`, `left-right` or `right-left`.
+|engine        |unspecified     |The layout engine to use. One of `dot`, `circo`, `fdp`, `neato`, `osage`, or `twopi`
+|===
+
+==== Structurizr
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|renderer      |plantuml-c4     |The rendering backend to use. One of `d2`, `graphviz`, `mermaid`, `plantuml`, or `plantuml-c4`
+|view          |unspecified     |The key of the view to render
+|===
+
+==== svgbob
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|font-family   |arial           |text will be rendered with this font
+|font-size     |14              |text will be rendered with this font size
+|scale         |1               |scale the entire svg (dimensions, font size, stroke width) by this factor
+|stroke-width  |2               |stroke width for all lines
+|===
+
+==== Syntrax
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|heading       |unspecified      |Diagram title
+|scale         |1               |A scale factor that is applied to the image.
+|style-file    |unspecified      |Path to a style config file to pass to Syntrax.
+|transparent   |false           |Makes the background of the image transparent instead of opaque white.
+|===
+
+==== TikZ
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|preamble      |unspecified     |Code definitions to pass to TikZ.
+|===

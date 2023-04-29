@@ -1,0 +1,19 @@
+= Output Directories
+
+== Image Output Directory
+
+When Asciidoctor Diagram writes images to disk it will go over the following options in order to determine where to write the files.
+
+. `\{imagesoutdir\}` if the `imagesoutdir` attribute has been specified
+. `\{outdir\}/\{imagesdir\}` if the `outdir` attribute has been specified
+. `\{to_dir\}/\{imagesdir\}` if the `to_dir` attribute has been specified
+. `\{base_dir\}/\{imagesdir\}`
+
+== Image Cache Directory
+
+The image generation also outputs metadata files that by default are located in `.asciidoctor/diagram`.
+To place them in different location, Asciidoctor Diagram checks for (in this order).
+
+. `\{cachedir\}` attribute is specified  in the block header (i.e. `[plantuml, png, cachedir=my-cache]`)
+. `\{diagram-cachedir\}` if the `diagram-cachedir` attribute has been specified
+. `\{outdir\}/\{imagesdir\}`

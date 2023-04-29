@@ -37,7 +37,7 @@ describe Asciidoctor::Diagram::D2BlockProcessor, :broken_on_windows do
 
   it "should support sketch mode" do
     doc = <<-eos
-= Hello, D2!
+= Hello, d2!
 Doc Writer <doc@example.com>
 
 == First Section

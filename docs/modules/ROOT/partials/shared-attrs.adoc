@@ -1,0 +1,12 @@
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|svg-type      |unspecified     |One of `static`, `inline` or `interactive`.
+This determines the style of SVG embedding that's used in certain backends.
+The xref:asciidoc:macros:image-svg.adoc[asciidoc spec] describes this in more detail.
+|server-url    |unspecified    |External service to render diagram.
+Usage removes the need to depend on external tools to be installed locally.
+|server-type   |unspecified    |One of `plantuml` or `kroki_io`
+|max-get-size  |1024           |The maximum size of the URI path for HTTP GET requests.
+If the maximum size is exceeded, POST requests are used instead
+|===

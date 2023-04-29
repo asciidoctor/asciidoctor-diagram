@@ -1,0 +1,16 @@
+= Dpic
+include::partial$uris.adoc[]
+
+{uri-dpic}[dpic] is an implementation of the https://en.wikipedia.org/wiki/PIC_(markup_language)[pic] DSL.
+
+== Output Formats
+
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Dpic Attributes
+
+None
