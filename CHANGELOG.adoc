@@ -1,16 +1,14 @@
 = Asciidoctor-diagram Changelog
 
-== 2.2.9
-
-Bugfixes::
-
-* Issue #409: Fix handling of the D2 `sketch` attribute
-
 == 2.2.8
 
 Enhancements::
 
 * Issue #386: Add basic https://structurizr.com[Structurizr] support
+
+Bugfixes::
+
+* Issue #409: Fix handling of the D2 `sketch` attribute
 * Issue #410: Ensure current directory is always set to document base directory when invoking subprocesses
 
 == 2.2.7
