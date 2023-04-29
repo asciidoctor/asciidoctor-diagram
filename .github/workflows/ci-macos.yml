@@ -132,7 +132,7 @@ jobs:
           brew install font-dejavu
       - name: Install Diagrams
         run: pip3 install diagrams
-      - name: Install D2
+      - name: Install d2
         run: |
           go install oss.terrastruct.com/d2@latest
       - name: Run tests

@@ -1,0 +1,18 @@
+= NwDiag
+include::partial$uris.adoc[]
+
+{uri-nwdiag}[NwDiag] generates network-diagram images from .diag files (similar to graphviz’s DOT files).
+
+== Output Formats
+
+- PDF
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== NwDiag Attributes
+
+None

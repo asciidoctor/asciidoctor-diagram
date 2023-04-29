@@ -1,0 +1,16 @@
+= DBML
+include::partial$uris.adoc[]
+
+{uri-dbml}[dbml-renderer] renders https://dbml.dbdiagram.io/home/#intro[DBML] files to SVG images.
+
+== Output Formats
+
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== DBML Attributes
+
+None

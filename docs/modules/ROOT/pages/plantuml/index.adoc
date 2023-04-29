@@ -1,0 +1,27 @@
+= PlantUML
+include::partial$uris.adoc[]
+
+{uri-plantuml}[PlantUML] is a syntax and tool to draw UML diagrams, using a simple and human readable text description.
+It is particularly well-suited for users who prefer a simple, text-based approach to creating diagrams, and who want a tool that can automatically handle the layout and appearance of their diagrams.
+
+== Output Formats
+
+- PNG
+- SVG
+- TXT
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== PlantUML Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value   |Description
+|config          |unspecified     |Path to a config file to pass to PlantUML.
+|theme           |unspecified     |PlantUML theme to use.
+|size-limit      |4096            |The maximum dimensions (width and height) of generated diagrams.
+|includedir      |unspecified     |sets a common directory for puml includes (plantuml.include.path)
+|preprocess      |true            |Preprocess PlantUML code before rendering the diagram.
+|===

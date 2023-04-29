@@ -1,0 +1,31 @@
+= Mermaid
+include::partial$uris.adoc[]
+
+{uri-mermaid}[Mermaid] is a JavaScript-based diagramming and charting tool that uses Markdown-inspired text definitions and a renderer to create and modify complex diagrams.
+The main purpose of Mermaid is to help documentation catch up with development.
+
+== Output Formats
+
+- PDF
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Mermaid Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value   |Description
+|background      |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
+|css             |unspecified     |Path to a CSS file to pass to mermaid.
+|config          |unspecified     |Path to a JSON config file to pass to mermaid.
+|gantt-config    |unspecified     |Path to a gantt config file to pass to mermaid.
+|puppeteer-config|unspecified     |Path to a puppeteer config file to pass to mermaid.
+|sequence-config |unspecified     |Path to a sequence config file to pass to mermaid.
+|theme           |unspecified     |Theme of the chart, could be default, forest, dark or neutral.
+|width           |unspecified     |Width of the page.
+|height          |unspecified     |Height of the page.
+|===

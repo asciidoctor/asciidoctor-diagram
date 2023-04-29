@@ -1,0 +1,34 @@
+= Ditaa
+include::partial$uris.adoc[]
+
+{uri-ditaa}[ditaa] is a small command-line utility written in Java, that can convert diagrams drawn using ascii art ('drawings' that contain characters that resemble lines like | / - ), into proper bitmap graphics.
+
+A https://github.com/pepijnve/ditaa[fork of the ditaa] project is bundled with the asciidoctor-diagram gem.
+
+== Output Formats
+
+- PNG
+- SVG
+- TXT
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Ditaa Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|scale        |1               |A scale factor that is applied to the image.
+|tabs         |8               |An integer value that specifies the tab size as a number of spaces.
+|background   |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
+|antialias    |true            |Enables or disables anti-aliasing.
+|separation   |true            |Prevents the separation of common edges of shapes.
+|round-corners|false           |Causes all corners to be rendered as round corners.
+|shadows      |true            |Enables or disable drop shadows.
+|debug        |false           |Renders the debug grid over the resulting image.
+|fixed-slope  |false           |Makes sides of parallelograms and trapezoids fixed slope instead of fixed width.
+|transparent  |false           |Makes the background of the image transparent instead of using the background color.
+|bullet-characters|*o          |The characters to recognize as bullets
+|===

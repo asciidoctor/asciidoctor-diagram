@@ -1,4 +1,4 @@
-== Generating a Diagram from a Terminal
+= Rendering Diagrams
 
 You can load Asciidoctor diagram in a terminal using the `-r` flag.
 

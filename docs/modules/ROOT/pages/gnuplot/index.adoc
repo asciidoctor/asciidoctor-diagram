@@ -1,0 +1,30 @@
+= Gnuplot
+include::partial$uris.adoc[]
+
+{uri-gnuplot}[Gnuplot] is a command-driven plotting program.
+It can be used interactively to plot functions and data points in both two- and three-dimensional plots in many different styles.
+
+== Output Formats
+
+- GIF
+- PNG
+- SVG
+- TXT
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Gnuplot Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|background   |unspecified     |Background color, e.g. `red`, `#FF0000`. Does not work with `txt`.
+|height       |unspecified     |The height of the plot. Must be specified together with `width`.
+|width        |unspecified     |The width of the plot. Must be specified together with `height`.
+|crop         |unspecified     |Trims blank space from the edges of the completed plot (true/false). Does not work with `svg`, `pdf`.
+|transparent  |unspecified     |Generate transparent background (true/false). Does not work with `svg`, `pdf`, `txt`.
+|font         |unspecified     |The font face with optional font size to use for the text, e.g. `font="Arial"`, `font="Arial,11"`. Does not work with `txt`.
+|fontscale    |unspecified     |Scales all label for given factor. Does not work with `txt`.
+|===

@@ -1,0 +1,34 @@
+= Meme
+include::partial$uris.adoc[]
+
+The meme extension provides a basic '`Advice Animal`' style image generator.
+Its usage is easiest to explain with an example.
+
+----
+meme::yunoguy.jpg[Doc writers,Y U NO // AsciiDoc]
+----
+
+The target of the block macro tells the extension which image to use as background.
+The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
+Occurrences of `//` surrounded by whitespace are interpreted as line breaks.
+
+== Output Formats
+
+- GIF
+- PNG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Meme Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value |Description
+|fill-color    |white         |The fill color for the text.
+|stroke-color  |black         |The outline color for the text
+|stroke-width  |2             |The width of the text outline.
+|font          |Impact        |The font face to use for the text.
+|options       |unspecified   |a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
+|===

@@ -1,0 +1,21 @@
+= Vega / Vega-Lite
+include::partial$uris.adoc[]
+
+{uri-vega}[Vega] and {uri-vegalite}[Vega-Lite] are declarative language for creating, saving, and sharing interactive visualization designs.
+
+Vega provides basic building blocks for a wide variety of visualization designs: data loading and transformation, scales, map projections, axes, legends, and graphical marks such as rectangles, lines, plotting symbols, etc.
+
+Vega-Lite provides a more concise and convenient form to author common visualizations. As Vega-Lite can compile its specifications to Vega specifications, users may use Vega-Lite as the primary visualization tool and, if needed, transition to use the lower-level Vega for advanced use cases.
+
+== Output Formats
+
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Vega Attributes
+
+None

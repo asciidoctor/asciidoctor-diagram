@@ -1,0 +1,24 @@
+= MscGen
+include::partial$uris.adoc[]
+
+{uri-mscgen}[MscGen] is a small program that converts Message Sequence Chart descriptions to images.
+Message Sequence Charts (MSCs) are a way of representing entities and interactions over some time period and are often used in combination with SDL.
+MSCs are popular in Telecoms to specify how protocols operate although MSCs need not be complicated to create or use.
+Mscgen aims to provide a simple text language that is clear to create, edit and understand, which can also be transformed into common image formats for display or printing.
+
+== Output Formats
+
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== MscGen Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|font         |unspecified     |The name of the font that should be used by mscgen
+|===

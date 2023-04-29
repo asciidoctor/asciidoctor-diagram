@@ -1,0 +1,71 @@
+= Installation
+include::partial$uris.adoc[]
+
+Asciidoctor Diagram is a RubyGem, which can be installed using the `gem` or `bundle` commands.
+
+You can install the Asciidoctor Diagram gem by typing `gem install` in the CLI.
+
+ $ gem install asciidoctor-diagram
+
+by first adding the following entry to your project's [.path]_Gemfile_.
+
+.Gemfile
+[source,ruby]
+----
+gem 'asciidoctor-diagram'
+----
+
+Then execute `bundle` in the CLI.
+
+ $ bundle
+
+== Specifying Diagram Generator Paths
+
+Asciidoctor Diagram depends on external tools to generate images.
+In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable.
+In case you've installed a tool in a way where the executable is not in the `PATH`, you can override its location manually using document attributes.
+The following table lists the tools that are required for each diagram type, the location where they can be downloaded and the document attribute you can use to override their locations.
+
+[cols=">,2*<",options="header"]
+|===
+   |Diagram Type |Tool                                                                  |Attribute
+   |a2s          |{uri-a2s}[AsciiToSvg]                                                 |`a2s`
+   |actdiag      |{uri-actdiag}[ActDiag]                                                |`actdiag`
+   |blockdiag    |{uri-blockdiag}[BlockDiag]                                            |`blockdiag`
+   |bpmn         |{uri-bpmn}[bpmn-js-cmd]                                               |`bpmn`
+   |bytefield    |{uri-bytefield}[bytefield-svg]                                        |`bytefield-svg`
+   |diagrams     |{uri-python}[Python]                                                  |`diagrams-python`
+   |D2           |{uri-d2}[D2]                                                          |`d2`
+   |DBML         |{uri-dbml}[dbml-renderer]                                             |`dbml-renderer`
+   |ditaa        |{uri-java}[Java]                                                      |`java`
+   |dpic         |{uri-dpic}[dpic]                                                      |`dpic`
+   |erd          |{uri-erd}[Erd] or {uri-erd-go}[Erd Go]                                |`erd`
+   |gnuplot      |{uri-gnuplot}[Gnuplot]                                                |`gnuplot`
+   |graphviz     |{uri-graphviz}[GraphViz]                                              |`dot` or `graphvizdot`
+   |meme         |{uri-imagemagick}[ImageMagick]                                        |`convert` and `identify`
+   |mermaid      |{uri-mermaid}[Mermaid.cli]                                            |`mmdc`
+   |msc          |{uri-mscgen}[Mscgen] or {uri-mscgen-js}[mscgen.js]                    |`mscgen`
+   |nomnoml      |{uri-nomnoml}[Nomnoml]                                                |`nomnoml`
+   |nwdiag       |{uri-nwdiag}[NwDiag]                                                  |`nwdiag`
+   |packetdiag   |{uri-nwdiag}[NwDiag]                                                  |`packetdiag`
+   |pikchr       |{uri-pikchr}[Pikchr]                                                  |`pikchr`
+   |plantuml     |{uri-java}[Java]                                                      |`java`
+   |rackdiag     |{uri-nwdiag}[NwDiag]                                                  |`rackdiag`
+   |seqdiag      |{uri-seqdiag}[SeqDiag]                                                |`seqdiag`
+   |shaape       |{uri-shaape}[Shaape]                                                  |`shaape`
+   |smcat        |{uri-smcat}[State Machine Cat]                                        |`smcat`
+   |structurizr  |{uri-java}[Java] and {uri-structurizr}[Structurizr CLI]               |`java` and the `DIAGRAM_STRUCTURIZRCLI_HOME` environment variable
+   |svgbob       |{uri-svgbob}[SvgBob]                                                  |`svgbob`
+   |symbolator   |{uri-symbolator}[Symbolator]                                          |`symbolator`
+   |syntrax      |{uri-syntrax}[Syntrax]/{uri-jsyntrax}[JSyntrax]                       |`syntrax` or `java` and the `DIAGRAM_JSYNTRAX_HOME` environment variable
+   |tikz         |A TeX distribution that supports {uri-tikz}[TikZ]                     |`pdflatex` and `pdf2svg`
+   |umlet        |{uri-umlet}[Umlet]                                                    |`umlet`
+   |vega         |{uri-vega}[vg2png] and/or {uri-vega}[vg2png]                          |`vg2png` and `vg2svg`
+   |vegalite     |{uri-vegalite}[vl2vg] and {uri-vega}[vg2png] and/or {uri-vega}[vg2svg]|`vl2vg`, `vg2png` and `vg2svg`
+.2+|wavedrom     |{uri-wavedromeditor}[WaveDrom Editor]                                 |`wavedrom`
+                <|{uri-wavedromcli}[WaveDrom CLI] (and {uri-phantomjs}[PhantomJS] for WaveDrom CLI v1)      |`wavedrom` (and `phantomjs`)
+|===
+
+If for instance you installed `actdiag` in `/home/me/actdiag/bin` and this path is not included in the `PATH` you can specify its location on the command line
+
+ $ asciidoctor -a actdiag=/home/me/actdiag/bin/actdiag -r asciidoctor-diagram sample.adoc

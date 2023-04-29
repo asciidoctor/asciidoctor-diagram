@@ -1,0 +1,22 @@
+= Graphviz
+include::partial$uris.adoc[]
+
+{uri-graphviz}[Graphviz] takes descriptions of graphs in a simple text language, and makes diagrams in useful formats, such as images and SVG for web pages; PDF or Postscript for inclusion in other documents; or display in an interactive graph browser.
+Graphviz has many useful features for concrete diagrams, such as options for colors, fonts, tabular node layouts, line styles, hyperlinks, and custom shapes.
+
+== Output Formats
+
+- GIF
+- PNG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Graphviz Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|layout       |unspecified     |The graphviz layout engine to use (dot -K option).
+|===
