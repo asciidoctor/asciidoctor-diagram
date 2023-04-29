@@ -1,0 +1,31 @@
+= D2
+include::partial$uris.adoc[]
+
+{uri-D2}[D2] is a diagram scripting language that turns text to diagrams.
+It stands for Declarative Diagramming.
+Declarative, as in, you describe what you want diagrammed, it generates the image.
+
+== Output Formats
+
+- PDF
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== D2 Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value                 |Description
+|layout          |dagre                         |Set the diagram layout engine
+|theme           |0                             |Set the diagram theme ID
+|pad             |100                           |Pixels padded around the rendered diagram
+|animate-interval|                              |If given, multiple boards are packaged as 1 SVG which transitions through each board at the interval (in milliseconds). Can only be used with SVG exports.
+|sketch          |false                         |Renders the diagram to look like it was sketched by hand
+|font-regular    |Source Sans Pro Regular       |Path to .ttf file to use for the regular font
+|font-italic     |Source Sans Pro Regular-Italic|Path to .ttf file to use for the italic font
+|font-bol        |Source Sans Pro Bold          |Path to .ttf file to use for the bold font
+|===

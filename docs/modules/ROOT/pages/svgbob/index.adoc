@@ -1,0 +1,24 @@
+= SvgBob
+include::partial$uris.adoc[]
+
+{uri-svgbob}[SvgBob] can create a nice graphical representation of your text diagrams.
+
+== Output Formats
+
+- SVG
+- TXT
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== SvgBob Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|font-family   |arial           |text will be rendered with this font
+|font-size     |14              |text will be rendered with this font size
+|scale         |1               |scale the entire svg (dimensions, font size, stroke width) by this factor
+|stroke-width  |2               |stroke width for all lines
+|===

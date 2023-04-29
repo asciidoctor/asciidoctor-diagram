@@ -1,0 +1,30 @@
+= Syntrax / JSyntrax
+include::partial$uris.adoc[]
+
+{uri-syntrax}[Syntrax] is a railroad diagram generator.
+It creates a visual illustration of the grammar used for programming languages.
+A specification file describes the syntax as a hierarchy of basic elements.
+This is processed into an image representing the same syntax with interconnected nodes.
+
+{uri-jsyntrax}[JSyntrax] is a reimplementation of Syntrax in Java in order to simplify installation, get rid of required libraries and make it easily portable to any operating system.
+
+== Output Formats
+
+- PDF
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Syntrax Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|heading       |unspecified      |Diagram title
+|scale         |1               |A scale factor that is applied to the image.
+|style-file    |unspecified      |Path to a style config file to pass to Syntrax.
+|transparent   |false           |Makes the background of the image transparent instead of opaque white.
+|===

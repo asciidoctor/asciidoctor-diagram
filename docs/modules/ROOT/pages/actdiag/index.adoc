@@ -1,0 +1,22 @@
+= ActDiag
+include::partial$uris.adoc[]
+
+{uri-actdiag}[actdiag] generates activity-diagram images from .diag files (similar to graphviz’s DOT files).
+
+== Output Formats
+
+- PDF
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== ActDiag Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|fontpath     |unspecified     |The path to the font that should be used by blockdiag
+|===

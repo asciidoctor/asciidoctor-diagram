@@ -1,0 +1,19 @@
+= Symbolator
+include::partial$uris.adoc[]
+
+{uri-symbolator}[Symbolator] is a component diagramming tool for VHDL and Verilog.
+It will parse HDL source files, extract components or modules and render them as an image.
+
+== Output Formats
+
+- PDF
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== Symbolator Attributes
+
+None

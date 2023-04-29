@@ -1,0 +1,25 @@
+= Enabling Extensions
+
+In your program, you can either load and register the entire set of diagram extensions
+
+[source,ruby]
+----
+require 'asciidoctor-diagram'
+----
+
+or load and register each extension individually.
+
+[source,ruby]
+----
+require 'asciidoctor-diagram/<extension_name>'
+----
+
+`<extension_name>` can be one of `a2s`, `blockdiag`, `bytefield`, `diagrams`, `ditaa`, `dpic`, `erd`, `gnuplot`, `graphviz`, `meme`, `mermaid`, `msc`, `pikchr`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
+
+Requiring one or more of these files will automatically register the extensions for all processed documents.
+
+If you need more fine-grained control over when the extensions are enabled, `asciidoctor-diagram/<extension_name>/extension` can be used instead.
+This loads the extensions but does not register it in the Asciidoctor extension registry.
+You can then manually register the extensions at the appropriate times using the `Asciidoctor::Extensions` API.
+
+This document explains the various features of asciidoctor-diagram blocks using ditaa diagrams as an example.

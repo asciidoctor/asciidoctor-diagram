@@ -1,0 +1,21 @@
+= TikZ
+include::partial$uris.adoc[]
+
+{uri-tikz}[TikZ] is a graphics drawing environment for TeX.
+
+== Output Formats
+
+- PDF
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== TikZ Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|preamble      |unspecified     |Code definitions to pass to TikZ.
+|===

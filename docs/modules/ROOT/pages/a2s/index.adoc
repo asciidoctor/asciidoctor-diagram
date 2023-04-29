@@ -1,0 +1,22 @@
+== ASCIIToSVG
+include::partial$uris.adoc[]
+
+{uri-a2s}[ASCIIToSVG] is a pretty simple Go library (with an accompanying CLI tool) that parses ASCII art diagrams, attempting to convert them to an aesthetically pleasing SVG output.
+
+== Output Formats
+
+- SVG
+- TXT
+
+== Common Attributes
+
+include::partial$/shared-attrs.adoc[]
+
+== ASCIIToSVG Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|fontfamily   |unspecified     |The font family to use in the generated SVG image
+|noblur       |unspecified     |Disable drop-shadow blurring
+|===

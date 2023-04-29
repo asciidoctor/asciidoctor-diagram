@@ -1,4 +1,5 @@
-== Creating a Diagram
+= Diagram Blocks
+include::partial$uris.adoc[]
 
 A diagram is written inside a literal block, which can accept several attributes.
 
@@ -14,51 +15,55 @@ Diagram in appropriate syntax
 <3> The `format` attribute determines the output image format to use. If a format is not specified, the default output format for the chosen diagram type will be used.
 <4> Place the attribute list directly on top of the delimited literal block (+....+). You can also use an open block as an alternative (`--`).
 
-The following diagram types and output formats are available:
+== Diagram Macros
 
-:check: &#10003;
+The diagram extensions can also be used in inline, or block macro form.
 
-[cols=">,5*^",options="header"]
-|===
-|Diagram Type                      |gif    |pdf    |png    |svg    |txt
-|{uri-a2s}[a2s]                    |       |       |       |{check}|{check}
-|{uri-actdiag}[actdiag]            |       |{check}|{check}|{check}|
-|<<barcode,barcode>>               |       |       |{check}|       |{check}
-|{uri-blockdiag}[blockdiag]        |       |{check}|{check}|{check}|
-|{uri-bpmn}[bpmn]                  |       |{check}|{check}|{check}|
-|{uri-bytefield}[bytefield]        |       |       |       |{check}|
-|{uri-d2}[D2]                      |       |{check}|{check}|{check}|
-|{uri-diagrams}[diagrams]          |       |{check}|{check}|{check}|
-|{uri-ditaa}[ditaa]                |       |       |{check}|{check}|{check}
-|{uri-dpic}[dpic]                  |       |       |       |{check}|
-|{uri-erd}[erd]                    |       |       |{check}|{check}|
-|{uri-gnuplot}[gnuplot]            |{check}|       |{check}|{check}|{check}
-|{uri-dot}[graphviz]               |       |{check}|{check}|{check}|
-|<<meme,meme>>                     |{check}|       |{check}|       |
-|{uri-mermaid}[mermaid]            |       |{check}|{check}|{check}|
-|{uri-mscgen}[msc]                 |       |       |{check}|{check}|
-|{uri-nomnoml}[nomnoml]            |       |       |       |{check}|
-|{uri-nwdiag}[nwdiag]              |       |{check}|{check}|{check}|
-|{uri-packetdiag}[packetdiag]      |       |{check}|{check}|{check}|
-|{uri-pikchr}[pikchr]              |       |       |       |{check}|
-|{uri-plantuml}[plantuml]          |       |       |{check}|{check}|{check}
-|{uri-rackdiag}[rackdiag]          |       |{check}|{check}|{check}|
-|{uri-seqdiag}[seqdiag]            |       |{check}|{check}|{check}|
-|{uri-shaape}[shaape]              |       |       |{check}|{check}|
-|{uri-smcat}[smcat]                |       |       |       |{check}|
-|{uri-structurizr}[structurizr]    |       |       |{check}|{check}|
-|{uri-svgbob}[svgbob]              |       |       |       |{check}|{check}
-|{uri-symbolator}[symbolator]      |       |{check}|{check}|{check}|
-|{uri-syntrax}[syntrax] (Syntrax)  |       |{check}|{check}|{check}|
-|{uri-jsyntrax}[syntrax] (JSyntrax)|       |       |{check}|{check}|
-|{uri-tikz}[tikz]                  |       |{check}|       |{check}|
-|{uri-umlet}[umlet]                |{check}|{check}|{check}|{check}|
-|{uri-vega}[vega]                  |       |       |{check}|{check}|
-|{uri-vegalite}[vegalite]          |       |       |{check}|{check}|
-|{uri-wavedrom}[wavedrom]          |       |       |{check}|{check}|
-|===
+.Anatomy of a diagram block macro
+----
+diagram-type::source-file-name[format=output-format] // <1> <2> <3>
+----
+<1> The macro name specifies the diagram syntax that is being used.
+<2> The source file name specifies the external file that contains the diagram source code.
+<3> The `format` attribute determines the output image format to use. If a format is not specified, the default output format for the chosen diagram type will be used.
 
-:!check:
+When the source file name is a relative path it is resolved with respect to the location of the document being processed.
+
+== Diagram Attributes
+
+Certain diagram types allow image generation to be customized using attributes.
+Each attribute can be specified per individual diagram block or for all blocks of a given diagram type in a document level.
+This is illustrated for the blockdiag `fontpath` attribute in the example below.
+
+----
+= Asciidoctor Diagram
+:blockdiag-fontpath: /path/to/font.ttf <1>
+
+[blockdiag] <2>
+....
+....
+
+[blockdiag, fontpath="/path/to/otherfont.ttf"] <3>
+....
+....
+----
+<1> Attributes can be specified for all diagram of a certain type at the document level by prefixing them with `<blocktype>-`.
+In this example, the `fontpath` attribute is specified for all diagrams of type `blockdiag`.
+<2> The first diagram does not specify an explicit value for `fontpath` so the global `blockdiag-fontpath` value will be used
+<3> The second diagram does specify a `fontpath` value.
+This overrides the global `blockdiag-fontpath` value.
+
+Each attribute can either be specified at the block level or at the document level.
+The attribute name at the document level should be prefixed with the diagram type name and a dash.
+
+=== Common Attributes
+
+The set of shared attributes applies to all diagram types.
+The value for these attributes can be defined at the document level for a single diagram type using the diagram type as prefix or for all diagram types using `diagram` as prefix.
+
+include::partial$shared-attrs.adoc[]
+
+== Example
 
 The example below illustrates the structure of a basic ditaa block written directly in an AsciiDoc document.
 
@@ -109,7 +114,6 @@ Both examples below would result in a file called `ditaa-diagram.png`.
 <snip>
 ----
 ....
-
 
 The example below illustrates the structure of a basic PlantUML block written directly in an AsciiDoc document.
 

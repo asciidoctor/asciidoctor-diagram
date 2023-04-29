@@ -1,0 +1,17 @@
+= WaveDrom
+include::partial$uris.adoc[]
+
+{uri-wavedrom}[WaveDrom] draws your Timing Diagram or Waveform from simple textual description.
+
+== Output Formats
+
+- PNG
+- SVG
+
+== Common Attributes
+
+include::partial$shared-attrs.adoc[]
+
+== WaveDrom Attributes
+
+None
