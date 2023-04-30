@@ -4,7 +4,7 @@
 
 Enhancements::
 
-* Add support for reusing JSyntrax subprocess instances to improve performance when rendering many syntax diagrams (@inponomarev)
+* Add support for reusing JSyntrax subprocess instances to improve performance when rendering many syntax diagrams (@gitrbond, @inponomarev)
 * Issue #386: Add basic https://structurizr.com[Structurizr] support
 
 Bugfixes::
