@@ -35,14 +35,14 @@ end
 describe Asciidoctor::Diagram::D2BlockProcessor, :broken_on_windows do
   include_examples "block", :d2, D2_CODE, [:svg]
 
-  it "should support sketch mode" do
+  it "should not use sketch mode by default" do
     doc = <<-eos
 = Hello, D2!
 Doc Writer <doc@example.com>
 
 == First Section
 
-[d2, sketch=true]
+[d2]
 ----
 #{D2_CODE}
 ----
@@ -56,5 +56,32 @@ Doc Writer <doc@example.com>
     target = b.attributes['target']
     expect(target).to match(/\.svg$/)
     expect(File.exist?(target)).to be true
+    svg = File.read(target, :encoding => Encoding::UTF_8)
+    expect(svg).to_not match(/class='.*?sketch-overlay-B5.*?'/)
+  end
+
+  it "should support sketch mode" do
+    doc = <<-eos
+= Hello, D2!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[d2, foobar, svg, sketch]
+----
+#{D2_CODE}
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+    target = b.attributes['target']
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+    svg = File.read(target, :encoding => Encoding::UTF_8)
+    expect(svg).to match(/class='.*?sketch-overlay-B5.*?'/)
   end
 end

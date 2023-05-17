@@ -193,6 +193,14 @@ module Asciidoctor
         name = [name] unless name.is_a?(Enumerable)
 
         value = name.lazy.map { |n| @attributes[n] }.reject { |v| v.nil? }.first
+        if value.nil?
+          attr_position = config[:positional_attrs] || 1
+          while value.nil? && !@attributes[attr_position].nil?
+            if @attributes[attr_position] == name
+              value = true
+            end
+          end
+        end
 
         if value.nil? && inherit
           inherited_values = name.lazy.map do |n|
