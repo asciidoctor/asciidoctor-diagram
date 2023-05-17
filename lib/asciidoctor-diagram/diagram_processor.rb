@@ -64,6 +64,12 @@ module Asciidoctor
         location = parent.document.reader.cursor_at_mark
 
         normalised_attributes = attributes.inject({}) { |h, (k, v)| h[normalise_attribute_name(k)] = v; h }
+        pos_attr_index = config.fetch(:positional_attrs, []).length + 1
+        until attributes[pos_attr_index].nil?
+          normalised_attributes[attributes[pos_attr_index]] = 'true'
+          pos_attr_index = pos_attr_index + 1
+        end
+
         converter = config[:converter].new
 
         supported_formats = supported_formats(converter)

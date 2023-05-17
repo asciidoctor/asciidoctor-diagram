@@ -33,7 +33,7 @@ module Asciidoctor
           options.each_pair do |key, value|
             flag = "--#{key.to_s.gsub('_', '-')}"
 
-            if key == :sketch && value != 'false'
+            if key == :sketch && !value.nil? && value != 'false'
               args << flag
             elsif key.to_s.start_with?('font') && !value.nil?
               args << Platform.native_path(value)
