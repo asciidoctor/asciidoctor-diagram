@@ -187,11 +187,10 @@ jobs:
       - name: Install Structurizr
         run: |
           mkdir structurizr
-          pushd structurizr
+          cd structurizr
           unzip -qq ../structurizr-cli-1.30.0.zip
-          popd
+          echo "DIAGRAM_STRUCTURIZRCLI_HOME=$PWD" >> $GITHUB_ENV
       - name: Run tests
         run: bundle exec rake test
         env:
           BLOCKDIAG_FONTPATH: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
-          DIAGRAM_STRUCTURIZRCLI_HOME: ${{ env.PWD }}/structurizr
