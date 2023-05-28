@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 BARCODES = {
   :bookland => '978-0-306-40615-7',

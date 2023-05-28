@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 MSC_CODE = <<-eos
 # MSC for some fictional process

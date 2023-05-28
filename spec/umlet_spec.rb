@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 CODE = <<-eos
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>

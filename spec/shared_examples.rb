@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 RSpec.shared_examples "block_macro" do |name, code, formats|
   formats.each do |format|

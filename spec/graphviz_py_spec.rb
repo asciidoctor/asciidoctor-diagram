@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 GRAPHVIZ_PY_CODE = <<-eos
 graph python_graph {

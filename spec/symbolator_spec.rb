@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 SYMBOLATOR_CODE = <<-eos
 library ieee;
