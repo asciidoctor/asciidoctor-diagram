@@ -194,4 +194,4 @@ jobs:
         run: bundle exec rake test
         env:
           BLOCKDIAG_FONTPATH: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
-          DIAGRAM_STRUCTURIZRCLI_HOME: $PWD/structurizr
+          DIAGRAM_STRUCTURIZRCLI_HOME: ${{ env.PWD }}/structurizr

@@ -17,7 +17,7 @@ module Asciidoctor
                            ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
                          elsif ENV.has_key?(CLI_HOME_ENV)
                            lib_dir = File.expand_path('lib', ENV[CLI_HOME_ENV])
-                           Dir.children(lib_dir).select { |c| c.end_with? '.jar' }.map { |c| File.expand_path(c, lib_dir) }
+                           Dir[File.join(lib_dir, '*.jar')]
                          else
                            nil
                          end
