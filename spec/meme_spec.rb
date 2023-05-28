@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 describe Asciidoctor::Diagram::MemeBlockMacroProcessor do
   it "should generate PNG images when format is set to 'png'" do

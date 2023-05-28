@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 BYTEFIELD_CODE = <<-eos
 ;; This the source for the sample diagram illustrated in the project Read Me.

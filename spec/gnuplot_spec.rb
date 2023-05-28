@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 GNUPLOT_CODE = <<-eos
 plot [0:5][0:20] x**2 title 'O(n^2)'

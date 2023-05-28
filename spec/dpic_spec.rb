@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 DPIC_CODE = <<-eos
   arrow "$u$" above

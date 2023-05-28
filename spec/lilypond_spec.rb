@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 LILYPOND_CODE = <<-eos
 \\relative c' { f d f a d f e d cis a cis e a g f e }

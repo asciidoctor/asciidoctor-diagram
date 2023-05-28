@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 SYNTRAX_CODE = <<-eos
 indentstack(10,

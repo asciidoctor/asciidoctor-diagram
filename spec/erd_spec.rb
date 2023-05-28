@@ -1,4 +1,4 @@
-require_relative 'test_helper'
+require_relative 'test_helper_methods'
 
 ERD_CODE = <<-eos
 title {label: "nfldb Entity-Relationship diagram (condensed)", size: "20"}
