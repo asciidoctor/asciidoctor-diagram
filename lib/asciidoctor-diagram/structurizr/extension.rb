@@ -14,7 +14,7 @@ module Asciidoctor
 
       def initialize(name = nil, config = nil)
         super
-        @structurizr = StructurizrConvertBlockMacroProcessor.new(name)
+        @structurizr = StructurizrConvertBlockProcessor.new(name)
         @renderers = Renderers.new(name)
       end
 

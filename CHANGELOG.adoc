@@ -5,6 +5,7 @@
 Bugfixes::
 
 * Issue #409: Second attempt at fixing handling of the D2 `sketch` attribute
+* Issue #415: Resolve NoMethodError when using Structurizr blocks
 
 == 2.2.8
 

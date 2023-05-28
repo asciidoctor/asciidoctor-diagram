@@ -174,7 +174,24 @@ jobs:
       - name: Install D2
         run: |
           go install oss.terrastruct.com/d2@latest
+      - name: Cache Structurizr
+        id: cache-structurizr
+        uses: actions/cache@v3
+        with:
+          key: structurizr-cli-1.30.0
+          path: structurizr-cli-1.30.0.zip
+      - name: Download Structurizr
+        if: steps.cache-structurizr.outputs.cache-hit != 'true'
+        run: |
+          curl -s -O -L https://github.com/structurizr/cli/releases/download/v1.30.0/structurizr-cli-1.30.0.zip
+      - name: Install Structurizr
+        run: |
+          mkdir structurizr
+          pushd structurizr
+          unzip -qq ../structurizr-cli-1.30.0.zip
+          popd
       - name: Run tests
         run: bundle exec rake test
         env:
           BLOCKDIAG_FONTPATH: /usr/share/fonts/truetype/dejavu/DejaVuSans.ttf
+          DIAGRAM_STRUCTURIZRCLI_HOME: $PWD/structurizr

@@ -52,7 +52,7 @@ module Asciidoctor
 
         response = Java.send_request(
           :url => '/structurizr',
-          :body => source.to_s,
+          :body => source.code,
           :headers => headers
         )
 

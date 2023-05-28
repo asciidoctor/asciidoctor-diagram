@@ -1,3 +1,5 @@
+require 'rspec'
+
 require 'asciidoctor'
 require 'asciidoctor/cli/invoker'
 
