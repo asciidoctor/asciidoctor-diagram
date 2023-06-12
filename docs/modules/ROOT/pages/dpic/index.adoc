@@ -13,4 +13,8 @@ include::partial$shared-attrs.adoc[]
 
 == Dpic Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name           |Default value   |Description
+|dpic           |dpic            |The path to the `dpic` executable
+|===

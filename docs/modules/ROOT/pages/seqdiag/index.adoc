@@ -15,4 +15,8 @@ include::partial$shared-attrs.adoc[]
 
 == SeqDiag Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|seqdiag      |seqdiag         |The path to the `seqdiag` binary
+|===

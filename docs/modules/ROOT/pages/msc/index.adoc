@@ -6,6 +6,8 @@ Message Sequence Charts (MSCs) are a way of representing entities and interactio
 MSCs are popular in Telecoms to specify how protocols operate although MSCs need not be complicated to create or use.
 Mscgen aims to provide a simple text language that is clear to create, edit and understand, which can also be transformed into common image formats for display or printing.
 
+This diagram type requires either {uri-mscgen}[Mscgen] or {uri-mscgen-js}[mscgen.js].
+
 == Output Formats
 
 - PNG
@@ -20,5 +22,6 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name         |Default value   |Description
+|mscgen       |mscgen          |The path to the `mscgen` executable
 |font         |unspecified     |The name of the font that should be used by mscgen
 |===

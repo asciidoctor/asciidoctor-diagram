@@ -13,4 +13,8 @@ include::partial$shared-attrs.adoc[]
 
 == Nomnoml Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|nomnoml      |nomnoml         |The path to the `nomnoml` binary
+|===

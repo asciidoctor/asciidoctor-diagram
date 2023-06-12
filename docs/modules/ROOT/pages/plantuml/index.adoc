@@ -19,6 +19,7 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name            |Default value   |Description
+|java            |java            |The path to the `java` executable
 |config          |unspecified     |Path to a config file to pass to PlantUML.
 |theme           |unspecified     |PlantUML theme to use.
 |size-limit      |4096            |The maximum dimensions (width and height) of generated diagrams.

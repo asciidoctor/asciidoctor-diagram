@@ -14,4 +14,8 @@ include::partial$shared-attrs.adoc[]
 
 == Erd Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name           |Default value   |Description
+|erd           |erd            |The path to the `erd` executable
+|===

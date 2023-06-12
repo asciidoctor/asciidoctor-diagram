@@ -15,4 +15,8 @@ include::partial$shared-attrs.adoc[]
 
 == Shaape Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|shaape       |shaape          |The path to the `shaape` binary
+|===

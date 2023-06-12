@@ -20,6 +20,7 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name         |Default value   |Description
+|gnuplot      |gnuplot         |The path to the `gnuplot` binary
 |background   |unspecified     |Background color, e.g. `red`, `#FF0000`. Does not work with `txt`.
 |height       |unspecified     |The height of the plot. Must be specified together with `width`.
 |width        |unspecified     |The width of the plot. Must be specified together with `height`.

@@ -19,6 +19,7 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name         |Default value   |Description
+|bpmn         |bpmn            |The path to the `bpmn` executable
 |height       |786             |The target height of the diagram. Does not apply for output type `svg`.
 |width        |1024            |The target width of the diagram. Does not apply for output type `svg`.
 |===

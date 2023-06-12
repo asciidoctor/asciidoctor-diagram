@@ -14,4 +14,8 @@ include::partial$shared-attrs.adoc[]
 
 == WaveDrom Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|wavedrom      |wavedrom        |The path to the `wavedrom` executable
+|===

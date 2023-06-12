@@ -16,4 +16,8 @@ include::partial$shared-attrs.adoc[]
 
 == UMLet Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|umlet         |umlet           |The path to the `umlet` executable
+|===
