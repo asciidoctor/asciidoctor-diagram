@@ -1,5 +1,12 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.10
+
+Bugfixes::
+
+* Issue #417: Avoid reusing images when block type is different but source code is identical
+
+
 == 2.2.9
 
 Bugfixes::
