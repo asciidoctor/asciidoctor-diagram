@@ -16,4 +16,8 @@ include::partial$shared-attrs.adoc[]
 
 == Symbolator Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|symbolator    |symbolator      |The path to the `symbolator` executable
+|===

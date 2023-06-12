@@ -20,6 +20,7 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name            |Default value                 |Description
+|d2              |d2                            |The path to the `d2` executable
 |layout          |dagre                         |Set the diagram layout engine
 |theme           |0                             |Set the diagram theme ID
 |pad             |100                           |Pixels padded around the rendered diagram

@@ -13,4 +13,8 @@ include::partial$shared-attrs.adoc[]
 
 == Bytefield-SVG Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|bytefield-svg|bytefield-svg   |The path to the `bytefield-svg` executable
+|===

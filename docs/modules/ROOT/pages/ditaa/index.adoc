@@ -20,6 +20,7 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name         |Default value   |Description
+|java         |java            |The path to the `java` executable
 |scale        |1               |A scale factor that is applied to the image.
 |tabs         |8               |An integer value that specifies the tab size as a number of spaces.
 |background   |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.

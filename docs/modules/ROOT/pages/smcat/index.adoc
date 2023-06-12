@@ -16,6 +16,7 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name          |Default value   |Description
+|smcat         |smcat           |The path to the `smcat` binary
 |direction     |unspecified     |The direction of the state machine diagram. One of `top-down`, `bottom-top`, `left-right` or `right-left`.
 |engine        |unspecified     |The layout engine to use. One of `dot`, `circo`, `fdp`, `neato`, `osage`, or `twopi`
 |===

@@ -13,4 +13,8 @@ include::partial$shared-attrs.adoc[]
 
 == Pikchr Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|pikchr       |pikchr          |The path to the `pikchr` binary
+|===

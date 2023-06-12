@@ -12,6 +12,8 @@ The target of the block macro tells the extension which image to use as backgrou
 The first two positional attributes are `top` and `bottom` and are used for the top and bottom label.
 Occurrences of `//` surrounded by whitespace are interpreted as line breaks.
 
+The meme extension requires https://imagemagick.org[ImageMagick].
+
 == Output Formats
 
 - GIF
@@ -26,6 +28,8 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name          |Default value |Description
+|convert       |convert       |The path to the ImageMagick `convert` executable
+|identify      |identify       |The path to the ImageMagick `identify` executable
 |fill-color    |white         |The fill color for the text.
 |stroke-color  |black         |The outline color for the text
 |stroke-width  |2             |The width of the text outline.

@@ -18,4 +18,15 @@ include::partial$shared-attrs.adoc[]
 
 == Vega Attributes
 
+|vega         |{uri-vega}[vg2png] and/or {uri-vega}[vg2png]                          |`vg2png` and `vg2svg`
+|vegalite     |{uri-vegalite}[vl2vg] and {uri-vega}[vg2png] and/or {uri-vega}[vg2svg]|`vl2vg`, `vg2png` and `vg2svg`
+
+[cols=">,<,<",options="header"]
+|===
+|Name          |Default value   |Description
+|vg2png        |vg2png          |The path to the `vg2png` executable. This attribute is used for PNG output.
+|vg2svg        |vg2svg          |The path to the `vg2svg` executable This attribute is used for SVG output.
+|vl2vg         |vl2vg           |The path to the `vl2vg` executable. This attribute is used for Vega-Lite diagrams.
+|===
+
 None

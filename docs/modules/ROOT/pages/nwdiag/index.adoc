@@ -1,7 +1,9 @@
-= NwDiag
+= NwDiag / RackDiag / PacketDiag
 include::partial$uris.adoc[]
 
 {uri-nwdiag}[NwDiag] generates network-diagram images from .diag files (similar to graphviz’s DOT files).
+
+The `rackdiag` and `packetdiag` tools that are part of the `nwdiag` package are also supported.
 
 == Output Formats
 
@@ -15,4 +17,10 @@ include::partial$shared-attrs.adoc[]
 
 == NwDiag Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|nwdiag       |nwdiag          |The path to the `nwdiag` binary
+|packetdiag   |packetdiag      |The path to the `packetdiag` binary
+|rackdiag     |rackdiag        |The path to the `rackdiag` binary
+|===

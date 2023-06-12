@@ -18,5 +18,7 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name         |Default value   |Description
+|dot          |dot             |The path to the `dot` executable
+|graphvizdot  |dot             |This attribute is an alias for the `dot` attribute
 |layout       |unspecified     |The graphviz layout engine to use (dot -K option).
 |===

@@ -18,5 +18,6 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name         |Default value   |Description
+|actdiag      |actdiag         |The path to the `actdiag` executable
 |fontpath     |unspecified     |The path to the font that should be used by blockdiag
 |===

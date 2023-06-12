@@ -17,4 +17,8 @@ include::partial$shared-attrs.adoc[]
 
 == Diagrams Attributes
 
-None
+[cols=">,<,<",options="header"]
+|===
+|Name           |Default value   |Description
+|diagrams-python|diagrams-python |The path to the `diagrams-python` executable
+|===

@@ -19,6 +19,7 @@ include::partial$shared-attrs.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name            |Default value   |Description
+|mmdc            |mmdc            |The path to the `mmdc` executable
 |background      |FFFFFF          |The background colour of the image. The format should be a six-digit hexadecimal number (as in HTML, FF0000 for red). Pass an eight-digit hex to define transparency.
 |css             |unspecified     |Path to a CSS file to pass to mermaid.
 |config          |unspecified     |Path to a JSON config file to pass to mermaid.
