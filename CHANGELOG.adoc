@@ -5,6 +5,7 @@
 Bugfixes::
 
 * Ensure Structurizr themes are loaded when rendering images
+* Issue #416: Silence Asciidoctor warning when using inline macros
 * Issue #417: Avoid reusing images when block type is different but source code is identical
 
 
