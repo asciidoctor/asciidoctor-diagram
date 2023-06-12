@@ -226,7 +226,7 @@ module Asciidoctor
       end
 
       def checksum
-        @checksum ||= compute_checksum(code)
+        @checksum ||= "#{config[:type]}:#{compute_checksum(code)}"
       end
 
       protected
@@ -248,7 +248,7 @@ module Asciidoctor
           md5 << k.to_s if k
           md5 << v.to_s if v
         end
-        md5.hexdigest
+        "md5:#{md5.hexdigest}"
       end
     end
 
