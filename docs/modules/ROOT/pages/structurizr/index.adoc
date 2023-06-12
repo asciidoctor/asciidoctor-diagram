@@ -10,6 +10,9 @@ This is the inverse use case of https://structurizr.com/help/documentation[Struc
 This extension uses the https://structurizr.com/help/cli[Structurizr CLI] tool to convert Structurizr DSL files into the input for a renderer.
 The chosen renderer is then used to generate the final image.
 
+The installation location of Structurizr CLI needs to be passed to asciidoctor-diagram using the `DIAGRAM_STRUCTURIZRCLI_HOME`.
+It should be set to the absolute directory containing the extracted Structurizr CLI archive.
+
 == Output Formats
 
 - PNG
