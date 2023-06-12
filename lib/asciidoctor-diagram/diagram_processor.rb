@@ -423,7 +423,12 @@ module Asciidoctor
         block = generate_block(parent, reader_or_target, attributes)
         attrs = block.attributes.dup
         target = attrs.delete('target')
-        create_inline(parent, :image, nil, :type => 'image', :target => target, :attributes => attrs).convert
+
+        # Don't let the asciidoctor try to apply substitutions.
+        # The text of inline macros is nil which will cause an error
+        attrs.delete('subs')
+
+        create_inline(parent, :image, nil, :type => 'image', :target => target, :attributes => attrs)
       end
 
       def supported_formats(converter)
