@@ -47,6 +47,8 @@ end
 module Asciidoctor
   module Diagram
     module TestHelpers
+      include ::Asciidoctor::Logging
+
       def load_asciidoc(source, options = {})
         options = options.dup
         options[:trace] = true
@@ -71,7 +73,8 @@ module Asciidoctor
           options[:attributes]['diagram-on-error'] = 'abort'
         end
 
-        ::Asciidoctor.load(StringIO.new(source), options.merge({:trace => true}))
+        logger.level = ::Logger::Severity::DEBUG
+        ::Asciidoctor.load(StringIO.new(source), options.merge({:trace => true, :verbose => 2}))
       end
     end
   end
