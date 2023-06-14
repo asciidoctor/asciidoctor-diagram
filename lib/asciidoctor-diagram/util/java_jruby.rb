@@ -5,6 +5,10 @@ module Asciidoctor
   module Diagram
     # @private
     module Java
+      def self.environment_variable(key)
+        ENV[key] || ENV_JAVA[key.downcase.gsub('_', '.')]
+      end
+
       def self.load
         if defined?(@loaded) && @loaded
           return

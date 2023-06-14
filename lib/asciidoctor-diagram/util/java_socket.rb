@@ -8,6 +8,10 @@ module Asciidoctor
   module Diagram
     # @private
     module Java
+      def self.environment_variable(key)
+        ENV[key]
+      end
+
       class CommandServer
         def initialize(java, classpath)
           classpath.each do |file|
