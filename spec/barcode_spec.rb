@@ -99,7 +99,7 @@ END:VCARD
 
     target = b.attributes['target']
     expect(target).to_not be_nil
-    expect(target).to match(/\.png$/)
+    expect(target).to match(/\.svg$/)
     expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil
@@ -129,7 +129,7 @@ Doc Writer <doc@example.com>
 
       target = b.attributes['target']
       expect(target).to_not be_nil
-      expect(target).to match(/\.png$/)
+      expect(target).to match(/\.svg$/)
       expect(File.exist?(target)).to be true
 
       expect(b.attributes['width']).to_not be_nil
@@ -166,7 +166,7 @@ Doc Writer <doc@example.com>
       src = src_match[1]
 
       expect(src).to_not be_nil
-      expect(src).to match(/\.png$/)
+      expect(src).to match(/\.svg$/)
       expect(File.exist?(src)).to be true
 
       expect(/width="([^"]*)"/.match(img)).to_not be_nil

@@ -17,6 +17,7 @@ Bugfixes::
 
 Bugfixes::
 
+* Resolve UTF-8 encoding error when generating SVG for GS1-128 barcodes
 * Issue #409: Second attempt at fixing handling of the D2 `sketch` attribute
 * Issue #415: Resolve NoMethodError when using Structurizr blocks
 

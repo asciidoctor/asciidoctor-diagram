@@ -95,7 +95,7 @@ module Asciidoctor
               barcode = Barby::EAN13.new(code)
             when :gs1_128
               require 'barby/barcode/code_128'
-              code = code.gsub /\([^)]+\)/ do |control|
+              gs1_code = code.gsub /\([^)]+\)/ do |control|
                 case control.upcase
                   when '(FNC1)'
                     Barby::Code128::FNC1
@@ -119,9 +119,9 @@ module Asciidoctor
                     control
                 end
               end
-              code = code.gsub(/\s+/, '')
-              code = code.prepend(Barby::Code128::FNC1) unless code[0] == Barby::Code128::FNC1
-              barcode = Barby::Code128.new(code)
+              gs1_code = gs1_code.gsub(/\s+/, '')
+              gs1_code = gs1_code.prepend(Barby::Code128::FNC1) unless gs1_code[0] == Barby::Code128::FNC1
+              barcode = Barby::Code128.new(gs1_code)
             when :qrcode
               BarcodeDependencies::QRCODE_DEPENDENCIES.each_pair { |n, v| source.ensure_gem(n, v) }
               require 'barby/barcode/qr_code'
@@ -146,6 +146,7 @@ module Asciidoctor
             barcode.to_png(options)
           when :svg
             require_relative 'svg_outputter'
+            options[:title] = code
             options[:foreground] = "##{options[:foreground]}" if options[:foreground] =~ /^[0-9a-f]+$/i
             options[:background] = "##{options[:background]}" if options[:background] =~ /^[0-9a-f]+$/i
             barcode.to_svg(options)
