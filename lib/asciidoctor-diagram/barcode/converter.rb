@@ -27,7 +27,7 @@ module Asciidoctor
       include DiagramConverter
 
       def supported_formats
-        [:png, :svg, :txt]
+        [:svg, :png, :txt]
       end
 
       def collect_options(source)
@@ -52,84 +52,88 @@ module Asciidoctor
         code = source.code
         type = source.config[:type]
 
-        case type
-          when :bookland
-            require 'barby/barcode/bookland'
-            barcode = Barby::Bookland.new(code)
-          when :codabar
-            require 'barby/barcode/codabar'
-            barcode = Barby::Codabar.new(code)
-          when :code25
-            require 'barby/barcode/code_25'
-            barcode = Barby::Code25.new(code)
-          when :code25iata
-            require 'barby/barcode/code_25_iata'
-            barcode = Barby::Code25IATA.new(code)
-          when :code25interleaved
-            require 'barby/barcode/code_25_interleaved'
-            barcode = Barby::Code25Interleaved.new(code)
-          when :code39
-            require 'barby/barcode/code_39'
-            barcode = Barby::Code39.new(code)
-          when :code93
-            require 'barby/barcode/code_93'
-            barcode = Barby::Code93.new(code)
-          when :code128
-            require 'barby/barcode/code_128'
-            barcode = Barby::Code128.new(code)
-          when :code128a
-            require 'barby/barcode/code_128'
-            barcode = Barby::Code128A.new(code)
-          when :code128b
-            require 'barby/barcode/code_128'
-            barcode = Barby::Code128B.new(code)
-          when :code128c
-            require 'barby/barcode/code_128'
-            barcode = Barby::Code128C.new(code)
-          when :ean8
-            require 'barby/barcode/ean_8'
-            barcode = Barby::EAN8.new(code)
-          when :ean13
-            require 'barby/barcode/ean_13'
-            barcode = Barby::EAN13.new(code)
-          when :gs1_128
-            require 'barby/barcode/code_128'
-            code = code.gsub /\([^)]+\)/ do |control|
-              case control.upcase
-                when '(FNC1)'
-                  Barby::Code128::FNC1
-                when '(FNC2)'
-                  Barby::Code128::FNC2
-                when '(FNC3)'
-                  Barby::Code128::FNC3
-                when '(FNC4)'
-                  Barby::Code128::FNC4
-                when '(CODEA)'
-                  Barby::Code128::CODEA
-                when '(CODEB)'
-                  Barby::Code128::CODEB
-                when '(CODEC)'
-                  Barby::Code128::CODEC
-                when '(SHIFT)'
-                  Barby::Code128::SHIFT
-                when '(SP)'
-                  ' '
-                else
-                  control
+        begin
+          case type
+            when :bookland
+              require 'barby/barcode/bookland'
+              barcode = Barby::Bookland.new(code)
+            when :codabar
+              require 'barby/barcode/codabar'
+              barcode = Barby::Codabar.new(code)
+            when :code25
+              require 'barby/barcode/code_25'
+              barcode = Barby::Code25.new(code)
+            when :code25iata
+              require 'barby/barcode/code_25_iata'
+              barcode = Barby::Code25IATA.new(code)
+            when :code25interleaved
+              require 'barby/barcode/code_25_interleaved'
+              barcode = Barby::Code25Interleaved.new(code)
+            when :code39
+              require 'barby/barcode/code_39'
+              barcode = Barby::Code39.new(code)
+            when :code93
+              require 'barby/barcode/code_93'
+              barcode = Barby::Code93.new(code)
+            when :code128
+              require 'barby/barcode/code_128'
+              barcode = Barby::Code128.new(code)
+            when :code128a
+              require 'barby/barcode/code_128'
+              barcode = Barby::Code128A.new(code)
+            when :code128b
+              require 'barby/barcode/code_128'
+              barcode = Barby::Code128B.new(code)
+            when :code128c
+              require 'barby/barcode/code_128'
+              barcode = Barby::Code128C.new(code)
+            when :ean8
+              require 'barby/barcode/ean_8'
+              barcode = Barby::EAN8.new(code)
+            when :ean13
+              require 'barby/barcode/ean_13'
+              barcode = Barby::EAN13.new(code)
+            when :gs1_128
+              require 'barby/barcode/code_128'
+              code = code.gsub /\([^)]+\)/ do |control|
+                case control.upcase
+                  when '(FNC1)'
+                    Barby::Code128::FNC1
+                  when '(FNC2)'
+                    Barby::Code128::FNC2
+                  when '(FNC3)'
+                    Barby::Code128::FNC3
+                  when '(FNC4)'
+                    Barby::Code128::FNC4
+                  when '(CODEA)'
+                    Barby::Code128::CODEA
+                  when '(CODEB)'
+                    Barby::Code128::CODEB
+                  when '(CODEC)'
+                    Barby::Code128::CODEC
+                  when '(SHIFT)'
+                    Barby::Code128::SHIFT
+                  when '(SP)'
+                    ' '
+                  else
+                    control
+                end
               end
-            end
-            code = code.gsub(/\s+/, '')
-            code = code.prepend(Barby::Code128::FNC1) unless code[0] == Barby::Code128::FNC1
-            barcode = Barby::Code128.new(code)
-          when :qrcode
-            BarcodeDependencies::QRCODE_DEPENDENCIES.each_pair { |n, v| source.ensure_gem(n, v) }
-            require 'barby/barcode/qr_code'
-            barcode = Barby::QrCode.new(code)
-          when :upca
-            require 'barby/barcode/ean_13'
-            barcode = Barby::UPCA.new(code)
-          else
-            raise "Unsupported barcode type: #{type}"
+              code = code.gsub(/\s+/, '')
+              code = code.prepend(Barby::Code128::FNC1) unless code[0] == Barby::Code128::FNC1
+              barcode = Barby::Code128.new(code)
+            when :qrcode
+              BarcodeDependencies::QRCODE_DEPENDENCIES.each_pair { |n, v| source.ensure_gem(n, v) }
+              require 'barby/barcode/qr_code'
+              barcode = Barby::QrCode.new(code)
+            when :upca
+              require 'barby/barcode/ean_13'
+              barcode = Barby::UPCA.new(code)
+            else
+              raise "Unsupported barcode type: #{type}"
+          end
+        rescue ArgumentError
+          raise "Invalid #{type} data"
         end
 
         case format
