@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-erd}[erd] is a utility takes a plain text description of entities, their attributes and the relationships between entities and produces a visual diagram modeling the description.
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - SVG

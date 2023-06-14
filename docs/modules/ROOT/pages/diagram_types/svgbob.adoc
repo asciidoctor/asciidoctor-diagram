@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-svgbob}[SvgBob] can create a nice graphical representation of your text diagrams.
 
-== Output Formats
+== Supported Image Formats
 
 - SVG
 - TXT

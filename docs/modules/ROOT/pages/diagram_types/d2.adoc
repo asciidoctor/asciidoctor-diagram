@@ -5,7 +5,7 @@ include::partial$uris.adoc[]
 It stands for Declarative Diagramming.
 Declarative, as in, you describe what you want diagrammed, it generates the image.
 
-== Output Formats
+== Supported Image Formats
 
 - PDF
 - PNG

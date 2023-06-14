@@ -4,7 +4,7 @@ include::partial$uris.adoc[]
 {uri-shaape}[Shaape] processes ascii drawings of diagrams and converts them to pixel or vector graphics.
 The word Shaape itself is a neologism from shape and ascii art.
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - SVG

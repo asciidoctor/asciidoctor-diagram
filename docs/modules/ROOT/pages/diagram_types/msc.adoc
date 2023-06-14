@@ -8,7 +8,7 @@ Mscgen aims to provide a simple text language that is clear to create, edit and 
 
 This diagram type requires either {uri-mscgen}[Mscgen] or {uri-mscgen-js}[mscgen.js].
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - SVG

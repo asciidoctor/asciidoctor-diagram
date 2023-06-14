@@ -7,7 +7,7 @@ Vega provides basic building blocks for a wide variety of visualization designs:
 
 Vega-Lite provides a more concise and convenient form to author common visualizations. As Vega-Lite can compile its specifications to Vega specifications, users may use Vega-Lite as the primary visualization tool and, if needed, transition to use the lower-level Vega for advanced use cases.
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - SVG

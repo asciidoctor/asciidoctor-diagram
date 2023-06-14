@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-seqdiag}[SeqDiag] seqdiag generates sequence-diagram images from .diag files (similar to graphviz’s DOT files).
 
-== Output Formats
+== Supported Image Formats
 
 - PDF
 - PNG

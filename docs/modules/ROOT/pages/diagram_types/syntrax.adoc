@@ -8,7 +8,7 @@ This is processed into an image representing the same syntax with interconnected
 
 {uri-jsyntrax}[JSyntrax] is a reimplementation of Syntrax in Java in order to simplify installation, get rid of required libraries and make it easily portable to any operating system.
 
-== Output Formats
+== Supported Image Formats
 
 - PDF
 - PNG

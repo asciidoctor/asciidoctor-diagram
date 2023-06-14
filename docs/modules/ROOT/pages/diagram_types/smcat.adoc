@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-smcat}[State Machine Cat] is syntax and tool that converts plain text descriptions of state machines into state diagrams.
 
-== Output Formats
+== Supported Image Formats
 
 - SVG
 

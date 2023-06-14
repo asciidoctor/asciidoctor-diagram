@@ -19,7 +19,7 @@ Then execute `bundle` in the CLI.
 
  $ bundle
 
-== Specifying Diagram Generator Paths
+== Diagram Renderer Installation Paths
 
 Asciidoctor Diagram depends on external tools to generate images.
 In most cases it will locate these tools automatically for you by looking for specific executables in each directory in the `PATH` environment variable.
