@@ -3,17 +3,40 @@ include::partial$uris.adoc[]
 
 {uri-actdiag}[actdiag] generates activity-diagram images from .diag files (similar to graphviz’s DOT files).
 
+== Installation
+
+- A Python runtime is required
+- Follow the http://blockdiag.com/en/actdiag/introduction.html#setup[actdag installation instructions]
+
+== Example
+
+----
+[actidag, format="png"]
+....
+actdiag {
+  write -> convert -> image
+
+  lane user {
+     label = "User"
+     write [label = "Writing reST"];
+     image [label = "Get diagram IMAGE"];
+  }
+  lane actdiag {
+     convert [label = "Convert reST to Image"];
+  }
+}
+....
+----
+
+image::actdiag.png[]
+
 == Supported Image Formats
 
 - PDF
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== ActDiag Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

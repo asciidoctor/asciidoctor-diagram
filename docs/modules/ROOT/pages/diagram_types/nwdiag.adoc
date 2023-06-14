@@ -11,11 +11,7 @@ The `rackdiag` and `packetdiag` tools that are part of the `nwdiag` package are 
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== NwDiag Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

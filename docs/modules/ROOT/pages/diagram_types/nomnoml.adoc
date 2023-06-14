@@ -7,11 +7,7 @@ include::partial$uris.adoc[]
 
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Nomnoml Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

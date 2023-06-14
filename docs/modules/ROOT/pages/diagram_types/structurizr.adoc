@@ -18,11 +18,7 @@ It should be set to the absolute directory containing the extracted Structurizr 
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Structurizr Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

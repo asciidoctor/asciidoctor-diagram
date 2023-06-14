@@ -11,11 +11,7 @@ You can also describe or visualize the existing system architecture as well.
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Diagrams Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

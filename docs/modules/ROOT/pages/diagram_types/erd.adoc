@@ -8,11 +8,7 @@ include::partial$uris.adoc[]
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Erd Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

@@ -9,11 +9,7 @@ Graphviz has many useful features for concrete diagrams, such as options for col
 - GIF
 - PNG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Graphviz Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

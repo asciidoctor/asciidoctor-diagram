@@ -9,11 +9,7 @@ include::partial$uris.adoc[]
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== SeqDiag Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===
