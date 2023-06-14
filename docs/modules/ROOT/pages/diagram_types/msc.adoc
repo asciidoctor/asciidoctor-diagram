@@ -13,11 +13,7 @@ This diagram type requires either {uri-mscgen}[Mscgen] or {uri-mscgen-js}[mscgen
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== MscGen Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

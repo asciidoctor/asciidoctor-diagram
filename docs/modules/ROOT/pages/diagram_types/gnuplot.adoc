@@ -11,11 +11,7 @@ It can be used interactively to plot functions and data points in both two- and 
 - SVG
 - TXT
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Gnuplot Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

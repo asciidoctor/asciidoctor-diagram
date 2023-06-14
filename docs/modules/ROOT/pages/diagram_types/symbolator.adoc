@@ -10,11 +10,7 @@ It will parse HDL source files, extract components or modules and render them as
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Symbolator Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

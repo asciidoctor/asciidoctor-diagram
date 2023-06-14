@@ -9,11 +9,7 @@ The word Shaape itself is a neologism from shape and ascii art.
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Shaape Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

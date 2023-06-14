@@ -19,11 +19,7 @@ The meme extension requires https://imagemagick.org[ImageMagick].
 - GIF
 - PNG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Meme Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

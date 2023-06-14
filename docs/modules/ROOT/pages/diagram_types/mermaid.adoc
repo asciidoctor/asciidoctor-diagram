@@ -10,11 +10,7 @@ The main purpose of Mermaid is to help documentation catch up with development.
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Mermaid Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

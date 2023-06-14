@@ -7,10 +7,6 @@ include::partial$uris.adoc[]
 
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
 == State Machine Cat Attributes
 
 [cols=">,<,<",options="header"]

@@ -19,7 +19,7 @@ Barcode macros can be specified using blocks, block macros, or inline macros usi
 <type>:<content>[<attributes>]
 ------
 <1> Type barcode type. One of `bookland`, `codabar`, `code25`, `code25iata`, `code25interleaved`, `code39`, `code93`, `code128`, `code128a`, `code128b`, `code128c`, `ean8`, `ean13`, `gs1_128`, `qrcode`, or `upca`.
-<2> <<Barcode Attributes>>
+<2> <<Attributes>>
 <3> The content to encode in the barcode
 
 By default, the `content` field of the barcode macros will be interpreted as the barcode content.
@@ -27,16 +27,37 @@ This works fine for simple barcodes, but for complex data (e.g., a vCard encoded
 If the `external` attribute is set on a barcode macro, the target is interpreted as a file path.
 The barcode content will then be obtained by reading the contents of the referenced file.
 
+== Installation
+
+- All barcodes types except QR codes require the https://rubygems.org/gems/barby[barby Ruby gem]
+- QR codes requires the https://rubygems.org/gems/rqrcode[rqrcode Ruby gem]
+- PNG image output requires the https://rubygems.org/gems/chunky_png[chunky_png gem]
+
+Each of these dependencies will automatically get loaded as needed.
+It is not necessary to require these manually using the `-r` Asciidoctor CLI option.
+
+== Example
+
+----
+Barcdodes can be written codabar:A31117013206375A[png, height=10] inline or as blocks.
+
+[qrcode, format="png", xdim=4]
+....
+Hello World!
+....
+----
+
+Barcode can be written image:barcode.png[] inline or as blocks.
+
+image::barcode2.png[]
+
 == Supported Image Formats
 
 - PNG
+- SVG
 - TXT
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Barcode Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

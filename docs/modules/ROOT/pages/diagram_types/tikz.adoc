@@ -10,11 +10,7 @@ TikZ requires a TeX distribution that supports the {uri-tikz}[TikZ] package.
 - PDF
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== TikZ Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===

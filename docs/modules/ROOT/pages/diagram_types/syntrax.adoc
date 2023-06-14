@@ -14,11 +14,7 @@ This is processed into an image representing the same syntax with interconnected
 - PNG
 - SVG
 
-== Common Attributes
-
-include::partial$shared-attrs.adoc[]
-
-== Syntrax Attributes
+== Attributes
 
 [cols=">,<,<",options="header"]
 |===
