@@ -4,6 +4,7 @@
 
 Bugfixes::
 
+* Ensure Structurizr themes are loaded when rendering images
 * Issue #417: Avoid reusing images when block type is different but source code is identical
 
 
