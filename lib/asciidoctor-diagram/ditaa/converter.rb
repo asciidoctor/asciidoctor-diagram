@@ -24,9 +24,9 @@ module Asciidoctor
           :bullet_characters => lambda { |o, v| o  << '--bullet-characters' << v if v }
       }
 
-      CLASSPATH_ENV = 'DIAGRAM_DITAA_CLASSPATH'
-      DITAA_JARS = if ENV.has_key?(CLASSPATH_ENV)
-                        ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
+      CLASSPATH_ENV = Java.environment_variable('DIAGRAM_DITAA_CLASSPATH')
+      DITAA_JARS = if CLASSPATH_ENV
+                        CLASSPATH_ENV.split(File::PATH_SEPARATOR)
                       else
                         begin
                           require 'asciidoctor-diagram/ditaa/classpath'

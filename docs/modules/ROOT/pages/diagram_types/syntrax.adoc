@@ -20,7 +20,7 @@ This is processed into an image representing the same syntax with interconnected
 |===
 |Name          |Default value   |Description
 |syntrax       |syntrax         |The path to the `syntrax` executable. This attribute is used for the {uri-syntrax}[Syntrax] implementation.
-|java          |java            |The path to the `java` executable. This attribute is used for the {uri-jsyntrax}[JSyntrax] implementation. The `DIAGRAM_JSYNTRAX_HOME` environment variable should then also be defined and point to the JSyntrax installation directory.
+|java          |java            |The path to the `java` executable. This attribute is used for the {uri-jsyntrax}[JSyntrax] implementation. The `DIAGRAM_JSYNTRAX_HOME` environment variable should then also be defined and point to the JSyntrax installation directory. The installation directory can also be specified using the `diagram.jsyntrax.home` Java system property.
 |heading       |unspecified     |Diagram title
 |scale         |1               |A scale factor that is applied to the image.
 |style-file    |unspecified     |Path to a style config file to pass to Syntrax.

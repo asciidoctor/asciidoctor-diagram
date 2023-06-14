@@ -2,6 +2,10 @@
 
 == 2.2.10
 
+Enhancements::
+
+* The location of JSyntrax and Structurizr can now also be specified using Java system properties when using JRuby.
+
 Bugfixes::
 
 * Ensure Structurizr themes are loaded when rendering images

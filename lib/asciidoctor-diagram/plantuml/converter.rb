@@ -8,10 +8,10 @@ module Asciidoctor
     class PlantUmlConverter
       include DiagramConverter
 
-      CLASSPATH_ENV = 'DIAGRAM_PLANTUML_CLASSPATH'
+      CLASSPATH_ENV = Java.environment_variable('DIAGRAM_PLANTUML_CLASSPATH')
       LIB_DIR = File.expand_path('../..', File.dirname(__FILE__))
-      PLANTUML_JARS = if ENV.has_key?(CLASSPATH_ENV)
-                        ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
+      PLANTUML_JARS = if CLASSPATH_ENV
+                        CLASSPATH_ENV.split(File::PATH_SEPARATOR)
                       else
                         begin
                           require 'asciidoctor-diagram/plantuml/classpath'

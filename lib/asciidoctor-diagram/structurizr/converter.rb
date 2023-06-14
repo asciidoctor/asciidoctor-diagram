@@ -11,12 +11,12 @@ module Asciidoctor
     class StructurizrConverter
       include DiagramConverter
 
-      CLASSPATH_ENV = 'DIAGRAM_STRUCTURIZR_CLASSPATH'
-      CLI_HOME_ENV = 'DIAGRAM_STRUCTURIZRCLI_HOME'
-      STRUCTURIZR_JARS = if ENV.has_key?(CLASSPATH_ENV)
-                           ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
-                         elsif ENV.has_key?(CLI_HOME_ENV)
-                           lib_dir = File.expand_path('lib', ENV[CLI_HOME_ENV])
+      CLASSPATH_ENV = Java.environment_variable('DIAGRAM_STRUCTURIZR_CLASSPATH')
+      CLI_HOME_ENV = Java.environment_variable('DIAGRAM_STRUCTURIZRCLI_HOME')
+      STRUCTURIZR_JARS = if CLASSPATH_ENV
+                           CLASSPATH_ENV.split(File::PATH_SEPARATOR)
+                         elsif CLI_HOME_ENV
+                           lib_dir = File.expand_path('lib', CLI_HOME_ENV)
                            Dir[File.join(lib_dir, '*.jar')]
                          else
                            nil

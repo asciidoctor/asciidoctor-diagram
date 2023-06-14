@@ -9,12 +9,12 @@ module Asciidoctor
       include DiagramConverter
       include CliGenerator
 
-      CLASSPATH_ENV = 'DIAGRAM_JSYNTRAX_CLASSPATH'
-      CLI_HOME_ENV = 'DIAGRAM_JSYNTRAX_HOME'
-      JSYNTRAX_JARS = if ENV.has_key?(CLASSPATH_ENV)
-                           ENV[CLASSPATH_ENV].split(File::PATH_SEPARATOR)
-                         elsif ENV.has_key?(CLI_HOME_ENV)
-                           lib_dir = File.expand_path('lib', ENV[CLI_HOME_ENV])
+      CLASSPATH_ENV = Java.environment_variable('DIAGRAM_JSYNTRAX_CLASSPATH')
+      CLI_HOME_ENV = Java.environment_variable('DIAGRAM_JSYNTRAX_HOME')
+      JSYNTRAX_JARS = if CLASSPATH_ENV
+                           CLASSPATH_ENV.split(File::PATH_SEPARATOR)
+                         elsif CLI_HOME_ENV
+                           lib_dir = File.expand_path('lib', CLI_HOME_ENV)
                            Dir.children(lib_dir).select { |c| c.end_with? '.jar' }.map { |c| File.expand_path(c, lib_dir) }
                          else
                            nil
