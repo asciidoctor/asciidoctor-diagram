@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-wavedrom}[WaveDrom] draws your Timing Diagram or Waveform from simple textual description.
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - SVG

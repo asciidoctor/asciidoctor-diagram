@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-bytefield}[Bytefield-SVG] is a Node module for generating byte field diagrams like this one. Inspired by the LaTeX bytefield package.
 
-== Output Formats
+== Supported Image Formats
 
 - SVG
 

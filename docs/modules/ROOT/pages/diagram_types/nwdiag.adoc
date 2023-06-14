@@ -5,7 +5,7 @@ include::partial$uris.adoc[]
 
 The `rackdiag` and `packetdiag` tools that are part of the `nwdiag` package are also supported.
 
-== Output Formats
+== Supported Image Formats
 
 - PDF
 - PNG

@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-umlet}[UMLet] is a free, open-source UML tool with a simple user interface: draw UML diagrams fast, create sequence and activity diagrams from plain text, share via exports to eps, pdf, jpg, svg, and clipboard, and develop new, custom UML elements.
 
-== Output Formats
+== Supported Image Formats
 
 - GIF
 - PDF

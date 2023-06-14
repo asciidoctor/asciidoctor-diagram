@@ -5,7 +5,7 @@ include::partial$uris.adoc[]
 
 A https://github.com/pepijnve/ditaa[fork of the ditaa] project is bundled with the asciidoctor-diagram gem.
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - SVG

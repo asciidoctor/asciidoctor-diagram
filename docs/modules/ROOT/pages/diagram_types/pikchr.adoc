@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-pikchr}[Pikchr] (pronounced "picture") is a PIC-like markup language for diagrams in technical documentation.
 
-== Output Formats
+== Supported Image Formats
 
 - SVG
 

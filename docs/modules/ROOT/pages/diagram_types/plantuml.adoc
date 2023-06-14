@@ -4,7 +4,7 @@ include::partial$uris.adoc[]
 {uri-plantuml}[PlantUML] is a syntax and tool to draw UML diagrams, using a simple and human readable text description.
 It is particularly well-suited for users who prefer a simple, text-based approach to creating diagrams, and who want a tool that can automatically handle the layout and appearance of their diagrams.
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - SVG

@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-dbml}[dbml-renderer] renders https://dbml.dbdiagram.io/home/#intro[DBML] files to SVG images.
 
-== Output Formats
+== Supported Image Formats
 
 - SVG
 

@@ -3,11 +3,10 @@ Pepijn Van_Eeckhoudt <https://github.com/pepijnve[@pepijnve]>; Sarah White <http
 :description: README for the Asciidoctor Diagram extension for Asciidoctor.
 include::partial$uris.adoc[]
 
-Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
+Asciidoctor Diagram is a set of Asciidoctor extensions that enable rendering of plain text diagrams that are embedded in your AsciiDoc document as part of the Asciidoctor conversion process.
+
+Each extensions will invoke the necessary external diagram rendering tools to produce an image file which is inserted into your converted document.
 
 The extensions support the xref:diagram_types/a2s.adoc[], BlockDiag (xref:diagram_types/blockdiag.adoc[], xref:diagram_types/seqdiag.adoc[], xref:diagram_types/actdiag.adoc[], xref:diagram_types/nwdiag.adoc[]), xref:diagram_types/bytefield.adoc[], xref:diagram_types/dbml.adoc[], xref:diagram_types/ditaa.adoc[], xref:diagram_types/dpic.adoc[], xref:diagram_types/erd.adoc[Erd], xref:diagram_types/gnuplot.adoc[], xref:diagram_types/graphviz.adoc[], xref:diagram_types/mermaid.adoc[], xref:diagram_types/msc.adoc[], xref:diagram_types/nomnoml.adoc[], xref:diagram_types/pikchr.adoc[], xref:diagram_types/plantuml.adoc[], xref:diagram_types/shaape.adoc[], xref:diagram_types/smcat.adoc[], xref:diagram_types/structurizr.adoc[], xref:diagram_types/svgbob.adoc[], xref:diagram_types/symbolator.adoc[], xref:diagram_types/syntrax.adoc[], xref:diagram_types/umlet.adoc[], xref:diagram_types/vega.adoc[], and xref:diagram_types/wavedrom.adoc[] syntax.
-
-Each extension runs the diagram processor to generate an SVG, PNG, or TXT file from the input text.
-The generated file is then inserted into your converted document.
 
 Asciidoctor Diagram was inspired by the {uri-py-plantuml}[AsciiDoc PlantUML filter].

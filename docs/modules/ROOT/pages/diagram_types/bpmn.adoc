@@ -4,7 +4,7 @@ include::partial$uris.adoc[]
 Business Process Model and Notation (BPMN) is a graphical representation for specifying business processes in a business process model.
 This extension uses {uri-bpmn}[bpmn-js-cmd] to render diagrams
 
-== Output Formats
+== Supported Image Formats
 
 - PDF
 - PNG

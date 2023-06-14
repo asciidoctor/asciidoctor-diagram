@@ -14,7 +14,7 @@ Occurrences of `//` surrounded by whitespace are interpreted as line breaks.
 
 The meme extension requires https://imagemagick.org[ImageMagick].
 
-== Output Formats
+== Supported Image Formats
 
 - GIF
 - PNG

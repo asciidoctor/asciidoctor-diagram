@@ -5,7 +5,7 @@ include::partial$uris.adoc[]
 
 TikZ requires a TeX distribution that supports the {uri-tikz}[TikZ] package.
 
-== Output Formats
+== Supported Image Formats
 
 - PDF
 - SVG

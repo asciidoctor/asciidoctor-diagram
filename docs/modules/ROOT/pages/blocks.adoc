@@ -1,7 +1,11 @@
 = Diagram Blocks
 include::partial$uris.adoc[]
 
-A diagram is written inside a literal block, which can accept several attributes.
+Embedded diagrams are written using diagram blocks.
+Diagram blocks are delimited using either the literal or listing delimiter.
+which can accept several attributes.
+
+All diagram block types share a similar structure.
 
 .Anatomy of a diagram
 ----
@@ -29,12 +33,18 @@ diagram-type::source-file-name[format=output-format] // <1> <2> <3>
 
 When the source file name is a relative path it is resolved with respect to the location of the document being processed.
 
-== Diagram Attributes
+== Specifying Diagram Attributes
 
-Certain diagram types allow image generation to be customized using attributes.
-Each attribute can be specified per individual diagram block or for all blocks of a given diagram type in a document level.
+Some diagram types allow image generation to be customized using attributes.
+
+Attributes can be assigned to individual diagram blocks by adding them to the attribute list of the block.
+
+If the same attribute value should be applied to all blocks of a given diagram type, the attribute can also be assigned indirectly by defining an attribute at the document level.
+The attribute name at the document level should be prefixed with the diagram type name and a dash.
+
 This is illustrated for the blockdiag `fontpath` attribute in the example below.
 
+.Diagram attributes per block and global
 ----
 = Asciidoctor Diagram
 :blockdiag-fontpath: /path/to/font.ttf <1>
@@ -52,16 +62,6 @@ In this example, the `fontpath` attribute is specified for all diagrams of type 
 <2> The first diagram does not specify an explicit value for `fontpath` so the global `blockdiag-fontpath` value will be used
 <3> The second diagram does specify a `fontpath` value.
 This overrides the global `blockdiag-fontpath` value.
-
-Each attribute can either be specified at the block level or at the document level.
-The attribute name at the document level should be prefixed with the diagram type name and a dash.
-
-=== Common Attributes
-
-The set of shared attributes applies to all diagram types.
-The value for these attributes can be defined at the document level for a single diagram type using the diagram type as prefix or for all diagram types using `diagram` as prefix.
-
-include::partial$shared-attrs.adoc[]
 
 == Example
 

@@ -14,7 +14,7 @@ blockdiag {
 
 image::blockdiag.png[]
 
-== Output Formats
+== Supported Image Formats
 
 - PDF
 - PNG

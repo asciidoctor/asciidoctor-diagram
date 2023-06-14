@@ -4,7 +4,7 @@ include::partial$uris.adoc[]
 {uri-gnuplot}[Gnuplot] is a command-driven plotting program.
 It can be used interactively to plot functions and data points in both two- and three-dimensional plots in many different styles.
 
-== Output Formats
+== Supported Image Formats
 
 - GIF
 - PNG

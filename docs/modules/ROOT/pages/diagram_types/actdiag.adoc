@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-actdiag}[actdiag] generates activity-diagram images from .diag files (similar to graphviz’s DOT files).
 
-== Output Formats
+== Supported Image Formats
 
 - PDF
 - PNG

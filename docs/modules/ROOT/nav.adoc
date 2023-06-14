@@ -1,6 +1,6 @@
 * xref:index.adoc[]
-* xref:installation.adoc[]
 * xref:blocks.adoc[]
+* xref:installation.adoc[]
 * xref:generate.adoc[]
 * xref:output.adoc[]
 * Diagram Types

@@ -3,7 +3,7 @@ include::partial$uris.adoc[]
 
 {uri-dpic}[dpic] is an implementation of the https://en.wikipedia.org/wiki/PIC_(markup_language)[pic] DSL.
 
-== Output Formats
+== Supported Image Formats
 
 - SVG
 

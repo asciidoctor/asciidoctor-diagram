@@ -13,7 +13,7 @@ The chosen renderer is then used to generate the final image.
 The installation location of Structurizr CLI needs to be passed to asciidoctor-diagram using the `DIAGRAM_STRUCTURIZRCLI_HOME`.
 It should be set to the absolute directory containing the extracted Structurizr CLI archive.
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - SVG

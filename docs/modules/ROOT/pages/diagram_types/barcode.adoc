@@ -27,7 +27,7 @@ This works fine for simple barcodes, but for complex data (e.g., a vCard encoded
 If the `external` attribute is set on a barcode macro, the target is interpreted as a file path.
 The barcode content will then be obtained by reading the contents of the referenced file.
 
-== Output Formats
+== Supported Image Formats
 
 - PNG
 - TXT
