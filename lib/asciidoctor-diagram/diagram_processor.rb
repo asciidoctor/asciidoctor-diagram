@@ -428,7 +428,11 @@ module Asciidoctor
         # The text of inline macros is nil which will cause an error
         attrs.delete('subs')
 
-        create_inline(parent, :image, nil, :type => 'image', :target => target, :attributes => attrs)
+        if block.context == :image
+          create_inline(parent, :image, nil, :type => 'image', :target => target, :attributes => attrs)
+        else
+          create_inline(parent, :quoted, block.source, :type => :monospaced, :attributes => attrs)
+        end
       end
 
       def supported_formats(converter)
