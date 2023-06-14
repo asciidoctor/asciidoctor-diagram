@@ -17,7 +17,7 @@ Start: box wid .5 with .sw at 1st box.ne + (.4,.2) "..."
 N1: box wid .2 "n1";  D1: box wid .3 "d1"
 N3: box wid .4 "n3";  D3: box wid .3 "d3"
 box wid .4 "..."
-N2: box wid .5 "n2";  d2: box wid .2 "d2"
+N2: box wid .5 "n2";  D2: box wid .2 "d2"
 arrow right from 2nd box
 #ndblock
   box wid boxwid/2 ht boxht/2
@@ -29,7 +29,7 @@ arrow right from last box
   box wid boxwid/2 ht boxht/2
   down;  box same with .t at bottom of last box;   box same
 spline -> right .2 from 3rd last box to N2.sw-(dx,.2) to N2.sw+(dx,0)
-spline -> right .3 from 2nd last box to d2.sw-(dx,.2) to d2.sw+(dx,0)
+spline -> right .3 from 2nd last box to D2.sw-(dx,.2) to D2.sw+(dx,0)
 arrow right 2*linewid from L
 #ndblock
   box wid boxwid/2 ht boxht/2
