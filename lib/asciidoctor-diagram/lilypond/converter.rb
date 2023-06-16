@@ -47,7 +47,7 @@ module Asciidoctor
         generate_stdin(source.find_command('lilypond', :path => EXTRA_PATH), format.to_s, code) do |tool_path, output_path|
           args = [tool_path, '-daux-files=#f', '-dbackend=eps', '-dno-gs-load-fonts', '-dinclude-eps-fonts', '-o', Platform.native_path(output_path), '-f', format.to_s]
 
-          args << '-dsafe'
+          args << "-dcrop=#t"
           args << "-dresolution=#{resolution}" if resolution
           args << "-dpixmap-format=pngalpha" if format == :png
 
@@ -55,7 +55,7 @@ module Asciidoctor
 
           {
               :args => args,
-              :out_file => "#{output_path}.#{format.to_s}"
+              :out_file => "#{output_path}.cropped.#{format.to_s}"
           }
         end        
       end
