@@ -6,7 +6,7 @@ include::partial$uris.adoc[]
 == Supported Image Formats
 
 - PDF
-- PNG
+- PNG (default)
 - SVG
 
 == Attributes

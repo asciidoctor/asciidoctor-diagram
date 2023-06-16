@@ -5,6 +5,21 @@ include::partial$uris.adoc[]
 It stands for Declarative Diagramming.
 Declarative, as in, you describe what you want diagrammed, it generates the image.
 
+== Example
+
+----
+[d2]
+....
+donut: {shape: circle}
+database.shape: cylinder
+you: {
+  shape: person
+}
+....
+----
+
+image::d2.png[]
+
 == Supported Image Formats
 
 - PDF

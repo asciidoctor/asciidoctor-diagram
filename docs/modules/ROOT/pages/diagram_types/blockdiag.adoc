@@ -17,10 +17,15 @@ blockdiag {
 
 image::blockdiag.png[]
 
+== Installation
+
+- A Python runtime is required
+- Follow the http://blockdiag.com/en/blockdiag/introduction.html#setup[blockdiag installation instructions]
+
 == Supported Image Formats
 
 - PDF
-- PNG
+- PNG (default)
 - SVG
 
 == Attributes

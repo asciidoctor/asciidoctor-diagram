@@ -27,15 +27,6 @@ This works fine for simple barcodes, but for complex data (e.g., a vCard encoded
 If the `external` attribute is set on a barcode macro, the target is interpreted as a file path.
 The barcode content will then be obtained by reading the contents of the referenced file.
 
-== Installation
-
-- All barcodes types except QR codes require the https://rubygems.org/gems/barby[barby Ruby gem]
-- QR codes requires the https://rubygems.org/gems/rqrcode[rqrcode Ruby gem]
-- PNG image output requires the https://rubygems.org/gems/chunky_png[chunky_png gem]
-
-Each of these dependencies will automatically get loaded as needed.
-It is not necessary to require these manually using the `-r` Asciidoctor CLI option.
-
 == Example
 
 ----
@@ -51,10 +42,19 @@ Barcode can be written image:barcode.png[] inline or as blocks.
 
 image::barcode2.png[]
 
+== Installation
+
+- All barcodes types except QR codes require the https://rubygems.org/gems/barby[barby Ruby gem]
+- QR codes requires the https://rubygems.org/gems/rqrcode[rqrcode Ruby gem]
+- PNG image output requires the https://rubygems.org/gems/chunky_png[chunky_png gem]
+
+Each of these dependencies will automatically get loaded as needed.
+It is not necessary to require these manually using the `-r` Asciidoctor CLI option.
+
 == Supported Image Formats
 
 - PNG
-- SVG
+- SVG (default)
 - TXT
 
 == Attributes

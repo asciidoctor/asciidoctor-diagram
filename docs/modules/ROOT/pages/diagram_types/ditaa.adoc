@@ -7,7 +7,7 @@ A https://github.com/pepijnve/ditaa[fork of the ditaa] project is bundled with t
 
 == Supported Image Formats
 
-- PNG
+- PNG (default)
 - SVG
 - TXT
 
