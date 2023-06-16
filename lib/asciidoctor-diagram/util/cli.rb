@@ -74,7 +74,7 @@ module Asciidoctor
             end
           }
         end
-      else
+      elsif RUBY_ENGINE != 'opal'
         require 'open3'
 
         def self.run(*args)

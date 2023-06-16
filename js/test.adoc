@@ -1,0 +1,6 @@
+= Hello
+
+[plantuml, format=png]
+----
+a -> b
+----

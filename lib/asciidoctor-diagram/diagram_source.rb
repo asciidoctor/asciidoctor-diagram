@@ -1,4 +1,4 @@
-require 'asciidoctor/logging'
+require 'asciidoctor/logging' unless RUBY_ENGINE == 'opal'
 require_relative 'util/which'
 
 module Asciidoctor

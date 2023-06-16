@@ -1,5 +1,5 @@
 require_relative 'binaryio'
-require 'rexml/document'
+require 'rexml/document' unless RUBY_ENGINE == 'opal'
 
 module Asciidoctor
   module Diagram
@@ -22,16 +22,16 @@ module Asciidoctor
         height = nil
 
         if (w = WIDTH_HEIGHT_REGEX.match(root.attributes['width'])) && (h = WIDTH_HEIGHT_REGEX.match(root.attributes['height']))
-          width = to_numeric(w[:value]) * to_px_factor(w[:unit])
-          height = to_numeric(h[:value]) * to_px_factor(h[:unit])
+          width = to_numeric(w[1]) * to_px_factor(w[2])
+          height = to_numeric(h[1]) * to_px_factor(h[2])
         end
 
         viewbox = root.attributes['viewBox']
         if (v = VIEWBOX_REGEX.match(viewbox)) && width.nil? && height.nil?
-          min_x = to_numeric(v[:min_x])
-          min_y = to_numeric(v[:min_y])
-          width ||= to_numeric(v[:width]) - min_x
-          height ||= to_numeric(v[:height]) - min_y
+          min_x = to_numeric(v[1])
+          min_y = to_numeric(v[2])
+          width ||= to_numeric(v[3]) - min_x
+          height ||= to_numeric(v[4]) - min_y
         end
 
         if viewbox.nil? && width && height
@@ -77,8 +77,8 @@ module Asciidoctor
         end
       end
 
-      WIDTH_HEIGHT_REGEX = /^\s*(?<value>\d+(?:\.\d+)?)\s*(?<unit>[a-zA-Z]+)?\s*$/
-      VIEWBOX_REGEX = /^\s*(?<min_x>-?\d+(?:\.\d+)?)\s*(?<min_y>-?\d+(?:\.\d+)?)\s*(?<width>\d+(?:\.\d+)?)\s*(?<height>\d+(?:\.\d+)?)\s*$/
+      WIDTH_HEIGHT_REGEX = /^\s*(\d+(?:\.\d+)?)\s*([a-zA-Z]+)?\s*$/
+      VIEWBOX_REGEX = /^\s*(-?\d+(?:\.\d+)?)\s*(-?\d+(?:\.\d+)?)\s*(\d+(?:\.\d+)?)\s*(\d+(?:\.\d+)?)\s*$/
 
       def self.to_px_factor(unit)
         case unit

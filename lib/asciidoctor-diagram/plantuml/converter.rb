@@ -1,6 +1,4 @@
 require_relative '../diagram_converter'
-require 'delegate'
-require 'uri'
 
 module Asciidoctor
   module Diagram
@@ -14,8 +12,10 @@ module Asciidoctor
                         CLASSPATH_ENV.split(File::PATH_SEPARATOR)
                       else
                         begin
-                          require 'asciidoctor-diagram/plantuml/classpath'
-                          ::Asciidoctor::Diagram::PlantUmlClasspath::JAR_FILES
+                          unless RUBY_ENGINE == 'opal'
+                            require 'asciidoctor-diagram/plantuml/classpath'
+                            ::Asciidoctor::Diagram::PlantUmlClasspath::JAR_FILES
+                          end
                         rescue LoadError
                           nil
                         end
@@ -136,10 +136,14 @@ module Asciidoctor
       end
     end
 
-    class PlantUMLPreprocessedSource < SimpleDelegator
+    class PlantUMLPreprocessedSource
       def initialize(source, converter)
-        super(source)
+        @actual_source = source
         @converter = converter
+      end
+
+      def method_missing(m, *args, &block)
+        @actual_source.send(m, *args, &block)
       end
 
       def code
@@ -149,7 +153,7 @@ module Asciidoctor
       def load_code
         Java.load
 
-        code = __getobj__.code
+        code = @actual_source.code
 
         tag = @converter.class.tag
         code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index("@start") && code.index("@end")

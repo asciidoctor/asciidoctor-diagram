@@ -1,7 +1,6 @@
 require_relative '../diagram_converter'
 require_relative '../util/cli_generator'
-require 'tempfile'
-require 'open3'
+require 'tempfile' unless RUBY_ENGINE == 'opal'
 
 module Asciidoctor
   module Diagram

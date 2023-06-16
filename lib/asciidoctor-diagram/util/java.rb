@@ -1,4 +1,4 @@
-require 'json'
+require 'json' unless RUBY_ENGINE == 'opal'
 
 module Asciidoctor
   module Diagram
@@ -207,8 +207,12 @@ module Asciidoctor
   end
 end
 
-if RUBY_PLATFORM == "java"
-  require_relative 'java_jruby'
+unless RUBY_ENGINE == 'opal'
+  if RUBY_PLATFORM == 'java'
+    require_relative 'java_jruby'
+  else
+    require_relative 'java_socket'
+  end
 else
   require_relative 'java_socket'
 end

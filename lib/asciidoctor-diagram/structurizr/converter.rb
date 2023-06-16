@@ -1,5 +1,3 @@
-require 'set'
-
 require_relative '../diagram_converter'
 require_relative '../diagram_processor'
 require_relative '../plantuml/converter'

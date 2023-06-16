@@ -4,7 +4,7 @@ module Asciidoctor
   module Diagram
     # @private
     module PNG
-      PNG_SIGNATURE = [137, 80, 78, 71, 13, 10, 26, 10].pack('CCCCCCCC')
+      PNG_SIGNATURE = String.new("\x89\x50\x4E\x47\x0D\x0A\x1A\x0A", encoding: 'ASCII-8BIT')
 
       def self.post_process_image(data, optimise)
         bio = BinaryIO.new(data)

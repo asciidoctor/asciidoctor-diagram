@@ -1,5 +1,5 @@
-require 'asciidoctor/logging'
-require 'tempfile'
+require 'asciidoctor/logging' unless RUBY_ENGINE == 'opal'
+require 'tempfile' unless RUBY_ENGINE == 'opal'
 require_relative 'cli'
 
 module Asciidoctor

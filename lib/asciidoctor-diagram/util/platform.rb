@@ -1,4 +1,4 @@
-require 'rbconfig'
+require 'rbconfig' unless RUBY_ENGINE == 'opal'
 require_relative 'cli'
 require_relative 'which'
 
@@ -31,7 +31,11 @@ module Asciidoctor
       
       def self.os_info
         @os ||= (
-        host_os = RbConfig::CONFIG['host_os']
+        unless RUBY_ENGINE == 'opal'
+          host_os = RbConfig::CONFIG['host_os']
+        else
+          host_os = 'opal'
+        end
 
         file_sep = '/'
         host_os_file_sep = nil

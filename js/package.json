@@ -1,0 +1,32 @@
+{
+  "name": "@asciidoctor/diagram",
+  "version": "1.0.0-beta.5",
+  "description": "An Asciidoctor.js extension that adds a diagram blocks to the AsciiDoc syntax.",
+  "license": "MIT",
+  "author": "Pepijn Van Eeckhoudt",
+  "contributors": [
+    "Pepijn Van Eeckhoudt <pepijn@vaneeckhoudt.net>"
+  ],
+  "repository": "github:asciidoctor/asciidoctor-diagram",
+  "bugs": {
+    "url": "https://github.com/asciidoctor/asciidoctor-diagram/issues"
+  },
+  "scripts": {
+    "build": "npx -y --package opal-compiler@1.0.13 node npm/transpile.js",
+    "clean": "npx rimraf dist node_modules"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "keywords": [
+    "asciidoc",
+    "asciidoctor",
+    "extension",
+    "diagram"
+  ]
+}

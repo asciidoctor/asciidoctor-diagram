@@ -1,5 +1,3 @@
-require 'set'
-
 require_relative '../diagram_converter'
 require_relative '../diagram_processor'
 require_relative '../util/java'
@@ -29,8 +27,10 @@ module Asciidoctor
                         CLASSPATH_ENV.split(File::PATH_SEPARATOR)
                       else
                         begin
-                          require 'asciidoctor-diagram/ditaa/classpath'
-                          ::Asciidoctor::Diagram::DitaaClasspath::JAR_FILES
+                          unless RUBY_ENGINE == 'opal'
+                            require 'asciidoctor-diagram/ditaa/classpath'
+                            ::Asciidoctor::Diagram::DitaaClasspath::JAR_FILES
+                          end
                         rescue LoadError
                           nil
                         end

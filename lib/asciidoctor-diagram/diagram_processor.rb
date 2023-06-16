@@ -1,11 +1,13 @@
-require 'asciidoctor' unless defined? ::Asciidoctor::VERSION
-require 'asciidoctor/extensions'
-require 'digest'
-require 'json'
-require 'fileutils'
-require 'pathname'
+unless RUBY_ENGINE == 'opal'
+  require 'asciidoctor' unless defined? ::Asciidoctor::VERSION
+  require 'asciidoctor/extensions'
+end
+require 'digest' unless RUBY_ENGINE == 'opal'
+require 'json' unless RUBY_ENGINE == 'opal'
+require 'fileutils' unless RUBY_ENGINE == 'opal'
+require 'pathname' unless RUBY_ENGINE == 'opal'
 require_relative 'diagram_source.rb'
-require_relative 'http/converter'
+require_relative 'http/converter'unless RUBY_ENGINE == 'opal'
 require_relative 'version'
 require_relative 'util/java'
 require_relative 'util/gif'
@@ -177,10 +179,12 @@ module Asciidoctor
         if !File.exist?(image_file) || source.should_process?(image_file, metadata) || options != metadata[:options]
           params = IMAGE_PARAMS[format]
 
-          server_url = source.global_attr('server-url')
-          if server_url
-            server_type = source.global_attr('server-type')
-            converter = HttpConverter.new(server_url, server_type.to_sym, converter)
+          unless RUBY_ENGINE == 'opal'
+            server_url = source.global_attr('server-url')
+            if server_url
+              server_type = source.global_attr('server-type')
+              converter = HttpConverter.new(server_url, server_type.to_sym, converter)
+            end
           end
 
           options = converter.collect_options(source)
@@ -208,7 +212,7 @@ module Asciidoctor
           scale_factor = 1.0
         end
 
-        if /html/i =~ parent.document.attributes['backend']
+        if parent.document.attributes['backend'].downcase.include? 'html'
           image_attributes.delete('scale')
           if metadata[:width] && !image_attributes['width']
             image_attributes['width'] = (metadata[:width] * scale_factor).to_i

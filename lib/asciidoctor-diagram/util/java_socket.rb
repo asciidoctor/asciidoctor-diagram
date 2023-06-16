@@ -1,4 +1,4 @@
-require 'socket'
+require 'socket' unless RUBY_ENGINE == 'opal'
 
 require_relative 'cli'
 require_relative 'platform'
