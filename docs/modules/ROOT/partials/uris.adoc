@@ -18,6 +18,7 @@
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com
 :uri-jsyntrax: https://atp-mipt.github.io/jsyntrax/
+:uri-lilypond: https://lilypond.org
 :uri-mermaid: https://github.com/mermaid-js/mermaid-cli
 :uri-mscgen: http://www.mcternan.me.uk/mscgen/
 :uri-mscgen-js: https://github.com/mscgenjs/mscgenjs-cli

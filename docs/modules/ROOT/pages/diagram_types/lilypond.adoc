@@ -1,0 +1,27 @@
+= LilyPond
+include::partial$uris.adoc[]
+
+{uri-lilypond}[LilyPond] is a music engraving program, devoted to producing the highest-quality sheet music possible. It brings the aesthetics of traditionally engraved music to computer printouts.
+
+----
+[lilypond]
+....
+\\relative c' { f d f a d f e d cis a cis e a g f e }
+....
+----
+
+image::lilypond.png[]
+
+== Supported Image Formats
+
+- PDF
+- PNG (default)
+
+== Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|lilypond     |lilypond        |The path to the `lilypond` executable
+|resolution   |unspecified     |The DPI at which to render
+|===

@@ -17,6 +17,7 @@
 ** xref:diagram_types/erd.adoc[]
 ** xref:diagram_types/gnuplot.adoc[]
 ** xref:diagram_types/graphviz.adoc[]
+** xref:diagram_types/lilypond.adoc[]
 ** xref:diagram_types/meme.adoc[]
 ** xref:diagram_types/mermaid.adoc[]
 ** xref:diagram_types/msc.adoc[]
