@@ -17,7 +17,7 @@ The meme extension requires https://imagemagick.org[ImageMagick].
 == Supported Image Formats
 
 - GIF
-- PNG
+- PNG (default)
 
 == Attributes
 

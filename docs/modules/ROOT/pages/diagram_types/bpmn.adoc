@@ -7,7 +7,7 @@ This extension uses {uri-bpmn}[bpmn-js-cmd] to render diagrams
 == Supported Image Formats
 
 - PDF
-- PNG
+- PNG (default)
 - SVG
 
 == Attributes

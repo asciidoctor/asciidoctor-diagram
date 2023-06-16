@@ -8,7 +8,7 @@ You can also describe or visualize the existing system architecture as well.
 == Supported Image Formats
 
 - PDF
-- PNG
+- PNG (default)
 - SVG
 
 == Attributes

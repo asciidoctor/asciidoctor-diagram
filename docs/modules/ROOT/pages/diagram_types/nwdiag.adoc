@@ -8,7 +8,7 @@ The `rackdiag` and `packetdiag` tools that are part of the `nwdiag` package are 
 == Supported Image Formats
 
 - PDF
-- PNG
+- PNG (default)
 - SVG
 
 == Attributes
