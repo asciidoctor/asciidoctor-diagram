@@ -95,6 +95,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install pygobject
           pip install pycairo
+          pip install Pillow==9.5.0
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
