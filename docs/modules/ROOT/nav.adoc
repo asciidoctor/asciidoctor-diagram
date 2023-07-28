@@ -23,6 +23,7 @@
 ** xref:diagram_types/msc.adoc[]
 ** xref:diagram_types/nomnoml.adoc[]
 ** xref:diagram_types/nwdiag.adoc[]
+** xref:diagram_types/penrose.adoc[]
 ** xref:diagram_types/pikchr.adoc[]
 ** xref:diagram_types/plantuml.adoc[]
 ** xref:diagram_types/seqdiag.adoc[]

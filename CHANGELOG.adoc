@@ -5,6 +5,7 @@
 Enhancements::
 
 * The location of JSyntrax and Structurizr can now also be specified using Java system properties when using JRuby.
+* Add initial https://penrose.cs.cmu.edu[Penrose] support
 
 Bugfixes::
 
