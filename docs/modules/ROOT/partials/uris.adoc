@@ -25,6 +25,7 @@
 :uri-nomnoml: http://nomnoml.com
 :uri-nwdiag: http://blockdiag.com/en/nwdiag/index.html
 :uri-packetdiag: http://blockdiag.com/en/nwdiag/index.html
+:uri-penrose: https://penrose.cs.cmu.edu
 :uri-phantomjs: http://phantomjs.org
 :uri-pikchr: https://pikchr.org
 :uri-plantuml: http://plantuml.sourceforge.net

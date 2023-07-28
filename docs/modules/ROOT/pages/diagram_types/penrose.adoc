@@ -1,0 +1,50 @@
+= Penrose
+include::partial$uris.adoc[]
+
+{uri-penrose}[Penrose] is a platform that enables people to create beautiful diagrams just by typing notation in plain text.
+
+Penrose diagrams consist of three parts:
+
+- .domain file that defines the language specific to the domain.
+- .substance file that creates substances of mathematical content.
+- .style file that specifies the style of the visual representation.
+
+The domain and style files are specified using attributes.
+The substance of the diagram is the block contents.
+
+----
+[penrose, domain=sets.domain, style=sets.style]
+....
+Set A, B, C, D, E, F, G
+
+IsSubset(B, A)
+IsSubset(C, A)
+IsSubset(D, B)
+IsSubset(E, B)
+IsSubset(F, C)
+IsSubset(G, C)
+
+Not(Intersecting(E, D))
+Not(Intersecting(F, G))
+Not(Intersecting(B, C))
+
+AutoLabel All
+....
+----
+
+image::penrose.png[]
+
+== Supported Image Formats
+
+- SVG (default)
+
+== Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value   |Description
+|roger        |roger           |The path to the `roger` executable
+|domain       |unspecified     |The domain file to use
+|style        |unspecified     |The style file to use
+|variation    |unspecified     |The diagram variation to render
+|===
