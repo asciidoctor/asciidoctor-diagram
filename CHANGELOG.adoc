@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.11
+
+Bugfixes::
+
+* Issue #424: avoid invalid filename characters on Windows
+
 == 2.2.10
 
 Enhancements::
