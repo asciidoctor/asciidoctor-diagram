@@ -808,6 +808,7 @@ Doc Writer <doc@example.com>
 [plantuml,format="png"]
 ----
 @startuml
+!pragma teoz true
 box "b1"
      participant "b1_p1"
      box "b1_b1"
