@@ -133,7 +133,7 @@ module Asciidoctor
             mermaidConfig = []
 
             if options[:gantt]
-              mermaidConfig << "\"gantt\": #{File.read(options[:gantt])}"
+              mermaidConfig << "\"gantt\": #{File.read(options[:gantt], :encoding => Encoding::UTF_8)}"
             end
 
             if options[:sequence]
@@ -148,12 +148,12 @@ module Asciidoctor
                   'sequenceDiagram'
                 end
               end
-              mermaidConfig << "\"#{configKey}\": #{File.read(options[:sequence])}"
+              mermaidConfig << "\"#{configKey}\": #{File.read(options[:sequence], :encoding => Encoding::UTF_8)}"
             end
 
             config_file = "#{input_path}.json"
 
-            File.write(config_file, "{#{mermaidConfig.join ','}}")
+            File.write(config_file, "{#{mermaidConfig.join ','}}", :encoding => Encoding::UTF_8)
 
             args << '--configFile' << Platform.native_path(config_file)
           end

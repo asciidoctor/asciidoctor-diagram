@@ -297,8 +297,7 @@ module Asciidoctor
 
       def load_code
         if @file_name
-          lines = File.readlines(@file_name)
-          lines = prepare_source_array(lines)
+          lines = prepare_source_array(File.read(@file_name, :mode => 'rb'))
           @parent_block.apply_subs(lines, resolve_diagram_subs).join("\n")
         else
           ''
@@ -323,22 +322,22 @@ module Asciidoctor
       # data - the source data Array to prepare (no nil entries allowed)
       #
       # returns a String Array of prepared lines
-      def prepare_source_array data
-        return [] if data.empty?
-        if (leading_2_bytes = (leading_bytes = (first = data[0]).unpack 'C3').slice 0, 2) == BOM_BYTES_UTF_16LE
-          data[0] = first.byteslice 2, first.bytesize
-          # NOTE you can't split a UTF-16LE string using .lines when encoding is UTF-8; doing so will cause this line to fail
-          return data.map {|line| (line.encode ::Encoding::UTF_8, ::Encoding::UTF_16LE).rstrip}
+      def prepare_source_string data, trim_end = true
+        return [] if data.nil_or_empty?
+        if (leading_2_bytes = (leading_bytes = data.unpack 'C3').slice 0, 2) == BOM_BYTES_UTF_16LE
+          data = (data.byteslice 2, data.bytesize).encode UTF_8, ::Encoding::UTF_16LE
         elsif leading_2_bytes == BOM_BYTES_UTF_16BE
-          data[0] = first.byteslice 2, first.bytesize
-          return data.map {|line| (line.encode ::Encoding::UTF_8, ::Encoding::UTF_16BE).rstrip}
+          data = (data.byteslice 2, data.bytesize).encode UTF_8, ::Encoding::UTF_16BE
         elsif leading_bytes == BOM_BYTES_UTF_8
-          data[0] = first.byteslice 3, first.bytesize
+          data = data.byteslice 3, data.bytesize
+          data = data.encode UTF_8 unless data.encoding == UTF_8
+        elsif data.encoding != UTF_8
+          data = data.encode UTF_8
         end
-        if first.encoding == ::Encoding::UTF_8
-          data.map {|line| line.rstrip}
+        if trim_end
+          [].tap {|lines| data.each_line {|line| lines << line.rstrip } }
         else
-          data.map {|line| (line.encode ::Encoding::UTF_8).rstrip}
+          [].tap {|lines| data.each_line {|line| lines << line.chomp } }
         end
       end
     end

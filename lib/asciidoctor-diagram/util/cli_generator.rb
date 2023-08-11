@@ -39,7 +39,7 @@ module Asciidoctor
 
         source_file = Tempfile.new([tool_name, ".#{input_ext}"])
         begin
-          File.write(source_file.path, code)
+          File.write(source_file.path, code, :encoding => Encoding::UTF_8)
 
           target_file = Tempfile.new([tool_name, ".#{output_ext}"])
           begin
@@ -61,7 +61,7 @@ module Asciidoctor
 
         source_file = Tempfile.new([tool_name, ".#{input_ext}"])
         begin
-          File.write(source_file.path, code)
+          File.write(source_file.path, code, :encoding => Encoding::UTF_8)
 
           opts = yield tool, source_file.path
           generate(opts, :stdout)
