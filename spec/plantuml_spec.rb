@@ -421,7 +421,7 @@ salt
     expect(b.attributes['height']).to be_nil
   end
 
-  it 'should support ditaa diagrams' do
+  it 'should support ditaa diagrams', :skip => 'PlantUML ASL 1.2023.10 seems to no longer include Ditaa' do
     doc = <<-eos
 = Hello, PlantUML!
 Doc Writer <doc@example.com>
