@@ -20,14 +20,11 @@ Gem::Specification.new do |s|
     "source_code_uri"   => "https://github.com/asciidoctor/asciidoctor-diagram.git",
   }
 
-  begin
-    s.files             = `git ls-files -z --exclude=deps/* -- */* :!:deps {CHANGELOG,LICENSE,README,Rakefile,pkg}*`.split "\0"
-  rescue
-    s.files             = Dir['**/*']
-  end
+  s.files = Dir['lib/**/*.{rb,jar}']
+  s.files << 'CHANGELOG.adoc'
+  s.files << 'LICENSE.txt'
+  s.files << 'README.adoc'
 
-  s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ['lib']
 
   s.add_development_dependency 'bundler'
