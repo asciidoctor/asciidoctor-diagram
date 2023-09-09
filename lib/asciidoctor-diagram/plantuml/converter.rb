@@ -1,4 +1,5 @@
 require_relative '../diagram_converter'
+require_relative '../util/java'
 require 'delegate'
 require 'uri'
 

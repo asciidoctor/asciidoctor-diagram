@@ -5,6 +5,7 @@
 Enhancements::
 
 * Issue #431: Reduce gem file size
+* Resolve loading errors when loading the PlantUML and Struturizr extensions individually
 
 == 2.2.11
 

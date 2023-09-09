@@ -1,3 +1,8 @@
+require_relative '../d2/extension'
+require_relative '../graphviz/extension'
+require_relative '../mermaid/extension'
+require_relative '../plantuml/extension'
+
 module Asciidoctor
   module Diagram
     class Renderers
