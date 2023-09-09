@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.12
+
+Enhancements::
+
+* Issue #431: Reduce gem file size
+
 == 2.2.11
 
 Bugfixes::
