@@ -57,6 +57,29 @@ Doc Writer <doc@example.com>
           expect(b.attributes['height']).to_not be_nil
         end
       end
+
+      it "should respect data-uri when format is set to '#{format}'" do
+        File.write("#{name}.txt", code)
+
+        doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+:data-uri:
+
+== First Section
+
+#{name}::#{name}.txt[#{format}]
+    eos
+
+        d = load_asciidoc doc, :safe => 'server', :attributes => {'backend' => 'html5'}
+        expect(d).to_not be_nil
+
+        b = d.find { |bl| bl.context == :image }
+        expect(b).to_not be_nil
+
+        output = b.convert
+        expect(output).to match(/<img src="data:/)
+      end
     end
   end
 
@@ -233,6 +256,29 @@ Doc Writer <doc@example.com>
         expect(/width="([^"]*)"/.match(img)).to_not be_nil
         expect(/height="([^"]*)"/.match(img)).to_not be_nil
       end
+    end
+
+    it "should respect data-uri when format is set to '#{format}'" do
+      File.write("#{name}.txt", code)
+
+      doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+:data-uri:
+
+== First Section
+
+#{name}::#{name}.txt[#{format}]
+    eos
+
+      d = load_asciidoc doc, :safe => 'server', :attributes => {'backend' => 'html5'}
+      expect(d).to_not be_nil
+
+      b = d.find { |bl| bl.context == :image }
+      expect(b).to_not be_nil
+
+      output = b.convert
+      expect(output).to match(/<img src="data:/)
     end
   end
 
@@ -414,6 +460,29 @@ Doc Writer <doc@example.com>
           expect(b.attributes['width']).to_not be_nil
           expect(b.attributes['height']).to_not be_nil
         end
+      end
+
+      it "should respect data-uri when format is set to '#{format}'" do
+        File.write("#{name}.txt", code)
+
+        doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+:data-uri:
+
+== First Section
+
+#{name}::#{name}.txt[#{format}]
+    eos
+
+        d = load_asciidoc doc, :safe => 'server', :attributes => {'backend' => 'html5'}
+        expect(d).to_not be_nil
+
+        b = d.find { |bl| bl.context == :image }
+        expect(b).to_not be_nil
+
+        output = b.convert
+        expect(output).to match(/<img src="data:/)
       end
     end
   end
