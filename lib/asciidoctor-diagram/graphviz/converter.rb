@@ -24,7 +24,10 @@ module Asciidoctor
           layout = options[:layout]
           args << "-K#{layout}" if layout
 
-          args
+          {
+            :args => args,
+            :chdir => source.base_dir
+          }
         end
       end
     end

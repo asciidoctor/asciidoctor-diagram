@@ -49,7 +49,10 @@ module Asciidoctor
             args << '-f' << font
           end
 
-          args
+          {
+            :args => args,
+            :chdir => source.base_dir
+          }
         end
       end
 

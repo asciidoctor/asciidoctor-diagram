@@ -1,5 +1,4 @@
 require_relative '../diagram_converter'
-require_relative '../util/cli_generator'
 require_relative '../util/platform'
 
 require 'base64'

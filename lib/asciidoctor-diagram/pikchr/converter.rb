@@ -18,7 +18,10 @@ module Asciidoctor
         pikchr_path = source.find_command('pikchr')
 
         output = generate_file_stdout(pikchr_path, format.to_s, source.to_s) do |tool_path, input_path|
-          [tool_path, "--svg-only", input_path]
+          {
+            :args => [tool_path, "--svg-only", input_path],
+            :chdir => source.base_dir
+          }
         end
 
         if output.start_with? '<svg'

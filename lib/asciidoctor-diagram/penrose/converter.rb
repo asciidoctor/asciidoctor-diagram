@@ -42,7 +42,10 @@ module Asciidoctor
           args << Platform.native_path(source.resolve_path(style_path))
           args << "--"
 
-          args
+          {
+            :args => args,
+            :chdir => source.base_dir
+          }
         end        
       end
     end

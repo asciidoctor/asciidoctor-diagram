@@ -23,7 +23,10 @@ module Asciidoctor
         end
 
         generate_stdin(dot_path, format.to_s, dot_code) do |tool_path, output_path|
-          [tool_path, "-o#{Platform.native_path(output_path)}", "-T#{format.to_s}"]
+          {
+            :args => [tool_path, "-o#{Platform.native_path(output_path)}", "-T#{format.to_s}"],
+            :chdir => source.base_dir
+          }
         end
       end
     end

@@ -22,7 +22,10 @@ module Asciidoctor
         code << "\n.PE" unless code.start_with?("\n.PE")
 
         generate_file_stdout(dpic_path, format.to_s, code) do |tool_path, input_path|
-          [tool_path, "-v", "-z", input_path]
+          {
+            :args => [tool_path, "-v", "-z", input_path],
+            :chdir => source.base_dir
+          }
         end
       end
     end
