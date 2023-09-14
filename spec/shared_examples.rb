@@ -603,6 +603,95 @@ Doc Writer <doc@example.com>
     expect(mtime2).to eq mtime1
   end
 
+  it 'should regenerate images when nocache is set on block' do
+    doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[#{name}%nocache]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    b1 = d.find { |bl| bl.context == :image }
+    target1 = b1.attributes['target']
+    mtime1 = File.mtime(target1)
+
+    sleep 1
+
+    d = load_asciidoc doc
+    b2 = d.find { |bl| bl.context == :image }
+    target2 = b2.attributes['target']
+
+    mtime2 = File.mtime(target1)
+
+    expect(mtime2).to_not eq mtime1
+  end
+
+  it 'should regenerate images when nocache is set for diagram type' do
+    doc = <<-eos
+= Hello, #{name}!
+:#{name}-nocache-option:
+Doc Writer <doc@example.com>
+
+== First Section
+
+[#{name}]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    b1 = d.find { |bl| bl.context == :image }
+    target1 = b1.attributes['target']
+    mtime1 = File.mtime(target1)
+
+    sleep 1
+
+    d = load_asciidoc doc
+    b2 = d.find { |bl| bl.context == :image }
+    target2 = b2.attributes['target']
+
+    mtime2 = File.mtime(target1)
+
+    expect(mtime2).to_not eq mtime1
+  end
+
+  it 'should regenerate images when nocache is set for all diagram types' do
+    doc = <<-eos
+= Hello, #{name}!
+:diagram-nocache-option:
+Doc Writer <doc@example.com>
+
+== First Section
+
+[#{name}]
+----
+#{code}
+----
+    eos
+
+    d = load_asciidoc doc
+    b1 = d.find { |bl| bl.context == :image }
+    target1 = b1.attributes['target']
+    mtime1 = File.mtime(target1)
+
+    sleep 1
+
+    d = load_asciidoc doc
+    b2 = d.find { |bl| bl.context == :image }
+    target2 = b2.attributes['target']
+
+    mtime2 = File.mtime(target1)
+
+    expect(mtime2).to_not eq mtime1
+  end
+
   it 'should write files to outdir if set' do
     doc = <<-eos
 = Hello, #{name}!
