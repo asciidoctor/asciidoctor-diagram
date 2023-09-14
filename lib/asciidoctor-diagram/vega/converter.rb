@@ -32,14 +32,16 @@ module Asciidoctor
           vega_code = code
         end
 
-        generate_file(source.find_command("vg2#{format}"), "json", format.to_s, vega_code) do |tool_path, input_path, output_path|
+        generate_stdin_stdout(source.find_command("vg2#{format}"), vega_code) do |tool_path|
           args = [tool_path, '--base', Platform.native_path(base_dir)]
           if format == :svg
             args << '--header'
           end
 
-          args << Platform.native_path(input_path)
-          args << Platform.native_path(output_path)
+          {
+            :args => args,
+            :chdir => source.base_dir
+          }
         end
       end
     end

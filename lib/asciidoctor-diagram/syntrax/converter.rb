@@ -91,7 +91,10 @@ module Asciidoctor
           response[:body]
         else
           generate_file(source.find_command('syntrax'), 'spec', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-            [tool_path, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)] + shared_args
+            {
+              :args => ([tool_path, '-i', Platform.native_path(input_path), '-o', Platform.native_path(output_path)] + shared_args),
+              :chdir => source.base_dir
+            }
           end
         end
 

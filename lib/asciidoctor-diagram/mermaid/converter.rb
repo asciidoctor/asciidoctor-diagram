@@ -164,7 +164,8 @@ module Asciidoctor
 
           {
               :args => args,
-              :env => {'NODE_OPTIONS' => '--unhandled-rejections=strict'}
+              :env => {'NODE_OPTIONS' => '--unhandled-rejections=strict'},
+              :chdir => source.base_dir
           }
         end
       end
@@ -200,7 +201,8 @@ module Asciidoctor
 
           {
               :args => args,
-              :out_file => output_file
+              :out_file => output_file,
+              :chdir => source.base_dir
           }
         end
       end

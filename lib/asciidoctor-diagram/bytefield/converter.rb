@@ -18,7 +18,10 @@ module Asciidoctor
         bytefield_path = source.find_command('bytefield-svg')
 
         generate_stdin(bytefield_path, format.to_s, source.to_s) do |tool_path, output_path|
-          [tool_path, "--output", Platform.native_path(output_path)]
+          {
+            :args => [tool_path, "--output", Platform.native_path(output_path)],
+            :chdir => source.base_dir
+          }
         end
       end
     end

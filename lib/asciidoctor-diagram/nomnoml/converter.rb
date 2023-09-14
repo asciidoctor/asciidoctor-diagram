@@ -17,7 +17,10 @@ module Asciidoctor
 
       def convert(source, format, options)
         generate_file(source.find_command('nomnoml'), 'nomnoml', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-          [tool_path, Platform.native_path(input_path), Platform.native_path(output_path)]
+          {
+            :args => [tool_path, Platform.native_path(input_path), Platform.native_path(output_path)],
+            :chdir => source.base_dir
+          }
         end
       end
     end

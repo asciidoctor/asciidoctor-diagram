@@ -18,8 +18,11 @@ module Asciidoctor
       def convert(source, format, options)
         wavedrom_cli = source.find_command('wavedrom-cli', :raise_on_error => false)
         if wavedrom_cli
-          generate_file(wavedrom_cli, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-            [Platform.native_path(tool_path), '--input', Platform.native_path(input_path), "--#{format.to_s}", Platform.native_path(output_path)]
+          generate_stdin(wavedrom_cli, format.to_s, source.to_s) do |tool_path, output_path|
+            {
+              :args => [Platform.native_path(tool_path), '--input', '-', "--#{format.to_s}", Platform.native_path(output_path)],
+              :chdir => source.base_dir
+            }
           end
         else
           wavedrom_cli = source.find_command('wavedrom', :raise_on_error => false)
@@ -27,7 +30,10 @@ module Asciidoctor
 
           if wavedrom_cli && !wavedrom_cli.include?('WaveDromEditor') && phantomjs
             generate_file(wavedrom_cli, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-              [phantomjs, Platform.native_path(tool_path), '-i', Platform.native_path(input_path), "-#{format.to_s[0]}", Platform.native_path(output_path)]
+              {
+                :args => [phantomjs, Platform.native_path(tool_path), '-i', Platform.native_path(input_path), "-#{format.to_s[0]}", Platform.native_path(output_path)],
+                :chdir => source.base_dir
+              }
             end
           else
             if ::Asciidoctor::Diagram::Platform.os == :macosx
@@ -40,7 +46,10 @@ module Asciidoctor
             end
 
             generate_file(wavedrom, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-              [tool_path, 'source', Platform.native_path(input_path), format.to_s, Platform.native_path(output_path)]
+              {
+                :args => [tool_path, 'source', Platform.native_path(input_path), format.to_s, Platform.native_path(output_path)],
+                :chdir => source.base_dir
+              }
             end
           end
         end

@@ -17,7 +17,10 @@ module Asciidoctor
 
       def convert(source, format, options)
         generate_stdin(source.find_command('shaape'), format.to_s, source.to_s) do |tool_path, output_path|
-          [tool_path, '-o', Platform.native_path(output_path), '-t', format.to_s, '-']
+          {
+            :args => [tool_path, '-o', Platform.native_path(output_path), '-t', format.to_s, '-'],
+            :chdir => source.base_dir
+          }
         end
       end
     end

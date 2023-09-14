@@ -34,7 +34,10 @@ module Asciidoctor
             args << argument
           end
 
-          args
+          {
+            :args => args,
+            :chdir => source.base_dir
+          }
         end
       end
     end

@@ -38,7 +38,10 @@ module Asciidoctor
         begin
           target_file.close
           generate_stdin_file(python_path, code, target_file.path + ".#{format}") do |tool|
-            [tool, '-']
+            {
+              :args => [tool, '-'],
+              :chdir => source.base_dir
+            }
           end
         ensure
           target_file.unlink

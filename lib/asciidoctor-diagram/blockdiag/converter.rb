@@ -25,7 +25,11 @@ module Asciidoctor
             args = [tool_path, '-a', '-o', Platform.native_path(output_path), "-T#{format.to_s}"]
             args << "-f#{Platform.native_path(font_path)}" if font_path
             args << '-'
-            args
+
+            {
+              :args => args,
+              :chdir => source.base_dir
+            }
           end
         end
       end

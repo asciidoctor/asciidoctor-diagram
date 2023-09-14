@@ -36,7 +36,11 @@ module Asciidoctor
           end
 
           args << '-'
-          args
+
+          {
+            :args => args,
+            :chdir => source.base_dir
+          }
         end
       end
     end

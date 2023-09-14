@@ -54,7 +54,10 @@ module Asciidoctor
             args << '--height' << options[:height]
           end
 
-          args
+          {
+            :args => args,
+            :chdir => source.base_dir
+          }
         end
       end
     end

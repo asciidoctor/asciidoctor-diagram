@@ -55,7 +55,8 @@ module Asciidoctor
 
           {
               :args => args,
-              :out_file => "#{output_path}.cropped.#{format.to_s}"
+              :out_file => "#{output_path}.cropped.#{format.to_s}",
+              :chdir => source.base_dir
           }
         end        
       end

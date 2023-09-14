@@ -56,7 +56,12 @@ module Asciidoctor
         code << "\n"
         code << source.to_s
 
-        generate_stdin_stdout(source.find_command('gnuplot'), code)
+        generate_stdin_stdout(source.find_command('gnuplot'), code) do |tool|
+          {
+            :args => [tool],
+            :chdir => source.base_dir
+          }
+        end
       end
     end
   end

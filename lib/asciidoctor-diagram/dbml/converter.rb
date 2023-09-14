@@ -15,7 +15,12 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
-        generate_stdin_stdout(source.find_command('dbml-renderer'), source.code)
+        generate_stdin_stdout(source.find_command('dbml-renderer'), source.code) do |tool|
+          {
+            :args => [tool],
+            :chdir => source.base_dir
+          }
+        end
       end
     end
   end
