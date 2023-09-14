@@ -25,7 +25,10 @@ module Asciidoctor
         end
 
         generate_file(java, 'uxf', format.to_s, source.to_s) do |tool_path, input_path, output_path|
-          [tool_path, '-jar', Platform.native_path(umlet), '-action=convert', "-format=#{format.to_s}", "-filename=#{Platform.native_path(input_path)}", "-output=#{Platform.native_path(output_path)}"]
+          {
+            :args => [tool_path, '-jar', Platform.native_path(umlet), '-action=convert', "-format=#{format.to_s}", "-filename=#{Platform.native_path(input_path)}", "-output=#{Platform.native_path(output_path)}"],
+            :chdir => source.base_dir
+          }
         end
       end
     end
