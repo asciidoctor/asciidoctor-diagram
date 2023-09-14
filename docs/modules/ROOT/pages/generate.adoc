@@ -13,3 +13,24 @@ Or, you can invoke Asciidoctor and the EPUB converter with the `asciidoctor-epub
 The command implicitly sets the `-r` and `-b` flags for EPUB3 output.
 
  $ asciidoctor-epub3 -r asciidoctor-diagram sample.adoc
+
+[[diagram_caching]]
+== Diagram Caching
+
+While working on a document it's not uncommon to convert the document to the desired output format(s) frequently.
+When a document contains many diagrams this can slow down the conversion process considerably.
+Diagram rendering can can take a noticeable amount time depending on the complexity of the diagrams.
+
+To reduce incremental conversion time, asciidoctor-diagram will try to avoid rendering diagrams multiple times if possible.
+It does so by checking if the source code for the diagram changed between subsequent conversions.
+If the source code for a diagram did not change it will not be regenerated.
+Instead the previous output will be reused.
+
+This simple caching mechanism does have some limitations.
+When the source code of a diagram references content in external files (typically using the diagram syntax's native include/import mechanism) asciidoctor-diagram will not be able to detect changes to the contents of those external files.
+This can lead to outdated diagrams being included in the conversion output.
+
+This problem can be avoided by (temporarily) disabling the cache.
+The cache can be disabled globally by setting the `diagram-nocache-option` document attribute.
+It can be also be disabled document wide, but per block diagram type by setting the `<blocktype>-nocache-option` document attribute.
+Finally at the block level the `nocache` option can be set to disable caching for individual blocks.
