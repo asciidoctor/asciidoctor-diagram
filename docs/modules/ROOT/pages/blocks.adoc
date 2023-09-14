@@ -3,21 +3,23 @@ include::partial$uris.adoc[]
 
 Embedded diagrams are written using diagram blocks.
 Diagram blocks are delimited using either the literal or listing delimiter.
-which can accept several attributes.
+
+== Diagram Block Structure
 
 All diagram block types share a similar structure.
 
 .Anatomy of a diagram
 ----
 [diagram-type, target=output-file-name, format=output-format] // <1> <2> <3>
-.... // <4>
-Diagram in appropriate syntax
+.... <4>
+Diagram code // <5>
 ....
 ----
 <1> The first value in the attribute list specifies the diagram syntax that is being used.
 <2> The `target` attribute specifies the basename of the image file that will be generated. If this attribute is omitted an auto-generated name will be used instead.
 <3> The `format` attribute determines the output image format to use. If a format is not specified, the default output format for the chosen diagram type will be used.
-<4> Place the attribute list directly on top of the delimited literal block (+....+). You can also use an open block as an alternative (`--`).
+<4> The asciidoc block type can be literal (`....`), listing (`----`) or open `--`.
+<5> The block content is written in syntax of the chosen diagramming tool.
 
 == Diagram Macros
 
@@ -33,7 +35,7 @@ diagram-type::source-file-name[format=output-format] // <1> <2> <3>
 
 When the source file name is a relative path it is resolved with respect to the location of the document being processed.
 
-== Specifying Diagram Attributes
+== Diagram Attributes
 
 Some diagram types allow image generation to be customized using attributes.
 
@@ -62,6 +64,19 @@ In this example, the `fontpath` attribute is specified for all diagrams of type 
 <2> The first diagram does not specify an explicit value for `fontpath` so the global `blockdiag-fontpath` value will be used
 <3> The second diagram does specify a `fontpath` value.
 This overrides the global `blockdiag-fontpath` value.
+
+=== Common Attributes
+
+A number of attributes are common to all diagram types.
+These can be specified per block using their name, for each block of a diagram type using the diagram type as prefix, or globally for all diagram blocks using the `diagram-` prefix.
+
+[cols=">,<,<",options="header"]
+|===
+|Name         |Default value         |Description
+|nocache      |unset                 |When set disables the xref::generate.adoc#diagram_caching[diagram cache].
+|cachedir     |.asciidoctor/diagram  |The directory in which to write diagram cache entries
+|svg-type     |unspecified           |When the output format is SVG, this attribute determines the SVG interactivity level.
+|===
 
 == Example
 
@@ -114,27 +129,3 @@ Both examples below would result in a file called `ditaa-diagram.png`.
 <snip>
 ----
 ....
-
-The example below illustrates the structure of a basic PlantUML block written directly in an AsciiDoc document.
-
-.PlantUML Diagram Syntax
-[source]
-----
-[plantuml, target=diagram-classes, format=png] // <1> <2> <3>
-....
-class BlockProcessor
-class DiagramBlock
-class DitaaBlock
-class PlantUmlBlock
-
-BlockProcessor <|-- DiagramBlock
-DiagramBlock <|-- DitaaBlock
-DiagramBlock <|-- PlantUmlBlock
-....
-----
-<1> The diagram is written in PlantUML so the first positional attribute is assigned the `plantuml` diagram type.
-<2> The name of the diagram file is given by the `target` attribute.
-<3> The output format is specified using the `format` attribute
-
-.Rendered PlantUML diagram
-image::asciidoctor-diagram-classes.png[Asciidoctor Diagram classes diagram]

@@ -165,7 +165,9 @@ module Asciidoctor
         image_file = parent.normalize_system_path(image_name, image_output_dir(parent))
         metadata_file = parent.normalize_system_path("#{image_name}.cache", cache_dir(source, parent))
 
-        if File.exist? metadata_file
+        use_cache = !source.global_opt('nocache')
+
+        if use_cache && File.exist?(metadata_file)
           metadata = File.open(metadata_file, 'r') {|f| JSON.load(f, nil, :symbolize_names => true, :create_additions => false) }
         else
           metadata = {}
@@ -191,14 +193,18 @@ module Asciidoctor
           metadata = source.create_image_metadata
           metadata[:options] = options
 
-          allow_image_optimisation = source.attr('optimise', 'true') == 'true'
+          allow_image_optimisation = !source.global_opt('nooptimise')
           result, metadata[:width], metadata[:height] = params[:decoder].post_process_image(result, allow_image_optimisation)
 
           FileUtils.mkdir_p(File.dirname(image_file)) unless Dir.exist?(File.dirname(image_file))
           File.open(image_file, 'wb') {|f| f.write result}
 
-          FileUtils.mkdir_p(File.dirname(metadata_file)) unless Dir.exist?(File.dirname(metadata_file))
-          File.open(metadata_file, 'w') {|f| JSON.dump(metadata, f)}
+          if use_cache
+            FileUtils.mkdir_p(File.dirname(metadata_file)) unless Dir.exist?(File.dirname(metadata_file))
+            File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
+          else
+            File.delete(metadata_file) if File.exist?(metadata_file)
+          end
         end
 
         scale = image_attributes['scale']

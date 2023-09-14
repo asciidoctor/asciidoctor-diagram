@@ -26,6 +26,10 @@ module Asciidoctor
         raise NotImplementedError.new
       end
 
+      def global_opt(opt)
+        global_attr("#{opt}-option")
+      end
+
       def global_attr(name, default_value = nil)
         attr(name) || attr(name, default_value, 'diagram')
       end

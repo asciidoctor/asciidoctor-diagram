@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.13
+
+Enhancements::
+
+* Issue #436: Allow diagram caching to be disabled using the `nocache` option.
+
 == 2.2.12
 
 Enhancements::
