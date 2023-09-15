@@ -84,4 +84,40 @@ Doc Writer <doc@example.com>
     svg = File.read(target, :encoding => Encoding::UTF_8)
     expect(svg).to match(/class='.*?sketch-overlay-B5.*?'/)
   end
+
+  it "should support relative imports" do
+    x_d2 = <<-eos
+x: {
+  shape: circle
+}
+    eos
+
+    doc = <<-eos
+= Hello, d2!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[d2]
+----
+a: {
+  ...@x.d2
+}
+a -> b
+----
+    eos
+
+    File.write("x.d2", x_d2)
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+    target = b.attributes['target']
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+    svg = File.read(target, :encoding => Encoding::UTF_8)
+    expect(svg).to_not match(/class='.*?sketch-overlay-B5.*?'/)
+  end
 end
