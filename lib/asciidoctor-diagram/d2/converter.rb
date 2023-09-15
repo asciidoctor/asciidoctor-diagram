@@ -27,7 +27,7 @@ module Asciidoctor
       end
 
       def convert(source, format, options)
-        generate_file(source.find_command('d2'), "d2", format.to_s, source.code) do |tool_path, input_path, output_path|
+        generate_stdin(source.find_command('d2'), format.to_s, source.code) do |tool_path, output_path|
           args = [tool_path, '--browser', 'false']
 
           options.each_pair do |key, value|
@@ -43,7 +43,7 @@ module Asciidoctor
             end
           end
 
-          args << Platform.native_path(input_path)
+          args << '-'
           args << Platform.native_path(output_path)
 
           {

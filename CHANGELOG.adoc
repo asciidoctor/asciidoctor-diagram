@@ -6,6 +6,10 @@ Enhancements::
 
 * Issue #436: Allow diagram caching to be disabled using the `nocache` option.
 
+Bugfixes::
+
+* Issue #439: Resolve errors when using relative imports in D2 diagrams
+
 == 2.2.12
 
 Enhancements::
