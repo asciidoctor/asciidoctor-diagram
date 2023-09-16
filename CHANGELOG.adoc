@@ -8,6 +8,7 @@ Enhancements::
 
 Bugfixes::
 
+* Issue #437: Set working directory when generating diagrams.
 * Issue #439: Resolve errors when using relative imports in D2 diagrams
 
 == 2.2.12
