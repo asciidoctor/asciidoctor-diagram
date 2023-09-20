@@ -191,6 +191,8 @@ jobs:
           cd structurizr
           unzip -qq ../structurizr-cli-1.30.0.zip
           echo "DIAGRAM_STRUCTURIZRCLI_HOME=$PWD" >> $GITHUB_ENV
+      - name: Install Wavedrom
+        run: npm install -g wavedrom-cli
       - name: Run tests
         run: bundle exec rake test
         env:

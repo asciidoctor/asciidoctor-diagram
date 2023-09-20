@@ -8,14 +8,14 @@ WAVEDROM_CODE = <<-eos
 ]}
 eos
 
-describe Asciidoctor::Diagram::WavedromInlineMacroProcessor, :broken_on_windows, :broken_on_github do
+describe Asciidoctor::Diagram::WavedromInlineMacroProcessor, :broken_on_windows do
   include_examples "inline_macro", :wavedrom, WAVEDROM_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::WavedromBlockMacroProcessor, :broken_on_windows, :broken_on_github do
+describe Asciidoctor::Diagram::WavedromBlockMacroProcessor, :broken_on_windows do
   include_examples "block_macro", :wavedrom, WAVEDROM_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::WavedromBlockProcessor, :broken_on_windows, :broken_on_github do
+describe Asciidoctor::Diagram::WavedromBlockProcessor, :broken_on_windows do
   include_examples "block", :wavedrom, WAVEDROM_CODE, [:png, :svg]
 end
