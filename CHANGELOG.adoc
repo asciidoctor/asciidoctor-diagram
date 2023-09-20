@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.14
+
+Bugfixes::
+
+* Issue #441: Fix regression in Wavedrom integration.
+
 == 2.2.13
 
 Enhancements::

@@ -34,6 +34,10 @@ module Asciidoctor
         attr(name) || attr(name, default_value, 'diagram')
       end
 
+      def opt(opt)
+        attr("#{opt}-option")
+      end
+
       # Get the value for the specified attribute. First look in the attributes on
       # this document and return the value of the attribute if found. Otherwise, if
       # this document is a child of the Document document, look in the attributes of the

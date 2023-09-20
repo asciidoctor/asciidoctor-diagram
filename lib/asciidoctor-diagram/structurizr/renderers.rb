@@ -40,7 +40,7 @@ module Asciidoctor
       end
 
       def self.get_renderer_type(source)
-        source.attr('renderer', 'plantuml-c4')
+        source.attr('renderer', PLANTUML_C4)
       end
       def self.mime_type(renderer_type)
         case renderer_type

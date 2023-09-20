@@ -19,7 +19,6 @@ module Asciidoctor
         bg_img = source.attr('background')
         raise "background attribute is required" unless bg_img
 
-        options = source.attr('options', '').split(',')
         margin = source.attr('margin', '')
         margin_parts = margin.split(' ')
         case margin_parts.length
@@ -55,7 +54,8 @@ module Asciidoctor
             :margin_right => mr,
             :margin_top => mt,
             :margin_bottom => mb,
-            :noupcase => options.include?('noupcase'),
+            :noupcase => source.opt('noupcase'),
+            :imagesdir => source.attr('imagesdir')
         }
       end
 
@@ -74,7 +74,7 @@ module Asciidoctor
         bg_img = options[:bg_img]
         raise "background attribute is required" unless bg_img
 
-        bg_img = source.resolve_path(bg_img, source.attr('imagesdir'))
+        bg_img = source.resolve_path(bg_img, options[:imagesdir])
 
         top_label = options[:top_label]
         bottom_label = options[:bottom_label]

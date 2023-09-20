@@ -18,9 +18,9 @@ module Asciidoctor
       def convert(source, format, options)
         wavedrom_cli = source.find_command('wavedrom-cli', :raise_on_error => false)
         if wavedrom_cli
-          generate_stdin(wavedrom_cli, format.to_s, source.to_s) do |tool_path, output_path|
+          generate_file(wavedrom_cli, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
             {
-              :args => [Platform.native_path(tool_path), '--input', '-', "--#{format.to_s}", Platform.native_path(output_path)],
+              :args => [Platform.native_path(tool_path), '--input', Platform.native_path(input_path), "--#{format.to_s}", Platform.native_path(output_path)],
               :chdir => source.base_dir
             }
           end

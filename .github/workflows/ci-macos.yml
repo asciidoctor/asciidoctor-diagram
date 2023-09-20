@@ -135,6 +135,8 @@ jobs:
       - name: Install d2
         run: |
           go install oss.terrastruct.com/d2@latest
+      - name: Install Wavedrom
+        run: npm install -g wavedrom-cli
       - name: Run tests
         run: bundle exec rake test
         env:

@@ -13,13 +13,19 @@ module Asciidoctor
           [:png, :pdf, :svg]
         end
 
+        def collect_options(source)
+          {
+            :font_path => source.attr('fontpath')
+          }
+        end
+
         def convert(source, format, options)
           # On Debian based systems the Python 3.x packages python3-(act|block|nw|seq)diag executables with
           # a '3' suffix.
           cmd_name = self.class.const_get(:TOOL)
           alt_cmd_name = "#{cmd_name}3"
 
-          font_path = source.attr('fontpath')
+          font_path = options[:font_path]
 
           generate_stdin(source.find_command(cmd_name, :alt_cmds => [alt_cmd_name]), format.to_s, source.to_s) do |tool_path, output_path|
             args = [tool_path, '-a', '-o', Platform.native_path(output_path), "-T#{format.to_s}"]
