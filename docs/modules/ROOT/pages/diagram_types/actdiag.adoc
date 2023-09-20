@@ -6,7 +6,7 @@ include::partial$uris.adoc[]
 == Example
 
 ----
-[actidag, format="png"]
+[actdiag, format="png"]
 ....
 actdiag {
   write -> convert -> image
