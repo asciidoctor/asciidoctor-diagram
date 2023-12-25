@@ -49,6 +49,8 @@ module Asciidoctor
           'Accept' => Renderers.mime_type(options[:renderer])
         }
         headers['X-Structurizr-View'] = options[:view] if options[:view]
+        headers['X-Structurizr-IncludeDir'] = Platform.native_path(source.base_dir)
+
 
         response = Java.send_request(
           :url => '/structurizr',
