@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.15
+
+Bugfixes::
+
+* Issue #449: Fix resolving of relative `!include` paths in Structurizr DSL input.
+
 == 2.2.14
 
 Bugfixes::
