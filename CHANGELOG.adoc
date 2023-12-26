@@ -4,6 +4,7 @@
 
 Bugfixes::
 
+* Issue #428: Improve support for reading UTF-16 encoded source files
 * Issue #449: Fix resolving of relative `!include` paths in Structurizr DSL input.
 
 == 2.2.14
