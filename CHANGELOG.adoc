@@ -2,6 +2,10 @@
 
 == 2.2.15
 
+Enhacements::
+
+* Issue #453: Improve error message when WaveDrom cannot be located
+
 Bugfixes::
 
 * Issue #428: Improve support for reading UTF-16 encoded source files
