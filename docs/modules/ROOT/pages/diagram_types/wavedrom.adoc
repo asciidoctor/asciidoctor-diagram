@@ -13,5 +13,5 @@ include::partial$uris.adoc[]
 [cols=">,<,<",options="header"]
 |===
 |Name          |Default value   |Description
-|wavedrom      |wavedrom        |The path to the `wavedrom` executable
+|wavedrom      |wavedrom        |The path to the `wavedrom-cli` or `wavedrom` executable
 |===
