@@ -138,9 +138,10 @@ module Asciidoctor
 
           config[cmd_var] = cmd_path
 
-          if cmd_path.nil? && options.fetch(:raise_on_error, true)
-            raise "Could not find the #{cmd_names.map { |c| "'#{c}'" }.join(', ')} executable in PATH; add it to the PATH or specify its location using the '#{attr_names[0]}' document attribute"
-          end
+        end
+
+        if cmd_path.nil? && options.fetch(:raise_on_error, true)
+          raise "Could not find the #{cmd_names.map { |c| "'#{c}'" }.join(', ')} executable in PATH; add it to the PATH or specify its location using the '#{attr_names[0]}' document attribute"
         end
 
         cmd_path

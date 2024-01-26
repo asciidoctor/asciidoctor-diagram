@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.2.16
+
+Bugfixes::
+
+* Issue #453: Avoid internal error when WaveDrom cannot be located
+
 == 2.2.15
 
 Enhacements::
