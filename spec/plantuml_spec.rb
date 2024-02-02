@@ -2,7 +2,7 @@ require_relative 'test_helper_methods'
 
 PLANTUML_CODE = <<-eos
 User -> (Start)
-User --> (Use the application) : Label
+User --> (Use the 😸 application) : Label
 
 :Main Admin: ---> (Use the application) : Another label
 eos
