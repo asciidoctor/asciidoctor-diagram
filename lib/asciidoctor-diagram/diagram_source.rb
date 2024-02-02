@@ -336,9 +336,9 @@ module Asciidoctor
         elsif data.start_with?(BOM_BYTES_UTF_16BE)
           utf8_data = data.byteslice(2, data.bytesize).encode(::Encoding::UTF_8, ::Encoding::UTF_16BE)
         elsif data.start_with?(BOM_BYTES_UTF_8)
-          utf8_data = data.byteslice(3, data.bytesize).encode(::Encoding::UTF_8)
+          utf8_data = data.byteslice(3, data.bytesize).force_encoding(::Encoding::UTF_8)
         else
-          utf8_data = data.encode(::Encoding::UTF_8)
+          utf8_data = data.force_encoding(::Encoding::UTF_8)
         end
 
         utf8_data.lines.map {|line| line.rstrip}
