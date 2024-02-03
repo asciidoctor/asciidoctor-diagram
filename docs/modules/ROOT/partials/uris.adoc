@@ -28,7 +28,7 @@
 :uri-penrose: https://penrose.cs.cmu.edu
 :uri-phantomjs: http://phantomjs.org
 :uri-pikchr: https://pikchr.org
-:uri-plantuml: http://plantuml.sourceforge.net
+:uri-plantuml: https://plantuml.com/
 :uri-py-plantuml: https://code.google.com/p/asciidoc-plantuml/
 :uri-python: https://www.python.org
 :uri-rackdiag: http://blockdiag.com/en/nwdiag/index.html
