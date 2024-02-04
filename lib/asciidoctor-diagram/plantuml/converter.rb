@@ -37,8 +37,10 @@ module Asciidoctor
 
       def collect_options(source)
         options = {
-            :size_limit => source.attr('size-limit', '4096')
+            :size_limit => source.attr('size-limit', '4096'),
         }
+
+        options[:smetana] = true if source.opt('smetana')
 
         theme = source.attr('theme', nil)
         options[:theme] = theme if theme
@@ -106,9 +108,13 @@ module Asciidoctor
         add_theme_header(headers, options[:theme])
         add_size_limit_header(headers, options[:size_limit])
 
-        dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
-        if dot
-          headers['X-Graphviz'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
+        if options[:smetana]
+          headers['X-Graphviz'] = 'smetana'
+        else
+          dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
+          if dot
+            headers['X-Graphviz'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
+          end
         end
 
         response = Java.send_request(
