@@ -179,17 +179,17 @@ jobs:
         id: cache-structurizr
         uses: actions/cache@v3
         with:
-          key: structurizr-cli-1.30.0
-          path: structurizr-cli-1.30.0.zip
+          key: structurizr-cli-1.35.0
+          path: structurizr-cli-1.35.0.zip
       - name: Download Structurizr
         if: steps.cache-structurizr.outputs.cache-hit != 'true'
         run: |
-          curl -s -O -L https://github.com/structurizr/cli/releases/download/v1.30.0/structurizr-cli-1.30.0.zip
+          curl -s -O -L https://github.com/structurizr/cli/releases/download/v1.35.0/structurizr-cli-1.35.0.zip
       - name: Install Structurizr
         run: |
           mkdir structurizr
           cd structurizr
-          unzip -qq ../structurizr-cli-1.30.0.zip
+          unzip -qq ../structurizr-cli-1.35.0.zip
           echo "DIAGRAM_STRUCTURIZRCLI_HOME=$PWD" >> $GITHUB_ENV
       - name: Install Wavedrom
         run: npm install -g wavedrom-cli
