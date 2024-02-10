@@ -4,6 +4,9 @@ include::partial$uris.adoc[]
 {uri-plantuml}[PlantUML] is a syntax and tool to draw UML diagrams, using a simple and human readable text description.
 It is particularly well-suited for users who prefer a simple, text-based approach to creating diagrams, and who want a tool that can automatically handle the layout and appearance of their diagrams.
 
+PlantUML is automatically available via the https://rubygems.org/gems/asciidoctor-diagram-plantuml[asciidoctor-diagram-plantuml] gem.
+This gem contains the LGPL build of PlantUML jar and its dependencies.
+
 PlantUML requires Java version 1.8 or higher to be installed.
 
 == Supported Image Formats
