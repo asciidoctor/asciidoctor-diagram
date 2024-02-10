@@ -14,6 +14,8 @@ The installation location of Structurizr CLI needs to be passed to asciidoctor-d
 When running Asciidoctor with JRuby or when using AsciidoctorJ the installation location can also be specified using the `diagram.structurizrcli.home` Java system property.
 In both cases it should be set to the absolute directory containing the extracted Structurizr CLI archive.
 
+ Structurizr requires Java version 17 or higher to be installed.
+
 == Supported Image Formats
 
 - PNG

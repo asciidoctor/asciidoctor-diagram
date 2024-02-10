@@ -5,6 +5,8 @@ include::partial$uris.adoc[]
 
 A https://github.com/pepijnve/ditaa[fork of the ditaa] project is bundled with the asciidoctor-diagram gem.
 
+Ditaa requires Java version 1.8 or higher to be installed.
+
 == Supported Image Formats
 
 - PNG (default)
