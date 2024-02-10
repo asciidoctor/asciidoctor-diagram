@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.3.0
+
+Enhancements::
+
+* Issue #457: Relaxed Java version requirement from 11 to 1.8 (for tools that support it)
+
 == 2.2.18
 
 Enhancements::
