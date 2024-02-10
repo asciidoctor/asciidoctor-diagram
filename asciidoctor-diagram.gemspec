@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
   s.metadata = {
     "bug_tracker_uri"   => "https://github.com/asciidoctor/asciidoctor-diagram/issues",
-    "changelog_uri"     => "https://github.com/asciidoctor/asciidoctor-diagram/blob/master/CHANGELOG.adoc",
+    "changelog_uri"     => "https://github.com/asciidoctor/asciidoctor-diagram/blob/main/CHANGELOG.adoc",
     "documentation_uri" => "https://docs.asciidoctor.org/diagram-extension/latest/",
     "homepage_uri"      => "https://github.com/asciidoctor/asciidoctor-diagram",
     "source_code_uri"   => "https://github.com/asciidoctor/asciidoctor-diagram.git",
