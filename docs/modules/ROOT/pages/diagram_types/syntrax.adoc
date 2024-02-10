@@ -8,6 +8,8 @@ This is processed into an image representing the same syntax with interconnected
 
 {uri-jsyntrax}[JSyntrax] is a reimplementation of Syntrax in Java in order to simplify installation, get rid of required libraries and make it easily portable to any operating system.
 
+Ditaa requires Java version 11 or higher to be installed.
+
 == Supported Image Formats
 
 - PDF
