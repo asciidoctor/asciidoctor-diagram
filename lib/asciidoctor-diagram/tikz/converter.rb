@@ -15,7 +15,7 @@ module Asciidoctor
 
       def collect_options(source)
         {
-            :preamble => source.attr('preamble') == 'true'
+            :preamble => source.opt('preamble') || source.attr('preamble') == 'true'
         }
       end
 
