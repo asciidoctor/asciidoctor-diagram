@@ -35,7 +35,7 @@ module Asciidoctor
           source.find_command('wavedrom-cli', :attrs => ['wavedrom'])
         end
 
-        if wavedrom.end_with?('-cli')
+        if wavedrom.include?('-cli')
           generate_file(wavedrom, 'wvd', format.to_s, source.to_s) do |tool_path, input_path, output_path|
             {
               :args => [Platform.native_path(tool_path), '--input', Platform.native_path(input_path), "--#{format.to_s}", Platform.native_path(output_path)],
