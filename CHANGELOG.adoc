@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.3.1
+
+Bugfixes::
+
+* Issue #459: Fix lookup of `wavedrom-cli` location on Windows
+
 == 2.3.0
 
 Enhancements::
