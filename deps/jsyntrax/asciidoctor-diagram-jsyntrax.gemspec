@@ -7,7 +7,8 @@ Gem::Specification.new do |s|
   s.email         = ['ivan@galahad.ee']
   s.description   = %q{JSyntrax JAR files wrapped in a Ruby gem}
   s.summary       = %q{JSyntrax JAR files wrapped in a Ruby gem}
-  s.homepage      = 'https://github.com/asciidoctor/asciidoctor-diagram'
+  s.homepage      = 'https://atp-mipt.github.io/jsyntrax/'
+  s.metadata      = { 'source_code_uri' => 'https://github.com/asciidoctor/asciidoctor-diagram' }
   s.license       = 'MIT'
 
   s.files         = Dir['**/*']
