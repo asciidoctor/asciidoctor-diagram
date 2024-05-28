@@ -9,14 +9,14 @@ indentstack(10,
 )
 eos
 
-describe Asciidoctor::Diagram::SyntraxInlineMacroProcessor, :broken_on_windows, :broken_on_github do
+describe Asciidoctor::Diagram::SyntraxInlineMacroProcessor do
   include_examples "inline_macro", :syntrax, SYNTRAX_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::SyntraxBlockMacroProcessor, :broken_on_windows, :broken_on_github do
+describe Asciidoctor::Diagram::SyntraxBlockMacroProcessor do
   include_examples "block_macro", :syntrax, SYNTRAX_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::SyntraxBlockProcessor, :broken_on_windows, :broken_on_github do
+describe Asciidoctor::Diagram::SyntraxBlockProcessor do
   include_examples "block", :syntrax, SYNTRAX_CODE, [:png, :svg]
 end
