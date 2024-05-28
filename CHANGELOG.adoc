@@ -2,6 +2,10 @@
 
 == 2.3.1
 
+Enhancements::
+
+* Issue #423: Add support for loading JSyntrax via the `asciidoctor-diagram-jsyntrax` gem
+
 Bugfixes::
 
 * Issue #459: Fix lookup of `wavedrom-cli` location on Windows
