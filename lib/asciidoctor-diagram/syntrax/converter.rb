@@ -17,7 +17,12 @@ module Asciidoctor
                            lib_dir = File.expand_path('lib', CLI_HOME_ENV)
                            Dir.children(lib_dir).select { |c| c.end_with? '.jar' }.map { |c| File.expand_path(c, lib_dir) }
                          else
-                           nil
+                           begin
+                             require 'asciidoctor-diagram/jsyntrax/classpath'
+                             ::Asciidoctor::Diagram::JsyntraxClasspath::JAR_FILES
+                           rescue LoadError
+                             nil
+                           end
                          end
 
       if JSYNTRAX_JARS
