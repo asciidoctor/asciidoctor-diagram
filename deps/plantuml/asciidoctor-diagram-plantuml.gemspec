@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name          = 'asciidoctor-diagram-plantuml'
-  s.version       = '1.2024.3'
+  s.version       = '1.2024.5'
   s.authors       = ['Pepijn Van Eeckhoudt']
   s.email         = ['pepijn@vaneeckhoudt.net']
   s.description   = %q{PlantUML JAR files wrapped in a Ruby gem}
@@ -12,4 +12,5 @@ Gem::Specification.new do |s|
 
   s.files         = Dir['**/*']
   s.require_paths = ['lib']
+  s.add_runtime_dependency 'asciidoctor-diagram-batik', '~> 1.17'
 end
