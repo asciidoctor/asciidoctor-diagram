@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name          = 'asciidoctor-diagram-jsyntrax'
-  s.version       = '1.38'
+  s.version       = '1.38.1'
   s.authors       = ['Ivan Ponomarev']
   s.email         = ['ivan@galahad.ee']
   s.description   = %q{JSyntrax JAR files wrapped in a Ruby gem}
@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
 
   s.files         = Dir['**/*']
   s.require_paths = ['lib']
+  s.add_runtime_dependency 'asciidoctor-diagram-batik', '~> 1.17'
 end
