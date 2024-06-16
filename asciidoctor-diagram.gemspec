@@ -34,6 +34,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'asciidoctor', '>= 1.5.7', '< 3.x'
   s.add_runtime_dependency 'asciidoctor-diagram-ditaamini', '~> 1.0'
   s.add_runtime_dependency 'asciidoctor-diagram-plantuml', '~> 1.2021'
-  s.add_runtime_dependency 'radix_encoding', '0.2.0'
   s.add_runtime_dependency 'rexml'
 end
