@@ -5,6 +5,7 @@
 Enhancements::
 
 * Issue #423: Add support for loading JSyntrax via the `asciidoctor-diagram-jsyntrax` gem (@inponomarev)
+* Issue #464: Replace usage of 'base64' gem with 'radix_encoding' to resolve Ruby 3.3+ compatibility issues
 
 Bugfixes::
 
