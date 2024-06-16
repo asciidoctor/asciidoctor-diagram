@@ -1,7 +1,7 @@
 require_relative '../diagram_converter'
+require_relative '../util/base64'
 require_relative '../util/platform'
 
-require 'radix_encoding'
 require 'net/http'
 require 'uri'
 require 'zlib'
@@ -11,18 +11,6 @@ module Asciidoctor
     # @private
     class HttpConverter
       DEFAULT_MAX_GET_SIZE = 1024
-
-      PLANTUML_ENCODING = RadixEncoding::Encoding.new(
-        alphabet: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_",
-        radix: 64,
-        padding: "="
-      )
-
-      BASE64_URL_SAFE = RadixEncoding::Encoding.new(
-        alphabet: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",
-        radix: 64,
-        padding: "="
-      )
 
       include DiagramConverter
 
@@ -59,16 +47,20 @@ module Asciidoctor
           compressed = deflate.deflate(code, Zlib::FINISH)
           deflate.close
 
-
-
-          data = PLANTUML_ENCODING.encode(compressed)
+          data = Base64.urlsafe_encode(compressed)
+          # See https://plantuml.com/text-encoding
+          # PlantUML uses a different alphabet than the one from RFC 4648
+          data.tr!(
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789',
+            '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+          )
 
           path = uri.path.dup
           path << '/' unless path.end_with? '/'
           path << format.to_s
         when :kroki_io
           compressed = Zlib.deflate(code, Zlib::BEST_COMPRESSION)
-          data = BASE64_URL_SAFE.encode(compressed)
+          data = Base64.urlsafe_encode(compressed)
 
           path = uri.path.dup
           path << '/' unless path.end_with? '/'

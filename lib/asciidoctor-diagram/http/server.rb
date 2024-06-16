@@ -4,6 +4,7 @@ require 'zlib'
 
 require_relative '../diagram_source'
 require_relative '../graphviz/converter'
+require_relative '../util/base64'
 require_relative '../util/which'
 
 module Asciidoctor
@@ -13,7 +14,7 @@ module Asciidoctor
         type = params['type']
         accepts = lambda { |t| params['format'].downcase.to_sym == t }
         raw_source = params['source']
-        decoded_source = Asciidoctor::Diagram::HttpConverter::BASE64_URL_SAFE.decode(raw_source)
+        decoded_source = Base64.urlsafe_decode(raw_source)
         decompressed_source = Zlib::Inflate.inflate(decoded_source)
         source = decompressed_source
         render_diagram(type, accepts, source, {})
