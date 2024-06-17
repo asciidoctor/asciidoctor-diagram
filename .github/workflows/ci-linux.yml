@@ -130,7 +130,7 @@ jobs:
       - name: Install NomNoml
         run: npm install -g nomnoml
       - name: Install Pintora
-        run: npm install -g pintora
+        run: npm install -g @pintora/cli
       - name: Install StateMachineCat
         run: npm install -g state-machine-cat
       - name: Install Vega
