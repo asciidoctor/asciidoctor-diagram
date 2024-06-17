@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 2.3.2
+
+Enhancements::
+
+* Issue #465: Add support for https://pintorajs.vercel.app/[Pintora]
+
 == 2.3.1
 
 Enhancements::
