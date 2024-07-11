@@ -5,6 +5,7 @@
 Enhancements::
 
 * Issue #465: Add support for https://pintorajs.vercel.app/[Pintora]
+* Add support for Structurizr JSON workspaces
 
 == 2.3.1
 
