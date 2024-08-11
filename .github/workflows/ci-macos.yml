@@ -40,8 +40,9 @@ jobs:
           pip3 install pycairo
           pip3 install pygobject
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
+          distribution: 'zulu'
           java-version: 11
       - name: Install MacTex
         run: |
