@@ -208,6 +208,7 @@ module Asciidoctor
             if @attributes[attr_position] == name
               value = true
             end
+            attr_position += 1
           end
         end
 
