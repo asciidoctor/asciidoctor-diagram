@@ -3,6 +3,7 @@
 *.iml
 .asciidoctor
 .idea
+.gradle
 .bundle
 .config
 .yardoc
