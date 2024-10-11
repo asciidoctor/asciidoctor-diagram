@@ -179,7 +179,7 @@ jobs:
         run: pip install diagrams
       - name: Install d2
         run: |
-          go install oss.terrastruct.com/d2@latest
+          curl -fsSL https://d2lang.com/install.sh | sh -s --
       - name: Cache Structurizr
         id: cache-structurizr
         uses: actions/cache@v3
