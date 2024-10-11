@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04]
+        os: [ubuntu]
         ruby: [2.7, 3.3, jruby]
         node: [18]
         java: [17, 21]
@@ -25,8 +25,8 @@ jobs:
           sudo apt-get update
           echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
           sudo apt-get install -qq haveged \
-                                   gconf-service \
-                                   libasound2 \
+                                   gconf \
+                                   alsa-lib \
                                    libatk1.0-0 \
                                    libc6 \
                                    libcairo2 \
@@ -36,7 +36,6 @@ jobs:
                                    libexpat1 \
                                    libfontconfig1 \
                                    libgcc1 \
-                                   libgconf-2-4 \
                                    libgdk-pixbuf2.0-0 \
                                    libglib2.0-0 \
                                    libgirepository1.0-dev \
@@ -61,7 +60,7 @@ jobs:
                                    libxtst6 \
                                    ca-certificates \
                                    fonts-liberation \
-                                   libappindicator1 \
+                                   libappindicator \
                                    libnss3 \
                                    lsb-release \
                                    xdg-utils \
