@@ -24,14 +24,14 @@ msc {
 }
 eos
 
-describe Asciidoctor::Diagram::MscInlineMacroProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::MscInlineMacroProcessor, :broken_on_windows, :broken_on_github do
   include_examples "inline_macro", :msc, MSC_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::MscBlockMacroProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::MscBlockMacroProcessor, :broken_on_windows, :broken_on_github do
   include_examples "block_macro", :msc, MSC_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::MscBlockProcessor, :broken_on_windows do
+describe Asciidoctor::Diagram::MscBlockProcessor, :broken_on_windows, :broken_on_github do
   include_examples "block", :msc, MSC_CODE, [:png, :svg]
 end

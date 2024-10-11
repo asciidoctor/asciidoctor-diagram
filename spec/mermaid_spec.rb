@@ -8,11 +8,11 @@ graph LR
     C --> D
 eos
 
-describe Asciidoctor::Diagram::MermaidInlineMacroProcessor do
+describe Asciidoctor::Diagram::MermaidInlineMacroProcessor, :broken_on_github do
   include_examples "inline_macro", :mermaid, MERMAID_CODE, [:png, :svg]
 end
 
-describe Asciidoctor::Diagram::MermaidBlockMacroProcessor do
+describe Asciidoctor::Diagram::MermaidBlockMacroProcessor, :broken_on_github do
   include_examples "block_macro", :mermaid, MERMAID_CODE, [:png, :svg]
 
   it "should respect the sequenceConfig attribute" do
@@ -138,7 +138,7 @@ mermaid::mermaid.txt[target="without_config"]
   end
 end
 
-describe Asciidoctor::Diagram::MermaidBlockProcessor do
+describe Asciidoctor::Diagram::MermaidBlockProcessor, :broken_on_github do
   include_examples "block", :mermaid, MERMAID_CODE, [:png, :svg]
 
   it "should report unsupported scaling factors" do
