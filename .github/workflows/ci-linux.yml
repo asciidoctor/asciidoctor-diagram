@@ -158,7 +158,7 @@ jobs:
         run: sudo apt-get install -qq gnuplot
       - name: Cache UMLet
         id: cache-umlet
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: umlet-standalone-15.1
           path: umlet-standalone-15.1.zip
@@ -191,7 +191,7 @@ jobs:
           curl -fsSL https://d2lang.com/install.sh | sh -s --
       - name: Cache Structurizr
         id: cache-structurizr
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: structurizr-cli-1.35.0
           path: structurizr-cli-1.35.0.zip
