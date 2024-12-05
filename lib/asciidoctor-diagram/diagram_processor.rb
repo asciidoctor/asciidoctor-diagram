@@ -81,6 +81,13 @@ module Asciidoctor
         begin
           source = converter.wrap_source(source)
 
+          if /html/i =~ parent.document.attributes['backend']
+            # Move PDF to the back of the list for the HTML backend
+            if supported_formats.delete(:pdf)
+              supported_formats << :pdf
+            end
+          end
+
           format = source.attributes.delete('format') || source.global_attr('format', supported_formats[0])
           format = format.to_sym if format.respond_to?(:to_sym)
 

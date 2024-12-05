@@ -189,8 +189,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}::#{name}.txt[target="foobar"]
-#{name}::#{name}.txt[target="foobaz"]
+#{name}::#{name}.txt[target="foobar",format=#{formats[0]}]
+#{name}::#{name}.txt[target="foobaz",format=#{formats[0]}]
     eos
 
     load_asciidoc doc
@@ -208,8 +208,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}::#{name}.txt[target="test/foobar"]
-#{name}::#{name}.txt[target="test2/foobaz"]
+#{name}::#{name}.txt[target="test/foobar",format=#{formats[0]}]
+#{name}::#{name}.txt[target="test2/foobaz",format=#{formats[0]}]
     eos
 
     load_asciidoc doc
@@ -321,7 +321,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}:{file}.txt[subs=attributes+]
+#{name}:{file}.txt[subs=attributes+,format=#{formats[0]}]
     eos
 
     d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
@@ -392,8 +392,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}:#{name}.txt[target="foobar"]
-#{name}:#{name}.txt[target="foobaz"]
+#{name}:#{name}.txt[target="foobar",format=#{formats[0]}]
+#{name}:#{name}.txt[target="foobaz",format=#{formats[0]}]
     eos
 
     d = load_asciidoc doc
@@ -416,8 +416,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}:#{name}.txt[target="test/foobar"]
-#{name}:#{name}.txt[target="test2/foobaz"]
+#{name}:#{name}.txt[target="test/foobar",format=#{formats[0]}]
+#{name}:#{name}.txt[target="test2/foobaz",format=#{formats[0]}]
     eos
 
     d = load_asciidoc doc
