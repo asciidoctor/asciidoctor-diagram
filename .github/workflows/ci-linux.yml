@@ -84,7 +84,8 @@ jobs:
                                    cargo \
                                    texlive-latex-extra \
                                    texlive-fonts-extra \
-                                   git
+                                   git \
+                                   pdf2svg
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
