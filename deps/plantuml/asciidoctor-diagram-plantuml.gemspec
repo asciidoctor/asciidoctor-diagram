@@ -2,14 +2,15 @@
 
 Gem::Specification.new do |s|
   s.name          = 'asciidoctor-diagram-plantuml'
-  s.version       = '1.2023.10'
+  s.version       = '1.2024.8'
   s.authors       = ['Pepijn Van Eeckhoudt']
   s.email         = ['pepijn@vaneeckhoudt.net']
   s.description   = %q{PlantUML JAR files wrapped in a Ruby gem}
   s.summary       = %q{PlantUML JAR files wrapped in a Ruby gem}
   s.homepage      = 'https://github.com/asciidoctor/asciidoctor-diagram'
-  s.license       = 'Apache-2.0'
+  s.license       = 'LGPL-3.0-only'
 
   s.files         = Dir['**/*']
   s.require_paths = ['lib']
+  s.add_runtime_dependency 'asciidoctor-diagram-batik', '~> 1.17'
 end

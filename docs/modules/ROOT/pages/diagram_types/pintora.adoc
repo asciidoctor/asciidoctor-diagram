@@ -1,0 +1,21 @@
+= Pintora
+include::partial$uris.adoc[]
+
+{uri-pintora}[Pintora] is an extensible text-to-diagrams library that works in both browser and node.js.
+
+== Supported Image Formats
+
+- PNG (default)
+- SVG
+
+== Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value   |Description
+|pintora         |pintora         |The path to the `pintora` executable
+|width           |undefined       |The target width of the diagram.
+|theme           |default         |The name of the Pintora theme to use.
+|background-color|undefined       |The background color
+|pixel-ratio     |2               |The pixel ratio
+|===

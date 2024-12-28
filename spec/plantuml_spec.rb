@@ -2,7 +2,7 @@ require_relative 'test_helper_methods'
 
 PLANTUML_CODE = <<-eos
 User -> (Start)
-User --> (Use the application) : Label
+User --> (Use the 😸 application) : Label
 
 :Main Admin: ---> (Use the application) : Another label
 eos
@@ -830,6 +830,30 @@ end box
     target = b.attributes['target']
     expect(target).to_not be_nil
     expect(target).to match(/\.png$/)
+    expect(File.exist?(target)).to be true
+
+    expect(b.attributes['width']).to_not be_nil
+    expect(b.attributes['height']).to_not be_nil
+  end
+
+  it 'should support the Smetana layout engine' do
+    doc = <<-eos
+= Hello, Smetana!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[plantuml, format="png", target="unscaled", opts="smetana"]
+----
+#{PLANTUML_CODE}
+----
+    eos
+
+    d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
+    b = d.find { |bl| bl.context == :image }
+
+    target = b.attributes['target']
+    expect(target).to_not be_nil
     expect(File.exist?(target)).to be true
 
     expect(b.attributes['width']).to_not be_nil

@@ -2,9 +2,9 @@
 Pepijn Van_Eeckhoudt <https://github.com/pepijnve[@pepijnve]>; Sarah White <https://github.com/graphitefriction[@graphitefriction]>
 :description: README for the Asciidoctor Diagram extension for Asciidoctor.
 
-image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/Linux%20unit%20tests/badge.svg?branch=master["Linux Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22Linux+unit+tests%22"]
-// image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/macOS%20unit%20tests/badge.svg?branch=master["macOS Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22macOS+unit+tests%22"]
-// image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/Windows%20unit%20tests/badge.svg?branch=master["Windows Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22Windows+unit+tests%22"]
+image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/Linux%20unit%20tests/badge.svg?branch=main["Linux Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22Linux+unit+tests%22"]
+// image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/macOS%20unit%20tests/badge.svg?branch=main["macOS Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22macOS+unit+tests%22"]
+// image:https://github.com/asciidoctor/asciidoctor-diagram/workflows/Windows%20unit%20tests/badge.svg?branch=main["Windows Build Status", link="https://github.com/asciidoctor/asciidoctor-diagram/actions?query=workflow%3A%22Windows+unit+tests%22"]
 image:https://badge.fury.io/rb/asciidoctor-diagram.svg[Gem Version, link=https://rubygems.org/gems/asciidoctor-diagram]
 
 Asciidoctor Diagram is a set of Asciidoctor extensions that enable you to add diagrams, which you describe using plain text, to your AsciiDoc document.
@@ -23,16 +23,16 @@ The example below shows an embedded Ditaa diagram block.
 ---------
 [ditaa]
 ----
-              +-------------+
-              | asciidoctor |-----------+
-              |  diagram    |           |
-              +-------------+           | image
-                    ^                   |
-                    | diagram source    |
-                    |                   v
- +--------+   +-----+-------+    /---------------\
- |  adoc  |-->+ asciidoctor +    | HTML + image  |
- +--------+   +-------------+    \---------------/
+                  +-------------+
+                  | asciidoctor |---------------+
+                  |  diagram    |               |
+                  +-------------+               | image
+                         ^                      |
+                         | diagram source       |
+                         |                      v
+ +--------+       +------+------+        /--------------\
+ |  adoc  |------>+ asciidoctor +------->| HTML + image |
+ +--------+       +-------------+  html  \--------------/
 ----
 ---------
 

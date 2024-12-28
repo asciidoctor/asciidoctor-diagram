@@ -69,7 +69,7 @@ Doc Writer <doc@example.com>
 == First Section
 
 #{name}::#{name}.txt[#{format}]
-    eos
+        eos
 
         d = load_asciidoc doc, :safe => 'server', :attributes => {'backend' => 'html5'}
         expect(d).to_not be_nil
@@ -189,8 +189,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}::#{name}.txt[target="foobar"]
-#{name}::#{name}.txt[target="foobaz"]
+#{name}::#{name}.txt[target="foobar",format=#{formats[0]}]
+#{name}::#{name}.txt[target="foobaz",format=#{formats[0]}]
     eos
 
     load_asciidoc doc
@@ -208,14 +208,43 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}::#{name}.txt[target="test/foobar"]
-#{name}::#{name}.txt[target="test2/foobaz"]
+#{name}::#{name}.txt[target="test/foobar",format=#{formats[0]}]
+#{name}::#{name}.txt[target="test2/foobaz",format=#{formats[0]}]
     eos
 
     load_asciidoc doc
     expect(File.exist?("test/foobar.#{formats[0]}")).to be true
     expect(File.exist?("test2/foobaz.#{formats[0]}")).to be true
     expect(File.exist?("#{name}.#{formats[0]}")).to be false
+  end
+
+  {
+    ::Encoding::UTF_16LE => String.new("\xff\xfe", :encoding => Encoding::ASCII_8BIT),
+    ::Encoding::UTF_16BE => String.new("\xfe\xff", :encoding => Encoding::ASCII_8BIT),
+    ::Encoding::UTF_8 => String.new("\xef\xbb\xbf", :encoding => Encoding::ASCII_8BIT)
+  }.each_pair do |encoding, bom|
+    it "should support #{encoding.name} encoded source files" do
+      File.open("#{name}.txt", 'wb') do |f|
+        f.write bom
+        f.write code.encode(encoding).b
+      end
+
+      doc = <<-eos
+= Hello, #{name}!
+Doc Writer <doc@example.com>
+
+== First Section
+
+.This is a diagram
+#{name}::#{name}.txt[]
+      eos
+
+      d = load_asciidoc doc
+      expect(d).to_not be_nil
+
+      b = d.find { |bl| bl.context == :image }
+      expect(b).to_not be_nil
+    end
   end
 end
 
@@ -269,7 +298,7 @@ Doc Writer <doc@example.com>
 == First Section
 
 #{name}::#{name}.txt[#{format}]
-    eos
+      eos
 
       d = load_asciidoc doc, :safe => 'server', :attributes => {'backend' => 'html5'}
       expect(d).to_not be_nil
@@ -292,7 +321,7 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}:{file}.txt[subs=attributes+]
+#{name}:{file}.txt[subs=attributes+,format=#{formats[0]}]
     eos
 
     d = load_asciidoc doc, :attributes => {'backend' => 'html5'}
@@ -363,8 +392,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}:#{name}.txt[target="foobar"]
-#{name}:#{name}.txt[target="foobaz"]
+#{name}:#{name}.txt[target="foobar",format=#{formats[0]}]
+#{name}:#{name}.txt[target="foobaz",format=#{formats[0]}]
     eos
 
     d = load_asciidoc doc
@@ -387,8 +416,8 @@ Doc Writer <doc@example.com>
 
 == First Section
 
-#{name}:#{name}.txt[target="test/foobar"]
-#{name}:#{name}.txt[target="test2/foobaz"]
+#{name}:#{name}.txt[target="test/foobar",format=#{formats[0]}]
+#{name}:#{name}.txt[target="test2/foobaz",format=#{formats[0]}]
     eos
 
     d = load_asciidoc doc
@@ -473,7 +502,7 @@ Doc Writer <doc@example.com>
 == First Section
 
 #{name}::#{name}.txt[#{format}]
-    eos
+        eos
 
         d = load_asciidoc doc, :safe => 'server', :attributes => {'backend' => 'html5'}
         expect(d).to_not be_nil

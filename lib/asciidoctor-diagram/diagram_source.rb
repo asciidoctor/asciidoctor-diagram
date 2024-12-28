@@ -138,9 +138,10 @@ module Asciidoctor
 
           config[cmd_var] = cmd_path
 
-          if cmd_path.nil? && options.fetch(:raise_on_error, true)
-            raise "Could not find the #{cmd_names.map { |c| "'#{c}'" }.join(', ')} executable in PATH; add it to the PATH or specify its location using the '#{attr_names[0]}' document attribute"
-          end
+        end
+
+        if cmd_path.nil? && options.fetch(:raise_on_error, true)
+          raise "Could not find the #{cmd_names.map { |c| "'#{c}'" }.join(', ')} executable in PATH; add it to the PATH or specify its location using the '#{attr_names[0]}' document attribute"
         end
 
         cmd_path
@@ -201,14 +202,6 @@ module Asciidoctor
         name = [name] unless name.is_a?(Enumerable)
 
         value = name.lazy.map { |n| @attributes[n] }.reject { |v| v.nil? }.first
-        if value.nil?
-          attr_position = config[:positional_attrs] || 1
-          while value.nil? && !@attributes[attr_position].nil?
-            if @attributes[attr_position] == name
-              value = true
-            end
-          end
-        end
 
         if value.nil? && inherit
           inherited_values = name.lazy.map do |n|
@@ -305,8 +298,7 @@ module Asciidoctor
 
       def load_code
         if @file_name
-          lines = File.readlines(@file_name)
-          lines = prepare_source_array(lines)
+          lines = prepare_source_array(File.read(@file_name, :mode => 'rb'))
           @parent_block.apply_subs(lines, resolve_diagram_subs).join("\n")
         else
           ''
@@ -315,39 +307,33 @@ module Asciidoctor
 
       private
 
-      # Byte arrays for UTF-* Byte Order Marks
-      BOM_BYTES_UTF_8 = [0xef, 0xbb, 0xbf]
-      BOM_BYTES_UTF_16LE = [0xff, 0xfe]
-      BOM_BYTES_UTF_16BE = [0xfe, 0xff]
+      # Raw binary strings for UTF-* Byte Order Marks
+      BOM_BYTES_UTF_8 = String.new("\xef\xbb\xbf", :encoding => Encoding::ASCII_8BIT)
+      BOM_BYTES_UTF_16LE = String.new("\xff\xfe", :encoding => Encoding::ASCII_8BIT)
+      BOM_BYTES_UTF_16BE = String.new("\xfe\xff", :encoding => Encoding::ASCII_8BIT)
 
-      # Prepare the source data Array for parsing.
+      # Prepare the source data for parsing.
       #
-      # Encodes the data to UTF-8, if necessary, and removes any trailing
+      # Encodes the data to UTF-8 and removes any trailing
       # whitespace from every line.
       #
-      # If a BOM is found at the beginning of the data, a best attempt is made to
-      # encode it to UTF-8 from the specified source encoding.
-      #
-      # data - the source data Array to prepare (no nil entries allowed)
+      # data - the source data to prepare
       #
       # returns a String Array of prepared lines
       def prepare_source_array data
         return [] if data.empty?
-        if (leading_2_bytes = (leading_bytes = (first = data[0]).unpack 'C3').slice 0, 2) == BOM_BYTES_UTF_16LE
-          data[0] = first.byteslice 2, first.bytesize
-          # NOTE you can't split a UTF-16LE string using .lines when encoding is UTF-8; doing so will cause this line to fail
-          return data.map {|line| (line.encode ::Encoding::UTF_8, ::Encoding::UTF_16LE).rstrip}
-        elsif leading_2_bytes == BOM_BYTES_UTF_16BE
-          data[0] = first.byteslice 2, first.bytesize
-          return data.map {|line| (line.encode ::Encoding::UTF_8, ::Encoding::UTF_16BE).rstrip}
-        elsif leading_bytes == BOM_BYTES_UTF_8
-          data[0] = first.byteslice 3, first.bytesize
-        end
-        if first.encoding == ::Encoding::UTF_8
-          data.map {|line| line.rstrip}
+
+        if data.start_with?(BOM_BYTES_UTF_16LE)
+          utf8_data = data.byteslice(2, data.bytesize).encode(::Encoding::UTF_8, ::Encoding::UTF_16LE)
+        elsif data.start_with?(BOM_BYTES_UTF_16BE)
+          utf8_data = data.byteslice(2, data.bytesize).encode(::Encoding::UTF_8, ::Encoding::UTF_16BE)
+        elsif data.start_with?(BOM_BYTES_UTF_8)
+          utf8_data = data.byteslice(3, data.bytesize).force_encoding(::Encoding::UTF_8)
         else
-          data.map {|line| (line.encode ::Encoding::UTF_8).rstrip}
+          utf8_data = data.force_encoding(::Encoding::UTF_8)
         end
+
+        utf8_data.lines.map {|line| line.rstrip}
       end
     end
   end

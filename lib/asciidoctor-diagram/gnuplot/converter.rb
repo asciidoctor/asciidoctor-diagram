@@ -55,6 +55,7 @@ module Asciidoctor
 
         code << "\n"
         code << source.to_s
+        code << "\n"
 
         generate_stdin_stdout(source.find_command('gnuplot'), code) do |tool|
           {

@@ -1,9 +1,11 @@
 = Ditaa
 include::partial$uris.adoc[]
 
-{uri-ditaa}[ditaa] is a small command-line utility written in Java, that can convert diagrams drawn using ascii art ('drawings' that contain characters that resemble lines like | / - ), into proper bitmap graphics.
+{uri-ditaa}[Ditaa] is a small command-line utility written in Java, that can convert diagrams drawn using ascii art ('drawings' that contain characters that resemble lines like | / - ), into proper bitmap or vector graphics.
 
-A https://github.com/pepijnve/ditaa[fork of the ditaa] project is bundled with the asciidoctor-diagram gem.
+A https://github.com/pepijnve/ditaa[fork of ditaa] is automatically available via the https://rubygems.org/gems/asciidoctor-diagram-ditaamini[asciidoctor-diagram-ditaamini] gem which contains the Ditaa jar.
+
+Ditaa requires Java version 1.8 or higher to be installed.
 
 == Supported Image Formats
 
