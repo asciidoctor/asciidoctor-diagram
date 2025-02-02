@@ -175,8 +175,8 @@ jobs:
           echo "$PWD/Umlet" >> $GITHUB_PATH
       - name: Install MSCgen
         run: npm install --global mscgenjs-cli
-      - name: Install Blockdiag
-        run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
+#      - name: Install Blockdiag
+#        run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
       - name: Install svgbob
         run: |
           cargo install svgbob_cli
