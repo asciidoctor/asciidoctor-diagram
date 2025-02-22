@@ -26,5 +26,12 @@ PlantUML requires Java version 1.8 or higher to be installed.
 |size-limit      |4096            |The maximum dimensions (width and height) of generated diagrams.
 |includedir      |unspecified     |sets a common directory for puml includes (plantuml.include.path)
 |preprocess      |true            |Preprocess PlantUML code before rendering the diagram.
-|options       |unspecified   |a comma separate list of flags that modify the image rendering. Currently only `smetana` is supported which enables the Smetana layout engine.
+|===
+
+== Options
+[cols=">,<",options="header"]
+|===
+|Name          |Description
+|debug         |Emit debug files when generating images.
+|smetana       |Enable the Smetana layout engine.
 |===

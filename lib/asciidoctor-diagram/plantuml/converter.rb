@@ -45,6 +45,8 @@ module Asciidoctor
         theme = source.attr('theme', nil)
         options[:theme] = theme if theme
 
+        options[:debug] = true if source.opt('debug')
+
         options
       end
 
@@ -117,6 +119,10 @@ module Asciidoctor
           end
         end
 
+        if options[:debug]
+          headers['X-PlantUML-Debug'] = 'true'
+        end
+
         response = Java.send_request(
             :url => '/plantuml',
             :body => code,
@@ -127,7 +133,37 @@ module Asciidoctor
           raise Java.create_error("PlantUML image generation failed", response)
         end
 
-        response[:body]
+        if response[:headers]['content-type'] =~ /multipart\/form-data;\s*boundary=(.*)/
+          boundary = $1
+          parts = {}
+
+          multipart_data = StringIO.new(response[:body])
+          while true
+            multipart_data.readline
+            marker = multipart_data.readline
+            if marker.start_with? "--#{boundary}--"
+              break
+            elsif marker.start_with? "--#{boundary}"
+              part = Java.parse_body(multipart_data)
+              if part[:headers]['content-disposition'] =~ /form-data;\s*name="([^"]*)"/
+                if $1 == 'image'
+                  parts[:result] = part[:body]
+                else
+                  parts[:extra] ||= {}
+                  parts[:extra][$1] = part[:body]
+                end
+              else
+                raise "Unexpected multipart content disposition"
+              end
+            else
+              raise "Unexpected multipart boundary"
+            end
+          end
+
+          parts
+        else
+          response[:body]
+        end
       end
     end
 
