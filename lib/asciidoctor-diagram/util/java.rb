@@ -58,25 +58,34 @@ module Asciidoctor
         resp[:code] = status_line_parts[1].to_i
         resp[:reason] = status_line_parts[2]
 
-        headers = {}
-        until (header = io.readline(CRLF).strip).empty?
-          key, value = header.split ':', 2
-          headers[key] = value.strip
-        end
-
-        resp[:headers] = headers
-
-        content_length = headers['Content-Length']
-        if content_length
-          io.set_encoding Encoding::BINARY
-          resp[:body] = io.read(content_length.to_i)
-        end
+        resp.merge! parse_body(io)
 
         resp
       end
 
+      def self.parse_body(io)
+        body = {}
+
+        io.set_encoding Encoding::US_ASCII
+        headers = {}
+        until (header = io.readline(CRLF).strip).empty?
+          key, value = header.split ':', 2
+          headers[key.downcase] = value.strip
+        end
+
+        body[:headers] = headers
+
+        content_length = headers['content-length']
+        if content_length
+          io.set_encoding Encoding::BINARY
+          body[:body] = io.read(content_length.to_i)
+        end
+
+        body
+      end
+
       def self.create_error(prefix_msg, response)
-        content_type = response[:headers]['Content-Type'] || 'text/plain'
+        content_type = response[:headers]['content-type'] || 'text/plain'
         if content_type.start_with? 'application/json'
           json = JSON.parse(response[:body].force_encoding(Encoding::UTF_8))
           ruby_bt = Kernel.caller(2)
@@ -97,7 +106,6 @@ module Asciidoctor
         @java_exe
       end
 
-      private
       def self.find_java
         case ::Asciidoctor::Diagram::Platform.os
           when :windows

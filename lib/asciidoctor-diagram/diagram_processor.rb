@@ -194,17 +194,27 @@ module Asciidoctor
 
           options = converter.collect_options(source)
           result = converter.convert(source, format, options)
-
-          result.force_encoding(params[:encoding])
+          if result.is_a? Hash
+            image = result[:result]
+            extra = result[:extra]
+          else
+            image = result
+            extra = {}
+          end
+          image.force_encoding(params[:encoding])
 
           metadata = source.create_image_metadata
           metadata[:options] = options
 
           allow_image_optimisation = !source.global_opt('nooptimise')
-          result, metadata[:width], metadata[:height] = params[:decoder].post_process_image(result, allow_image_optimisation)
+          image, metadata[:width], metadata[:height] = params[:decoder].post_process_image(image, allow_image_optimisation)
 
           FileUtils.mkdir_p(File.dirname(image_file)) unless Dir.exist?(File.dirname(image_file))
-          File.open(image_file, 'wb') {|f| f.write result}
+          File.open(image_file, 'wb') {|f| f.write image}
+
+          extra.each do |name, data|
+            File.open(image_file + ".#{name}", 'wb') {|f| f.write data}
+          end
 
           if use_cache
             FileUtils.mkdir_p(File.dirname(metadata_file)) unless Dir.exist?(File.dirname(metadata_file))
