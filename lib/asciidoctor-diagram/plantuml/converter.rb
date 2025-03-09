@@ -110,13 +110,11 @@ module Asciidoctor
         add_theme_header(headers, options[:theme])
         add_size_limit_header(headers, options[:size_limit])
 
-        if options[:smetana]
+        dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
+        if options[:smetana] || !dot
           headers['X-Graphviz'] = 'smetana'
         else
-          dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
-          if dot
-            headers['X-Graphviz'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
-          end
+          headers['X-Graphviz'] = ::Asciidoctor::Diagram::Platform.host_os_path(dot)
         end
 
         if options[:debug]
