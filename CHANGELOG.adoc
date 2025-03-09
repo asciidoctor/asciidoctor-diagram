@@ -5,6 +5,7 @@
 Enhancements::
 
 * Issue #465: Add support for https://pintorajs.vercel.app/[Pintora]
+* Issue #476: Use PlantUML's Smetana layout engine by default if Graphviz cannot be located
 * Add support for Structurizr JSON workspaces
 * Prefer non-PDF formats when rendering with HTML backend
 
