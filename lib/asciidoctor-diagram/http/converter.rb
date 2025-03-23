@@ -72,7 +72,8 @@ module Asciidoctor
 
         get_path = path.dup << '/' << data
 
-        if get_path.length > options[:max_get_size]
+        host = uri.host
+        if (host.nil? || !host.downcase.end_with?('plantuml.com')) && get_path.length > options[:max_get_size]
           uri.path = path
           get_uri(uri, code, 'text/plain; charset=utf-8')
         else
