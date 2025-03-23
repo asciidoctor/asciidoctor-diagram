@@ -110,7 +110,11 @@ module Asciidoctor
                 resolved_uri = new_uri
               end
 
-              get_uri(resolved_uri, post_data, post_content_type, attempt + 1)
+              if response.code == '307'
+                get_uri(resolved_uri, post_data, post_content_type, attempt + 1)
+              else
+                get_uri(resolved_uri, nil, nil, attempt + 1)
+              end
             else
               response.value
           end
