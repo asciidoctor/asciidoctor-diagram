@@ -1,18 +1,20 @@
 = Rendering Diagrams
 
-You can load Asciidoctor diagram in a terminal using the `-r` flag.
+You can use the Asciidoctor Diagram extension by requiring it using the `-r` CLI option when invoking the `asciidoctor` command:
 
  $ asciidoctor -r asciidoctor-diagram sample.adoc
 
-You can also use Asciidoctor diagram with other converters, such as Asciidoctor EPUB.
-Asciidoctor-epub3 is also loaded with the `-r` flag.
+You can also use Asciidoctor Diagram with other converters, such as Asciidoctor PDF.
+For example:
 
- $ asciidoctor -r asciidoctor-diagram -r asciidoctor-epub3 -b epub3 sample.adoc
+ $ asciidoctor-pdf -r asciidoctor-diagram sample.adoc
 
-Or, you can invoke Asciidoctor and the EPUB converter with the `asciidoctor-epub3` command.
-The command implicitly sets the `-r` and `-b` flags for EPUB3 output.
+If you were to use the `asciidoctor` command directly, you could require both Asciidoctor PDF and Asciidoctor Diagram by specifying the `-r` option more than once:
 
- $ asciidoctor-epub3 -r asciidoctor-diagram sample.adoc
+ $ asciidoctor -r asciidoctor-pdf -r asciidoctor-diagram -b pdf sample.adoc
+
+The `-r` option requires the specified library (typically the name of a Ruby gem) using the standard Ruby require before invoking the processor.
+In the case of Asciidoctor Diagram, requiring the gem registers the AsciiDoc syntax extensions, namely the block and block macros.
 
 [[diagram_caching]]
 == Diagram Caching
