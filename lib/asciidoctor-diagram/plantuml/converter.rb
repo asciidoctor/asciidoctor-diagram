@@ -1,5 +1,7 @@
 require_relative '../diagram_converter'
 require_relative '../util/java'
+require_relative '../util/cli'
+require_relative '../util/cli_generator'
 require 'delegate'
 require 'uri'
 
@@ -8,6 +10,7 @@ module Asciidoctor
     # @private
     class PlantUmlConverter
       include DiagramConverter
+      include CliGenerator
 
       CLASSPATH_ENV = Java.environment_variable('DIAGRAM_PLANTUML_CLASSPATH')
       LIB_DIR = File.expand_path('../..', File.dirname(__FILE__))
@@ -25,6 +28,14 @@ module Asciidoctor
       if PLANTUML_JARS
         Java.classpath.concat Dir[File.join(File.dirname(__FILE__), '*.jar')].freeze
         Java.classpath.concat PLANTUML_JARS
+      end
+
+      def self.find_plantuml_native(source)
+        source.find_command(
+          'plantuml-full',
+          :raise_on_error => false,
+          :attrs => ['plantuml-native']
+        )
       end
 
       def wrap_source(source)
@@ -54,6 +65,15 @@ module Asciidoctor
         source.attr('preprocess', 'true') == 'true'
       end
 
+      def convert(source, format, options)
+        plantuml_native = PlantUmlConverter.find_plantuml_native(source)
+        if plantuml_native
+          convert_native(plantuml_native, source, format, options)
+        else
+          convert_http(source, format, options)
+        end
+      end
+
       def add_common_headers(headers, source)
         base_dir = source.base_dir
 
@@ -78,7 +98,7 @@ module Asciidoctor
         headers['X-PlantUML-SizeLimit'] = limit if limit
       end
 
-      def convert(source, format, options)
+      def convert_http(source, format, options)
         unless PLANTUML_JARS
           raise "Could not load PlantUML. Either require 'asciidoctor-diagram-plantuml' or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_PLANTUML_CLASSPATH' environment variable."
         end
@@ -100,7 +120,7 @@ module Asciidoctor
         end
 
         headers = {
-            'Accept' => mime_type
+          'Accept' => mime_type
         }
 
         unless should_preprocess(source)
@@ -122,9 +142,9 @@ module Asciidoctor
         end
 
         response = Java.send_request(
-            :url => '/plantuml',
-            :body => code,
-            :headers => headers
+          :url => '/plantuml',
+          :body => code,
+          :headers => headers
         )
 
         unless response[:code] == 200
@@ -163,6 +183,77 @@ module Asciidoctor
           response[:body]
         end
       end
+
+      def add_theme_arg(args, theme)
+        if theme
+          args << '-theme' << theme
+        end
+      end
+
+      def add_common_args(args, source)
+        base_dir = File.expand_path(source.base_dir)
+        args << '-filedir'
+        args << base_dir
+
+        config_file = source.attr('plantumlconfig', nil, true) || source.attr('config')
+        if config_file
+          args << '-config'
+          args << File.expand_path(config_file, base_dir)
+        end
+
+        include_dir = source.attr('includedir')
+        if include_dir
+          args << "-Dplantuml.include.path=#{Platform.native_path(File.expand_path(include_dir, base_dir))}"
+        end
+      end
+
+      def convert_native(plantuml, source, format, options)
+        code = source.code
+
+        args = []
+        env = {}
+
+        args << case format
+        when :png
+          '-tpng'
+        when :svg
+          '-tsvg'
+        when :txt, :utxt
+          '-tutxt'
+        when :atxt
+          '-ttxt'
+        else
+          raise "Unsupported format: #{format}"
+        end
+
+        add_common_args(args, source)
+        add_theme_arg(args, options[:theme])
+
+        if options[:size_limit]
+          env['PLANTUML_LIMIT_SIZE'] = options[:size_limit]
+        end
+
+        dot = source.find_command('dot', :alt_attrs => ['graphvizdot'], :raise_on_error => false)
+        if options[:smetana] || !dot
+          args << '-Playout=smetana'
+        else
+          args << '-graphvizdot'
+          args << ::Asciidoctor::Diagram::Platform.host_os_path(dot)
+        end
+
+        generate_stdin_stdout(plantuml, code) do |tool, _|
+          cmd = [tool]
+          cmd << '-pipe'
+          cmd << '-failfast2'
+          cmd << '-stdrpt:1'
+          cmd.concat args
+
+          {
+            :args => cmd,
+            :env => env
+          }
+        end
+      end
     end
 
     class UmlConverter < PlantUmlConverter
@@ -178,6 +269,8 @@ module Asciidoctor
     end
 
     class PlantUMLPreprocessedSource < SimpleDelegator
+      include CliGenerator
+
       def initialize(source, converter)
         super(source)
         @converter = converter
@@ -188,33 +281,81 @@ module Asciidoctor
       end
 
       def load_code
-        Java.load
-
         code = __getobj__.code
 
         tag = @converter.class.tag
         code = "@start#{tag}\n#{code}\n@end#{tag}" unless code.index("@start") && code.index("@end")
 
         if @converter.should_preprocess(self)
-          headers = {}
-          @converter.add_common_headers(headers, self)
-          @converter.add_theme_header(headers, @converter.collect_options(self)[:theme])
-
-          response = Java.send_request(
-            :url => '/plantumlpreprocessor',
-            :body => code,
-            :headers => headers
-          )
-
-          unless response[:code] == 200
-            raise Java.create_error("PlantUML preprocessing failed", response)
+          plantuml_native = PlantUmlConverter.find_plantuml_native(self)
+          if plantuml_native
+            code = preprocess_native(plantuml_native, code)
+          else
+            code = preprocess_http(code)
           end
-
-          code = response[:body]
-          code.force_encoding(Encoding::UTF_8)
         end
 
         code
+      end
+
+      private
+
+      def preprocess_http(code)
+        Java.load
+
+        headers = {}
+        @converter.add_common_headers(headers, self)
+        @converter.add_theme_header(headers, @converter.collect_options(self)[:theme])
+
+        response = Java.send_request(
+          :url => '/plantumlpreprocessor',
+          :body => code,
+          :headers => headers
+        )
+
+        unless response[:code] == 200
+          raise Java.create_error("PlantUML preprocessing failed", response)
+        end
+
+        code = response[:body]
+        code.force_encoding(Encoding::UTF_8)
+      end
+
+      def preprocess_native(plantuml, code)
+        generate_stdin_stdout(plantuml, code) do |tool, _|
+          cmd = [tool]
+          cmd << '-pipe'
+          cmd << '-preproc'
+          cmd << '-failfast2'
+          cmd << '-stdrpt:1'
+
+          @converter.add_common_args(cmd, self)
+          @converter.add_theme_arg(cmd, @converter.collect_options(self)[:theme])
+
+          base_dir = File.expand_path(self.base_dir)
+          cmd << '-filedir'
+          cmd << base_dir
+
+          config_file = self.attr('plantumlconfig', nil, true) || self.attr('config')
+          if config_file
+            cmd << '-config'
+            cmd <<  File.expand_path(config_file, base_dir)
+          end
+
+          include_dir = self.attr('includedir')
+          if include_dir
+            cmd << "-Dplantuml.include.path=#{Platform.native_path(File.expand_path(include_dir, base_dir))}"
+          end
+
+          theme = @converter.collect_options(self)[:theme]
+          if theme
+            cmd << '-theme' << theme
+          end
+
+          {
+            :args => cmd
+          }
+        end
       end
     end
   end
