@@ -34,7 +34,8 @@ module Asciidoctor
         source.find_command(
           'plantuml-full',
           :raise_on_error => false,
-          :attrs => ['plantuml-native']
+          :attrs => ['plantuml-native'],
+          :alt_cmds => ['plantuml-headless']
         )
       end
 
