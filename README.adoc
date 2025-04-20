@@ -23,22 +23,20 @@ The example below shows an embedded Ditaa diagram block.
 ---------
 [ditaa]
 ----
-                       +-------------+
-                       | Asciidoctor |----------+
-                       |  diagram    |          |
-                       +-------------+          | PNG out
-                           ^                    |
-                           | ditaa in           |
-                           |                    v
- +----------+       +------+------+        /--------------\
- |   Text   |------>+ Asciidoctor +------->|   Beautiful  |
- | Document |       +-------------+        |    Output    |
- |      {d} |       +   !magic!   +        \--------------/
- +----------+       +-------------+                ^
-      :                                            |
-      |                                            |
-      |               Lots of work                 |
-      +--------------------------------------------+
+                         +-------------+
+                         |   Diagram   +----------------+
+                         |   Renderer  |                |
+                         +-------------+                |
+                         | Asciidoctor |                |
+                         |   Diagram   |                |
+                         +-------------+                | Image
+                                ^                       |
+                                | Diagram source        |
+ +---------------+              |                       v
+ |    Asciidoc   |       +------+------+        /-------+------\
+ | with embedded +------>+ Asciidoctor +------->|   Beautiful  |
+ |    diagram {d}|       +-------------+  HTML  |    Output    |
+ +---------------+                              \--------------/
 ----
 ---------
 
