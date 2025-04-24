@@ -12,7 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu]
-        ruby: [2.7, 3.3, jruby]
+        ruby: [3.2, 3.3, 3.4, jruby-9, jruby-10]
         node: [18]
         java: [21]
         python: ['3.x']
