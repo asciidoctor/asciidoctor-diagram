@@ -21,5 +21,3 @@ Requiring one or more of these files will automatically register the extensions 
 If you need more fine-grained control over when the extensions are enabled, `asciidoctor-diagram/<extension_name>/extension` can be used instead.
 This loads the extensions but does not register it in the Asciidoctor extension registry.
 You can then manually register the extensions at the appropriate times using the `Asciidoctor::Extensions` API.
-
-This document explains the various features of asciidoctor-diagram blocks using ditaa diagrams as an example.
