@@ -70,8 +70,12 @@ module Asciidoctor
         plantuml_native = PlantUmlConverter.find_plantuml_native(source)
         if plantuml_native
           convert_native(plantuml_native, source, format, options)
-        else
+        elsif PLANTUML_JARS
           convert_http(source, format, options)
+        else
+          raise "Could not load PlantUML. Either require 'asciidoctor-diagram-plantuml' " \
+                  "or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_PLANTUML_CLASSPATH' environment variable. " \
+                  "Alternatively a PlantUML binary can be provided (plantuml-native in $PATH)."
         end
       end
 
@@ -100,11 +104,6 @@ module Asciidoctor
       end
 
       def convert_http(source, format, options)
-        unless PLANTUML_JARS
-          raise "Could not load PlantUML. Either require 'asciidoctor-diagram-plantuml' " \
-                "or specify the location of the PlantUML JAR(s) using the 'DIAGRAM_PLANTUML_CLASSPATH' environment variable. " \
-                "Alternatively a PlantUML binary can be provided (plantuml-native in $PATH)."
-        end
         Java.load
 
         code = source.code

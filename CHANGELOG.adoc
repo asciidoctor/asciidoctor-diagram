@@ -1,5 +1,16 @@
 = Asciidoctor-diagram Changelog
 
+== 3.0.0
+
+Breaking Changes::
+
+* Asciidoctor Diagram no longer has a runtime dependency on the https://rubygems.org/gems/asciidoctor-diagram-ditaamini[asciidoctor-diagram-ditaamini] and https://rubygems.org/gems/asciidoctor-diagram-plantuml[asciidoctor-diagram-plantuml] gems.
+  These gems will now have to be installed and required explicitly if necessary.
+
+Enhancements::
+
+* Issue #478: Add support for PlantUML native image builds (@fliiiix)
+
 == 2.3.2
 
 Enhancements::
