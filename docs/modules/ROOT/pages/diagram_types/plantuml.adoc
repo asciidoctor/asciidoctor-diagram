@@ -4,10 +4,12 @@ include::partial$uris.adoc[]
 {uri-plantuml}[PlantUML] is a syntax and tool to draw UML diagrams, using a simple and human readable text description.
 It is particularly well-suited for users who prefer a simple, text-based approach to creating diagrams, and who want a tool that can automatically handle the layout and appearance of their diagrams.
 
-PlantUML is automatically available via the https://rubygems.org/gems/asciidoctor-diagram-plantuml[asciidoctor-diagram-plantuml] gem.
-This gem contains the LGPL build of PlantUML jar and its dependencies.
+To use PlantUML, an additional gem named https://rubygems.org/gems/asciidoctor-diagram-plantuml[asciidoctor-diagram-plantuml] needs to be required.
+This gem makes the LGPL build of the PlantUML JAR files available to the Asciidoctor Diagram gem.
+When using this gem, Java version 1.8 or higher needs to be installed as well.
 
-PlantUML requires Java version 1.8 or higher to be installed.
+Alternatively, the native image build of PlantUML can be used as well.
+This requires the `plantuml-full` or `plantuml-headless` binary to be available in the path.
 
 == Supported Image Formats
 
@@ -20,7 +22,8 @@ PlantUML requires Java version 1.8 or higher to be installed.
 [cols=">,<,<",options="header"]
 |===
 |Name            |Default value   |Description
-|java            |java            |The path to the `java` executable
+|java            |java            |The path to the `java` executable in case the JAR build of PlantUML is used.
+|plantuml-native |unspecified     |Path to a PlantUML native image binary.
 |config          |unspecified     |Path to a config file to pass to PlantUML.
 |theme           |unspecified     |PlantUML theme to use.
 |size-limit      |4096            |The maximum dimensions (width and height) of generated diagrams.
