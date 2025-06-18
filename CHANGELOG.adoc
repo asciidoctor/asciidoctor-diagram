@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 3.0.1
+
+Bugfixes::
+
+* Issue #484: Resolve compatibility issues with PlantUML 1.2025.3
+
 == 3.0.0
 
 Breaking Changes::
