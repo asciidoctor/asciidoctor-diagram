@@ -1,5 +1,5 @@
 name: diagram-extension
 title: Asciidoctor Diagram
-version: '2.3'
+version: '3.0.1'
 nav:
 - modules/ROOT/nav.adoc
