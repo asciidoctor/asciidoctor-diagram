@@ -18,6 +18,16 @@ module Asciidoctor
           raise "Classpath item #{j} does not exist" unless File.exist?(j)
           require j
         end
+
+        # Strange issue seen with JRuby where 'java.class.path' has the value ':'.
+        # This causes issue in PlantUML which splits the class path string and then
+        # raises errors when trying to handle empty strings.
+        java_cp = ::Java.java.lang.System.getProperty("java.class.path")
+        new_java_cp = java_cp.split(File::PATH_SEPARATOR)
+                             .reject { |p| p.empty? }
+                             .join "File::PATH_SEPARATOR"
+        ::Java.java.lang.System.setProperty("java.class.path", new_java_cp)
+
         @loaded = true
       end
 

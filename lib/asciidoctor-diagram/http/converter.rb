@@ -72,7 +72,8 @@ module Asciidoctor
 
         get_path = path.dup << '/' << data
 
-        if get_path.length > options[:max_get_size]
+        host = uri.host
+        if (host.nil? || !host.downcase.end_with?('plantuml.com')) && get_path.length > options[:max_get_size]
           uri.path = path
           get_uri(uri, code, 'text/plain; charset=utf-8')
         else
@@ -110,7 +111,11 @@ module Asciidoctor
                 resolved_uri = new_uri
               end
 
-              get_uri(resolved_uri, post_data, post_content_type, attempt + 1)
+              if response.code == '307'
+                get_uri(resolved_uri, post_data, post_content_type, attempt + 1)
+              else
+                get_uri(resolved_uri, nil, nil, attempt + 1)
+              end
             else
               response.value
           end

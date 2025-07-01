@@ -12,9 +12,9 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu]
-        ruby: [2.7, 3.3, jruby]
+        ruby: [3.2, 3.3, 3.4, jruby-9, jruby-10]
         node: [18]
-        java: [17, 21]
+        java: [21]
         python: ['3.x']
     runs-on: ${{ matrix.os }}-latest
     steps:
@@ -107,7 +107,7 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install Pillow==9.5.0
+          pip install Pillow
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -175,8 +175,8 @@ jobs:
           echo "$PWD/Umlet" >> $GITHUB_PATH
       - name: Install MSCgen
         run: npm install --global mscgenjs-cli
-      - name: Install Blockdiag
-        run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
+#      - name: Install Blockdiag
+#        run: pip install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
       - name: Install svgbob
         run: |
           cargo install svgbob_cli

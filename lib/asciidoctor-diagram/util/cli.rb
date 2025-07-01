@@ -100,7 +100,7 @@ module Asciidoctor
           exit = status.exitstatus
 
           if exit != 0
-            raise "#{cmd} failed: #{stdout.empty? ? stderr : stdout}"
+            raise "#{cmd} failed: #{stderr.empty? ? stdout : stderr}"
           end
 
           {
