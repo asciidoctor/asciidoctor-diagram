@@ -131,9 +131,9 @@ jobs:
         run: sudo apt-get install -qq dpic
       - name: Install Pikchr
         run: |
-          wget https://pikchr.org/home/tarball/trunk/pikchr.tgz
-          tar -xf pikchr.tgz
-          cd pikchr
+          wget https://github.com/drhsqlite/pikchr/archive/refs/heads/master.zip
+          unzip master.zip
+          cd pikchr-master
           make
           echo "$(pwd)" >> $GITHUB_PATH
       - name: Install BPNM-JS
