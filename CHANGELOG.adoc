@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 3.0.2
+
+Bugfixes::
+
+* Issue #487: Resolve issue where the `java.class.path` system property was being set to an incorrect value when running in JRuby
+
 == 3.0.1
 
 Bugfixes::
