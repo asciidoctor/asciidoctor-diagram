@@ -25,7 +25,7 @@ module Asciidoctor
         java_cp = ::Java.java.lang.System.getProperty("java.class.path")
         new_java_cp = java_cp.split(File::PATH_SEPARATOR)
                              .reject { |p| p.empty? }
-                             .join "File::PATH_SEPARATOR"
+                             .join(File::PATH_SEPARATOR)
         ::Java.java.lang.System.setProperty("java.class.path", new_java_cp)
 
         @loaded = true
