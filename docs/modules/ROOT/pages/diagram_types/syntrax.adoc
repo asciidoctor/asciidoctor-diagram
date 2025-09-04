@@ -10,6 +10,22 @@ This is processed into an image representing the same syntax with interconnected
 
 JSyntrax requires Java version 11 or higher to be installed.
 
+== Example
+
+----
+[syntrax, format="png"]
+....
+indentstack(10,
+  line(opt('-'), choice('0', line('1-9', loop(None, '0-9'))),
+    opt('.', loop('0-9', None))),
+  line(opt(choice('e', 'E'), choice(None, '+', '-'),
+    loop('0-9', None)))
+)
+....
+----
+
+image::syntrax.png[]
+
 == Supported Image Formats
 
 - PDF
