@@ -30,7 +30,7 @@ The barcode content will then be obtained by reading the contents of the referen
 == Example
 
 ----
-Barcdodes can be written codabar:A31117013206375A[png, height=10] inline or as blocks.
+Barcodes can be written codabar:A31117013206375A[png, height=10] inline or as blocks.
 
 [qrcode, format="png", xdim=4]
 ....
