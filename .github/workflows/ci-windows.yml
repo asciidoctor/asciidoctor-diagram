@@ -13,7 +13,7 @@ jobs:
       matrix:
         os: [windows-latest]
         ruby: [2.7, 3.0]
-        node: [14]
+        node: [22]
     runs-on: ${{ matrix.os }}
     # runs-on: self-hosted
     # Self-hosted needs:
