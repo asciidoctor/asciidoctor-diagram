@@ -13,7 +13,7 @@ jobs:
       matrix:
         os: [ubuntu]
         ruby: [3.2, 3.3, 3.4, jruby-9, jruby-10]
-        node: [18]
+        node: [22]
         java: [21]
         python: ['3.x']
     runs-on: ${{ matrix.os }}-latest
