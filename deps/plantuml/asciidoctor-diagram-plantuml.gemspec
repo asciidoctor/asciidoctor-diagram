@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name          = 'asciidoctor-diagram-plantuml'
-  s.version       = '1.2025.3'
+  s.version       = '1.2025.9'
   s.authors       = ['Pepijn Van Eeckhoudt']
   s.email         = ['pepijn@vaneeckhoudt.net']
   s.description   = %q{PlantUML JAR files wrapped in a Ruby gem}
