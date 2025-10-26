@@ -122,6 +122,10 @@ jobs:
         run: npm install --global mscgenjs-cli
       - name: Install Blockdiag
         run: pip3 install blockdiag[pdf] actdiag seqdiag nwdiag[pdf]
+      - name: Install oxdraw
+        run: |
+          cargo install oxdraw
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
       - name: Install svgbob
         run: |
           cargo install svgbob_cli
