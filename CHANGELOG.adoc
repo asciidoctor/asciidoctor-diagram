@@ -9,6 +9,8 @@ Enhancements::
 Bugfixes::
 
 * Issue #487: Resolve issue where the `java.class.path` system property was being set to an incorrect value when running in JRuby
+* Resolve compatibility issues with PlantUML 1.2025.9
+
 
 == 3.0.1
 
