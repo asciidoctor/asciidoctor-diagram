@@ -1,6 +1,10 @@
 = Asciidoctor-diagram Changelog
 
-== 3.0.2
+== 3.1.0
+
+Enhancements::
+
+* Issue #492: Add support for oxdraw
 
 Bugfixes::
 

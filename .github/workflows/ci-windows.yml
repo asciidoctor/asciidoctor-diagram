@@ -124,6 +124,8 @@ jobs:
           Set-Content -Path $env:APPDATA\gnuplot.ini -Value 'set term debug'
       - name: Install StateMachineCat
         run: npm install -g state-machine-cat
+      - name: Install oxdraw
+        run: cargo install oxdraw
       - name: Install Svgbob
         run: cargo install svgbob_cli
       - name: Install UMLet

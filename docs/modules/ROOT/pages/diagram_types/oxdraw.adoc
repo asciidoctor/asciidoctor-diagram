@@ -1,0 +1,61 @@
+= Oxdraw
+include::partial$uris.adoc[]
+
+The goal of {uri-oxdraw}[oxdraw] is to make it easy to create and maintain high-quality diagrams using a declarative and reproducible syntax.
+Charts are written in Mermaid syntax, while a web interface allows users to fine-tune positions connector paths, colors, and other styling components.
+Whenever a diagram is tweaked visually, the structural changes are persisted back to the source file as declarative code so that everything remains deterministic and versionable.
+
+== Example
+
+----
+[oxdraw]
+....
+graph TD
+    sub[[Subroutine]] --> cyl[(Database)]
+    cyl --> hex{{Prepare}}
+    hex --> stop(((Stop)))
+
+%% OXDRAW LAYOUT START
+%% {
+%%   "nodes": {
+%%     "cyl": {
+%%       "x": 60.0,
+%%       "y": 310.0
+%%     },
+%%     "hex": {
+%%       "x": 265.0,
+%%       "y": 310.0
+%%     },
+%%     "sub": {
+%%       "x": 60.0,
+%%       "y": 210.0
+%%     },
+%%     "stop": {
+%%       "x": 265.0,
+%%       "y": 400.0
+%%     }
+%%   },
+%%   "edges": {},
+%%   "node_styles": {},
+%%   "edge_styles": {}
+%% }
+%% OXDRAW LAYOUT END
+....
+----
+
+image::oxdraw.png[]
+
+== Supported Image Formats
+
+- PNG
+- SVG
+
+== Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name            |Default value                 |Description
+|oxdraw          |oxdraw                        |The path to the `oxdraw` executable
+|background      |white                         |The color of the background specified as a 3 or 6 digit hex RGB value or HTML color name.
+|scale           |1.0                           |A scale factor that is applied to the image (ignored for SVG).
+|===
