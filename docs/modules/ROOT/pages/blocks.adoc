@@ -73,8 +73,9 @@ These can be specified per block using their name, for each block of a diagram t
 [cols=">,<,<",options="header"]
 |===
 |Name         |Default value         |Description
-|nocache      |unset                 |When set disables the xref::generate.adoc#diagram_caching[diagram cache].
-|cachedir     |.asciidoctor/diagram  |The directory in which to write diagram cache entries
+|nocache      |unset                 |When set, disables xref::generate.adoc#diagram_caching[caching of images files and metadata].
+|cachedir     |.asciidoctor/diagram  |The directory in which to write diagram cache entries (and optionally images)
+|cache-images |unset                 |When set, generated images are written to the `cachedir` directory before being written to their final target location.
 |svg-type     |unspecified           |When the output format is SVG, this attribute determines the SVG interactivity level.
 |===
 

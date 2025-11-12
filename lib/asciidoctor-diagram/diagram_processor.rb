@@ -172,18 +172,26 @@ module Asciidoctor
         image_file = parent.normalize_system_path(image_name, image_output_dir(parent))
         metadata_file = parent.normalize_system_path("#{image_name}.cache", cache_dir(source, parent))
 
-        use_cache = !source.global_opt('nocache')
+        metadata = {}
+        cached_image_file = image_file
 
-        if use_cache && File.exist?(metadata_file)
-          metadata = File.open(metadata_file, 'r') {|f| JSON.load(f, nil, :symbolize_names => true, :create_additions => false) }
-        else
-          metadata = {}
+        use_cache = !source.global_opt('nocache')
+        if use_cache
+          if File.exist?(metadata_file)
+            metadata = File.open(metadata_file, 'r') { |f| JSON.load(f, nil, :symbolize_names => true, :create_additions => false) }
+          end
+
+          if source.global_opt('cache-images')
+            cached_image_file = parent.normalize_system_path("#{image_name}", cache_dir(source, parent))
+          end
         end
 
         image_attributes = source.attributes
         options = converter.collect_options(source)
 
-        if !File.exist?(image_file) || source.should_process?(image_file, metadata) || options != metadata[:options]
+        regenerate_image = !File.exist?(cached_image_file) || source.should_process?(cached_image_file, metadata) || options != metadata[:options]
+
+        if regenerate_image
           params = IMAGE_PARAMS[format]
 
           server_url = source.global_attr('server-url')
@@ -209,11 +217,11 @@ module Asciidoctor
           allow_image_optimisation = !source.global_opt('nooptimise')
           image, metadata[:width], metadata[:height] = params[:decoder].post_process_image(image, allow_image_optimisation)
 
-          FileUtils.mkdir_p(File.dirname(image_file)) unless Dir.exist?(File.dirname(image_file))
-          File.open(image_file, 'wb') {|f| f.write image}
+          FileUtils.mkdir_p(File.dirname(cached_image_file)) unless Dir.exist?(File.dirname(cached_image_file))
+          File.open(cached_image_file, 'wb') {|f| f.write image}
 
           extra.each do |name, data|
-            File.open(image_file + ".#{name}", 'wb') {|f| f.write data}
+            File.open(cached_image_file + ".#{name}", 'wb') {|f| f.write data}
           end
 
           if use_cache
@@ -221,6 +229,21 @@ module Asciidoctor
             File.open(metadata_file, 'w') { |f| JSON.dump(metadata, f) }
           else
             File.delete(metadata_file) if File.exist?(metadata_file)
+          end
+        end
+
+        if cached_image_file != image_file && (!File.exist?(image_file) || regenerate_image)
+          FileUtils.mkdir_p(File.dirname(image_file)) unless Dir.exist?(File.dirname(image_file))
+
+          if Platform.os != :windows
+            begin
+              FileUtils.rm_f(image_file) if File.exist?(image_file)
+              File.link(cached_image_file, image_file)
+            rescue Errno::EXDEV
+              FileUtils.cp(cached_image_file, image_file, preserve: true)
+            end
+          else
+            FileUtils.cp(cached_image_file, image_file, preserve: true)
           end
         end
 
