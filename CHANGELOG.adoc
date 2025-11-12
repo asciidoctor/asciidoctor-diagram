@@ -5,6 +5,7 @@
 Enhancements::
 
 * Issue #492: Add support for oxdraw
+* Issue #496: Add `cache-images` option to keep a copy of generated images in the cache directory
 * Issue #498: Add support for GoAT (@jmooring)
 
 Bugfixes::

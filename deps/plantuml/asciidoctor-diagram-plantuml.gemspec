@@ -12,5 +12,6 @@ Gem::Specification.new do |s|
 
   s.files         = Dir['**/*']
   s.require_paths = ['lib']
+  s.add_runtime_dependency 'asciidoctor-diagram', '~> 3.1'
   s.add_runtime_dependency 'asciidoctor-diagram-batik', '~> 1.17'
 end
