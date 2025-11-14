@@ -1,0 +1,50 @@
+= GoAT
+include::partial$uris.adoc[]
+
+{uri-goat}[GoAT] is a pretty simple Go library (with an accompanying CLI tool) that parses ASCII art diagrams, attempting to convert them to an aesthetically pleasing SVG output.
+
+== Example
+
+----
+[goat]
+....
+.---.     .-.       .-.       .-.     .---.
+| A +--->| 1 |<--->| 2 |<--->| 3 |<---+ B |
+'---'     '-'       '+'       '+'     '---'
+....
+----
+
+image::goat.svg[]
+
+== Installation
+
+- Install the https://go.dev[Go] runtime
+- Run `go install github.com/blampe/goat/cmd/goat@latest`
+
+== Supported Image Formats
+
+- SVG
+
+== Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name                   |Default value  |Description
+|svg-type               |unspecified    |One of `static`, `inline` or `interactive`.
+|goat                   |goat           |The path to the `goat` executable
+|svg-color-dark-scheme  |#FFFFFF        |The SVG color when user prefers a dark theme
+|svg-color-light-scheme |#000000        |The SVG color when user prefers a light theme
+|===
+
+=== Color Schemes
+
+The system determines whether the user prefers a "dark" or a "light" scheme (or
+no active preference, which defaults to light) using the CSS
+`@media/prefers-color-scheme` query, and applies the corresponding color
+option.
+
+=== SVG Type
+
+Although the default value for the `svg-type` attribute is `unspecified`, the
+practical default behavior for how it embeds diagrams is equivalent to
+`static`.
