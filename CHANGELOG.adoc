@@ -5,6 +5,7 @@
 Enhancements::
 
 * Issue #492: Add support for oxdraw
+* Issue #498: Add support for GoAT (@jmooring)
 
 Bugfixes::
 
