@@ -14,7 +14,7 @@ or load and register each extension individually.
 require 'asciidoctor-diagram/<extension_name>'
 ----
 
-`<extension_name>` can be one of `a2s`, `blockdiag`, `bytefield`, `diagrams`, `ditaa`, `dpic`, `erd`, `gnuplot`, `graphviz`, `meme`, `mermaid`, `msc`, `pikchr`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
+`<extension_name>` can be one of `a2s`, `blockdiag`, `bytefield`, `diagrams`, `ditaa`, `dpic`, `erd`, `gnuplot`, `goat`, `graphviz`, `meme`, `mermaid`, `msc`, `pikchr`, `plantuml`, `shaape`, `smcat`, `svgbob`, `syntrax`, `umlet`, `vega` or `wavedrom`.
 
 Requiring one or more of these files will automatically register the extensions for all processed documents.
 

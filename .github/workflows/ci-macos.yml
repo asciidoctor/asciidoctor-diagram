@@ -60,6 +60,9 @@ jobs:
       - name: Install AsciitoSVG
         run: |
           go install github.com/asciitosvg/asciitosvg/cmd/a2s@latest
+      - name: Install GoAT
+        run: |
+          go install github.com/blampe/goat/cmd/goat@latest
       - name: Install Bytefield-SVG
         run: npm install -g bytefield-svg
       - name: Install ERD
