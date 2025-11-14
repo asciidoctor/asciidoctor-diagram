@@ -14,6 +14,7 @@
 :uri-erd: https://github.com/BurntSushi/erd
 :uri-erd-go: https://github.com/kaishuu0123/erd-go
 :uri-gnuplot: http://gnuplot.info
+:uri-goat: https://github.com/blampe/goat
 :uri-graphviz: https://graphviz.gitlab.io
 :uri-imagemagick: http://www.imagemagick.org
 :uri-java: http://java.sun.com

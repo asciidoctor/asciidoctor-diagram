@@ -1,0 +1,60 @@
+<svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='73' width='352' font-family='Menlo,Lucida Console,monospace'>
+<style type="text/css">
+svg {
+   color: #000000;
+}
+@media (prefers-color-scheme: dark) {
+   svg {
+      color-scheme: dark; /* ask the browser for a dark background */
+      color: #FFFFFF;
+   }
+}
+</style>
+<g transform='translate(8,16)'>
+<path d='M 0,0 L 32,0' fill='none' stroke='currentColor'></path>
+<path d='M 304,0 L 336,0' fill='none' stroke='currentColor'></path>
+<path d='M 32,16 L 64,16' fill='none' stroke='currentColor'></path>
+<path d='M 112,16 L 144,16' fill='none' stroke='currentColor'></path>
+<path d='M 192,16 L 224,16' fill='none' stroke='currentColor'></path>
+<path d='M 272,16 L 304,16' fill='none' stroke='currentColor'></path>
+<path d='M 0,32 L 32,32' fill='none' stroke='currentColor'></path>
+<path d='M 304,32 L 336,32' fill='none' stroke='currentColor'></path>
+<path d='M 0,0 L 0,32' fill='none' stroke='currentColor'></path>
+<path d='M 32,0 L 32,16' fill='none' stroke='currentColor'></path>
+<path d='M 32,16 L 32,32' fill='none' stroke='currentColor'></path>
+<path d='M 304,0 L 304,16' fill='none' stroke='currentColor'></path>
+<path d='M 304,16 L 304,32' fill='none' stroke='currentColor'></path>
+<path d='M 336,0 L 336,32' fill='none' stroke='currentColor'></path>
+<polygon points='72.000000,16.000000 60.000000,10.400000 60.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 64.000000, 16.000000)'></polygon>
+<polygon points='120.000000,16.000000 108.000000,10.400000 108.000000,21.600000' fill='currentColor' transform='rotate(180.000000, 112.000000, 16.000000)'></polygon>
+<polygon points='152.000000,16.000000 140.000000,10.400000 140.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 144.000000, 16.000000)'></polygon>
+<polygon points='200.000000,16.000000 188.000000,10.400000 188.000000,21.600000' fill='currentColor' transform='rotate(180.000000, 192.000000, 16.000000)'></polygon>
+<polygon points='232.000000,16.000000 220.000000,10.400000 220.000000,21.600000' fill='currentColor' transform='rotate(0.000000, 224.000000, 16.000000)'></polygon>
+<polygon points='280.000000,16.000000 268.000000,10.400000 268.000000,21.600000' fill='currentColor' transform='rotate(180.000000, 272.000000, 16.000000)'></polygon>
+<path d='M 88,0 A 16,16 0 0,0 72,16' fill='none' stroke='currentColor'></path>
+<path d='M 88,0 A 16,16 0 0,1 104,16' fill='none' stroke='currentColor'></path>
+<path d='M 168,0 A 16,16 0 0,0 152,16' fill='none' stroke='currentColor'></path>
+<path d='M 168,0 A 16,16 0 0,1 184,16' fill='none' stroke='currentColor'></path>
+<path d='M 248,0 A 16,16 0 0,0 232,16' fill='none' stroke='currentColor'></path>
+<path d='M 248,0 A 16,16 0 0,1 264,16' fill='none' stroke='currentColor'></path>
+<path d='M 72,16 A 16,16 0 0,0 88,32' fill='none' stroke='currentColor'></path>
+<path d='M 104,16 A 16,16 0 0,1 88,32' fill='none' stroke='currentColor'></path>
+<path d='M 152,16 A 16,16 0 0,0 168,32' fill='none' stroke='currentColor'></path>
+<path d='M 184,16 A 16,16 0 0,1 168,32' fill='none' stroke='currentColor'></path>
+<path d='M 232,16 A 16,16 0 0,0 248,32' fill='none' stroke='currentColor'></path>
+<path d='M 264,16 A 16,16 0 0,1 248,32' fill='none' stroke='currentColor'></path>
+<style>
+  text {
+       text-anchor: middle;
+       font-family: "Menlo","Lucida Console","monospace";
+       fill: currentColor;
+       font-size: 1em;
+  }
+</style>
+<text x='16' y='20'>A</text>
+<text x='88' y='20'>1</text>
+<text x='168' y='20'>2</text>
+<text x='248' y='20'>3</text>
+<text x='320' y='20'>B</text>
+</g>
+</svg>

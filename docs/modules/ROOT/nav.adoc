@@ -16,6 +16,7 @@
 ** xref:diagram_types/ditaa.adoc[]
 ** xref:diagram_types/erd.adoc[]
 ** xref:diagram_types/gnuplot.adoc[]
+** xref:diagram_types/goat.adoc[]
 ** xref:diagram_types/graphviz.adoc[]
 ** xref:diagram_types/lilypond.adoc[]
 ** xref:diagram_types/meme.adoc[]
