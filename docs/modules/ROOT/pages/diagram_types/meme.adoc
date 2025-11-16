@@ -30,5 +30,8 @@ The meme extension requires https://imagemagick.org[ImageMagick].
 |stroke-color  |black         |The outline color for the text
 |stroke-width  |2             |The width of the text outline.
 |font          |Impact        |The font face to use for the text.
+|height        |20%           |The height of the labels as a percentage of the total image height or an absolute height in pixels
+|top-height    |same as height|The height of the top text
+|bottom-height |same as height|The height of the bottom text
 |options       |unspecified   |a comma separate list of flags that modify the image rendering. Currently only `noupcase` is supported which disable upper casing the labels.
 |===

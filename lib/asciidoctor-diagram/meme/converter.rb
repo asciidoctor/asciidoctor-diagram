@@ -19,27 +19,7 @@ module Asciidoctor
         bg_img = source.attr('background')
         raise "background attribute is required" unless bg_img
 
-        margin = source.attr('margin', '')
-        margin_parts = margin.split(' ')
-        case margin_parts.length
-          when 0
-            ml = mr = mt = mb = nil
-          when 1
-            ml = mr = mt = mb = margin_parts[0]
-          when 2
-            mt = mb = margin_parts[0]
-            ml = mr = margin_parts[1]
-          when 3
-            mt = margin_parts[0]
-            ml = mr = margin_parts[1]
-            mb = margin_parts[2]
-          else
-            mt = margin_parts[0]
-            mr = margin_parts[1]
-            mb = margin_parts[2]
-            ml = margin_parts[3]
-        end
-
+        height = source.attr('height-fraction', '20%')
         {
             :bg_img => bg_img,
             :top_label => source.attr('top'),
@@ -48,12 +28,9 @@ module Asciidoctor
             :stroke_color => source.attr(['strokecolor', 'stroke-color']),
             :stroke_width => source.attr(['strokewidth', 'stroke-width']),
             :font => source.attr('font', 'Impact'),
-            :font_size => source.attr('font_size', nil),
-            :alignment => source.attr('alignment', nil),
-            :margin_left => ml,
-            :margin_right => mr,
-            :margin_top => mt,
-            :margin_bottom => mb,
+            :height => height,
+            :top_height => source.attr('top-height', height),
+            :bottom_height => source.attr('bottom-height', height),
             :noupcase => source.opt('noupcase'),
             :imagesdir => source.attr('imagesdir')
         }
@@ -88,7 +65,8 @@ module Asciidoctor
         bg_width = dimensions['w'].to_i
         bg_height = dimensions['h'].to_i
         label_width = bg_width
-        label_height = bg_height / 5
+        top_label_height = calculate_height(bg_height, options[:top_height])
+        bottom_label_height = calculate_height(bg_height, options[:bottom_height])
 
         if top_label
           top_img = Tempfile.new(['meme', '.png'])
@@ -98,7 +76,7 @@ module Asciidoctor
               '-stroke', stroke_color,
               '-strokewidth', stroke_width,
               '-font', font,
-              '-size', "#{label_width}x#{label_height}",
+              '-size', "#{label_width}x#{top_label_height}",
               '-gravity', 'north',
               "label:#{prepare_label(top_label, noupcase)}",
               top_img.path
@@ -115,7 +93,7 @@ module Asciidoctor
               '-stroke', stroke_color,
               '-strokewidth', stroke_width,
               '-font', font,
-              '-size', "#{label_width}x#{label_height}",
+              '-size', "#{label_width}x#{bottom_label_height}",
               '-gravity', 'south',
               "label:#{prepare_label(bottom_label, noupcase)}",
               bottom_img.path
@@ -132,7 +110,7 @@ module Asciidoctor
         end
 
         if bottom_img
-          args << bottom_img.path << '-geometry' << "+0+#{bg_height - label_height}" << '-composite'
+          args << bottom_img.path << '-geometry' << "+0+#{bg_height - bottom_label_height}" << '-composite'
         end
 
         args << final_img.path
@@ -148,6 +126,16 @@ module Asciidoctor
         label = label.upcase unless noupcase
         label = label.gsub(' // ', '\n')
         label
+      end
+
+      def calculate_height(total_height, fraction_or_absolute_height)
+        if fraction_or_absolute_height.match(/^(\d+)%$/)
+          total_height * $1.to_i / 100
+        elsif fraction_or_absolute_height.match(/^(\d+)(px)?$/)
+          $1.to_i
+        else
+          raise "Invalid height value '#{fraction_or_absolute_height}'"
+        end
       end
     end
   end
