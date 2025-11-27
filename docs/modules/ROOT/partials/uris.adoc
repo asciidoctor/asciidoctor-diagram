@@ -46,6 +46,8 @@
 :uri-umlet: http://www.umlet.com/
 :uri-vega: https://vega.github.io/vega/
 :uri-vegalite: https://vega.github.io/vega-lite/
+:uri-vhs: https://github.com/charmbracelet/vhs
+:uri-vhs-svg: https://github.com/agentstation/vhs
 :uri-wavedrom: http://wavedrom.com
 :uri-wavedromeditor: https://github.com/wavedrom/wavedrom.github.io/releases
 :uri-wavedromcli: https://github.com/wavedrom/cli

@@ -74,7 +74,7 @@ module Asciidoctor
         end
 
         logger.level = ::Logger::Severity::DEBUG
-        ::Asciidoctor.load(StringIO.new(source), options.merge({:trace => true, :verbose => 2}))
+        ::Asciidoctor.load(StringIO.new(source), options.merge({:trace => true, :verbose => 2, :safe => Asciidoctor::SafeMode::UNSAFE}))
       end
     end
   end

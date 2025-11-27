@@ -7,7 +7,6 @@ Set Height 400
 
 Type "echo Hello World"
 Enter
-Sleep 500ms
 eos
 
 describe Asciidoctor::Diagram::VhsInlineMacroProcessor do

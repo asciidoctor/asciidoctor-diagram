@@ -1,0 +1,47 @@
+= VHS
+include::partial$uris.adoc[]
+
+{uri-vhs}[VHS] (Charm VHS) is a tool for generating terminal GIFs and videos from a series of commands.
+
+NOTE: vhs executes terminal commands from the script, which is a security risk.
+For this reason, vhs diagram generation is only allowed when Asciidoctor is running in `UNSAFE` mode (safe mode 0).
+Attempts to use vhs in `SAFE`, `SERVER`, or `SECURE` modes will result in an error.
+
+== Example
+
+----
+[tape, format="gif"]
+....
+Set FontSize 14
+Set Width 600
+Set Height 400
+
+Type "echo Hello World"
+Enter
+Sleep 500ms
+....
+----
+
+image::vhs.gif[]
+
+== Installation
+
+- Install the https://go.dev[Go] runtime
+- For standard vhs (GIF/MP4/WebM support): Run `go install github.com/charmbracelet/vhs@latest`
+- For SVG support: Run `go install github.com/agentstation/vhs@latest`
+
+NOTE: The SVG format requires the fork from {uri-vhs-svg}[agentstation/vhs], which adds SVG output support.
+
+== Supported Image Formats
+
+- GIF (default)
+- SVG (requires agentstation/vhs fork)
+
+== Attributes
+
+[cols=">,<,<",options="header"]
+|===
+|Name |Default value |Description
+|vhs  |vhs          |The path to the `vhs` executable
+|===
+
