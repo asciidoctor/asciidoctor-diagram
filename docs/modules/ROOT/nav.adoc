@@ -39,6 +39,7 @@
 ** xref:diagram_types/tikz.adoc[]
 ** xref:diagram_types/umlet.adoc[]
 ** xref:diagram_types/vega.adoc[]
+** xref:diagram_types/vhs.adoc[]
 ** xref:diagram_types/wavedrom.adoc[]
 * Advanced Topics
 ** xref:enabling.adoc[]

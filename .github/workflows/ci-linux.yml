@@ -85,7 +85,9 @@ jobs:
                                    texlive-latex-extra \
                                    texlive-fonts-extra \
                                    git \
-                                   pdf2svg
+                                   pdf2svg \
+                                   ffmpeg \
+                                   ttyd
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -130,6 +132,14 @@ jobs:
       - name: Install ERD
         run: |
           go install github.com/kaishuu0123/erd-go@latest
+      - name: Install VHS
+        # uses fork so need to git clone on linux
+        # brew install available on macos
+        run: |
+          git clone https://github.com/agentstation/vhs.git
+          cd vhs
+          go install .
+          cd ..
       - name: Install DPIC
         run: sudo apt-get install -qq dpic
       - name: Install Pikchr
