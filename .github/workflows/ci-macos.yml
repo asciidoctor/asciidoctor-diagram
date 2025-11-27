@@ -68,6 +68,9 @@ jobs:
       - name: Install ERD
         run: |
           go install github.com/kaishuu0123/erd-go@latest
+      - name: Install VHS
+        run: |
+          go install github.com/agentstation/vhs@latest
       - name: Install DPIC
         run: |
           wget https://ece.uwaterloo.ca/~aplevich/dpic/dpic.tar.gz

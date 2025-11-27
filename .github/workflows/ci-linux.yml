@@ -130,6 +130,9 @@ jobs:
       - name: Install ERD
         run: |
           go install github.com/kaishuu0123/erd-go@latest
+      - name: Install VHS
+        run: |
+          go install github.com/agentstation/vhs@latest
       - name: Install DPIC
         run: sudo apt-get install -qq dpic
       - name: Install Pikchr

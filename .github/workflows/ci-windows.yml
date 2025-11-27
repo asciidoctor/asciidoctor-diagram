@@ -60,6 +60,9 @@ jobs:
       - name: Install GoAT
         run: |
           go install github.com/blampe/goat/cmd/goat@latest
+      - name: Install VHS
+        run: |
+          go install github.com/agentstation/vhs@latest
       - name: Install BPNM-JS
         run: npm install -g bpmn-js-cmd
       - name: Install Bytefield-SVG
