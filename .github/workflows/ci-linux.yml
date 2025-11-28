@@ -131,8 +131,13 @@ jobs:
         run: |
           go install github.com/kaishuu0123/erd-go@latest
       - name: Install VHS
+        # uses fork so need to git clone on linux
+        # brew install available on macos
         run: |
-          go install github.com/agentstation/vhs@latest
+          git clone https://github.com/agentstation/vhs.git
+          cd vhs
+          go install vhs
+          cd ..
       - name: Install DPIC
         run: sudo apt-get install -qq dpic
       - name: Install Pikchr
