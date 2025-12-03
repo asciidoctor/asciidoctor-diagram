@@ -70,7 +70,7 @@ jobs:
           go install github.com/kaishuu0123/erd-go@latest
       - name: Install VHS
         run: |
-          go install github.com/agentstation/vhs@latest
+          brew install agentstation/tap/vhs
       - name: Install DPIC
         run: |
           wget https://ece.uwaterloo.ca/~aplevich/dpic/dpic.tar.gz

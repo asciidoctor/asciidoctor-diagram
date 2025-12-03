@@ -136,7 +136,7 @@ jobs:
         run: |
           git clone https://github.com/agentstation/vhs.git
           cd vhs
-          go install vhs
+          go install .
           cd ..
       - name: Install DPIC
         run: sudo apt-get install -qq dpic
