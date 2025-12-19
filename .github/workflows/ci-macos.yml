@@ -70,6 +70,7 @@ jobs:
           go install github.com/kaishuu0123/erd-go@latest
       - name: Install VHS
         run: |
+          brew install ffmpeg
           brew install agentstation/tap/vhs
       - name: Install DPIC
         run: |
