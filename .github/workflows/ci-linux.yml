@@ -1,7 +1,7 @@
 name: Linux unit tests
 on:
   push:
-    branches: ['main']
+    branches: ['vhs']
     tags-ignore: ['**']
   pull_request:
   schedule:
