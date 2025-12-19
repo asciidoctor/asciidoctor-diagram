@@ -71,6 +71,7 @@ jobs:
       - name: Install VHS
         run: |
           brew install ffmpeg
+          brew install ttyd
           brew install agentstation/tap/vhs
       - name: Install DPIC
         run: |

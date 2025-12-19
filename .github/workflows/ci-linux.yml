@@ -86,7 +86,8 @@ jobs:
                                    texlive-fonts-extra \
                                    git \
                                    pdf2svg \
-                                   ffmpeg
+                                   ffmpeg \
+                                   ttyd
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
