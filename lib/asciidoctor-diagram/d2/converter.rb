@@ -36,6 +36,7 @@ module Asciidoctor
             if key == :sketch && !value.nil? && value != 'false'
               args << flag
             elsif key.to_s.start_with?('font') && !value.nil?
+              args << flag
               args << Platform.native_path(value)
             elsif !value.nil?
               args << flag
