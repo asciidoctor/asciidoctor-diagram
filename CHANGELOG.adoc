@@ -2,6 +2,8 @@
 
 == 3.1.1
 
+* Issue #501: Add support for https://github.com/charmbracelet/vhs[VHS] (@maxandersen)
+
 Bugfixes::
 
 * Issue #505: Resolve compatibility issues with PlantUML 1.2026.1
