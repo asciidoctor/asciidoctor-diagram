@@ -1,5 +1,12 @@
 = Asciidoctor-diagram Changelog
 
+== 3.2.1
+
+Bugfixes::
+
+* Issue #509: Resolve compatibility issues with PlantUML 1.2026.2
+
+
 == 3.2.0
 
 * Issue #501: Add support for https://github.com/charmbracelet/vhs[VHS] (@maxandersen)
@@ -7,7 +14,6 @@
 Bugfixes::
 
 * Issue #505: Resolve compatibility issues with PlantUML 1.2026.1
-
 
 == 3.1.0
 
