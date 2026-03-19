@@ -18,7 +18,7 @@ Diagram code // <5>
 <1> The first value in the attribute list specifies the diagram syntax that is being used.
 <2> The `target` attribute specifies the basename of the image file that will be generated. If this attribute is omitted an auto-generated name will be used instead.
 <3> The `format` attribute determines the output image format to use. If a format is not specified, the default output format for the chosen diagram type will be used.
-<4> The asciidoc block type can be literal (`....`), listing (`----`) or open `--`.
+<4> The asciidoc block type can be literal (`+....+`), listing (`----`) or open `--`.
 <5> The block content is written in syntax of the chosen diagramming tool.
 
 == Diagram Macros
