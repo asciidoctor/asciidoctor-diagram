@@ -4,8 +4,8 @@
 
 Bugfixes::
 
+* PR #507: Fix passing of font options to D2 (@okcodes)
 * Issue #509: Resolve compatibility issues with PlantUML 1.2026.2
-
 
 == 3.2.0
 
