@@ -6,9 +6,8 @@ The main purpose of Mermaid is to help documentation catch up with development.
 
 == Supported Image Formats
 
-- PDF
 - PNG
-- SVG
+- SVG (with some well known limitation for PDF renderer)
 
 == Attributes
 
