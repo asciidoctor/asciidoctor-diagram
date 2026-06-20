@@ -20,6 +20,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
           lfs: true
       - name: Install Packages
         run: |
