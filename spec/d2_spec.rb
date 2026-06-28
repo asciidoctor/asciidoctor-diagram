@@ -120,4 +120,55 @@ a -> b
     svg = File.read(target, :encoding => Encoding::UTF_8)
     expect(svg).to_not match(/class='.*?sketch-overlay-B5.*?'/)
   end
+
+  it "should not pass --dark-theme by default" do
+    doc = <<-eos
+= Hello, d2!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[d2]
+----
+a -> b
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+    target = b.attributes['target']
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+    svg = File.read(target, :encoding => Encoding::UTF_8)
+    expect(svg.scan(".stroke-N1").size).to eq(1)
+  end
+
+  it "should generate multiple sets of css classes when the dark-theme attribute is set" do
+    doc = <<-eos
+= Hello, d2!
+Doc Writer <doc@example.com>
+
+== First Section
+
+[d2, dark-theme="200"]
+----
+a -> b
+----
+    eos
+
+    d = load_asciidoc doc
+    expect(d).to_not be_nil
+
+    b = d.find { |bl| bl.context == :image }
+    expect(b).to_not be_nil
+    target = b.attributes['target']
+    expect(target).to match(/\.svg$/)
+    expect(File.exist?(target)).to be true
+    svg = File.read(target, :encoding => Encoding::UTF_8)
+    # the additional dark theme defines an additional class:
+    expect(svg.scan(".stroke-N1").size).to eq(2)
+  end
 end

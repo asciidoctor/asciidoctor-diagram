@@ -17,6 +17,7 @@ module Asciidoctor
         {
           :layout => source.attr('layout'),
           :theme => source.attr('theme'),
+          :dark_theme => source.attr('dark-theme'),
           :pad => source.attr('pad'),
           :animate_interval => source.attr('animate-interval'),
           :sketch => source.attr('sketch'),
