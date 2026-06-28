@@ -1,5 +1,11 @@
 = Asciidoctor-diagram Changelog
 
+== 3.2.2
+
+Enhancements::
+
+* PR #515: Add support for D2 dark theme (@hgibs)
+
 == 3.2.1
 
 Bugfixes::
