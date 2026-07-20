@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name          = 'asciidoctor-diagram-jsyntrax'
-  s.version       = '1.38.2'
+  s.version       = '1.39'
   s.authors       = ['Ivan Ponomarev']
   s.email         = ['ivan@galahad.ee']
   s.description   = %q{JSyntrax JAR files wrapped in a Ruby gem}

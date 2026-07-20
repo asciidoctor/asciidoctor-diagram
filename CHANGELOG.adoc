@@ -5,6 +5,7 @@
 Enhancements::
 
 * PR #515: Add support for D2 dark theme (@hgibs)
+* Update bundled JSyntrax to 1.39 and remove the Groovy runtime dependency.
 
 == 3.2.1
 
