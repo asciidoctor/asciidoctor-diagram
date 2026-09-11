@@ -143,7 +143,7 @@ a -> b
     expect(target).to match(/\.svg$/)
     expect(File.exist?(target)).to be true
     svg = File.read(target, :encoding => Encoding::UTF_8)
-    expect(svg.scan(".stroke-N1").size).to eq(1)
+    expect(svg.scan(".stroke-B1").size).to eq(1)
   end
 
   it "should generate multiple sets of css classes when the dark-theme attribute is set" do
@@ -169,6 +169,6 @@ a -> b
     expect(File.exist?(target)).to be true
     svg = File.read(target, :encoding => Encoding::UTF_8)
     # the additional dark theme defines an additional class:
-    expect(svg.scan(".stroke-N1").size).to eq(2)
+    expect(svg.scan(".stroke-B1").size).to eq(2)
   end
 end
