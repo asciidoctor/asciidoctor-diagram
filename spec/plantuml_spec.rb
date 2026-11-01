@@ -362,7 +362,7 @@ Doc Writer <doc@example.com>
 
 [plantuml, format="png"]
 ----
-salt
+@startsalt
 {
   Just plain text
   [This is my button]
@@ -373,6 +373,7 @@ salt
   "Enter text here   "
   ^This is a droplist^
 }
+@endsalt
 ----
     eos
 
@@ -398,13 +399,14 @@ Doc Writer <doc@example.com>
 
 [plantuml, format="png"]
 ----
-salt
+@startsalt
 {
 {T
 +A
 ++a
 }
 }
+@endsalt
 ----
     eos
 
