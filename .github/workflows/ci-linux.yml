@@ -16,7 +16,7 @@ jobs:
         node: [22]
         java: [21]
         python: ['3.x']
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ${{ matrix.os }}-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
